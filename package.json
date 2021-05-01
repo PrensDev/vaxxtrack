@@ -1,0 +1,19 @@
+{
+  "name": "c19ctavms-web",
+  "version": "1.0.0",
+  "description": "c19ctavms-web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrensDev/c19ctavms-web.git"
+  },
+  "author": "PrensDev <jetsunprincetorres@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PrensDev/c19ctavms-web/issues"
+  },
+  "homepage": "https://github.com/PrensDev/c19ctavms-web#readme"
+}
