@@ -1,0 +1,10 @@
+// Add styling for icons used within nav links
+.nav,
+.sb-sidenav-menu {
+  .nav-link {
+    display: flex;
+    align-items: flex-start !important;
+    width: 100%;
+    transition-duration: 0.1s;
+  }
+}

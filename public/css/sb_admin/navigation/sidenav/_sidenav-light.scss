@@ -1,0 +1,47 @@
+// Light theme for sidenav
+// Append .sb-sidenav-light to .sb-sidenav to use
+
+.sb-sidenav-light {
+  background-color: white;
+  color: $sidenav-light-color;
+
+  .sb-sidenav-menu {
+    .sb-sidenav-menu-heading {
+      color: $theme-secondary;
+    }
+
+    .sb-sidenav-menu-divider {
+      display: block;
+      margin: 0.5rem;
+      border-top: solid 1px $divider-color;
+    }
+
+    .nav-link {
+      color: $sidenav-light-link-color;
+      font-weight: 600;
+      font-size: 15px;
+      
+      .sb-nav-link-icon {
+        color: black;
+        margin-right: 8px;
+      }
+
+      .sb-sidenav-collapse-arrow {
+        color: $sidenav-light-icon-color;
+      }
+
+      &.active {
+        background: $theme-muted;
+        color: $theme-primary;
+        
+        .sb-nav-link-icon {
+          color: $theme-primary;
+        }
+      }
+    }
+  }
+
+  .sb-sidenav-footer {
+    background-color: $sidenav-light-footer-bg;
+  }
+}

@@ -1,19 +1,28 @@
 {
-  "name": "c19ctavms-web",
+  "name": "c19ctavms-prototype",
   "version": "1.0.0",
-  "description": "c19ctavms-web",
+  "description": "Prototype Website for C19CTAVMS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PrensDev/c19ctavms-web.git"
-  },
   "author": "PrensDev <jetsunprincetorres@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PrensDev/c19ctavms-web/issues"
-  },
-  "homepage": "https://github.com/PrensDev/c19ctavms-web#readme"
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "animate.css": "^4.1.1",
+    "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.4.1",
+    "bootstrap-select": "^1.13.18",
+    "datatables-bootstrap": "0.0.1",
+    "datatables.net-bs4": "^1.10.24",
+    "html5-qrcode": "^2.0.3",
+    "jquery": "^3.6.0",
+    "jquery-validation": "^1.19.3",
+    "leaflet": "^1.7.1",
+    "moment": "^2.29.1",
+    "moment-timer": "^1.3.0",
+    "qr-scanner": "^1.2.0",
+    "qrcodejs": "^1.0.0"
+  }
 }

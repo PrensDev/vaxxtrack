@@ -1,0 +1,58 @@
+$theme-primary    : #16A34A;
+$theme-secondary  : #475569;
+$theme-success    : #10B981;
+$theme-info       : #0891B2;
+$theme-warning    : #D97706;
+$theme-danger     : #DC2626;
+$theme-dark       : #262626;
+$theme-light      : #F0FDF4;
+
+$theme-blue       : #3B82F6;
+$theme-muted      : #F2F2F2;
+
+$theme-coolLight  : #F3F4F6;
+
+$theme-colors: (
+    "primary"   : $theme-primary,
+    "secondary" : $theme-secondary,
+    "success"   : $theme-success,
+    "info"      : $theme-info,
+    "warning"   : $theme-warning,
+    "danger"    : $theme-danger,
+    "dark"      : $theme-dark,
+    "light"     : $theme-light,
+
+    "blue"      : $theme-blue,
+    "muted"     : $theme-muted,
+    "coolLight" : $theme-coolLight,
+  );
+
+// Eliminate all box-shadow in control elements
+$btn-focus-box-shadow:            none !important;
+$input-focus-box-shadow:          none !important;
+$custom-select-focus-box-shadow:  none !important;
+$pagination-focus-box-shadow:     none !important;
+$dropdown-focus-box-shadow:       none !important;
+
+// Custom tooltip
+$tooltip-bg: #4B5563;
+$tooltip-opacity: 0.9;
+$tooltip-font-size: 12px;
+$tooltip-padding-y: 8px;
+$tooltip-padding-x: 12px;
+$tooltip-border-radius: 5px;
+
+// Card customization
+$card-border-width: 0;
+$card-cap-bg: $theme-muted;
+$card-cap-bg: white;
+$card-border-radius: 6px;
+
+// Modal customization
+$modal-header-border-width: 0;
+
+// Form Control Customization
+$input-placeholder-color: #9CA3AF;
+
+// Others
+$divider-color: #ddd;

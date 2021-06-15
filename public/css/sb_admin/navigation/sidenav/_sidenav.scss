@@ -1,0 +1,67 @@
+// Base styling for the sidenav
+
+.sb-sidenav {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+  
+  .sb-sidenav-menu {
+    flex-grow: 1;
+    padding: 0 0.5rem;
+
+    .nav {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      padding-top: 10px;
+      padding-bottom: 20px;
+
+      .sb-sidenav-menu-heading {
+        padding: 0.75rem 0 0.75rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+        position: relative;
+        border-radius: 3px;
+        border: solid 1px transparent;
+
+        .sb-nav-link-icon {
+          font-size: 0.9rem;
+        }
+
+        .sb-sidenav-collapse-arrow {
+          display: inline-block;
+          margin-left: auto;
+          transition: transform 0.15s ease;
+        }
+
+        &.collapsed {
+          .sb-sidenav-collapse-arrow {
+            transform: rotate(-90deg);
+          }
+        }
+
+        &:hover {
+          border: solid 1px rgba(0,0,0,0.025);
+          background: $dropdown-link-hover-bg;
+        }
+      }
+
+      .sb-sidenav-menu-nested {
+        margin-left: 1.5rem;
+        flex-direction: column;
+      }
+    }
+  }
+    
+  .sb-sidenav-footer {
+    padding: 0.75rem;
+    flex-shrink: 0;
+  }
+}

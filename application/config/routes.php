@@ -49,6 +49,66 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
-$route['404_override'] = '';
+$route['default_controller']   = 'home';
+$route['404_override']         = 'auth/page_not_found';
 $route['translate_uri_dashes'] = FALSE;
+
+
+/*
+| -------------------------------------------------------------------------
+| ROUTES
+| -------------------------------------------------------------------------
+*/
+
+// Main Routes
+$route['data-privacy']         = 'home/data_privacy';
+$route['about-us']             = 'home/about_us';
+$route['terms-and-conditions'] = 'home/terms_and_conditions';
+$route['login']                = 'home/login';
+
+// Authorized Routes
+$route['forgot-password'] = 'auth/forgot_password';
+$route['forbidden']       = 'auth/forbidden';
+$route['oAuth']           = 'auth/oAuth';
+$route['logout']          = 'auth/logout';
+
+// Citizen Routes
+$route['c']                                 = 'citizen/profile';
+$route['c/profile']                         = 'citizen/profile';
+$route['c/edit-info']                       = 'citizen/edit_info';
+$route['c/account-settings']                = 'citizen/account_settings';
+$route['c/visiting-logbook']                = 'citizen/visiting_logbook';
+$route['c/vaccination-card']                = 'citizen/vaccination_card';
+$route['c/vaccination-appointments']        = 'citizen/vaccination_appointments';
+$route['c/create-appointment']              = 'citizen/create_appointment';
+$route['c/available-vaccines']              = 'citizen/available_vaccines';
+
+// Representative Routes
+$route['r']                                 = 'representative/dashboard';
+$route['r/dashboard']                       = 'representative/dashboard';
+$route['r/profile']                         = 'representative/profile';
+$route['r/edit-info']                       = 'representative/edit_info';
+$route['r/account-settings']                = 'representative/account_settings';
+$route['r/establishment']                   = 'representative/establishment';
+$route['r/establishment/:any']              = 'representative/establishment/';
+$route['r/add-establishment']               = 'representative/add_establishment';
+$route['r/edit-establishment/:any']         = 'representative/edit_establishment/';
+$route['r/manage-representatives/:any']     = 'representative/manage_representatives/';
+$route['r/add-representative/:any']         = 'representative/add_representative/';
+$route['r/edit-representative/:any/:any']   = 'representative/edit_representative//';
+
+// Health Official Routes
+$route['h']                                 = 'health_official/dashboard';
+$route['h/dashboard']                       = 'health_official/dashboard';
+$route['h/edit-info']                       = 'health_official/edit_info';
+$route['h/account-settings']                = 'health_official/account_settings';
+$route['h/cases']                           = 'health_official/cases';
+$route['h/add-new-case']                    = 'health_official/add_new_case';
+$route['h/contacts']                        = 'health_official/contacts';
+$route['h/vaccination-records']             = 'health_official/vaccination_records';
+$route['h/vaccination-appointments']        = 'health_official/vaccination_appointments';
+$route['h/vaccines']                        = 'health_official/vaccines';
+
+// Super Admin Routes
+$route['admin']                             = 'super_admin/dashboard';
+$route['admin/dashboard']                   = 'super_admin/dashboard';
