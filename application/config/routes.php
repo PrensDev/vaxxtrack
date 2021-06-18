@@ -104,6 +104,7 @@ $route['h/edit-info']                       = 'health_official/edit_info';
 $route['h/account-settings']                = 'health_official/account_settings';
 $route['h/cases']                           = 'health_official/cases';
 $route['h/add-new-case']                    = 'health_official/add_new_case';
+$route['h/heatmap']                         = 'health_official/heatmap';
 $route['h/contacts']                        = 'health_official/contacts';
 $route['h/vaccination-records']             = 'health_official/vaccination_records';
 $route['h/vaccination-appointments']        = 'health_official/vaccination_appointments';
@@ -112,3 +113,7 @@ $route['h/vaccines']                        = 'health_official/vaccines';
 // Super Admin Routes
 $route['admin']                             = 'super_admin/dashboard';
 $route['admin/dashboard']                   = 'super_admin/dashboard';
+$route['admin/heatmap-cases']               = 'super_admin/heatmap_cases';
+$route['admin/users/(:any)']                = function ($user_category) { return 'super_admin/users/' . $user_category; };
+$route['admin/edit-info']                   = 'super_admin/edit_info';
+$route['admin/account-settings']            = 'super_admin/account_settings';

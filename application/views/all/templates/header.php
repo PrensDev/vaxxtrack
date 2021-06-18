@@ -8,7 +8,7 @@
     | =======================================================================================
     | REQUIRED META TAGS
     | =======================================================================================
-     -->
+    -->
 
     <meta charset="utf-8">
     <meta name="viewport"       content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +22,7 @@
     | =======================================================================================
     | CSS LINKS
     | =======================================================================================
-     -->
+    -->
 
     <!-- Bootstrap-icons -->
     <link rel="stylesheet" href="<?= base_url() ?>node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -47,7 +47,7 @@
     | =======================================================================================
     | SCRIPTS
     | =======================================================================================
-     -->
+    -->
 
     <!-- JQuery -->
     <script src="<?= base_url() ?>node_modules/jquery/dist/jquery.js"></script>
@@ -61,15 +61,20 @@
     <!-- Moment-Timer JS -->
     <script src="<?= base_url() ?>node_modules/moment-timer/lib/moment-timer.js"></script>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin=""></script>
+    <!-- Leaflet JS Library -->
+    <script src="<?= base_url() ?>node_modules/leaflet/dist/leaflet.js"></script>
+
+    <!-- Heatmap JS -->
+    <script src="<?= base_url() ?>node_modules/heatmap.js/build/heatmap.js"></script>
+
+    <!-- Heatmap JS with Leaflet Plugin -->
+    <script src="<?= base_url() ?>node_modules/heatmap.js/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 
     <!-- 
     | =======================================================================================
     | CUSTOM SCRIPTS
     | =======================================================================================
-     -->
+    -->
 
     <!-- constants -->
     <script src="<?= base_url() ?>public/js/constants.js"></script>

@@ -88,6 +88,11 @@ class Health_Official extends CI_Controller {
         $this->load_views('Add New Case', [['add_new_case']]);
     }
 
+    // Heatmap
+    public function heatmap() {
+        $this->load_views('COVID-19 Cases Heatmap', [['heatmap']]);
+    }
+
     // Contacts
     public function contacts() {
         $this->load_views('COVID-19 Contacts', [['contacts']]);

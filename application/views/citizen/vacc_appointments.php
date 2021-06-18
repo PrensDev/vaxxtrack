@@ -20,7 +20,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-header-text">
-                <i class="fas fa-list mr-1"></i>
+                <i class="fas fa-file-signature mr-1"></i>
                 <span>Vaccination Appointments</span>
             </div>
         </div>

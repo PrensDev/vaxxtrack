@@ -26,6 +26,13 @@
         </div>
         <div class="card-body">
 
+            <div class="form-group text-right">
+                <a href="<?= base_url() ?>h/add-vacc-appointment" class="btn btn-sm btn-blue">
+                    <i class="fas fa-plus mr-1"></i>
+                    <span>Add new appointment</span>
+                </a>
+            </div>
+
             <!-- Vaccination Appointments Table -->
             <div class="table-responsive">
                 <table class="table" id="dataTable" width="100%" cellspacing="0">

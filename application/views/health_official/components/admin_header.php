@@ -29,7 +29,7 @@
                         <!-- Contact Tracing -->
                         <div class="sb-sidenav-menu-heading">Contact Tracing</div>
                         
-                        <!-- Cases Menu -->
+                        <!-- COVID-19 Cases Menu -->
                         <div
                             class           = "nav-link collapsed" 
                             role            = "button"
@@ -50,7 +50,7 @@
                                     </div>
                                     <span>Case List</span>
                                 </a>
-                                <a class="nav-link" href="layout-sidenav-light.html" draggable="false">
+                                <a class="nav-link" href="<?= base_url() ?>h/heatmap" draggable="false">
                                     <div class="sb-nav-link-icon">
                                         <i class="fas fa-map-marked icon-container"></i>
                                     </div>

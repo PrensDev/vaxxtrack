@@ -39,45 +39,45 @@ $(() => {
  */
 getInfoAJAX = () => {
     $.ajax({
-       url: `${ BASE_URL_API }representative/info`,
-       type: 'GET',
-       headers: headers,
-       success: (res) => {
-           if(res) {
-               
-               // Get data from response
-               var data = res.data;
-   
-               // Check first if user's middle name is null or blank
-               var userHasNoMiddleName = data.middle_name == null || data.middle_name === '';
-               var userMiddleName = userHasNoMiddleName ?  ' ' : ' ' + data.middle_name + ' ';
-   
-               // Get user full name
-               var userFullName = data.first_name + userMiddleName + data.last_name;
-               
-               // Display Name for Topbar
-               $('#userFullNameForTopbar').html(userFullName);
-               $('#userFirstNameForTopbar').html(data.first_name);
-   
-               // Display First Name for Greetings
-               $('#userFirstNameForGreet').html(data.first_name);
+        url: `${ BASE_URL_API }representative/info`,
+        type: 'GET',
+        headers: headers,
+        success: (res) => {
+            if(res) {
+                
+                // Get data from response
+                var data = res.data;
 
-               $('#userFullNamePreviewForEdit').html(userFullName);
-   
-               // Set Form Values for Updating User Information
-               $('#firstNameInput').val(data.first_name);
-               $('#middleNameInput').val(data.middle_name);
-               $('#lastNameInput').val(data.last_name);
-               $('#suffixNameInput').val(data.suffix_name);
-           } else {
-               showFetchErrModal('No data has been retrieved');
-           }
-       },
-       error: () => {
-           // showFetchErrModal('Your session has been expired');
-       }
-   })
-   .fail(() => showConnErrModal('Cannot connect to the server'));
+                // Check first if user's middle name is null or blank
+                var userHasNoMiddleName = data.middle_name == null || data.middle_name === '';
+                var userMiddleName = userHasNoMiddleName ?  ' ' : ' ' + data.middle_name + ' ';
+
+                // Get user full name
+                var userFullName = data.first_name + userMiddleName + data.last_name;
+                
+                // Display Name for Topbar
+                $('#userFullNameForTopbar').html(userFullName);
+                $('#userFirstNameForTopbar').html(data.first_name);
+
+                // Display First Name for Greetings
+                $('#userFirstNameForGreet').html(data.first_name);
+
+                $('#userFullNamePreviewForEdit').html(userFullName);
+
+                // Set Form Values for Updating User Information
+                $('#firstNameInput').val(data.first_name);
+                $('#middleNameInput').val(data.middle_name);
+                $('#lastNameInput').val(data.last_name);
+                $('#suffixNameInput').val(data.suffix_name);
+            } else {
+                showFetchErrModal('No data has been retrieved');
+            }
+        },
+        error: () => {
+            // showFetchErrModal('Your session has been expired');
+        }
+    })
+    .fail(() => showConnErrModal('Cannot connect to the server'));
 }
 
 
@@ -106,7 +106,7 @@ updateInfoAJAX = () => {
     $.ajax({
         url: `${ BASE_URL_API }representative/info`,
         type: 'PUT',
-        headers: headers,
+        headers: AJAX_HEADERS,
         data: data,
         success: () => location.reload(),
         error: (err) => console.log(err) 
@@ -116,10 +116,8 @@ updateInfoAJAX = () => {
 
 
 // Validate Edit Representative Information Form and handle submit
-$('#editRepInfoForm').validate(validateOptions(
-    
-    // Rules
-    {
+$('#editRepInfoForm').validate(validateOptions({
+    rules: {
         firstName: {
             required: true
         },
@@ -127,9 +125,7 @@ $('#editRepInfoForm').validate(validateOptions(
             required: true
         },
     },
-    
-    // Messages
-    {
+    messages: {
         firstName: {
             required: 'Your first name is required'
         },
@@ -137,7 +133,5 @@ $('#editRepInfoForm').validate(validateOptions(
             required: 'Your last name is required'
         },
     },
-    
-    // Submit Handler
-    () => updateInfoAJAX()
-));
+    submitHandler: () => updateInfoAJAX()
+}));

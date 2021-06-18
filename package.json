@@ -16,6 +16,7 @@
     "bootstrap-select": "^1.13.18",
     "datatables-bootstrap": "0.0.1",
     "datatables.net-bs4": "^1.10.24",
+    "heatmap.js": "^2.0.5",
     "html5-qrcode": "^2.0.3",
     "jquery": "^3.6.0",
     "jquery-validation": "^1.19.3",

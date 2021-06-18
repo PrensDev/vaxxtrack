@@ -46,10 +46,7 @@ getAllEstablishmentsAJAX = () => {
     $.ajax({
         url: `${ BASE_URL_API }representative/establishments`,
         type: 'GET',
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem('token') }`
-        },
+        headers: AJAX_HEADERS,
         success: (res) => {
             if(res) {
 
@@ -108,10 +105,8 @@ updateEstablishmentAJAX = () => {
 
 
 // Edit Establishment Details Form
-$('#editEstablishmentDetailsForm').validate(validateOptions(
-    
-    // Rules
-    {
+$('#editEstablishmentDetailsForm').validate(validateOptions({
+    rules: {
         
         // Establishment General Information
         establishmentName: {
@@ -140,10 +135,8 @@ $('#editEstablishmentDetailsForm').validate(validateOptions(
         specificLocation: {
             required: true,
         },
-    },
-    
-    // Messages
-    {
+    }, 
+    messages: {
         
         // Establishment General Information
         establishmentName: {
@@ -173,10 +166,8 @@ $('#editEstablishmentDetailsForm').validate(validateOptions(
             required: "The specific location is required",
         },
     },
-
-    // Submit Handler
-    () => updateEstablishmentAJAX()
-));
+    submitHandler: () => updateEstablishmentAJAX()
+}));
 
 
 /**
@@ -186,10 +177,8 @@ $('#editEstablishmentDetailsForm').validate(validateOptions(
  */
 
 // Add Establishment Form
-$('#addEstablishmentForm').validate(validateOptions(
-    
-    // Rules
-    {
+$('#addEstablishmentForm').validate(validateOptions({
+    rules: {
         // Establishment General Information
         establishmentName: {
             required: true
@@ -218,9 +207,7 @@ $('#addEstablishmentForm').validate(validateOptions(
             required: true,
         },
     }, 
-    
-    // Messages
-    {
+    messages: {
         
         // Establishment General Information 
         establishmentName: {
@@ -250,10 +237,8 @@ $('#addEstablishmentForm').validate(validateOptions(
             required: "The specific location is required",
         },
     },
-    
-    // Submit Handler
-    () => console.log('Submit')
-));
+    submitHandler: () => console.log('Submit')
+}));
 
 
 /**
@@ -263,10 +248,8 @@ $('#addEstablishmentForm').validate(validateOptions(
  */
 
 // Add Representative Form
-$('#addRepresentativeForm').validate(validateOptions(
-    
-    // Rules
-    {
+$('#addRepresentativeForm').validate(validateOptions({
+    rules: {
         firstName: {
             required: true
         },
@@ -280,9 +263,7 @@ $('#addRepresentativeForm').validate(validateOptions(
             required: true
         },
     },
-    
-    // Messages
-    {
+    messages: {
         firstName: {
             required: 'First name is required'
         },
@@ -296,9 +277,7 @@ $('#addRepresentativeForm').validate(validateOptions(
             required: 'Account details name is required'
         },
     },
-
-    // Submit Handler
-    () => {
+    submitHandler: () => {
         if(submitHandlerLogs) console.log("#addRepresentativeForm is submitted");
     }
-));
+}));

@@ -40,31 +40,108 @@
                         <div class="sb-sidenav-menu-divider"></div>
 
                         <!-- Contact Tracing -->
-                        <div class="sb-sidenav-menu-heading">Contact Tracing</div>
-                        
-                        <!-- Health Officers Menu -->
-                        <a class="nav-link" href="<?= base_url() ?>r" draggable="false">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-users icon-container"></i>
-                            </div>
-                            <span>Health Officers</span>
-                        </a>
+                        <div class="sb-sidenav-menu-heading">COVID-19 Cases</div>
 
-                        <!-- Cases Menu -->
-                        <a class="nav-link" href="<?= base_url() ?>r" draggable="false">
+                        <!-- COVID-19 Cases Menu -->
+                        <div
+                            class           = "nav-link collapsed" 
+                            role            = "button"
+                            data-toggle     = "collapse" 
+                            data-target     = "#collapseCasesMenus"
+                        >
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-list icon-container"></i>
+                                <i class="fas fa-virus icon-container"></i>
                             </div>
-                            <span>Cases</span>
-                        </a>
+                            <span>COVID-19 Cases</span>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-caret-down"></i></div>
+                        </div>
+                        <div class="collapse" id="collapseCasesMenus">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?= base_url() ?>admin/cases" draggable="false">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-list icon-container"></i>
+                                    </div>
+                                    <span>Case List</span>
+                                </a>
+                                <a class="nav-link" href="<?= base_url() ?>admin/heatmap-cases" draggable="false">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-map-marked icon-container"></i>
+                                    </div>
+                                    <span>Heatmap</span>
+                                </a>
+                            </nav>
+                        </div>
 
                         <!-- Contacts Menu -->
                         <a class="nav-link" href="<?= base_url() ?>r">
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-users icon-container"></i>
+                                <i class="fas fa-user-friends icon-container"></i>
                             </div>
                             <span>Contacts</span>
                         </a>
+
+                        <div class="sb-sidenav-menu-divider"></div>
+
+                        <!-- User Management -->
+                        <div class="sb-sidenav-menu-heading">User Management</div>
+
+                        <!-- COVID-19 Cases Menu -->
+                        <div
+                            class           = "nav-link collapsed" 
+                            role            = "button"
+                            data-toggle     = "collapse" 
+                            data-target     = "#collapseUsersMenus"
+                        >
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-users-cog icon-container"></i>
+                            </div>
+                            <span>Users</span>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-caret-down"></i></div>
+                        </div>
+                        <div class="collapse" id="collapseUsersMenus">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a 
+                                    class     = "nav-link" 
+                                    href      = "<?= base_url() ?>admin/users/citizens" 
+                                    draggable = "false"
+                                >
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-user-circle icon-container"></i>
+                                    </div>
+                                    <span>Citizens</span>
+                                </a>
+                                <a 
+                                    class     = "nav-link" 
+                                    href      = "<?= base_url() ?>admin/users/establishment-representatives" 
+                                    draggable = "false"
+                                >
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-user-circle icon-container"></i>
+                                    </div>
+                                    <span>Establishment Representative</span>
+                                </a>
+                                <a 
+                                    class     = "nav-link" 
+                                    href      = "<?= base_url() ?>admin/users/health-officials" 
+                                    draggable = "false"
+                                >
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-user-circle icon-container"></i>
+                                    </div>
+                                    <span>Health Officials</span>
+                                </a>
+                                <a 
+                                    class     = "nav-link" 
+                                    href      = "<?= base_url() ?>admin/users/super-admins" 
+                                    draggable = "false"
+                                >
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-user-circle icon-container"></i>
+                                    </div>
+                                    <span>Super Admins</span>
+                                </a>
+                            </nav>
+                        </div>
 
                         <div class="sb-sidenav-menu-divider"></div>
                         

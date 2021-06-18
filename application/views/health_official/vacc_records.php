@@ -25,6 +25,13 @@
             </div>
         </div>
         <div class="card-body">
+
+            <div class="form-group text-right">
+                <a href="<?= base_url() ?>h/add-vacc-record" class="btn btn-sm btn-blue">
+                    <i class="fas fa-plus mr-1"></i>
+                    <span>Add new record</span>
+                </a>
+            </div>
             
             <!-- Vaccination Records Table -->
             <div class="table-responsive">

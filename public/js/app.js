@@ -125,7 +125,7 @@ setInterval(() => {
     // Send request to api
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:3000/',
+        url: `${ BASE_URL_API }`,
         success: () => hideConnErrModal()
     })
     .fail(() => showConnErrModal('Cannot connect to the server'));

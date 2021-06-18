@@ -26,7 +26,11 @@
         </div>
         <div class="card-body">
 
-            <div class="form-group">
+            <div class="form-group d-flex justify-content-between align-items-center">
+                <a href="<?= base_url() ?>h/heatmap" class="btn btn-sm btn-danger">
+                    <i class="fas fa-map-marker-alt mr-1"></i>
+                    <span>View COVID-19 Cases Heatmap</span>
+                </a>
                 <a href="<?= base_url() ?>h/add-new-case" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus mr-1"></i>
                     <span>Add new case</span>

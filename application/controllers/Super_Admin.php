@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * =============================================================================
- * SUPER ADMIN CONTROLLER
+ * * SUPER ADMIN CONTROLLER
  * ============================================================================= 
  */
 
@@ -12,7 +12,7 @@ class Super_Admin extends CI_Controller {
 
     /**
      * =============================================================================
-     * CUSTOM-DEFINED METHODS AND VARIABLES
+     * * CUSTOM-DEFINED METHODS AND VARIABLES
      * ============================================================================= 
      */
 
@@ -58,7 +58,7 @@ class Super_Admin extends CI_Controller {
 
     /**
      * =============================================================================
-     * VIEWS AND CONTROLLER METHODS
+     * * VIEWS AND CONTROLLER METHODS
      * ============================================================================= 
      */
 
@@ -68,5 +68,43 @@ class Super_Admin extends CI_Controller {
     // Dashboard
     public function dashboard() {
         $this->load_views('Dashboard', [['dashboard']]);
+    }
+
+    // Heatmap
+    public function heatmap_cases() {
+        $this->load_views('Heatmap Cases', [['heatmap']]);
+    }
+
+    // User Management
+    public function users(String $users_category) {
+        if($users_category === 'citizens') {
+            $this->load_views('User Management - Citizens', [
+                ['users', ['user_category' => 'Citizens']]
+            ]);
+        } else if($users_category === 'establishment-representatives') {
+            $this->load_views('User Management - Establishment Representatives', [
+                ['users', ['user_category' => 'Establishment Representatives']]
+            ]);
+        } else if($users_category === 'health-officials') {
+            $this->load_views('User Management - Health Officials', [
+                ['users', ['user_category' => 'Health Officials']]
+            ]);
+        } else if($users_category === 'super-admins') {
+            $this->load_views('User Management - Super Admins', [
+                ['users', ['user_category' => 'Super Admins']]
+            ]);
+        } else {
+            $this->Auth_model->page_not_found();
+        }
+    }
+
+    // Edit Information
+    public function edit_info() {
+        $this->load_views('Edit Information', [['edit_info']]);
+    }
+
+    // Account Settings
+    public function account_settings() {
+        $this->load_views('Account Settings', [['account_settings']]);
     }
 }

@@ -88,10 +88,8 @@ var loginAJAX = () => {
 
 
 // Login Form when submit
-$('#loginForm').validate(validateOptions(
-    
-    // Rules 
-    {
+$('#loginForm').validate(validateOptions({
+    rules: {
         authDetails: {
             required: true
         },
@@ -99,9 +97,7 @@ $('#loginForm').validate(validateOptions(
             required: true
         }
     },
-
-    // Messages
-    {
+    messages: {
         authDetails: {
             required: 'Your account details is required'
         },
@@ -109,7 +105,5 @@ $('#loginForm').validate(validateOptions(
             required: 'Your password is required'
         }
     },
-
-    // Submit Handler
-    () => loginAJAX()
-));
+    submitHandler: () => loginAJAX()
+}));

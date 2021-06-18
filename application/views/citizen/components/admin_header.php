@@ -72,7 +72,7 @@
                             draggable = "false"
                         >
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-users icon-container"></i>
+                                <i class="fas fa-file-signature icon-container"></i>
                             </div>
                             <span>Appointments</span>
                         </a>

@@ -162,8 +162,9 @@
                                 data-style = "border"
                                 title      = "Select your current civil status"
                             >
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                                <option value="Male">Single</option>
+                                <option value="Female">In a relationship</option>
+                                <option value="Female">Married</option>
                             </select>
                         </div>
                     </div>
@@ -181,75 +182,115 @@
 
                         <!-- Region Field -->
                         <div class="form-group">
-                            <label for="birthDate">Region</label>
+                            <label for="region">Region</label>
                             <input 
                                 class       = "form-control" 
                                 type        = "text" 
-                                id          = "birthDate" 
-                                name        = "birthDate"
-                                placeholder = "e.g. Juan"
+                                id          = "region" 
+                                name        = "region"
+                                placeholder = "Type region here"
                             >
                         </div>
 
                         <!-- Province Field -->
                         <div class="form-group">
-                            <label for="birthDate">Province</label>
+                            <label for="province">Province</label>
                             <input 
                                 class       = "form-control" 
                                 type        = "text" 
-                                id          = "birthDate" 
-                                name        = "birthDate"
-                                placeholder = "e.g. Juan"
+                                id          = "province" 
+                                name        = "province"
+                                placeholder = "Type province here"
                             >
                         </div>
 
                         <!-- City/Municipality Field -->
                         <div class="form-group">
-                            <label for="birthDate">City/Municipality</label>
+                            <label for="cityMunicipality">City/Municipality</label>
                             <input 
                                 class       = "form-control" 
                                 type        = "text" 
-                                id          = "birthDate" 
-                                name        = "birthDate"
-                                placeholder = "e.g. Juan"
+                                id          = "cityMunicipality" 
+                                name        = "cityMunicipality"
+                                placeholder = "Type city/municipality here"
                             >
                         </div>
 
                         <!-- Barangay Field -->
                         <div class="form-group">
-                            <label for="birthDate">Barangay</label>
+                            <label for="barangay">Barangay</label>
                             <input 
                                 class       = "form-control" 
                                 type        = "text" 
-                                id          = "birthDate" 
-                                name        = "birthDate"
-                                placeholder = "e.g. Juan"
+                                id          = "barangay" 
+                                name        = "barangay"
+                                placeholder = "Type barangay here"
                             >
                         </div>
 
                         <!-- Street Field -->
                         <div class="form-group">
-                            <label for="birthDate">Street</label>
+                            <label for="street">Street</label>
                             <input 
                                 class       = "form-control" 
                                 type        = "text" 
-                                id          = "birthDate" 
-                                name        = "birthDate"
-                                placeholder = "e.g. Juan"
+                                id          = "street" 
+                                name        = "street"
+                                placeholder = "Type street here"
                             >
                         </div>
 
                         <!-- Specific Location Field -->
                         <div class="form-group">
-                            <label for="birthDate">Specific Location</label>
+                            <label for="specificLocation">Specific Location</label>
                             <input 
                                 class       = "form-control" 
                                 type        = "text" 
-                                id          = "birthDate" 
-                                name        = "birthDate"
-                                placeholder = "e.g. Juan"
+                                id          = "specificLocation" 
+                                name        = "specificLocation"
+                                placeholder = "Type your specific location here"
                             >
                         </div>
+                        
+                        <hr>
+
+                        <h6 class="mb-3 text-danger">
+                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            <span>Your location</span>
+                        </h6>
+
+                        <!-- Latitudinal and Longitudinal Values -->
+                        <div class="form-row">
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="latitude">Latitude</label>
+                                    <input 
+                                        class       = "form-control readonly" 
+                                        type        = "text" 
+                                        id          = "latitude" 
+                                        name        = "latitude"
+                                        placeholder = "Latitude value should be display here"
+                                        readonly
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="longitude">Longitude</label>
+                                    <input 
+                                        class       = "form-control readonly" 
+                                        type        = "text" 
+                                        id          = "longitude" 
+                                        name        = "longitude"
+                                        placeholder = "Longitude value should be display here"
+                                        readonly
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map -->
+                        <div class="bg-muted border rounded"  style="height: 250px"></div>
                     </div>
                 </div>
             </div>

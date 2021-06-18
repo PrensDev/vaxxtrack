@@ -11,7 +11,7 @@
     draggable = "false"
 >
     <div class="sb-nav-link-icon">
-        <i class="fas fa-newspaper icon-container"></i>
+        <i class="fas fa-rss icon-container"></i>
     </div>
     <span>Latest News</span>
 </a>
