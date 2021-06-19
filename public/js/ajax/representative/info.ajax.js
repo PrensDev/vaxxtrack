@@ -10,18 +10,6 @@
 
 /**
  * ====================================================================
- * Declare constant variables here
- * ====================================================================
- */
-
-const headers =  {
-    Accept: 'application/json',
-    Authorization: `Bearer ${ localStorage.getItem('token') }`
-}
-
-
-/**
- * ====================================================================
  * Declare functions here that are required to call on page load
  * ====================================================================
  */
@@ -41,7 +29,7 @@ getInfoAJAX = () => {
     $.ajax({
         url: `${ BASE_URL_API }representative/info`,
         type: 'GET',
-        headers: headers,
+        headers: AJAX_HEADERS,
         success: (res) => {
             if(res) {
                 
@@ -103,15 +91,12 @@ updateInfoAJAX = () => {
     }
 
     // Send PUT request
-    $.ajax({
-        url: `${ BASE_URL_API }representative/info`,
+    c19ctavms_API.sendUserRequest({
+        url: 'representative/info',
         type: 'PUT',
-        headers: AJAX_HEADERS,
         data: data,
         success: () => location.reload(),
-        error: (err) => console.log(err) 
-    })
-    .fail(() => showConnErrModal('Cannot connect to the server'));
+    });
 }
 
 

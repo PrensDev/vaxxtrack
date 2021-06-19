@@ -1,20 +1,9 @@
 <div class="container px-3 py-sm-3 py-sm-4">
 
-    <!-- Title Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">Your Profile</h2>
-            <div class="text-secondary">Welcome to your profile page!</div>
-        </div>
-        
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'Your Profile',
+        'subtitle' => 'Welcome to your profile page!'
+    ]); ?>
 
     <!-- QR Code ID & Other Dashboard Components Container -->
     <div class="d-flex flex-column flex-xl-row">
@@ -29,7 +18,7 @@
                         <div class="card-body d-flex flex-column justify-content-between align-items-center">
                             
                             <!-- ID Header -->
-                            <div>
+                            <div class="mb-3">
                                 <div class="flex-center">
                                     <img src="<?= base_url() ?>public/images/brand/icon.png" alt="" style="width: 20px">
                                     <span class="h5 mb-0 font-weight-bold text-primary ml-2">C19CTAVMS</span>
@@ -37,18 +26,22 @@
                                 <div class="font-weight-semibold text-center text-secondary small">QR Code ID</div>
                             </div>
 
-                            <!-- Citizen Name -->
-                            <h6 class="text-uppercase font-weight-bold my-2 text-center" id="userFullNameForQRCodeID"></h6>
-
+                            <!-- Citizen Details -->
+                            <div class="mb-2">
+                                <h6 class="text-uppercase font-weight-bold my-0 text-center" id="userFullNameForQRCodeID"></h6>
+                            </div>
+                            
                             <!-- QR Code -->
                             <div 
-                                class       = "p-3 rounded border" 
+                                class       = "p-3 my-2 rounded border" 
                                 id          = "citizenQRCodeInID"
                                 role        = "button"
                                 data-toggle = "modal"
                                 data-target = "#citizenQRCodeModal"
                             ></div>
-
+                                
+                            <div class="badge border border-secondary text-secondary"><?= $this->session-> user_ID ?></div>
+                            
                             <!-- ID Usage -->
                             <div class="small text-center mt-3">Use this QR Code when entering to any establishments for the purpose of COVID-19 Contact Tracing</div>
                         </div>

@@ -57,7 +57,7 @@
                         </div>
                         <div class="collapse" id="collapseCasesMenus">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?= base_url() ?>admin/cases" draggable="false">
+                                <a class="nav-link" href="<?= base_url() ?>admin/covid-cases" draggable="false">
                                     <div class="sb-nav-link-icon">
                                         <i class="fas fa-list icon-container"></i>
                                     </div>
@@ -151,7 +151,7 @@
                         <!-- Records Menu -->
                         <a 
                             class   = "nav-link align-items-start" 
-                            href    = "<?= base_url() ?>h/vaccination_records"
+                            href    = "<?= base_url() ?>admin/vaccination-records"
                         >
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-syringe icon-container"></i>
@@ -162,7 +162,7 @@
                         <!-- Appointments Menu -->
                         <a 
                             class   = "nav-link align-items-start" 
-                            href    = "<?= base_url() ?>h/vaccination_appointments"
+                            href    = "<?= base_url() ?>admin/vaccination-appointments"
                         >
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-calendar-alt icon-container"></i>
@@ -173,7 +173,7 @@
                         <!-- Vaccines Menu -->
                         <a 
                             class   = "nav-link align-items-start" 
-                            href    = "<?= base_url() ?>#"
+                            href    = "<?= base_url() ?>admin/vaccines"
                         >
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-vial icon-container"></i>

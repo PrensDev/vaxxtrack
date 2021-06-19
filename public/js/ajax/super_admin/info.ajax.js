@@ -60,10 +60,9 @@ getInfoAJAX = () => {
             }
         },
         error: () => {
-            // showFetchErrModal('Your session has been expired');
+            showFetchErrModal('Your session has been expired');
         }
     })
-   .fail(() => showConnErrModal('Cannot connect to the server'));
 }
 
 

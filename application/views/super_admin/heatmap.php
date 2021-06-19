@@ -1,20 +1,9 @@
 <div class="container px-3 py-4">
-
-    <!-- Title Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">COVID-19 Cases Heatmap</h2>
-            <div class="text-secondary">Trace COVID cases with this heatmap</div>
-        </div>
-        
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'COVID-19 Cases Heatmap',
+        'subtitle' => 'Trace COVID cases with this heatmap'
+    ]); ?>
 
     <!-- Heatmap -->
     <div class="card">
@@ -23,7 +12,7 @@
                 <i class="fas fa-map-marked-alt mr-1"></i>
                 <span>Heatmap</span>
             </div>
-            <a href="<?= base_url() ?>h/cases" class="btn btn-sm btn-danger">View List of Cases (PH)</a>
+            <a href="<?= base_url() ?>admin/covid-cases" class="btn btn-sm btn-danger">View List of Cases (PH)</a>
         </div>
         <div class="card-body">
             <div id="casesHeatmap" style="height: 500px"></div>
@@ -54,11 +43,19 @@
         max: 8,
         data: [
             {lat: 14.68509, lng: 121.08629, count: 21},
-            {lat: 14.52397, lng: 121.14981, count: 18},
-            {lat: 14.7205, lng: 121.0374, count: 34},
+            {lat: 14.52397, lng: 121.14981, count: 25},
+            {lat: 14.7205, lng: 121.0374, count: 56},
+            {lat: 15.1205, lng: 122.0374, count: 31},
             {lat: 14.7470, lng: 120.9950, count: 8},
             {lat: 14.8370, lng: 120.7850, count: 25},
-            {lat: 13.8370, lng: 120.9950, count: 9},
+            {lat: 14.7096, lng: 121.0998, count: 43},
+            {lat: 13.8370, lng: 120.9950, count: 17},
+            {lat: 14.65099, lng: 121.04862, count: 18},
+            {lat: 14.70135, lng: 121.08491, count: 5},
+            {lat: 15.70135, lng: 121.08491, count: 10},
+            {lat: 15.10135, lng: 121.08491, count: 19},
+            {lat: 15.50135, lng: 122.08491, count: 13},
+            {lat: 13.50135, lng: 122.08491, count: 30},
         ]
     };
 

@@ -86,7 +86,6 @@ $route['c/available-vaccines']              = 'citizen/available_vaccines';
 // Representative Routes
 $route['r']                                 = 'representative/dashboard';
 $route['r/dashboard']                       = 'representative/dashboard';
-$route['r/profile']                         = 'representative/profile';
 $route['r/edit-info']                       = 'representative/edit_info';
 $route['r/account-settings']                = 'representative/account_settings';
 $route['r/establishment']                   = 'representative/establishment';
@@ -107,13 +106,18 @@ $route['h/add-new-case']                    = 'health_official/add_new_case';
 $route['h/heatmap']                         = 'health_official/heatmap';
 $route['h/contacts']                        = 'health_official/contacts';
 $route['h/vaccination-records']             = 'health_official/vaccination_records';
+$route['h/add-vacc-record']                 = 'health_official/add_vacc_record';
 $route['h/vaccination-appointments']        = 'health_official/vaccination_appointments';
 $route['h/vaccines']                        = 'health_official/vaccines';
 
 // Super Admin Routes
 $route['admin']                             = 'super_admin/dashboard';
 $route['admin/dashboard']                   = 'super_admin/dashboard';
+$route['admin/covid-cases']                 = 'super_admin/covid_cases';
 $route['admin/heatmap-cases']               = 'super_admin/heatmap_cases';
 $route['admin/users/(:any)']                = function ($user_category) { return 'super_admin/users/' . $user_category; };
+$route['admin/vaccination-records']         = 'super_admin/vacc_records';
+$route['admin/vaccination-appointments']    = 'super_admin/vacc_appointments';
+$route['admin/vaccines']                    = 'super_admin/vaccines';
 $route['admin/edit-info']                   = 'super_admin/edit_info';
 $route['admin/account-settings']            = 'super_admin/account_settings';

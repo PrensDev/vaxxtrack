@@ -18,15 +18,10 @@
         </div>
         <div class="card-body">
 
-            <!-- User Actions -->
-            <div class="form-group d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <a href="<?= base_url() ?>h/heatmap" class="btn btn-sm btn-danger mb-2 mb-md-0">
+            <div class="form-group text-center">
+                <a href="<?= base_url() ?>admin/heatmap-cases" class="btn btn-sm btn-danger">
                     <i class="fas fa-map-marker-alt mr-1"></i>
                     <span>View COVID-19 Cases Heatmap</span>
-                </a>
-                <a href="<?= base_url() ?>h/add-new-case" class="btn btn-blue btn-sm">
-                    <i class="fas fa-plus mr-1"></i>
-                    <span>Add new case</span>
                 </a>
             </div>
             
@@ -49,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for($i = 1; $i <= 25; $i++) { ?>
+                        <?php for($i = 1; $i <= 25; $i++): ?>
                         <tr>
                             <td>
                                 <div 
@@ -61,17 +56,7 @@
                             <td>January 23, 2020</td>
                             <td class="text-center"><i class="fas fa-check text-success"></i></td>
                             <td>
-                                <div
-                                    role        = "button" 
-                                    data-toggle = "modal" 
-                                    data-target = "#updateHealthStatusModal"
-                                >
-                                    <span 
-                                        class       = "badge alert-success text-success p-2 w-100"
-                                        data-toggle = "tooltip"
-                                        title       = "Click to update current health status"
-                                    >Recovered</span>
-                                </div>
+                                <span class="badge alert-success text-success p-2 w-100">Recovered</span>
                             </td>
                             <td>
                                 <button 
@@ -100,29 +85,6 @@
                                         >
                                             <i class="fas fa-list icon-container"></i>
                                             <span>View case details</span>
-                                        </div>
-                                        <div 
-                                            class       = "dropdown-item" 
-                                            role        = "button"
-                                            data-toggle = "modal"
-                                            data-target = "#updateHealthStatusModal"
-                                        >
-                                            <i class="fas fa-notes-medical icon-container"></i>
-                                            <span>Update health status</span>
-                                        </div>
-                                        <div class="dropdown-item" role="button">
-                                            <i class="far fa-edit icon-container"></i>
-                                            <span>Edit case details</span>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-                                        <div 
-                                            class       = "dropdown-item" 
-                                            role        = "button"
-                                            data-toggle = "modal"
-                                            data-target = "#removeCaseRecordModal"
-                                        >
-                                            <i class="far fa-trash-alt icon-container"></i>
-                                            <span>Remove this case</span>
                                         </div>
                                     </div>
                                 </div>
@@ -156,29 +118,11 @@
                                             <i class="fas fa-list icon-container"></i>
                                             <span>View case details</span>
                                         </div>
-                                        <div 
-                                            class       = "dropdown-item" 
-                                            role        = "button"
-                                            data-toggle = "modal"
-                                            data-target = "#updateHealthStatusModal"
-                                        >
-                                            <i class="fas fa-notes-medical icon-container"></i>
-                                            <span>Update health status</span>
-                                        </div>
-                                        <div class="dropdown-item" role="button">
-                                            <i class="far fa-edit icon-container"></i>
-                                            <span>Edit case details</span>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-                                        <div class="dropdown-item" role="button">
-                                            <i class="far fa-trash-alt icon-container"></i>
-                                            <span>Remove this case</span>
-                                        </div>
                                     </div>
                                 </div>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php endfor ?>
                     </tbody>
                 </table>
             </div>

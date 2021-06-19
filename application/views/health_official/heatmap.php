@@ -1,32 +1,43 @@
 <div class="container px-3 py-4">
 
-    <!-- Title Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">COVID-19 Cases Heatmap</h2>
-            <div class="text-secondary">Trace COVID cases with this heatmap</div>
-        </div>
-        
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'COVID-19 Cases Heatmap',
+        'subtitle' => 'Trace COVID cases with this heatmap'
+    ]); ?>
 
     <!-- Heatmap -->
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <div class="card-header-text">
-                <i class="fas fa-map-marked-alt mr-1"></i>
-                <span>Heatmap</span>
+    <div class="row">
+
+        <!-- Heatmap -->
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header-text">
+                        <i class="fas fa-map-marked-alt mr-1"></i>
+                        <span>Heatmap</span>
+                    </div>
+                    <a href="<?= base_url() ?>h/cases" class="btn btn-sm btn-danger">View List of Cases (PH)</a>
+                </div>
+                <div class="card-body">
+                    <div id="casesHeatmap" style="height: 500px"></div>
+                </div>
             </div>
-            <a href="<?= base_url() ?>h/cases" class="btn btn-sm btn-danger">View List of Cases (PH)</a>
         </div>
-        <div class="card-body">
-            <div id="casesHeatmap" style="height: 500px"></div>
+
+        <!-- COVID-19 Active Cases count -->
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <div class="card-header-text">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        <span>COVID-19 Active Cases Count</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="h-100">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

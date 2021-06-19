@@ -47,6 +47,34 @@ const AJAX_HEADERS = {
     Authorization: `Bearer ${ localStorage.getItem('token') }`
 }
 
+// c19ctavms API Object
+var c19ctavms_API = {
+    liveConnect: (ms = 100) => {
+        setInterval(() => {
+            $.ajax({
+                type: 'GET',
+                url: BASE_URL_API,
+                timeout: AJAX_REQUEST_TIMEOUT,
+                success: () => hideConnErrModal()
+            })
+            .fail(() => showConnErrModal('Cannot connect to the server'));
+        }, ms);
+    },
+    sendUserRequest: (settings) => {
+        $.ajax({
+            url:  BASE_URL_API + settings.url,
+            type: settings.type,
+            headers: AJAX_HEADERS,
+            data: settings.data,
+            dataType: 'json',
+            success: settings.success,
+            error: (err) => console.log(err) 
+        })
+        .fail(() => showConnErrModal('Cannot connect to the server'));
+    }
+}
+
+
 
 /**
  * ===========================================================================
@@ -55,7 +83,13 @@ const AJAX_HEADERS = {
  */
 
 // Options for jquery validation plugin
-const validateOptions = (validateOptions) => {
+const validateOptions = (
+    validateOptions = {
+        rules: {}, 
+        messages: {}, 
+        submitHandler: () => {}
+    }
+) => {
     return {
         debug: JQUERY_VALIDATE_DEBUG,
         rules: validateOptions.rules,

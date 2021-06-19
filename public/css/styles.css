@@ -11785,9 +11785,13 @@ body {
   font-size: 15px;
   border-radius: 5px;
   padding: 12px;
-  min-width: 275px;
+  min-width: 200px;
   -webkit-transition-duration: 0.1s;
           transition-duration: 0.1s;
+}
+
+.dropdown-item .dropdown-user-item {
+  min-width: 250px;
 }
 
 .dropdown-icon-item {
@@ -11862,12 +11866,12 @@ body {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
   width: 25px;
 }
 
@@ -12053,6 +12057,18 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.flex-separated {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

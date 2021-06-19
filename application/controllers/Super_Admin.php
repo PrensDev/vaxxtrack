@@ -71,8 +71,13 @@ class Super_Admin extends CI_Controller {
     }
 
     // Heatmap
+    public function covid_cases() {
+        $this->load_views('COVID-19 Cases', [['covid_cases']]);
+    }
+
+    // Heatmap
     public function heatmap_cases() {
-        $this->load_views('Heatmap Cases', [['heatmap']]);
+        $this->load_views('COVID-19 Heatmap Cases', [['heatmap']]);
     }
 
     // User Management
@@ -96,6 +101,21 @@ class Super_Admin extends CI_Controller {
         } else {
             $this->Auth_model->page_not_found();
         }
+    }
+
+    // Vaccination Record
+    public function vacc_records() {
+        $this->load_views('Vaccination Records', [['vacc_records']]);
+    }
+
+    // Vaccination Appointments
+    public function vacc_appointments() {
+        $this->load_views('Vaccination Appointments', [['vacc_appointments']]);
+    }
+
+    // Vaccines
+    public function vaccines() {
+        $this->load_views('Vaccines', [['vaccines']]);
     }
 
     // Edit Information
