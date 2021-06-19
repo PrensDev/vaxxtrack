@@ -10,7 +10,6 @@
 /**
  * ====================================================================
  * LOGIN
- * Send POST request for user login
  * ====================================================================
  */
 
@@ -59,17 +58,16 @@ var loginAJAX = () => {
 
                     // Get result data
                     const data = res.data;
-                    const token = res.token;
-                    
+
                     // Store important data to local storage for session
-                    localStorage.setItem('token', token);
+                    localStorage.setItem('token', data.token);
                     localStorage.setItem('user_ID', data.user_ID);
 
                     // Set the session data
                     const sessionData = 
-                        'token='      + token +
+                        'token='      + data.token +
                         '&user_ID='   + data.user_ID +
-                        '&user_type=' + data.user.user_type;
+                        '&user_type=' + data.user_type;
                     
                     // Redirect to oAuth
                     window.location.replace(`${ BASE_URL_MAIN }oAuth?${ sessionData }`);

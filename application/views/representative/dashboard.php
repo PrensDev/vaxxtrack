@@ -1,20 +1,9 @@
 <div class="container px-3 py-3 py-sm-4">
 
-    <!-- Dashboard Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">Dashboard</h2>
-            <div class="text-secondary">Manage your overall activities using this dashboard</div>
-        </div>
-        
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'Dashboard',
+        'subtitle' => 'Manage your overall activities using this dashboard'
+    ]); ?>
 
     <!-- COVID-19 News -->
     <div class="bg-white bg-waves shadow p-4 p-sm-5 mb-4 rounded">
@@ -102,7 +91,7 @@
                         <h4>Edit your information!</h4>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
                         <div class="text-right">
-                            <a href="<?= base_url() ?>r/edit-information" class="btn btn-blue">
+                            <a href="<?= base_url() ?>r/edit-info" class="btn btn-blue">
                                 <span>Edit</span>
                                 <i class="fas fa-edit ml-1"></i>
                             </a>

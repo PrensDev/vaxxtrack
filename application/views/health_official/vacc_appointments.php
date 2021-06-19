@@ -1,22 +1,13 @@
 <div class="container px-3 py-4">
 
-    <!-- Title Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">Vaccination Appointments</h2>
-            <div class="text-secondary">Manage here the appointments of citizens for vaccination</div>
-        </div>
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'Vaccination Appointments',
+        'subtitle' => 'Manage here the appointments of citizens for vaccination'
+    ]); ?>
 
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    <?php $this->load->view('all/components/vacc_registered_summary_detailed'); ?>
 
-    <!-- Vaccination Appointments Card -->
+    <!-- Vaccination Appointments List -->
     <div class="card">
         <div class="card-header">
             <div class="card-header-text">
@@ -25,13 +16,6 @@
             </div>
         </div>
         <div class="card-body">
-
-            <div class="form-group text-right">
-                <a href="<?= base_url() ?>h/add-vacc-appointment" class="btn btn-sm btn-blue">
-                    <i class="fas fa-plus mr-1"></i>
-                    <span>Add new appointment</span>
-                </a>
-            </div>
 
             <!-- Vaccination Appointments Table -->
             <div class="table-responsive">
@@ -51,7 +35,7 @@
                     <tbody>
                         <?php for ($i = 0; $i < 20; $i++) { ?>
                             <tr>
-                                <td>
+                                <td class="d-flex align-items-baseline">
                                     <i class="fas fa-user-circle icon-container"></i>
                                     <span>Dela Cruz, Juan</span>
                                 </td>

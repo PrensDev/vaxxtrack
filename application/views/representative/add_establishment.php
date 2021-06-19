@@ -174,11 +174,12 @@
                             <label for="specificLocation">Latitude</label>
                             <input 
                                 type  = "text" 
-                                class = "form-control" 
+                                class = "form-control disabled" 
                                 id    = "specificLocation"
                                 name  = "specificLocation"
                                 value = "100.00&deg;"
                                 readonly
+                                disabled
                             >
                         </div>
                     </div>
@@ -189,11 +190,12 @@
                             <label for="specificLocation">Latitude</label>
                             <input 
                                 type  = "text" 
-                                class = "form-control" 
+                                class = "form-control disabled" 
                                 id    = "specificLocation"
                                 name  = "specificLocation"
                                 value = "100.00&deg;"
                                 readonly
+                                disabled
                             >
                         </div>
                     </div>
@@ -208,8 +210,11 @@
 
         <!-- User Actions -->
         <div class="form-group text-center">
-            <button type="submit" class="btn btn-blue">Add</button>
             <button type="button" class="btn btn-muted" onclick="location.back()">Cancel</button>
+            <button type="submit" class="btn btn-blue">
+                <i class="fas fa-plus mr-1"></i>
+                <span>Add</span>
+            </button>
         </div>
     </form>
 </div>

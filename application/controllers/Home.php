@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * =============================================================================
- * HOME CONTROLLER
+ * * HOME CONTROLLER
  * ============================================================================= 
  */
 
@@ -12,7 +12,7 @@ class Home extends CI_Controller {
 
     /**
      * =============================================================================
-     * CUSTOM-DEFINED METHODS
+     * * CUSTOM-DEFINED METHODS
      * ============================================================================= 
      */
 
@@ -22,7 +22,7 @@ class Home extends CI_Controller {
     // AJAX Scripts
     private Array $AJAX_files = [
         'login',
-        'register',
+        'register'
     ];
 
     // Load Views Method

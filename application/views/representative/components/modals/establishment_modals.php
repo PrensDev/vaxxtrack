@@ -143,11 +143,22 @@
                                 <i class="fas fa-map-marker-alt mr-1 text-danger"></i>
                                 <span>Map Location</span>
                             </h6>
-                            <div 
-                                class = "w-100" 
-                                style = "height:300px"
-                                id    = "establishmentLocationMap"
-                            >
+                            <div id="establishmentLocationContainer">
+                                <div class="flex-center bg-muted rounded-lg" style="height: 300px">
+                                    <div class="text-center">
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary" type="button" onclick="renderEstablishmentLocation()">
+                                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                                <span>Show location</span>
+                                            </button>
+                                        </div>
+                                        <i 
+                                            class="fas fa-question-circle"
+                                            data-toggle="tooltip"
+                                            title="We used not to show the map after the page was loaded for some users that have limited Internet data"
+                                        ></i>
+                                    </div>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -177,16 +188,33 @@
 </div>
 
 <script>
-    var mymap = L.map('establishmentLocationMap').setView([14.6309,121.0577], 13);
+    function renderEstablishmentLocation() {
 
-    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${ LEAFLET_ACCESS_TOKEN }`, {
-        attribution: LEAFLET_ATTRIBUTION,
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-    }).addTo(mymap);
+        $('#establishmentLocationContainer').html(`<div class="rounded-lg" style="height:300px" id="establishmentLocationMap"></div>`);
 
-    var marker = L.marker([14.6309,121.0577]).addTo(mymap);
-
+        var mymap = L.map('establishmentLocationMap', {
+            dragging: false,
+            doubleClickZoom: false
+        }).setView([14.6309,121.0577], 13);
+    
+        L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${ LEAFLET_ACCESS_TOKEN }`, {
+            id: 'mapbox/streets-v11',
+            attribution: LEAFLET_ATTRIBUTION,
+            zoom: 5,
+            maxZoom: 13,
+            minZoom: 5,
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'your.mapbox.access.token'
+        }).addTo(mymap);
+    
+        var marker = L.marker([14.6309,121.0577]).addTo(mymap);
+        
+        marker.bindPopup(`
+            <div class="text-center p-2">
+                <h6 class="mb-0 font-weight-semibold">ABC Company</h6>
+                <div>Commonwealth, Quezon City</div>
+            </div>
+        `);
+    }
 </script>

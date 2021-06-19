@@ -186,11 +186,12 @@
                             <label for="specificLocation">Latitude</label>
                             <input 
                                 type  = "text" 
-                                class = "form-control" 
+                                class = "form-control disabled" 
                                 id    = "specificLocation"
                                 name  = "specificLocation"
                                 value = "100.00&deg;"
                                 readonly
+                                disabled
                             >
                         </div>
                     </div>
@@ -201,11 +202,12 @@
                             <label for="specificLocation">Latitude</label>
                             <input 
                                 type  = "text" 
-                                class = "form-control" 
+                                class = "form-control disabled" 
                                 id    = "specificLocation"
                                 name  = "specificLocation"
                                 value = "100.00&deg;"
                                 readonly
+                                disabled
                             >
                         </div>
                     </div>

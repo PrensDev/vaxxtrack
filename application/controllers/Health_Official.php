@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * =============================================================================
- * HEALTH OFFICIAL CONTROLLER
+ * * HEALTH OFFICIAL CONTROLLER
  * ============================================================================= 
  */
 
@@ -11,7 +11,7 @@ class Health_Official extends CI_Controller {
 
     /**
      * =============================================================================
-     * CUSTOM-DEFINED VARIABLES AND METHODS
+     * * CUSTOM-DEFINED VARIABLES AND METHODS
      * ============================================================================= 
      */
 
@@ -85,7 +85,10 @@ class Health_Official extends CI_Controller {
 
     // Add New Case
     public function add_new_case() {
-        $this->load_views('Add New Case', [['add_new_case']]);
+        $this->load_views('Add New Case', [
+            ['components/modals/add_case_modal'],
+            ['add_new_case'],
+        ]);
     }
 
     // Heatmap
@@ -103,6 +106,13 @@ class Health_Official extends CI_Controller {
         $this->load_views('Vaccination Records', [
             ['components/modals/vacc_record_modals'],
             ['vacc_records'],
+        ]);
+    }
+
+    // Add Vaccination Record
+    public function add_vacc_record() {
+        $this->load_views('Add Vaccination Records', [
+            ['add_vacc_record'],
         ]);
     }
 

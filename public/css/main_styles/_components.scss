@@ -61,8 +61,12 @@
     font-size: 15px;
     border-radius: 5px;
     padding: 12px;
-    min-width: 275px;
+    min-width: 200px;
     transition-duration: 0.1s;
+
+    .dropdown-user-item {
+        min-width: 250px;
+    }
 }
 .dropdown-icon-item {
     display: flex;
@@ -117,9 +121,9 @@
 }
 .icon-container {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 25px;
+    align-items: baseline;
+    justify-content: start;
+    min-width: 25px;
 }
 .icon-container-circle {
     display: inline-flex;
@@ -225,57 +229,71 @@
 
 /* Sidenav and Scrollbar Customization */
 .sb-sidenav-menu {
-  overflow-y: hidden;
+    overflow-y: hidden;
 }
 .sb-sidenav-menu::-webkit-scrollbar {
-  width: 0.75rem;
+    width: 0.75rem;
 }
 .sb-sidenav-menu::-webkit-scrollbar-thumb {
-  border-radius: 10rem;
-  border-width: 0.2rem;
-  border-style: solid;
-  background-clip: padding-box;
-  background-color: rgba(33, 40, 50, 0.2);
-  border-color: transparent;
+    border-radius: 10rem;
+    border-width: 0.2rem;
+    border-style: solid;
+    background-clip: padding-box;
+    background-color: rgba(33, 40, 50, 0.2);
+    border-color: transparent;
 }
 .sb-sidenav-menu::-webkit-scrollbar-button {
-  width: 0;
-  height: 0;
-  display: none;
+    width: 0;
+    height: 0;
+    display: none;
 }
 .sb-sidenav-menu::-webkit-scrollbar-corner {
-  background-color: transparent;
+    background-color: transparent;
 }
 .sb-sidenav-menu::-webkit-scrollbar-track {
-  background: inherit;
+    background: inherit;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.075);
+
+        .sb-sidenav-menu::-webkit-scrollbar-thumb {
+            background: rgba(33, 40, 50, 0.5);
+        }
+    }
 }
 @media (pointer: fine) and (hover: hover) {
-  .sb-sidenav-menu:hover {
-    overflow-y: overlay;
-  }
-}
-@media (pointer: coarse) and (hover: none) {
-  .sb-sidenav-menu {
-    overflow-y: overlay;
-  }
+    .sb-sidenav-menu:hover {
+        overflow-y: overlay;
+    }
+    }
+    @media (pointer: coarse) and (hover: none) {
+    .sb-sidenav-menu {
+        overflow-y: overlay;
+    }
 }
 @-moz-document url-prefix() {
-  .sb-sidenav-menu {
-    overflow-y: scroll;
-  }
+    .sb-sidenav-menu {
+        overflow-y: scroll;
+    }
 }
 
 
 .bg-waves {
-  background: url('../../public/images/brand/bg_waves.svg');
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: bottom;
-  background-size: cover;
+    background: url('../../public/images/brand/bg_waves.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: bottom;
+    background-size: cover;
 }
 
 .flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-separated {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

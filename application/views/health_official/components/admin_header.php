@@ -43,19 +43,21 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-caret-down"></i></div>
                         </div>
                         <div class="collapse" id="collapseCasesMenus">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?= base_url() ?>h/cases" draggable="false">
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-list icon-container"></i>
-                                    </div>
-                                    <span>Case List</span>
-                                </a>
-                                <a class="nav-link" href="<?= base_url() ?>h/heatmap" draggable="false">
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-map-marked icon-container"></i>
-                                    </div>
-                                    <span>Heatmap</span>
-                                </a>
+                            <nav class="nav">
+                                <div class="sb-sidenav-menu-nested">
+                                    <a class="nav-link" href="<?= base_url() ?>h/cases" draggable="false">
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-list icon-container"></i>
+                                        </div>
+                                        <span>Case List</span>
+                                    </a>
+                                    <a class="nav-link" href="<?= base_url() ?>h/heatmap" draggable="false">
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-map-marked icon-container"></i>
+                                        </div>
+                                        <span>Heatmap</span>
+                                    </a>
+                                </div>
                             </nav>
                         </div>
 

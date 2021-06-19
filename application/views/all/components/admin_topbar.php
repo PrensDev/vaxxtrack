@@ -37,41 +37,32 @@
     </div>
 
     <!-- Navbar-->
-    <ul class="navbar-nav navbar-container justify-content-end w-100">
+    <ul class="navbar-nav navbar-container justify-content-end w-100 d-flex">
         <li class="nav-item dropdown">
 
             <!-- User -->
             <div 
-                class         = "btn btn-white-muted m-0" 
-                role          = "button" 
-                data-toggle   = "dropdown" 
-                aria-haspopup = "true" 
-                aria-expanded = "false"
+                class         = "btn btn-white-muted" 
+                data-toggle   = "dropdown"
             >   
-                <i class="fas fa-user-circle mr-1"></i>
-                <span class="d-sm-none" id="userFirstNameForTopbar"></span>
-                <span class="d-none d-sm-inline" id="userFullNameForTopbar"></span>
+                <i class="fas fa-user-tie"></i>
             </div>
 
             <!-- Dropdown Menu -->
-            <div class="dropdown-menu dropdown-menu-right shadow border-0" aria-labelledby="userDropdown">
+            <div class="dropdown-menu dropdown-user-menu dropdown-menu-right shadow border-0" aria-labelledby="userDropdown">
                 
-                <!-- Profile Menu -->
-                <a 
-                    class     = "dropdown-icon-item" 
-                    href      = "<?= $user_type === 'Citizen' ? $user_path : $user_path . '/profile'?>"
-                    draggable = "false"
-                >
-                    <div class="dropdown-icon-container">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div>
-                        <div>Profile</div>
-                        <div class="dropdown-menu-subtitle">
-                            <?= $user_type !== 'Representative' ? $user_type : 'Establishment Representative' ?>
+                <!-- Profile -->
+                <div class="flex-center flex-column text-center py-2 rounded-lg">
+                    <div class="flex-center bg-muted border rounded-circle mb-2" style="width: 100px; height: 100px;">
+                        <div style="font-size: 3rem">
+                            <i class="fas fa-user-tie"></i>
                         </div>
                     </div>
-                </a>
+                    <h5 class="font-weight-semibold mb-1 mx-3" id="userFullNameForTopbar"></h5>
+                    <div class="badge alert-primary border border-primary text-primary bg-light px-2 py-1">
+                        <?= $user_type !== 'Representative' ? $user_type : 'Establishment Representative' ?>
+                    </div>
+                </div>
 
                 <div class="dropdown-divider"></div>
                 

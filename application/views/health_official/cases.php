@@ -1,20 +1,12 @@
 <div class="container px-3 py-4">
 
-    <!-- Dashboard Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">COVID-19 Cases</h2>
-            <div class="text-secondary">Manage the list of COVID-19 cases here</div>
-        </div>
-        
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'COVID-19 Cases',
+        'subtitle' => 'Manage the list of COVID-19 cases here'
+    ]); ?>
+
+    <!-- COVID-19 Cases Summary -->
+    <?php $this->load->view('all/components/case_summary_detailed'); ?>
     
     <!-- Cases Card -->
     <div class="card">
@@ -26,12 +18,13 @@
         </div>
         <div class="card-body">
 
-            <div class="form-group d-flex justify-content-between align-items-center">
-                <a href="<?= base_url() ?>h/heatmap" class="btn btn-sm btn-danger">
+            <!-- User Actions -->
+            <div class="form-group d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <a href="<?= base_url() ?>h/heatmap" class="btn btn-sm btn-danger mb-2 mb-md-0">
                     <i class="fas fa-map-marker-alt mr-1"></i>
                     <span>View COVID-19 Cases Heatmap</span>
                 </a>
-                <a href="<?= base_url() ?>h/add-new-case" class="btn btn-primary btn-sm">
+                <a href="<?= base_url() ?>h/add-new-case" class="btn btn-blue btn-sm">
                     <i class="fas fa-plus mr-1"></i>
                     <span>Add new case</span>
                 </a>
@@ -121,6 +114,7 @@
                                             <i class="far fa-edit icon-container"></i>
                                             <span>Edit case details</span>
                                         </div>
+                                        <div class="dropdown-divider"></div>
                                         <div 
                                             class       = "dropdown-item" 
                                             role        = "button"
@@ -175,6 +169,7 @@
                                             <i class="far fa-edit icon-container"></i>
                                             <span>Edit case details</span>
                                         </div>
+                                        <div class="dropdown-divider"></div>
                                         <div class="dropdown-item" role="button">
                                             <i class="far fa-trash-alt icon-container"></i>
                                             <span>Remove this case</span>

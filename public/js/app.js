@@ -12,12 +12,12 @@
 
 /**
  * ===============================================================
- * ON PAGE LOAD FUNCTIONS
+ * * ON PAGE LOAD FUNCTIONS
  * ===============================================================
  */
 $(() => {
     
-    // Remove the preloader
+    // Remove the preloader after the page was loaded
     $('body').removeClass('modal-open');
     $('#preloader').removeClass('d-flex').addClass('d-none');
 });
@@ -25,12 +25,13 @@ $(() => {
 
 /**
  * ===============================================================
- * INITIALIZED FUNCTIONS
+ * * INITIALIZED FUNCTIONS
  * ===============================================================
  */
 
 // Initialize DataTable
-$('#dataTable').DataTable();
+// Check first 
+if($('#dataTable').length) $('#dataTable').DataTable();
 
 // Enable all tooltips and popover
 $('[data-toggle="tooltip"]').tooltip();
@@ -45,7 +46,7 @@ $('#sidebarToggle').on('click', (e) => {
 
 /**
  * ===============================================================
- * FUNCTIONS AND METHODS
+ * * FUNCTIONS AND METHODS
  * ===============================================================
  */
 
@@ -79,7 +80,14 @@ requestLogout = () => {
         url:  `${ BASE_URL_MAIN }logout`,
         type: 'POST',
         data: { request: 'logout' },
-        success: () => location.assign(BASE_URL_MAIN),
+        success: () => {
+            
+            // Clear the localStorage items 
+            localStorage.clear();
+
+            // Redirect to Home Page
+            location.assign(BASE_URL_MAIN)
+        },
         error: () => {
             console.log('Error occured');
             logoutBtn.attr("disabled", false);
@@ -92,7 +100,7 @@ requestLogout = () => {
 
 /**
  * ===============================================================
- * INTERVALS
+ * * INTERVALS
  * ===============================================================
  */
 
@@ -119,14 +127,7 @@ setInterval(() => {
     if(clockSession.html() != clockSessionVal) clockSession.html(clockSessionVal);
 }, 1);
 
-// Live Check if connected to the api server
-setInterval(() => {
+// Live check if connected to the api server
+c19ctavms_API.liveConnect(500);
 
-    // Send request to api
-    $.ajax({
-        type: 'GET',
-        url: `${ BASE_URL_API }`,
-        success: () => hideConnErrModal()
-    })
-    .fail(() => showConnErrModal('Cannot connect to the server'));
-}, 500);
+console.log(localStorage.getItem('token'));

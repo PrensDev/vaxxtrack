@@ -1,20 +1,12 @@
 <div class="container px-3 py-4">
 
-    <!-- Title Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">Vaccination Records</h2>
-            <div class="text-secondary">Manage vaccinated individuals and their records</div>
-        </div>
-        
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'Vaccination Records',
+        'subtitle' => 'Manage vaccinated individuals and their records'
+    ]); ?>
+
+    <!-- Vaccination Record Summary -->
+    <?php $this->load->view('all/components/vaccination_summary'); ?>
 
     <!-- Vaccination Records -->
     <div class="card">
@@ -26,7 +18,7 @@
         </div>
         <div class="card-body">
 
-            <div class="form-group text-right">
+            <div class="form-group text-center">
                 <a href="<?= base_url() ?>h/add-vacc-record" class="btn btn-sm btn-blue">
                     <i class="fas fa-plus mr-1"></i>
                     <span>Add new record</span>
@@ -49,14 +41,13 @@
                             <th>Date Vaccinated</th>
                             <th>Vaccinated by</th>
                             <th>Vaccinated in</th>
-                            <th>Remarks</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php for($i=0;$i<20;$i++) { ?>
                         <tr>
-                            <td>
+                            <td class="d-flex align-items-baseline">
                                 <i class="fas fa-user-circle icon-container"></i>
                                 <span>Dela Cruz, Juan</span>
                             </td>
@@ -65,9 +56,6 @@
                             <td>March 2, 2021</td>
                             <td>Dr. Jimmy D. Valero</td>
                             <td>Philippine General Hospital</td>
-                            <td>
-                                <span class="text-muted font-weight-normal font-italic">No remarks</span>
-                            </td>
                             <td>
                                 <div class="dropdown">
                                     <div class="d-inline" data-toggle="dropdown">

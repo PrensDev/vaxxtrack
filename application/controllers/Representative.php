@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * =============================================================================
- * REPRESENTATIVE CONTROLLER
+ * * REPRESENTATIVE CONTROLLER
  * ============================================================================= 
  */
 
@@ -12,7 +12,7 @@ class Representative extends CI_Controller {
 
     /**
      * =============================================================================
-     * CUSTOM-DEFINED METHODS AND VARIABLES
+     * * CUSTOM-DEFINED METHODS AND VARIABLES
      * ============================================================================= 
      */
 
@@ -59,7 +59,7 @@ class Representative extends CI_Controller {
 
     /**
      * =============================================================================
-     * VIEWS AND CONTROLLER METHODS
+     * * VIEWS AND CONTROLLER METHODS
      * ============================================================================= 
      */
 
@@ -72,9 +72,9 @@ class Representative extends CI_Controller {
     }
 
     // Establishment
-    public function establishment($id = NULL) {
-        if($id === NULL) {
-            $this->load_views('Establishment', [['establishments']]);
+    public function establishment($establishment_ID = NULL) {
+        if($establishment_ID === NULL) {
+            $this->Error_model->page_not_found();
         } else {
             $this->load_views('Establishment', [
                 ['components/modals/establishment_modals'],
@@ -123,11 +123,6 @@ class Representative extends CI_Controller {
         } else {
             $this->load_views('Edit Representative', [['edit_representative']]);
         }
-    }
-
-    // Profile
-    public function profile() {
-        $this->load_views('Profile', [['profile']]);
     }
 
     // Edit Infromation

@@ -11539,7 +11539,7 @@ body {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  padding: 0 0.5rem;
+  padding: 10px;
 }
 
 .sb-sidenav .sb-sidenav-menu .nav {
@@ -11549,8 +11549,6 @@ body {
           flex-direction: column;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  padding-top: 10px;
-  padding-bottom: 20px;
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading {
@@ -11597,7 +11595,11 @@ body {
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-nested {
-  margin-left: 1rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: solid #ddd 1px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -11785,9 +11787,13 @@ body {
   font-size: 15px;
   border-radius: 5px;
   padding: 12px;
-  min-width: 275px;
+  min-width: 200px;
   -webkit-transition-duration: 0.1s;
           transition-duration: 0.1s;
+}
+
+.dropdown-item .dropdown-user-item {
+  min-width: 250px;
 }
 
 .dropdown-icon-item {
@@ -11862,13 +11868,13 @@ body {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 25px;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  min-width: 25px;
 }
 
 .icon-container-circle {
@@ -12020,6 +12026,14 @@ body {
   background: inherit;
 }
 
+.sb-sidenav-menu::-webkit-scrollbar-track:hover {
+  background: rgba(0, 0, 0, 0.075);
+}
+
+.sb-sidenav-menu::-webkit-scrollbar-track:hover .sb-sidenav-menu::-webkit-scrollbar-thumb {
+  background: rgba(33, 40, 50, 0.5);
+}
+
 @media (pointer: fine) and (hover: hover) {
   .sb-sidenav-menu:hover {
     overflow-y: overlay;
@@ -12053,6 +12067,18 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.flex-separated {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

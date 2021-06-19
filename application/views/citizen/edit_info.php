@@ -10,7 +10,7 @@
 
     <!-- Edit Representative Form -->
     <form id="editRepInfoForm">
- 
+
         <!-- General Information -->
         <div class="d-flex justify-content-center">
             <div class="col-lg-8 col-md-10 col-sm-12 p-0">
@@ -290,7 +290,7 @@
                         </div>
 
                         <!-- Map -->
-                        <div class="bg-muted border rounded"  style="height: 250px"></div>
+                        <div class="bg-muted border rounded" style="height: 250px"></div>
                     </div>
                 </div>
             </div>

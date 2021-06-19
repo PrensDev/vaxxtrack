@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * =============================================================================
- * REGISTER CONTROLLER
+ * * REGISTER CONTROLLER
  * ============================================================================= 
  */
 
@@ -12,7 +12,7 @@ class Register extends CI_Controller {
 
     /**
      * =============================================================================
-     * CUSTOM-DEFINED METHODS
+     * * CUSTOM-DEFINED METHODS
      * ============================================================================= 
      */
 
@@ -39,7 +39,7 @@ class Register extends CI_Controller {
 
     /**
      * =============================================================================
-     * VIEWS AND CONTROLLER METHODS
+     * * VIEWS AND CONTROLLER METHODS
      * ============================================================================= 
      */
 

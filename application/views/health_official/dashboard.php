@@ -1,20 +1,9 @@
 <div class="container px-3 py-4">
 
-    <!-- Title Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">Dashboard</h2>
-            <div class="text-secondary">Manage your overall activities using this dashboard</div>
-        </div>
-        
-        <div class="card d-none d-md-block">
-            <div class="card-body text-monospace">
-                <span id="clockDate"></span>,
-                <span id="clockTime"></span>
-                <span id="clockSession"></span>
-            </div>
-        </div>
-    </div>
+    <?php $this->load->view('all/components/header_title', [
+        'title' => 'Dashboard',
+        'subtitle' => 'Manage your overall activities using this dashboard'
+    ]); ?>
 
     <!-- Dashboard Hero -->
     <div class="card mb-4">
@@ -32,6 +21,73 @@
                         alt       = "Person Fighting Virus"
                         draggable = "false"
                     >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COVID-19 Cases Summary -->
+    <div class="flex-separated align-items-center mb-2">
+        <h4>COVID-19 Cases</h4>
+        <a href="<?= base_url() ?>h/cases" class="btn btn-info btn-sm">More about COVID-19 Cases</a>
+    </div>
+    <?php $this->load->view('all/components/cases_summary'); ?>
+
+    <!-- Vaccination Record and Registered for Vaccination Summary -->
+    <div class="form-row">
+
+        <!-- Vaccination Record Summary -->
+        <div class="col-12 col-md-6">    
+            <div class="mb-3">
+                <h4>Vaccinated Individuals</h4>
+            </div>
+            <div class="card bg-primary mb-4" id="vaccRecordsCountContainer">
+                <div class="card-body py-2 ml-1 bg-white rounded-lg">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-1">
+                            <h6 class="text-primary">Vaccinated Individuals</h6>
+                            <h2 class="font-weight-bold mb-0" id="vaccRecordsCountData">0</h2>  
+                            
+                            <div class="mt-3">
+                                <a href="<?= base_url() ?>h/vaccination-records" class="btn btn-sm btn-primary">Click here for more details</a>
+                            </div>
+                        </div>
+                        <div>
+                            <img 
+                                style     = "width: 125px" 
+                                src       = "<?= base_url() ?>public/images/brand/vaccinating_individual.jpg"
+                                draggable = "false"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Registered for Vaccination Summary -->
+        <div class="col-12 col-md-6">
+            <div class="mb-3">
+                <h4>Registered for Vaccination</h4>
+            </div>
+            <div class="card bg-danger mb-4" id="vaccAppointmentsCountContainer">
+                <div class="card-body py-3 ml-1 bg-white rounded-lg">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-1">
+                            <h6 class="text-danger">Registered for Vaccination</h6>
+                            <h2 class="font-weight-bold mb-0" id="registeredForVaccCountData">0</h2>
+
+                            <div class="mt-3">
+                                <a href="<?= base_url() ?>h/vaccination-appointments" class="btn btn-sm btn-danger">Click here for more details</a>
+                            </div>
+                        </div>
+                        <div>
+                            <img 
+                                style     = "width: 100px" 
+                                src       = "<?= base_url() ?>public/images/brand/defend_from_virus.jpg"
+                                draggable = "false"
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
