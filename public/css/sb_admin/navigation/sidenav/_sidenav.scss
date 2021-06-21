@@ -8,13 +8,11 @@
   
   .sb-sidenav-menu {
     flex-grow: 1;
-    padding: 0 0.5rem;
+    padding: 10px;
 
     .nav {
       flex-direction: column;
       flex-wrap: nowrap;
-      padding-top: 10px;
-      padding-bottom: 20px;
 
       .sb-sidenav-menu-heading {
         padding: 0.75rem 0 0.75rem;
@@ -54,7 +52,11 @@
       }
 
       .sb-sidenav-menu-nested {
-        margin-left: 1rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 0.5rem;
+        padding-left: 0.5rem;
+        border-left: solid #ddd 1px;
         flex-direction: column;
       }
     }

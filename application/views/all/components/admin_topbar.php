@@ -43,10 +43,7 @@
             <!-- User -->
             <div 
                 class         = "btn btn-white-muted" 
-                role          = "button" 
-                data-toggle   = "dropdown" 
-                aria-haspopup = "true" 
-                aria-expanded = "false"
+                data-toggle   = "dropdown"
             >   
                 <i class="fas fa-user-tie"></i>
             </div>

@@ -1,9 +1,9 @@
-<div class="card bg-danger mb-4">
+<div class="card bg-danger mb-4" id="vaccAppointmentsCountContainer">
     <div class="card-body py-1 ml-1 bg-white rounded-lg">
         <div class="d-flex justify-content-between align-items-center">
             <div class="mr-1">
                 <h6 class="text-danger">Registered For Vaccination</h6>
-                <h2 class="font-weight-bold mb-0">463,384</h2>
+                <h2 class="font-weight-bold mb-0" id="registeredForVaccCountData">0</h2>
             </div>
             <div>
                 <img 

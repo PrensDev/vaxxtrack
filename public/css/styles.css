@@ -11539,7 +11539,7 @@ body {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  padding: 0 0.5rem;
+  padding: 10px;
 }
 
 .sb-sidenav .sb-sidenav-menu .nav {
@@ -11549,8 +11549,6 @@ body {
           flex-direction: column;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  padding-top: 10px;
-  padding-bottom: 20px;
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading {
@@ -11597,7 +11595,11 @@ body {
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-nested {
-  margin-left: 1rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: solid #ddd 1px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -11872,7 +11874,7 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
-  width: 25px;
+  min-width: 25px;
 }
 
 .icon-container-circle {
@@ -12022,6 +12024,14 @@ body {
 
 .sb-sidenav-menu::-webkit-scrollbar-track {
   background: inherit;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar-track:hover {
+  background: rgba(0, 0, 0, 0.075);
+}
+
+.sb-sidenav-menu::-webkit-scrollbar-track:hover .sb-sidenav-menu::-webkit-scrollbar-thumb {
+  background: rgba(33, 40, 50, 0.5);
 }
 
 @media (pointer: fine) and (hover: hover) {

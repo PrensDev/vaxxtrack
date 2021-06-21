@@ -114,6 +114,16 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <hr>
+
+                    <!-- User Action for this field -->
+                    <div class="form-group text-center">
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-eraser mr-1"></i>
+                            <span>Clear this field</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,11 +150,26 @@
                                 data-style       = "border form-control"
                                 data-live-search = "true"
                             >
-                                <option value="vaccineID">Pfizer BioNTech</option>
-                                <option value="vaccineID">Pfizer BioNTech</option>
-                                <option value="vaccineID">Pfizer BioNTech</option>
-                                <option value="vaccineID">Pfizer BioNTech</option>
-                                <option value="vaccineID">Pfizer BioNTech</option>
+                                <option 
+                                    value       ="vaccineID"
+                                    data-token  = ""
+                                >Pfizer BioNTech</option>
+                                <option 
+                                    value       ="vaccineID"
+                                    data-token  = ""
+                                >Pfizer BioNTech</option>
+                                <option 
+                                    value       ="vaccineID"
+                                    data-token  = ""
+                                >Pfizer BioNTech</option>
+                                <option 
+                                    value       ="vaccineID"
+                                    data-token  = ""
+                                >Pfizer BioNTech</option>
+                                <option 
+                                    value       ="vaccineID"
+                                    data-token  = ""
+                                >Pfizer BioNTech</option>
                             </select>
                         </div>
                     </div>

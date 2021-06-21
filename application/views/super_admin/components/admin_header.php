@@ -56,19 +56,21 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-caret-down"></i></div>
                         </div>
                         <div class="collapse" id="collapseCasesMenus">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?= base_url() ?>admin/covid-cases" draggable="false">
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-list icon-container"></i>
-                                    </div>
-                                    <span>Case List</span>
-                                </a>
-                                <a class="nav-link" href="<?= base_url() ?>admin/heatmap-cases" draggable="false">
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-map-marked icon-container"></i>
-                                    </div>
-                                    <span>Heatmap</span>
-                                </a>
+                            <nav class="nav">
+                                <div class="sb-sidenav-menu-nested">
+                                    <a class="nav-link" href="<?= base_url() ?>admin/covid-cases" draggable="false">
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-list icon-container"></i>
+                                        </div>
+                                        <span>Case List</span>
+                                    </a>
+                                    <a class="nav-link" href="<?= base_url() ?>admin/heatmap-cases" draggable="false">
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-map-marked icon-container"></i>
+                                        </div>
+                                        <span>Heatmap</span>
+                                    </a>
+                                </div>
                             </nav>
                         </div>
 
@@ -99,47 +101,49 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-caret-down"></i></div>
                         </div>
                         <div class="collapse" id="collapseUsersMenus">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a 
-                                    class     = "nav-link" 
-                                    href      = "<?= base_url() ?>admin/users/citizens" 
-                                    draggable = "false"
-                                >
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-user-circle icon-container"></i>
-                                    </div>
-                                    <span>Citizens</span>
-                                </a>
-                                <a 
-                                    class     = "nav-link" 
-                                    href      = "<?= base_url() ?>admin/users/establishment-representatives" 
-                                    draggable = "false"
-                                >
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-user-circle icon-container"></i>
-                                    </div>
-                                    <span>Establishment Representative</span>
-                                </a>
-                                <a 
-                                    class     = "nav-link" 
-                                    href      = "<?= base_url() ?>admin/users/health-officials" 
-                                    draggable = "false"
-                                >
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-user-circle icon-container"></i>
-                                    </div>
-                                    <span>Health Officials</span>
-                                </a>
-                                <a 
-                                    class     = "nav-link" 
-                                    href      = "<?= base_url() ?>admin/users/super-admins" 
-                                    draggable = "false"
-                                >
-                                    <div class="sb-nav-link-icon">
-                                        <i class="fas fa-user-circle icon-container"></i>
-                                    </div>
-                                    <span>Super Admins</span>
-                                </a>
+                            <nav class="nav">
+                                <div class="sb-sidenav-menu-nested">
+                                    <a 
+                                        class     = "nav-link" 
+                                        href      = "<?= base_url() ?>admin/users/citizens" 
+                                        draggable = "false"
+                                    >
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-user-circle icon-container"></i>
+                                        </div>
+                                        <span>Citizens</span>
+                                    </a>
+                                    <a 
+                                        class     = "nav-link" 
+                                        href      = "<?= base_url() ?>admin/users/establishment-representatives" 
+                                        draggable = "false"
+                                    >
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-user-circle icon-container"></i>
+                                        </div>
+                                        <span>Establishment Representative</span>
+                                    </a>
+                                    <a 
+                                        class     = "nav-link" 
+                                        href      = "<?= base_url() ?>admin/users/health-officials" 
+                                        draggable = "false"
+                                    >
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-user-circle icon-container"></i>
+                                        </div>
+                                        <span>Health Officials</span>
+                                    </a>
+                                    <a 
+                                        class     = "nav-link" 
+                                        href      = "<?= base_url() ?>admin/users/super-admins" 
+                                        draggable = "false"
+                                    >
+                                        <div class="sb-nav-link-icon">
+                                            <i class="fas fa-user-circle icon-container"></i>
+                                        </div>
+                                        <span>Super Admins</span>
+                                    </a>
+                                </div>
                             </nav>
                         </div>
 

@@ -33,27 +33,61 @@
     </div>
     <?php $this->load->view('all/components/cases_summary'); ?>
 
-    <!-- Vaccination Record Summary -->
-    <div class="mb-2">
-        <h4>Vaccinated Individuals</h4>
-    </div>
-    <div class="card bg-primary mb-4">
-        <div class="card-body py-2 ml-1 bg-white rounded-lg">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="mr-1">
-                    <h6 class="text-primary">Vaccinated Individuals</h6>
-                    <h2 class="font-weight-bold mb-0">300,384</h2>  
-                    
-                    <div class="mt-3">
-                        <a href="<?= base_url() ?>h/vaccination-records" class="btn btn-sm btn-primary">Click here for more details</a>
+    <!-- Vaccination Record and Registered for Vaccination Summary -->
+    <div class="form-row">
+
+        <!-- Vaccination Record Summary -->
+        <div class="col-12 col-md-6">    
+            <div class="mb-3">
+                <h4>Vaccinated Individuals</h4>
+            </div>
+            <div class="card bg-primary mb-4" id="vaccRecordsCountContainer">
+                <div class="card-body py-2 ml-1 bg-white rounded-lg">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-1">
+                            <h6 class="text-primary">Vaccinated Individuals</h6>
+                            <h2 class="font-weight-bold mb-0" id="vaccRecordsCountData">0</h2>  
+                            
+                            <div class="mt-3">
+                                <a href="<?= base_url() ?>h/vaccination-records" class="btn btn-sm btn-primary">Click here for more details</a>
+                            </div>
+                        </div>
+                        <div>
+                            <img 
+                                style     = "width: 125px" 
+                                src       = "<?= base_url() ?>public/images/brand/vaccinating_individual.jpg"
+                                draggable = "false"
+                            >
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <img 
-                        style     = "width: 125px" 
-                        src       = "<?= base_url() ?>public/images/brand/vaccinating_individual.jpg"
-                        draggable = "false"
-                    >
+            </div>
+        </div>
+        
+        <!-- Registered for Vaccination Summary -->
+        <div class="col-12 col-md-6">
+            <div class="mb-3">
+                <h4>Registered for Vaccination</h4>
+            </div>
+            <div class="card bg-danger mb-4" id="vaccAppointmentsCountContainer">
+                <div class="card-body py-3 ml-1 bg-white rounded-lg">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-1">
+                            <h6 class="text-danger">Registered for Vaccination</h6>
+                            <h2 class="font-weight-bold mb-0" id="registeredForVaccCountData">0</h2>
+
+                            <div class="mt-3">
+                                <a href="<?= base_url() ?>h/vaccination-appointments" class="btn btn-sm btn-danger">Click here for more details</a>
+                            </div>
+                        </div>
+                        <div>
+                            <img 
+                                style     = "width: 100px" 
+                                src       = "<?= base_url() ?>public/images/brand/defend_from_virus.jpg"
+                                draggable = "false"
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

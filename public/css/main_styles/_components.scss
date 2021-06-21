@@ -123,7 +123,7 @@
     display: inline-flex;
     align-items: baseline;
     justify-content: start;
-    width: 25px;
+    min-width: 25px;
 }
 .icon-container-circle {
     display: inline-flex;
@@ -230,29 +230,37 @@
 /* Sidenav and Scrollbar Customization */
 .sb-sidenav-menu {
     overflow-y: hidden;
-    }
-    .sb-sidenav-menu::-webkit-scrollbar {
+}
+.sb-sidenav-menu::-webkit-scrollbar {
     width: 0.75rem;
-    }
-    .sb-sidenav-menu::-webkit-scrollbar-thumb {
+}
+.sb-sidenav-menu::-webkit-scrollbar-thumb {
     border-radius: 10rem;
     border-width: 0.2rem;
     border-style: solid;
     background-clip: padding-box;
     background-color: rgba(33, 40, 50, 0.2);
     border-color: transparent;
-    }
-    .sb-sidenav-menu::-webkit-scrollbar-button {
+}
+.sb-sidenav-menu::-webkit-scrollbar-button {
     width: 0;
     height: 0;
     display: none;
-    }
-    .sb-sidenav-menu::-webkit-scrollbar-corner {
+}
+.sb-sidenav-menu::-webkit-scrollbar-corner {
     background-color: transparent;
-    }
-    .sb-sidenav-menu::-webkit-scrollbar-track {
+}
+.sb-sidenav-menu::-webkit-scrollbar-track {
     background: inherit;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.075);
+
+        .sb-sidenav-menu::-webkit-scrollbar-thumb {
+            background: rgba(33, 40, 50, 0.5);
+        }
     }
+}
 @media (pointer: fine) and (hover: hover) {
     .sb-sidenav-menu:hover {
         overflow-y: overlay;

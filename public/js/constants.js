@@ -29,6 +29,10 @@ const JQUERY_VALIDATE_DEBUG = false;
 const AJAX_REQUEST_TIMEOUT = 30000;
 
 
+// Live update data timeout
+const LIVE_UPDATE_DATA_TIMEOUT = 3000;
+
+
 // Leaflet Variables
 // DO NOT DISTRIBUTE THE LEAFLET ACCESS TOKEN
 const LEAFLET_ACCESS_TOKEN ='pk.eyJ1IjoicHJlbnNkZXYiLCJhIjoiY2tweXo0eXNtMWxicjJwcDk0N3h5ZDl0NCJ9.ODmDvWOcEhZlNEMDltHtRw';
@@ -82,7 +86,8 @@ var c19ctavms_API = {
  * ===========================================================================
  */
 
-// Options for jquery validation plugin
+// Return options for jquery validation plugin
+// with default or initialized other option values
 const validateOptions = (
     validateOptions = {
         rules: {}, 
@@ -103,4 +108,15 @@ const validateOptions = (
         unhighlight: (el) => $(el).addClass('is-valid').removeClass('is-invalid'),
         submitHandler: validateOptions.submitHandler
     }
+}
+
+
+// Live render the data
+const liveRenderData = (handler) => {
+    
+    // Execute handler when page is loaded
+    handler();
+
+    // Live execute the handler
+    setInterval(() => handler(), LIVE_UPDATE_DATA_TIMEOUT);
 }

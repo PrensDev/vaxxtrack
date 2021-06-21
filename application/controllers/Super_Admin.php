@@ -22,6 +22,7 @@ class Super_Admin extends CI_Controller {
     // AJAX Scripts
     private Array $AJAX_files = [
         'info',
+        'users'
     ];
 
     // Load Views Method

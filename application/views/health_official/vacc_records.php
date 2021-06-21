@@ -41,14 +41,13 @@
                             <th>Date Vaccinated</th>
                             <th>Vaccinated by</th>
                             <th>Vaccinated in</th>
-                            <th>Remarks</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php for($i=0;$i<20;$i++) { ?>
                         <tr>
-                            <td>
+                            <td class="d-flex align-items-baseline">
                                 <i class="fas fa-user-circle icon-container"></i>
                                 <span>Dela Cruz, Juan</span>
                             </td>
@@ -57,9 +56,6 @@
                             <td>March 2, 2021</td>
                             <td>Dr. Jimmy D. Valero</td>
                             <td>Philippine General Hospital</td>
-                            <td>
-                                <span class="text-muted font-weight-normal font-italic">No remarks</span>
-                            </td>
                             <td>
                                 <div class="dropdown">
                                     <div class="d-inline" data-toggle="dropdown">
