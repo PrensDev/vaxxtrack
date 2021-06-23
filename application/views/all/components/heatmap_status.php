@@ -11,10 +11,11 @@
                 <a href="<?= base_url() ?>h/cases" class="btn btn-sm btn-danger">View List of Cases (PH)</a>
             </div>
             <div class="card-body" id="mapContainer">
-                <div class="flex-center bg-muted" style="height: 500px">
+                <div class="flex-center bg-muted rounded-lg" style="height: 500px">
                     <div class="text-center">
-                        <button class="btn btn-primary" onclick="renderHeatmap()">Show the heatmap</button>
-                        <br>
+                        <div class="mb-3">
+                            <button class="btn btn-primary" onclick="renderHeatmap()">Show the heatmap</button>
+                        </div>
                         <i 
                             class       = "fas fa-question-circle" 
                             data-toggle = "tooltip" 
@@ -48,7 +49,7 @@
     function renderHeatmap() {
 
         // Replace the map container body to map
-        $('#mapContainer').html(`<div id="casesHeatmap" style="height: 500px"></div>`)
+        $('#mapContainer').html(`<div class="rounded-lg" id="casesHeatmap" style="height: 500px"></div>`)
 
         // Heatamp Data
         var heatmapData = {
@@ -97,6 +98,8 @@
         var map = new L.Map('casesHeatmap', {
             center: new L.LatLng(12.512,122.212),
             zoom: 5,
+            maxZoom: 12,
+            minZoom: 3,
             layers: [baseLayer, heatmapLayer]
         });
         

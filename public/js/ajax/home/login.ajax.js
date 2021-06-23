@@ -58,7 +58,6 @@ var loginAJAX = () => {
 
                     // Get result data
                     const data = res.data;
-                    
                     // Store important data to local storage for session
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user_ID', data.user_ID);

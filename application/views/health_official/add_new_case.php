@@ -335,7 +335,10 @@
         <!-- User Actions -->
         <div class="form-group text-center mb-4">
             <button class="btn btn-muted">Cancel</button>
-            <button class="btn btn-blue">Add</button>
+            <button class="btn btn-blue" type="submit">
+                <i class="fas fa-plus mr-1"></i>
+                <span>Add</span>
+            </button>
         </div>
 
     </form>

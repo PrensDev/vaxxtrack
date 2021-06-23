@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * =============================================================================
- * HEALTH OFFICIAL CONTROLLER
+ * * HEALTH OFFICIAL CONTROLLER
  * ============================================================================= 
  */
 
@@ -11,7 +11,7 @@ class Health_Official extends CI_Controller {
 
     /**
      * =============================================================================
-     * CUSTOM-DEFINED VARIABLES AND METHODS
+     * * CUSTOM-DEFINED VARIABLES AND METHODS
      * ============================================================================= 
      */
 

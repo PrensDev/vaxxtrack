@@ -91,7 +91,7 @@
                         <h4>Edit your information!</h4>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
                         <div class="text-right">
-                            <a href="<?= base_url() ?>r/edit-information" class="btn btn-blue">
+                            <a href="<?= base_url() ?>r/edit-info" class="btn btn-blue">
                                 <span>Edit</span>
                                 <i class="fas fa-edit ml-1"></i>
                             </a>

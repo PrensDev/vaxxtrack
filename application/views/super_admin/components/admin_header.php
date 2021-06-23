@@ -30,7 +30,7 @@
                         <div class="sb-sidenav-menu-heading">Establishments</div>
                         
                         <!-- Registered Establishment Menu -->
-                        <a class="nav-link" href="<?= base_url() ?>r" draggable="false">
+                        <a class="nav-link" href="<?= base_url() ?>admin/establishments" draggable="false">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-building icon-container"></i>
                             </div>

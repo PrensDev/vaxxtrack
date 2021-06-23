@@ -16,7 +16,7 @@
         <div class="card-body">
 
             <!-- Appointments Controls -->
-            <div class="form-group">
+            <div class="form-group text-center">
                 <a href="<?= base_url() ?>c/create-appointment" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus mr-1"></i>
                     <span>Create new appointment</span>

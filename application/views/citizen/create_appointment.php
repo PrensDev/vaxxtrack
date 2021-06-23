@@ -42,11 +42,11 @@
                             data-style = "border btn"
                             title      = "Select a vaccine"
                         >
-                            <option value="vaccineID">Vaccine</option>
-                            <option value="vaccineID">Vaccine</option>
-                            <option value="vaccineID">Vaccine</option>
-                            <option value="vaccineID">Vaccine</option>
-                            <option value="vaccineID">Vaccine</option>
+                            <option value="vaccineID" data-tokens="Sample Token">Vaccine</option>
+                            <option value="vaccineID" data-tokens="Sample Token">Vaccine</option>
+                            <option value="vaccineID" data-tokens="Sample Token">Vaccine</option>
+                            <option value="vaccineID" data-tokens="Sample Token">Vaccine</option>
+                            <option value="vaccineID" data-tokens="Sample Token">Vaccine</option>
                         </select>
                     </div>
                 </div>
@@ -54,8 +54,18 @@
 
             <!-- User actions -->
             <div class="form-group text-center">
-                <button class="btn btn-blue" type="submit">Create</button>
-                <button class="btn btn-muted">Cancel</button>
+                <button 
+                    class   = "btn btn-muted" 
+                    type    = "button" 
+                    onclick = "history.back()"
+                >Cancel</button>
+                <button 
+                    class="btn btn-blue" 
+                    type="submit"
+                >
+                    <i class="fas fa-file-signature mr-1"></i>
+                    <span>Create</span>
+                </button>
             </div>
         </form>
     </div>

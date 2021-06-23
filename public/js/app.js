@@ -17,7 +17,7 @@
  */
 $(() => {
     
-    // Remove the preloader
+    // Remove the preloader after the page was loaded
     $('body').removeClass('modal-open');
     $('#preloader').removeClass('d-flex').addClass('d-none');
 });
@@ -31,9 +31,7 @@ $(() => {
 
 // Initialize DataTable
 // Check first 
-if($('#dataTable').length) {
-    $('#dataTable').DataTable();
-}
+if($('#dataTable').length) $('#dataTable').DataTable();
 
 // Enable all tooltips and popover
 $('[data-toggle="tooltip"]').tooltip();
@@ -131,3 +129,5 @@ setInterval(() => {
 
 // Live check if connected to the api server
 c19ctavms_API.liveConnect(500);
+
+console.log(localStorage.getItem('token'));

@@ -49,7 +49,8 @@ getInfoAJAX = () => {
 
                 // Display First Name for Greetings
                 $('#userFirstNameForGreet').html(data.first_name);
-
+                
+                // Display Full Name for Edit Preview
                 $('#userFullNamePreviewForEdit').html(userFullName);
 
                 // Set Form Values for Updating User Information
