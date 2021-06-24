@@ -40,25 +40,26 @@ class Home extends CI_Controller {
         }
 
         // Load the scripts and footer template
-        $this->load->view('all/templates/scripts', [
+        $this->load->view('all/templates/footer', [
             'AJAX_files' => $this->AJAX_files,
             'dir'        => $this->dir,
         ]);
-        $this->load->view('all/templates/footer');
     }
+
+    /**
+     * =============================================================================
+     * * VIEWS AND CONTROLLER METHODS
+     * ============================================================================= 
+     */
 
     // Index page
     public function index() {
         if($this->session->has_userdata('user_type')) {
-            if ($this->session->user_type === 'Citizen') {
-                redirect('c');
-            } else if($this->session->user_type === 'Representative') {
-                redirect('r');
-            } else if($this->session->user_type === 'Health Official') {
-                redirect('h');
-            } else if($this->session->user_type === 'Super Admin') {
-                redirect('admin');
-            }
+            $user_type = $this->session->user_type;
+            if($user_type === 'Citizen')         redirect('c');
+            if($user_type === 'Representative')  redirect('r');
+            if($user_type === 'Health Official') redirect('h');
+            if($user_type === 'Super Admin')     redirect('admin');
         } else {
             $this->load_views('Welcome to C19CTAVMS', [
                 ['components/main_navbar'],

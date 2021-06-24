@@ -46,17 +46,16 @@ class Health_Official extends CI_Controller {
             
             // Load the admin footer views, scripts, and footer template
             $this->load->view('all/components/admin_footer');
-            $this->load->view('all/templates/scripts', [
+            $this->load->view('all/templates/footer',  [
                 'AJAX_files' => $this->AJAX_files,
                 'dir'        => $this->dir,
             ]);
-            $this->load->view('all/templates/footer');
         }
     }
 
     /**
      * =============================================================================
-     * VIEWS AND CONTROLLER METHODS
+     * * VIEWS AND CONTROLLER METHODS
      * ============================================================================= 
      */
 

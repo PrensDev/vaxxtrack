@@ -48,17 +48,16 @@ class Citizen extends CI_Controller {
             
             // Load the admin footer view, scripts, and footer template
             $this->load->view('all/components/admin_footer');
-            $this->load->view('all/templates/scripts', [
+            $this->load->view('all/templates/footer', [
                 'AJAX_files' => $this->AJAX_files,
                 'dir'        => $this->dir,
             ]);
-            $this->load->view('all/templates/footer');
         }
     }
 
     /**
      * =============================================================================
-     * VIEWS AND CONTROLLER METHODS
+     * * VIEWS AND CONTROLLER METHODS
      * ============================================================================= 
      */
 
@@ -104,8 +103,8 @@ class Citizen extends CI_Controller {
         ]);
     }
 
-     // Create Appointment
-     public function create_appointment() {
+    // Create Appointment
+    public function create_appointment() {
         $this->load_views('Create Appointment for Vaccination', [['create_appointment']]);
     }
 

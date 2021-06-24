@@ -49,11 +49,10 @@ class Representative extends CI_Controller {
             
             // Load the footer template and admin footer views
             $this->load->view('all/components/admin_footer');
-            $this->load->view('all/templates/scripts', [
+            $this->load->view('all/templates/footer', [
                 'AJAX_files' => $this->AJAX_files,
                 'dir'        => $this->dir,
             ]);
-            $this->load->view('all/templates/footer');
         }
     }
 

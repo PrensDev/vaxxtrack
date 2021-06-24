@@ -24,7 +24,7 @@
         </div>
         <div class="card-body px-0">
             <div class="table-responsive">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                <table class="table" id="representativesDT" width="100%" cellspacing="0">
                     <thead class="thead text-nowrap">
                         <tr>
                             <th>Name</th>

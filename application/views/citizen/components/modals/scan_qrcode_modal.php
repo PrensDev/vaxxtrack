@@ -1,11 +1,9 @@
 <!-- QR Scanner Modal -->
 <div 
-    class           = "modal" 
-    id              = "scanQRCodeModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "scanQRCodeModal" 
-    aria-hidden     = "true"
+    class="modal" 
+    id="scanQRCodeModal" 
+    tabindex="-1" 
+    data-backdrop="static"
 >
     <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -28,15 +26,22 @@
                 <!-- Visiting Purpose Field -->
                 <form>
                     <div class="form-group">
-                        <label for="position">Purpose of visiting</label>
+                        <label for="position">Please select the right purpose of visit first before scan</label>
                         <select 
-                            name        = "visitPurpose" 
-                            id          = "visitPurpose" 
-                            class       = "selectpicker form-control border"
-                            data-style  = "btn btn-outline-primary"
+                            name="visitPurpose" 
+                            id="visitPurpose" 
+                            class="selectpicker form-control border"
+                            data-style="btn btn-outline-primary"
+                            data-size="6"
+                            data-live-search="true"
+                            title="Select the purpose of visit"
                         >
                             <optgroup label="GENERAL">
-                                <option value="Visiting" selected>Visiting</option>
+                                <option 
+                                    value="Visiting" 
+                                    data-subtext="Default" 
+                                    selected
+                                >Visiting</option>
                             </optgroup>
                             <optgroup label="BUSINESS">
                                 <option value="Customer">Customer</option>
@@ -55,14 +60,10 @@
                 </form>
 
                 <!-- QR Code Scanner -->
-                <div class="mt-4 mb-3 d-flex justify-content-center align-items-center">
-                    <!-- <video id="QRCodeScanner"></video> -->
-                    <div id="QRCodeReader" width="600px"></div>
+                <div class="mt-4 mb-3 flex-center">
+                    <div id="QRCodeReader"></div>
                 </div>
                 <p>Use this camera to scan QR Code of someone who are going to visit your establishment</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary btn-block">Close</button>
             </div>
         </div>
     </div>

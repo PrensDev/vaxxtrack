@@ -1,11 +1,10 @@
 <!-- Connection Error Modal -->
 <div 
-    class           = "modal" 
-    id              = "connErrorModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "connErrorModal" 
-    aria-hidden     = "true"
+    class="modal" 
+    id="connErrorModal" 
+    tabindex="-1" 
+    data-backdrop="static"
+    data-keyboard="false"
 >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -15,10 +14,10 @@
             <div class="modal-body">
                     <div class="d-flex justify-content-center">
                         <img 
-                            class     = "w-75" 
-                            src       = "<?= base_url() ?>public/images/brand/server_down.svg" 
-                            alt       = ""
-                            draggable = "false"
+                            class="w-75" 
+                            src="<?= base_url() ?>public/images/brand/server_down.svg" 
+                            alt="Server Down"
+                            draggable="false"
                         >
                     </div>                
                     <div class="text-center mt-4">
@@ -49,12 +48,11 @@
 
 <!-- Fetch Error Modal -->
 <div 
-    class           = "modal" 
-    id              = "fetchErrorModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "connErrorModal" 
-    aria-hidden     = "true"
+    class="modal" 
+    id="fetchErrorModal" 
+    tabindex="-1" 
+    data-backdrop="static"
+    data-keyboard="false"
 >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">

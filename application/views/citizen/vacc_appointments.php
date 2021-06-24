@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
 
-            <!-- Appointments Controls -->
+            <!-- Vaccination Appointments Controls -->
             <div class="form-group text-center">
                 <a href="<?= base_url() ?>c/create-appointment" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus mr-1"></i>
@@ -23,9 +23,9 @@
                 </a>
             </div>
 
-            <!-- Appointments DataTable -->
+            <!-- Vaccination Appointments DataTable -->
             <div class="table-responsive">
-                <table class="table" id="dataTable">
+                <table class="table" id="vaccAppointmentsDT">
                     <thead class="thead text-center">
                         <th>Date & Time Requested</th>
                         <th>Preferred Vaccine</th>

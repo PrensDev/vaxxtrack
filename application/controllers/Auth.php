@@ -39,7 +39,7 @@ class Auth extends CI_Controller {
 
     /**
      * =============================================================================
-     * VIEWS AND CONTROLLER METHODS
+     * * VIEWS AND CONTROLLER METHODS
      * ============================================================================= 
      */
 
@@ -72,22 +72,22 @@ class Auth extends CI_Controller {
         }
     }
 
-    // Forgot password page
+    // Forgot password
     public function forgot_password() {
         $this->load_views('Forgot Password', [['forgot_password']]);
     }
 
-    // Verification page
+    // Verification
     public function verification() {
         $this->load_views('Verify your account', [['verification']]);
     }
 
-    // Confirm Password page
+    // Confirm Password
     public function confirm_password() {
         $this->load_views('Confirm Password', [['confirm_password']]);
     }
 
-    // Success page
+    // Success
     public function success() {
         $this->load_views('Success', [['success']]);
     }
@@ -104,10 +104,9 @@ class Auth extends CI_Controller {
     
     // Log out
     public function logout() {
-        if ($this->session->has_userdata('user_type') && $this->input->post('request') === 'logout') {
+        if($this->session->has_userdata('user_type') && $this->input->post('request') === 'logout')
             session_destroy();
-        } else {
+        else
             $this->page_not_found();
-        }
     }
 }

@@ -82,9 +82,19 @@ var c19ctavms_API = {
 
 /**
  * ===========================================================================
- * * CONSTANT FUNCTIONS AND METHIOD
+ * * CONSTANT FUNCTIONS AND METHODS
  * ===========================================================================
  */
+
+// Initialize DataTables by calling their ids
+const initDataTables =(dataTableIDs = []) => {
+    dataTableIDs.forEach(id => {
+
+        // Only call DataTable() method if id exists in DOM
+        // to reduce warning or error logs in console 
+        if($(`#${ id }`).length) $(`#${ id }`).DataTable();
+    });
+}
 
 // Return options for jquery validation plugin
 // with default or initialized other option values

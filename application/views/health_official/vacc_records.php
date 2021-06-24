@@ -29,7 +29,7 @@
             <div class="table-responsive">
                 <table 
                     class       = "table" 
-                    id          = "dataTable" 
+                    id          = "vaccinationRecordsDT" 
                     width       = "100%" 
                     cellspacing = "0"
                 >
@@ -45,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for($i=0;$i<20;$i++) { ?>
+                        <?php for($i=0;$i<1000;$i++) { ?>
                         <tr>
                             <td class="d-flex align-items-baseline">
                                 <i class="fas fa-user-circle icon-container"></i>

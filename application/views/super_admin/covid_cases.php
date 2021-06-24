@@ -29,7 +29,7 @@
             <div class="table-responsive">
                 <table 
                     class       = "table" 
-                    id          = "dataTable" 
+                    id          = "covidCasesDT" 
                     width       = "100%" 
                     cellspacing = "0"
                 >

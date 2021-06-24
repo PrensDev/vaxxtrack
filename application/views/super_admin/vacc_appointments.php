@@ -20,7 +20,7 @@
 
             <!-- Vaccination Appointments Table -->
             <div class="table-responsive">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                <table class="table" id="vaccAppointmentsDT" width="100%" cellspacing="0">
                     <thead class="thead">
                         <tr>
                             <th>Citizen</th>

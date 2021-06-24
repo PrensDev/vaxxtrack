@@ -28,10 +28,9 @@
             <!-- Vaccination Records Table -->
             <div class="table-responsive">
                 <table 
-                    class       = "table" 
-                    id          = "dataTable" 
-                    width       = "100%" 
-                    cellspacing = "0"
+                    class="table" 
+                    id="vaccRecordsDT" 
+                    width="100%" 
                 >
                     <thead class="thead">
                         <tr>

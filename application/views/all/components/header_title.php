@@ -1,7 +1,7 @@
 <!-- Title Header -->
 <div class="flex-separated my-4">
     <div>
-        <h2 class="m-0"><?= $title ?></h2>
+        <h1 class="m-0"><?= $title ?></h1>
         <div class="text-secondary"><?= $subtitle ?></div>
     </div>
     

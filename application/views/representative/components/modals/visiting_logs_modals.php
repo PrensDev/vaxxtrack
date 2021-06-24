@@ -1,11 +1,9 @@
 <!-- QR Scanner Modal -->
 <div 
-    class           = "modal" 
-    id              = "scanModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "scanModal" 
-    aria-hidden     = "true"
+    class="modal" 
+    id="scanModal" 
+    tabindex="-1" 
+    data-backdrop="static"
 >
     <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -13,10 +11,9 @@
                 <h5 class="modal-title-icon fas fa-camera"></h5>
                 <h5 class="modal-title">Scan</h5>
                 <button 
-                    class        = "btn btn-sm btn-white-muted" 
-                    type         = "button" 
-                    data-dismiss = "modal" 
-                    aria-label   = "Close"
+                    class="btn btn-sm btn-white-muted" 
+                    type="button" 
+                    data-dismiss="modal" 
                 >
                     <span aria-hidden="true">
                         <i class="fas fa-times"></i>
@@ -30,13 +27,20 @@
                     <div class="form-group">
                         <label for="position">Purpose of visiting</label>
                         <select 
-                            name        = "visitPurpose" 
-                            id          = "visitPurpose" 
-                            class       = "selectpicker form-control border"
-                            data-style  = "btn btn-outline-primary"
+                            name="visitPurpose" 
+                            id="visitPurpose" 
+                            class="selectpicker form-control border"
+                            data-style="btn btn-outline-primary"
+                            data-size="6"
+                            data-live-search="true"
+                            title="Select a purpose of visit"
                         >
                             <optgroup label="GENERAL">
-                                <option value="Visiting" selected>Visiting</option>
+                                <option 
+                                    value="Visiting" 
+                                    data-subtext="Default"
+                                    selected
+                                >Visiting</option>
                             </optgroup>
                             <optgroup label="BUSINESS">
                                 <option value="Customer">Customer</option>
@@ -62,7 +66,10 @@
                 <p>Use this camera to scan QR Code of someone who are going to visit your establishment</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary btn-block">Close</button>
+                <button 
+                    class="btn btn-secondary btn-block"
+                    data-dismiss="modal"
+                >Close</button>
             </div>
         </div>
     </div>
