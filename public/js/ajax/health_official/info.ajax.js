@@ -27,7 +27,7 @@ $(() => {
  */
 getInfoAJAX = () => {
     $.ajax({
-        url: `${ BASE_URL_API }health-official/info`,
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }info`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (res) => {

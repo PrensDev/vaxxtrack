@@ -15,10 +15,6 @@
  * ===========================================================================
  */
 
-initDataTables([
-    'vaccAppointmentsDT'
-]);
-
 $(() => {
     generateCitizensQRCode(); 
 });

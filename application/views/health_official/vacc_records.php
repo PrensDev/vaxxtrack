@@ -45,7 +45,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for($i=0;$i<1000;$i++) { ?>
                         <tr>
                             <td class="d-flex align-items-baseline">
                                 <i class="fas fa-user-circle icon-container"></i>
@@ -104,7 +103,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php } ?>
                     </tbody>
                 </table>
             </div>

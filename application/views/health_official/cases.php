@@ -34,7 +34,7 @@
             <div class="table-responsive">
                 <table 
                     class       = "table" 
-                    id          = "dataTable" 
+                    id          = "COVID19CasesDT" 
                     width       = "100%" 
                     cellspacing = "0"
                 >
@@ -49,7 +49,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for($i = 1; $i <= 25; $i++) { ?>
                         <tr>
                             <td>
                                 <div 
@@ -59,7 +58,7 @@
                                 >CASE-00001</div>
                             </td>
                             <td>January 23, 2020</td>
-                            <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                            <td><i class="fas fa-check text-success"></i></td>
                             <td>
                                 <div
                                     role        = "button" 
@@ -178,7 +177,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php } ?>
                     </tbody>
                 </table>
             </div>

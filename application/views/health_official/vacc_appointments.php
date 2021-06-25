@@ -11,8 +11,8 @@
     <div class="card">
         <div class="card-header">
             <div class="card-header-text">
-                <i class="fas fa-list mr-1"></i>
-                <span>Records</span>
+                <i class="fas fa-file-signature mr-1"></i>
+                <span>Appointments</span>
             </div>
         </div>
         <div class="card-body">
@@ -35,7 +35,7 @@
                     <tbody>
                         <?php for ($i = 0; $i < 20; $i++) { ?>
                             <tr>
-                                <td class="d-flex align-items-baseline">
+                                <td>
                                     <i class="fas fa-user-circle icon-container"></i>
                                     <span>Dela Cruz, Juan</span>
                                 </td>

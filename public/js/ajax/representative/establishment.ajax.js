@@ -30,7 +30,7 @@ const establishmentContainerLink = (establishment_ID, establishment_name) => {
     return `
         <a 
             class     = "nav-link" 
-            href      = "${ BASE_URL_MAIN }r/establishment/${ establishment_ID }"
+            href      = "${ REPRESENTATIVE_MAIN_ROUTE }establishment/${ establishment_ID }"
             draggable = "false"
         >
             <div class="sb-nav-link-icon mr-1">
@@ -44,7 +44,7 @@ const establishmentContainerLink = (establishment_ID, establishment_name) => {
 // Send GET request for retrieving all estabslishments
 getAllEstablishmentsAJAX = () => {
     $.ajax({
-        url: `${ BASE_URL_API }representative/establishments`,
+        url: `${ REPRESENTATIVE_API_ROUTE }establishments`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (res) => {

@@ -27,7 +27,7 @@
  */
 getInfoAJAX = () => {
     $.ajax({
-        url: `${ BASE_URL_API }super-admin/info`,
+        url: `${ SUPER_ADMIN_API_ROUTE }info`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (res) => {

@@ -27,7 +27,7 @@ $(() => {
  */
 getInfoAJAX = () => {
     $.ajax({
-        url: `${ BASE_URL_API }representative/info`,
+        url: `${ REPRESENTATIVE_API_ROUTE }info`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (res) => {
@@ -96,7 +96,7 @@ updateInfoAJAX = () => {
         url: 'representative/info',
         type: 'PUT',
         data: data,
-        success: () => location.reload(),
+        success: () => getInfoAJAX(),
     });
 }
 
@@ -119,5 +119,8 @@ $('#editRepInfoForm').validate(validateOptions({
             required: 'Your last name is required'
         },
     },
-    submitHandler: () => updateInfoAJAX()
+    submitHandler: () => {
+        updateInfoAJAX();
+        showAlert('success', 'Your information has been successfully updated');
+    }
 }));

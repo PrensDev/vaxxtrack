@@ -5,6 +5,8 @@
         'subtitle' => 'Manage your overall activities using this dashboard'
     ]); ?>
 
+    <div id="alertContainer"></div>
+
     <!-- COVID-19 News -->
     <div class="bg-white bg-waves shadow p-4 p-sm-5 mb-4 rounded">
         <div class="row">

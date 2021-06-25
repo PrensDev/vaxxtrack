@@ -86,7 +86,7 @@ requestLogout = () => {
             localStorage.clear();
 
             // Redirect to Home Page
-            location.assign(BASE_URL_MAIN)
+            location.assign(BASE_URL_MAIN);
         },
         error: () => {
             console.log('Error occured');
@@ -129,5 +129,3 @@ setInterval(() => {
 
 // Live check if connected to the api server
 c19ctavms_API.liveConnect(500);
-
-console.log(localStorage.getItem('token'));

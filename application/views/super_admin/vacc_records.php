@@ -29,7 +29,7 @@
             <div class="table-responsive">
                 <table 
                     class="table" 
-                    id="vaccRecordsDT" 
+                    id="vaccinationRecordsDT" 
                     width="100%" 
                 >
                     <thead class="thead">

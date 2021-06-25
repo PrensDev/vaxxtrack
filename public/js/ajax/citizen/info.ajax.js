@@ -16,6 +16,7 @@
 
 $(() => {
     getInfoAJAX();
+    getUserTokenDataAJAX();
 });
 
 
@@ -26,13 +27,10 @@ $(() => {
  * ====================================================================
  */
 getInfoAJAX = () => {
-        $.ajax({
-        url: `${ BASE_URL_API }citizen/info`,
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }info`,
         type: 'GET',
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem('token') }`
-        },
+        headers: AJAX_HEADERS,
         success: (res) => {
             if(res) {
                 
@@ -75,6 +73,17 @@ getInfoAJAX = () => {
     .fail(() => showConnErrModal('Cannot connect to the server'));
 }
 
+
+getUserTokenDataAJAX = () => {
+    $.ajax({
+        url: `${ BASE_URL_API }citizen`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            console.log(result.token_data)
+        }
+    })
+}
 
 /**
  * ====================================================================

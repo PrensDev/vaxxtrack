@@ -21,6 +21,20 @@ const BASE_URL_MAIN = 'http://localhost/c19ctavms-web/';
 const BASE_URL_API  = 'http://localhost:3000/c19ctavms/v1/';
 
 
+// User Main Routes
+const CITIZEN_MAIN_ROUTE         = `${ BASE_URL_MAIN }c/`;
+const REPRESENTATIVE_MAIN_ROUTE  = `${ BASE_URL_MAIN }r/`;
+const HEALTH_OFFICIAL_MAIN_ROUTE = `${ BASE_URL_MAIN }h/`;
+const SUPER_ADMIN_MAIN_ROUTE     = `${ BASE_URL_MAIN }admin/`;
+
+
+// User API Routes
+const CITIZEN_API_ROUTE         = `${ BASE_URL_API }citizen/`;
+const REPRESENTATIVE_API_ROUTE  = `${ BASE_URL_API }representative/`;
+const HEALTH_OFFICIAL_API_ROUTE = `${ BASE_URL_API }health-official/`;
+const SUPER_ADMIN_API_ROUTE     = `${ BASE_URL_API }super-admin/`;
+
+
 // jQuery Validation Variables
 const JQUERY_VALIDATE_DEBUG = false;
 
@@ -86,16 +100,6 @@ var c19ctavms_API = {
  * ===========================================================================
  */
 
-// Initialize DataTables by calling their ids
-const initDataTables =(dataTableIDs = []) => {
-    dataTableIDs.forEach(id => {
-
-        // Only call DataTable() method if id exists in DOM
-        // to reduce warning or error logs in console 
-        if($(`#${ id }`).length) $(`#${ id }`).DataTable();
-    });
-}
-
 // Return options for jquery validation plugin
 // with default or initialized other option values
 const validateOptions = (
@@ -120,6 +124,19 @@ const validateOptions = (
     }
 }
 
+// showAlert
+const showAlert = (theme, message) => {
+    $('#alertContainer').html(`
+        <div class="alert alert-${ theme } alert-dismissible fade show mb-4" role="alert" id="alert">
+            <span class="font-weight-semibold">${ message }</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `);
+
+    setTimeout(() => $('#alert').alert('close'), 5000)
+}
 
 // Live render the data
 const liveRenderData = (handler) => {

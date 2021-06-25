@@ -198,30 +198,6 @@
 
 <!-- Scripts -->
 <script type="module">
-    // // Import QrScanner
-    // import QrScanner from '<?= base_url() ?>node_modules/qr-scanner/qr-scanner.min.js';
-    // QrScanner.WORKER_PATH = '<?= base_url() ?>node_modules/qr-scanner/qr-scanner-worker.min.js';
-
-    // // QRCode Scanner Instance
-    // const QRCodeScanner = document.getElementById('QRCodeScanner');
-
-    // // Scanner
-    // const scanner = new QrScanner(
-    //     QRCodeScanner, 
-    //     (result) => {
-    //         console.log('Result: ' + result);
-    //         console.log('Purpose: ' + $('#visitPurpose').val());
-    //     },
-    //     QrScanner._onDecodeError,
-    //     200
-    // );
-
-    // // Start scanning when scan button is clicked
-    // $('#scanQrCodeBtn').on('click', () => scanner.start());
-
-    // // Stop scanning when the modal is closed
-    // $('#scanModal').on('hidden.bs.modal', () => scanner.stop());
-
     // Scanner Instance
     let scanner = new Html5QrcodeScanner("reader", { fps: 25, qrbox: 250 }, false);
 
@@ -237,4 +213,6 @@
 
     // Render the scanner
     scanner.render(onScanSuccess, onScanFailure);
+
+    console.log(location.pathname.split('/')[4]);
 </script>

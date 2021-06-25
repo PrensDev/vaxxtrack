@@ -21,6 +21,8 @@ class Super_Admin extends CI_Controller {
 
     // AJAX Scripts
     private Array $AJAX_files = [
+        'covid_cases',
+        'vaccination',
         'info',
         'users'
     ];

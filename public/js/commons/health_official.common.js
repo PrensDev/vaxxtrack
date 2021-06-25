@@ -13,7 +13,3 @@
  * fully loaded
  * ===========================================================================
  */
-
-initDataTables([
-    'vaccinationRecordsDT'
-])

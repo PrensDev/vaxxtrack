@@ -25,7 +25,7 @@ liveRenderData(() => {
 
 function getUsersCount() {
     $.ajax({
-        url: `${ BASE_URL_API }super-admin/users-count`,
+        url: `${ SUPER_ADMIN_API_ROUTE }users-count`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (result) => {

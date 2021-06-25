@@ -16,7 +16,7 @@
 // Error Alert Blade For Login
 var errAlertBladeForLogin = (errMessage) => {
     return `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show font-weight-semibold" role="alert">
             <span>
                 <i class="bi-exclamation-octagon mr-1 text-danger"></i>
                 <span>${ errMessage }</span>
@@ -58,6 +58,7 @@ var loginAJAX = () => {
 
                     // Get result data
                     const data = res.data;
+                    
                     // Store important data to local storage for session
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user_ID', data.user_ID);
