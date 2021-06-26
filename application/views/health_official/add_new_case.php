@@ -13,7 +13,7 @@
 
         <!-- Patient Form Card -->
         <div class="card mb-4">
-            <div class="card-header d-flex align-items-center justify-content-between">
+            <div class="card-header flex-separated">
                 <div class="card-header-text">
                     <i class="fas fa-user-tag mr-1"></i>
                     <span>Patient Details</span>

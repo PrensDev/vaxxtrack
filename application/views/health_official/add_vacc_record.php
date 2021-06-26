@@ -13,10 +13,14 @@
 
         <!-- Patient's Information -->
         <div class="card mb-4">
-            <div class="card-header">
+            <div class="card-header flex-separated">
                 <div class="card-header-text">
                     <i class="fas fa-user mr-1"></i>
                     <span>Patient's Information</span>
+                </div>
+                <div class="btn btn-sm btn-primary" data-toggle="modal" data-target="#searchCitizenModal">
+                    <i class="fas fa-search"></i>
+                    <span class="d-none d-sm-inline ml-sm-1">Search for registered citizen</span>
                 </div>
             </div>
             <div class="card-body">
@@ -43,7 +47,17 @@
                         <!-- Middle Name Field -->
                         <div class="col-12 col-lg-3">
                             <div class="form-group">
-                                <label for="middleName">Middle Name</label>
+                                <label for="middleName" class="d-flex justify-content-between">
+                                    <span>Middle Name</span>
+                                    <div
+                                        class           = "d-inline text-muted ml-1"
+                                        data-toggle     = "tooltip"
+                                        data-placement  = "top"
+                                        title           = "Leave it blank if citizen doesn't have middle name"
+                                    >
+                                        <i class="fas fa-question-circle"></i>
+                                    </div>
+                                </label>
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
@@ -71,14 +85,28 @@
                         <!-- Patient's Suffix Name -->
                         <div class="col-12 col-md-3">
                             <div class="form-group">
-                                <label for="firstName">Suffix Name</label>
-                                <input 
-                                    class       = "form-control" 
-                                    type        = "text" 
-                                    id          = "firstName" 
-                                    name        = "firstName" 
-                                    placeholder = "Enter patient's suffix name"
+                                <label for="suffix" class="d-flex justify-content-between">
+                                    <span>Suffix</span>
+                                    <div
+                                        class           = "d-inline text-muted ml-1"
+                                        data-toggle     = "tooltip"
+                                        data-placement  = "top"
+                                        title           = "Leave it blank if citizen's name doesn't have suffix"
+                                    >
+                                        <i class="fas fa-question-circle"></i>
+                                    </div>
+                                </label>
+                                <select 
+                                    name       = "suffixName" 
+                                    id         = "suffixName" 
+                                    class      = "selectpicker w-100"
+                                    data-style = "border"
+                                    title      = "Select a suffix name"
                                 >
+                                    <option value="Jr.">Jr. (Junior)</option>
+                                    <option value="Sr.">Sr. (Senior)</option>
+                                    <option value="III">III (The Third)</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -91,12 +119,12 @@
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="birthDate">Date of birth</label>
-                                <input type="date" class="form-control">
+                                <input type="date" class="form-control" id="birthDate">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
-                                <label for="birthDate">Sex</label>
+                                <label for="sex">Sex</label>
                                 <select 
                                     class       = "selectpicker form-control border" 
                                     name        = "sex" 
@@ -117,9 +145,14 @@
                     
                     <hr>
 
-                    <!-- User Action for this field -->
+                    <!-- Reset this field -->
                     <div class="form-group text-center">
-                        <button class="btn btn-sm btn-danger">
+                        <button 
+                            class="btn btn-sm btn-danger" 
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#resetCitizenFieldsModal"
+                        >
                             <i class="fas fa-eraser mr-1"></i>
                             <span>Clear this field</span>
                         </button>
@@ -149,6 +182,7 @@
                                 class            = "selectpicker form-control" 
                                 data-style       = "border form-control"
                                 data-live-search = "true"
+                                title            = "Select the vaccined has been given to citizen"
                             >
                                 <option 
                                     value       ="vaccineID"
@@ -216,13 +250,29 @@
                         rows        = "5" 
                     ></textarea>
                 </div>
+
+                <!-- Reset this field -->
+                <div class="form-group text-center">
+                        <button 
+                            class="btn btn-sm btn-danger" 
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#resetCitizenFieldsModal"
+                        >
+                            <i class="fas fa-eraser mr-1"></i>
+                            <span>Clear this field</span>
+                        </button>
+                    </div>
             </div>
         </div>
 
         <!-- User Action -->
         <div class="form-group text-center">
-            <button class="btn btn-muted">Cancel</button>
-            <button class="btn btn-blue">Add</button>
+            <button type="button" class="btn btn-muted" onclick="history.back()">Cancel</button>
+            <button type="submit" class="btn btn-blue">
+                <span>Add</span>
+                <i class="fas fa-plus ml-1"></i>
+            </button>
         </div>
     </form>
 </div>

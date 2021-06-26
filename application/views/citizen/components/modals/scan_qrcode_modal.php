@@ -36,24 +36,25 @@
                             data-live-search="true"
                             title="Select the purpose of visit"
                         >
-                            <optgroup label="GENERAL">
+                            <optgroup label="General">
                                 <option 
                                     value="Visiting" 
-                                    data-subtext="Default" 
+                                    data-subtext="Default"
+                                    data-tokens="General Default" 
                                     selected
                                 >Visiting</option>
                             </optgroup>
-                            <optgroup label="BUSINESS">
-                                <option value="Customer">Customer</option>
-                                <option value="Employee">Employee</option>
-                                <option value="Meeting">Meeting</option>
+                            <optgroup label="Business">
+                                <option value="Customer" data-tokens="Business">Customer</option>
+                                <option value="Employee" data-tokens="Business">Employee</option>
+                                <option value="Meeting" data-tokens="Business">Meeting</option>
                             </optgroup>
-                            <optgroup label="RESIDENTIAL">
+                            <optgroup label="Residential">
                                 <option value="Resident">Resident</option>
                             </optgroup>
-                            <optgroup label="OTHERS">
-                                <option value="Organizational Member">Organizational Member</option>
-                                <option value="Others">Others</option>
+                            <optgroup label="Others">
+                                <option value="Organizational Member" data-tokens="Others">Organizational Member</option>
+                                <option value="Others" data-tokens="Others">Others</option>
                             </optgroup>
                         </select>
                     </div>

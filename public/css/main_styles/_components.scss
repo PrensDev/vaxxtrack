@@ -28,6 +28,9 @@
 }
 
 /* Modal Customization */
+.modal-content {
+    max-height: 75% !important;
+}
 .modal-header {
     align-items: center;
 }
@@ -296,4 +299,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.custom-control-label {
+    cursor: pointer !important;
 }

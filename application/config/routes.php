@@ -113,6 +113,7 @@ $route['h/vaccines']                        = 'health_official/vaccines';
 // Super Admin Routes
 $route['admin']                             = 'super_admin/dashboard';
 $route['admin/dashboard']                   = 'super_admin/dashboard';
+$route['admin/registered-establishments']   = 'super_admin/registered_establishments';
 $route['admin/covid-cases']                 = 'super_admin/covid_cases';
 $route['admin/heatmap-cases']               = 'super_admin/heatmap_cases';
 $route['admin/users/(:any)']                = 'super_admin/users/$1';

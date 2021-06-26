@@ -52,3 +52,58 @@
         </div>
     </div>
 </div>
+
+<!-- Reset Fields -->
+<div 
+    class    = "modal" 
+    id       = "resetCitizenFieldsModal" 
+    tabindex = "-1" 
+>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="fas fa-eraser modal-title-icon"></h5>
+                <h5 class="modal-title">Clear Fields</h5>
+                <button 
+                    class        = "btn btn-sm btn-white-muted" 
+                    type         = "button" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
+                >
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <div class="display-4 mr-3">
+                        <img 
+                            src="<?= base_url() ?>public/images/brand/warning.svg" 
+                            alt="Warning" 
+                            style="width: 8rem"
+                            draggable="false"
+                        >
+                    </div>
+                    <p id="resetMessage">Are you sure you want to clear fields for patient's information</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button 
+                    type="button" 
+                    class="btn btn-muted" 
+                    data-dismiss="modal"
+                >Cancel</button>
+                <button 
+                    type="button" 
+                    class="btn btn-danger" 
+                    id="resetCitizenFields"
+                    data-dismiss="modal"
+                >
+                    <span>Clear</span>
+                    <i class="fas fa-eraser ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

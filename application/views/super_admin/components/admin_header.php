@@ -30,7 +30,7 @@
                         <div class="sb-sidenav-menu-heading">Establishments</div>
                         
                         <!-- Registered Establishment Menu -->
-                        <a class="nav-link" href="<?= base_url() ?>admin/establishments" draggable="false">
+                        <a class="nav-link" href="<?= base_url() ?>admin/registered-establishments" draggable="false">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-building icon-container"></i>
                             </div>
@@ -83,11 +83,49 @@
                         </a>
 
                         <div class="sb-sidenav-menu-divider"></div>
+                        
+                        <!-- Vaccination -->
+                        <div class="sb-sidenav-menu-heading">Vaccination</div>
+                        
+                        <!-- Records Menu -->
+                        <a 
+                            class   = "nav-link align-items-start" 
+                            href    = "<?= base_url() ?>admin/vaccination-records"
+                        >
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-syringe icon-container"></i>
+                            </div>
+                            <span>Records</span>
+                        </a>
+                        
+                        <!-- Appointments Menu -->
+                        <a 
+                            class   = "nav-link align-items-start" 
+                            href    = "<?= base_url() ?>admin/vaccination-appointments"
+                        >
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-calendar-alt icon-container"></i>
+                            </div>
+                            <span>Appointments</span>
+                        </a>
+                        
+                        <!-- Vaccines Menu -->
+                        <a 
+                            class   = "nav-link align-items-start" 
+                            href    = "<?= base_url() ?>admin/vaccines"
+                        >
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-vial icon-container"></i>
+                            </div>
+                            <span>Vaccines</span>
+                        </a>
+
+                        <div class="sb-sidenav-menu-divider"></div>
 
                         <!-- User Management -->
                         <div class="sb-sidenav-menu-heading">User Management</div>
 
-                        <!-- COVID-19 Cases Menu -->
+                        <!-- Users Toggler Menu -->
                         <div
                             class           = "nav-link collapsed" 
                             role            = "button"
@@ -146,44 +184,6 @@
                                 </div>
                             </nav>
                         </div>
-
-                        <div class="sb-sidenav-menu-divider"></div>
-                        
-                        <!-- Vaccination -->
-                        <div class="sb-sidenav-menu-heading">Vaccination</div>
-                        
-                        <!-- Records Menu -->
-                        <a 
-                            class   = "nav-link align-items-start" 
-                            href    = "<?= base_url() ?>admin/vaccination-records"
-                        >
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-syringe icon-container"></i>
-                            </div>
-                            <span>Records</span>
-                        </a>
-                        
-                        <!-- Appointments Menu -->
-                        <a 
-                            class   = "nav-link align-items-start" 
-                            href    = "<?= base_url() ?>admin/vaccination-appointments"
-                        >
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-calendar-alt icon-container"></i>
-                            </div>
-                            <span>Appointments</span>
-                        </a>
-                        
-                        <!-- Vaccines Menu -->
-                        <a 
-                            class   = "nav-link align-items-start" 
-                            href    = "<?= base_url() ?>admin/vaccines"
-                        >
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-vial icon-container"></i>
-                            </div>
-                            <span>Vaccines</span>
-                        </a>
 
                         <!-- COVID-19 Status -->
                         <?php $this->load->view('all/components/c19status_menus') ?>

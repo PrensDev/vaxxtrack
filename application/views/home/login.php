@@ -52,7 +52,7 @@
         </div>
     </div>
     
-    <button type="submit" class="btn btn-primary btn-block">
+    <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
         <span>Log in</span>
         <i class="fas fa-sign-in-alt ml-1"></i>
     </button>

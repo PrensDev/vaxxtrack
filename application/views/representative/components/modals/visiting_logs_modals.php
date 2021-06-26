@@ -35,22 +35,22 @@
                             data-live-search="true"
                             title="Select a purpose of visit"
                         >
-                            <optgroup label="GENERAL">
+                            <optgroup label="General">
                                 <option 
                                     value="Visiting" 
                                     data-subtext="Default"
                                     selected
                                 >Visiting</option>
                             </optgroup>
-                            <optgroup label="BUSINESS">
+                            <optgroup label="Business">
                                 <option value="Customer">Customer</option>
                                 <option value="Employee">Employee</option>
                                 <option value="Meeting">Meeting</option>
                             </optgroup>
-                            <optgroup label="RESIDENTIAL">
+                            <optgroup label="Residential">
                                 <option value="Resident">Resident</option>
                             </optgroup>
-                            <optgroup label="OTHERS">
+                            <optgroup label="Others">
                                 <option value="Organizational Member">Organizational Member</option>
                                 <option value="Others">Others</option>
                             </optgroup>
@@ -59,17 +59,11 @@
                 </form>
 
                 <!-- QR Code Scanner -->
-                <div class="mt-4 mb-3 d-flex justify-content-center align-items-center">
+                <div class="my-5 mb-3 d-flex justify-content-center align-items-center">
                     <!-- <video id="QRCodeScanner"></video> -->
                     <div id="reader" width="600px"></div>
                 </div>
                 <p>Use this camera to scan QR Code of someone who are going to visit your establishment</p>
-            </div>
-            <div class="modal-footer">
-                <button 
-                    class="btn btn-secondary btn-block"
-                    data-dismiss="modal"
-                >Close</button>
             </div>
         </div>
     </div>

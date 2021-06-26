@@ -72,6 +72,11 @@ class Super_Admin extends CI_Controller {
         $this->load_views('Dashboard', [['dashboard']]);
     }
 
+    // Dashboard
+    public function registered_establishments() {
+        $this->load_views('Registered Establishements', [['registered_establishments']]);
+    }
+
     // Heatmap
     public function covid_cases() {
         $this->load_views('COVID-19 Cases', [['covid_cases']]);

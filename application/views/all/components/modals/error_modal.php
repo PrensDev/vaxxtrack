@@ -76,7 +76,7 @@
             <div class="modal-footer">   
                 <button 
                     class = "btn btn-danger btn-block" 
-                    id    = "logoutBtn"
+                    id    = "logoutBtnInErrorModal"
                 >Log out</button>
             </div>
         </div>

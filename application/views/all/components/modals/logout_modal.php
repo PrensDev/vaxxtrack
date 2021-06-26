@@ -24,11 +24,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to log out?</p>
+                <div class="d-flex">
+                    <div class="display-4 mr-3">
+                        <img 
+                            src="<?= base_url() ?>public/images/brand/warning.svg" 
+                            alt="Warning" 
+                            style="width: 8rem"
+                            draggable="false"
+                        >
+                    </div>
+                    <p>Are you sure you want to log out?</p>
+                </div>
             </div>
             <div class="modal-footer bg-muted border-0 py-1">
                 <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="logoutBtn">Log out</button>
+                <button type="button" class="btn btn-danger" id="logoutBtn">
+                    <span>Log out</span>
+                    <i class="fas fa-sign-out-alt ml-1"></i>
+                </button>
             </div>
         </div>
     </div>

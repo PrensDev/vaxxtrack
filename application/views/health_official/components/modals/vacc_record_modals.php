@@ -6,7 +6,7 @@
     aria-labelledby = "vaccCardModal" 
     aria-hidden     = "true"
 >
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="far fa-id-card modal-title-icon"></h5>
@@ -107,16 +107,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <button class="btn btn-blue">
-                            <span>Print this card</span>
-                            <i class="fas fa-print ml-1"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-muted" data-dismiss="modal">Close</button>
+                <button class="btn btn-blue">
+                    <span>Print this card</span>
+                    <i class="fas fa-print ml-1"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -158,12 +156,24 @@
                     <tr>
                         <th>Vaccine Used</th>
                         <td>
-                            <div>Pfizer-BioNTech</div>
+                            <div>(1<sup>st</sup> Dose) Pfizer-BioNTech</div>
                             <div class="small text-secondary">
                                 <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
                             </div>
                             <div class="small text-secondary">
                                 <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <div class="mb-2">
+                                <div>(2<sup>nd</sup> Dose) Pfizer-BioNTech</div>
+                                <div class="small text-secondary">
+                                    <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
+                                </div>
+                                <div class="small text-secondary">
+                                    <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -187,9 +197,6 @@
                         <td><span class="font-weight-normal text-muted font-italic">No remarks</span></td>
                     </tr>
                 </table>
-            </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-muted" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -274,7 +281,10 @@
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger">
+                    <span>Delete</span>
+                    <i class="fas fa-trash-alt ml-1"></i>
+                </button>
             </div>
         </div>
     </div>

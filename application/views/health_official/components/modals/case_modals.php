@@ -146,20 +146,20 @@
             <form id="changeApprovalStatusForm">
                 <div class="modal-body" id="QRCodeContainer">
                     <label>Select the new status of patient's health</label>
-                    <div class="custom-control custom-radio py-2">
+                    <label class="custom-control custom-radio py-2" for="asymptomatic">
                         <input type="radio" id="asymptomatic" name="approvalStatus" class="custom-control-input">
                         <label class="custom-control-label font-weight-semibold" for="asymptomatic">
                             <i class="fas fa-circle icon-container text-muted"></i>
                             <span>Asymptomatic</span>
                         </label>
-                    </div>
-                    <div class="custom-control custom-radio py-2">
+                    </label>
+                    <label class="custom-control custom-radio py-2">
                         <input type="radio" id="mild" name="approvalStatus" class="custom-control-input">
                         <label class="custom-control-label font-weight-semibold" for="mild">
                             <i class="fas fa-circle icon-container text-info"></i>
                             <span>Mild</span>
                         </label>
-                    </div>
+                    </label>
                     <div class="custom-control custom-radio py-2">
                         <input type="radio" id="severe" name="approvalStatus" class="custom-control-input">
                         <label class="custom-control-label font-weight-semibold" for="severe">

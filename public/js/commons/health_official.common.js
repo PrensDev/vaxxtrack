@@ -13,3 +13,15 @@
  * fully loaded
  * ===========================================================================
  */
+
+
+$('#resetCitizenFields').on('click', () => {
+    resetFields([
+        'firstName',
+        'middleName',
+        'lastName',
+        'suffixName',
+        'birthDate',
+        'sex'
+    ]);
+})

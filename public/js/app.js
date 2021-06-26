@@ -129,3 +129,8 @@ setInterval(() => {
 
 // Live check if connected to the api server
 c19ctavms_API.liveConnect(500);
+
+// Prevent images to right click
+$('img').bind('contextmenu', (e) => {
+    return false;
+});

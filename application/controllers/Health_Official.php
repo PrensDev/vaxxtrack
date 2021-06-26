@@ -113,6 +113,7 @@ class Health_Official extends CI_Controller {
     // Add Vaccination Record
     public function add_vacc_record() {
         $this->load_views('Add Vaccination Records', [
+            ['components/modals/add_vacc_record_modals'],
             ['add_vacc_record'],
         ]);
     }

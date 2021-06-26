@@ -138,6 +138,36 @@ const showAlert = (theme, message) => {
     setTimeout(() => $('#alert').alert('close'), 5000)
 }
 
+// Reset Fields
+const resetFields = (fieldIDs = []) => {
+    fieldIDs.forEach(id => {
+        const inputElement = $('#' + id);
+        
+        if(inputElement.hasClass('selectpicker')) {
+            inputElement.selectpicker('val', '')
+            inputElement.selectpicker('refresh');
+        } else {
+            inputElement.val(this.defaultValue);
+        }
+    });
+} 
+
+// Make Button Loading
+const makeBtnLoading = (id = '') => {
+    const btn = $('#' + id);
+
+    btn.attr("disabled", true);
+    btn.html(`
+        <span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>
+    `);
+}
+
+const makeBtnDefault = (id = '', content = '') => {
+    const btn = $('#' + id);
+    btn.html(content);
+    btn.removeAttr('disabled');
+}
+
 // Live render the data
 const liveRenderData = (handler) => {
     

@@ -136,6 +136,7 @@
                     <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-blue">
                         <span>Save</span>
+                        <i class="fas fa-check ml-1"></i>
                     </button>
                 </div>
             </form>

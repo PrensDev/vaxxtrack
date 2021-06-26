@@ -30,6 +30,8 @@ var errAlertBladeForLogin = (errMessage) => {
 
 // Login AJAX
 var loginAJAX = () => {
+
+    makeBtnLoading('loginBtn');
     
     // Get data from the form to rawData
     const rawData = new FormData($('#loginForm')[0]);
@@ -54,6 +56,12 @@ var loginAJAX = () => {
                 if (res.data == null) {
                     $('#password').val('');
                     $('#loginAlertContainer').html(errAlertBladeForLogin(res.message));
+                    makeBtnDefault('loginBtn', () => {
+                        return `
+                            <span>Log in</span>
+                            <i class="fas fa-sign-in-alt ml-1"></i>
+                        `
+                    });
                 } else {
 
                     // Get result data
