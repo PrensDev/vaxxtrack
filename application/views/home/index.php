@@ -19,7 +19,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque harum nostrum saepe, porro odit pariatur quia eveniet magni similique, assumenda quibusdam? Corporis, officia. Quia, odit magni ad quasi deserunt doloremque.</p>
                 
                 <a 
-                    href  = "<?= base_url() ?>register/citizen" 
+                    href  = "<?= base_url() ?>register/c" 
                     class = "btn btn-lg btn-blue my-1"
                 >Register Here, Citizen!</a>
                 <a 
@@ -52,7 +52,7 @@
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae aliquam totam omnis dolorem animi quo doloremque eveniet expedita impedit ratione.</p>
 
                 <a 
-                    href  = "<?php echo base_url() ?>register/representative" 
+                    href  = "<?php echo base_url() ?>register/r" 
                     class = "btn btn-danger my-1"
                 >Create an account</a>
 

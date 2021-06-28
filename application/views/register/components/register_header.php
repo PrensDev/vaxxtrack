@@ -1,6 +1,6 @@
 <?php $registrant = isset($registrant) ? $registrant : '[registrant]'; ?>
 
-<div class="min-vh-100 d-flex justify-content-center align-items-center">
+<div class="min-vh-100 d-flex justify-content-center align-items-center py-5">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
         <div class="my-3">
             <div class="text-center mb-5">

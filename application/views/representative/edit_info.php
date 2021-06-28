@@ -119,7 +119,10 @@
                         <button 
                             type  = "submit" 
                             class = "btn btn-blue"
-                        >Save</button>
+                        >
+                            <span>Save</span>
+                            <i class="fas fa-check ml-1"></i>
+                        </button>
                     </div>
                 </div>
             </form>

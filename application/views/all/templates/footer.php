@@ -16,6 +16,9 @@
 <!-- jQuery Validation -->
 <script src="<?= base_url() ?>node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
 
+<!-- PH Locations -->
+<script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
+
 
 <!-- 
 | =======================================================================================
@@ -66,11 +69,13 @@
 <script src="<?= base_url() ?>public/js/ajax/all/vaccination_status.ajax.js"></script>
 
 <!-- Common Scripts -->
+<?php if(isset($dir)): ?>
 <script src="<?= base_url() . 'public/js/commons/' . $dir . '.common.js' ?>"></script>
+<?php endif ?>
 
 <!-- AJAX Scripts -->
 <?php if(isset($AJAX_files) && $AJAX_files != []) foreach($AJAX_files as $file): ?>
-    <script src="<?= base_url() . 'public/js/ajax/' . $dir . '/' .  $file ?>.ajax.js"></script>
+<script src="<?= base_url() . 'public/js/ajax/' . $dir . '/' .  $file ?>.ajax.js"></script>
 <?php endforeach ?>
 
 </body>

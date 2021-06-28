@@ -5,7 +5,14 @@
         'subtitle' => 'Manage your overall activities using this dashboard'
     ]); ?>
 
-    <div id="alertContainer"></div>
+    <?php if($this->session->has_userdata('alert')): ?>
+        <div class="alert alert-<?= $this->session->alertTheme ?> alert-dismissible fade show mb-4" role="alert" id="alert">
+            <div><?= $this->session->alertMessage ?></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
 
     <!-- COVID-19 News -->
     <div class="bg-white bg-waves shadow p-4 p-sm-5 mb-4 rounded">

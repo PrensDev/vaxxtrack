@@ -20,6 +20,9 @@ $(() => {
     // Remove the preloader after the page was loaded
     $('body').removeClass('modal-open');
     $('#preloader').removeClass('d-flex').addClass('d-none');
+
+    // Live check if connected to the api server
+    c19ctavms_API.liveConnect(500);
 });
 
 
@@ -127,10 +130,72 @@ setInterval(() => {
     if(clockSession.html() != clockSessionVal) clockSession.html(clockSessionVal);
 }, 1);
 
-// Live check if connected to the api server
-c19ctavms_API.liveConnect(500);
 
 // Prevent images to right click
 $('img').bind('contextmenu', (e) => {
     return false;
 });
+
+
+// Fetch PH Locations to selectors
+fetchPHLocations = (selectors = {
+    regionsSelector:    'regionsDropdown',
+    provincesSelector:  'provincesDropdown',
+    citiesSelector:     'citiesDropdown',
+    baragaysSelector:   'barangaysDropdown'
+}) => {
+
+    // Get selectors
+    const regionsSelector   = $('#' + selectors.regionsSelector);
+    const provincesSelector = $('#' + selectors.provincesSelector);
+    const citiesSelector    = $('#' + selectors.citiesSelector);
+    const barangaysSelector = $('#' + selectors.baragaysSelector);
+
+    // Check if selectors are exists in DOM
+    if(regionsSelector.length && provincesSelector && citiesSelector && barangaysSelector) {
+        
+        // Initialize PH Locations
+        regionsSelector.ph_locations({'location_type': 'regions'});
+        provincesSelector.ph_locations({'location_type': 'provinces'});
+        citiesSelector.ph_locations({'location_type': 'cities'});
+        barangaysSelector.ph_locations({'location_type': 'barangays'});
+        
+        // Fetch provinces list
+        regionsSelector.ph_locations('fetch_list');
+        provincesSelector.ph_locations('fetch_list');
+        citiesSelector.ph_locations('fetch_list');
+        barangaysSelector.ph_locations('fetch_list');
+        
+        // When region selector is changed
+        regionsSelector.on('change', () => {
+            provincesSelector.ph_locations('fetch_list', [{
+                'region_code': regionsSelector.val()
+            }]);
+            citiesSelector.ph_locations('fetch_list', [{
+                'province_code': provincesSelector.val()
+            }]);
+            barangaysSelector.ph_locations('fetch_list', [{
+                'city_code': citiesSelector.val()
+            }]);
+        });
+        
+        // When province selector is changed
+        provincesSelector.on('change', () => {
+            citiesSelector.ph_locations('fetch_list', [{
+                'province_code': provincesSelector.val()
+            }]);
+            barangaysSelector.ph_locations('fetch_list', [{
+                'city_code': citiesSelector.val()
+            }]);
+        });
+        
+        // When cities selector is changed
+        citiesSelector.on('change', () => {
+            barangaysSelector.ph_locations('fetch_list', [{
+                'city_code': citiesSelector.val()
+            }]);
+        });
+    }
+}
+
+hideAlert();

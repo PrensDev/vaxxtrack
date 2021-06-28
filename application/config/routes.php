@@ -65,6 +65,13 @@ $route['data-privacy']         = 'home/data_privacy';
 $route['about-us']             = 'home/about_us';
 $route['terms-and-conditions'] = 'home/terms_and_conditions';
 $route['login']                = 'home/login';
+$route['alert']              = 'home/alert';
+
+
+// Registration Routes
+$route['register']          = 'register';
+$route['register/c']  = 'register/citizen';
+$route['register/r']  = 'register/representative';
 
 // Authorized Routes
 $route['forgot-password'] = 'auth/forgot_password';

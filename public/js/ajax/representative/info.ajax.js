@@ -96,7 +96,18 @@ updateInfoAJAX = () => {
         url: 'representative/info',
         type: 'PUT',
         data: data,
-        success: () => getInfoAJAX(),
+        success: () => {
+            getInfoAJAX()
+            $.ajax({
+                url: `${ BASE_URL_MAIN }alert`,
+                type: 'POST',
+                data: {
+                    theme: 'success',
+                    message: 'Success! Your information has been updated'
+                },
+                success: () => location.replace(`${ BASE_URL_MAIN }r`)
+            });
+        }
     });
 }
 
@@ -119,8 +130,5 @@ $('#editRepInfoForm').validate(validateOptions({
             required: 'Your last name is required'
         },
     },
-    submitHandler: () => {
-        updateInfoAJAX();
-        showAlert('success', 'Your information has been successfully updated');
-    }
+    submitHandler: () => updateInfoAJAX()
 }));

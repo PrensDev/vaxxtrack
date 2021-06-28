@@ -70,6 +70,9 @@
     <!-- Heatmap JS with Leaflet Plugin -->
     <script src="<?= base_url() ?>node_modules/heatmap.js/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 
+    <!-- PH Locations -->
+    <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
+
     <!-- 
     | =======================================================================================
     | CUSTOM-DEFINED SCRIPTS

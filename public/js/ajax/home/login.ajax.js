@@ -16,7 +16,7 @@
 // Error Alert Blade For Login
 var errAlertBladeForLogin = (errMessage) => {
     return `
-        <div class="alert alert-danger alert-dismissible fade show font-weight-semibold" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show font-weight-semibold" role="alert" id="alert">
             <span>
                 <i class="bi-exclamation-octagon mr-1 text-danger"></i>
                 <span>${ errMessage }</span>
@@ -56,6 +56,7 @@ var loginAJAX = () => {
                 if (res.data == null) {
                     $('#password').val('');
                     $('#loginAlertContainer').html(errAlertBladeForLogin(res.message));
+                    hideAlert();
                     makeBtnDefault('loginBtn', () => {
                         return `
                             <span>Log in</span>

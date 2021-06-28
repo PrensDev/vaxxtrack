@@ -151,9 +151,9 @@
 /* Table Customization */
 .thead {
     font-size: 11px;
-    color: text-secondary;
+    color: $theme-dark;
     text-transform: uppercase;
-    font-weigth: 500;
+    font-weight: 500;
     background: $theme-muted;
     border: 0;
 
@@ -171,10 +171,12 @@
 /* Font customization */
 .font-weight-semibold,
 .tooltip, 
+.alert,
 .form-control,
 .dropdown-item,
 .dropdown-icon-item,
-.page-link {
+.page-link,
+.custom-select {
     font-weight: 600;
 }
 
@@ -301,6 +303,7 @@
     align-items: center;
 }
 
-.custom-control-label {
+.custom-control-label,
+input[type=date] {
     cursor: pointer !important;
 }

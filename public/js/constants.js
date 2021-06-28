@@ -138,6 +138,12 @@ const showAlert = (theme, message) => {
     setTimeout(() => $('#alert').alert('close'), 5000)
 }
 
+// Hide alert
+const hideAlert = (id = 'alert', timeout = 5000) => {
+    const alert = $('#' + id);
+    if(alert.length) setTimeout(() => alert.alert('close'), timeout);
+} 
+
 // Reset Fields
 const resetFields = (fieldIDs = []) => {
     fieldIDs.forEach(id => {
