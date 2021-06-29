@@ -22,31 +22,31 @@
                         <!-- Patient Full Name -->
                         <div class="row mb-2">
                             <div class="col-5">
-                                <span>Dela Cruz,</span>
+                                <span id="patientLastName">Dela Cruz,</span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">Last Name</span>
                             </div>
                             <div class="col-6">
-                                <span>Juan</span>
+                                <span id="patientFirstName">Juan</span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">First Name</span>
                             </div>
                             <div class="col-1">
                                 <span>S.</span>
                                 <hr class="my-0">
-                                <span class="font-weight-semibold small">MI</span>
+                                <span class="font-weight-semibold small" id="patientMiddleInitial">MI</span>
                             </div>
                         </div>
 
                         <!-- Patient Details -->
                         <div class="row mb-2">
                             <div class="col-6">
-                                <span>July 12, 1998,</span>
+                                <span id="patientBirthDate">July 12, 1998,</span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">Date of Birth</span>
                             </div>
                             <div class="col-6">
-                                <span>ABC-00001-BSIT</span>
+                                <span id="patientNumber">ABC-00001-BSIT</span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">Patient Number</span>
                             </div>
@@ -60,7 +60,7 @@
                                 <th>Date</th>
                                 <th>Health Care Professional/Clinic Site</th>
                             </thead>
-                            <tbody>
+                            <tbody id="vaccCardDataRows">
                                 <tr>
                                     <td>1<sup>st</sup> Dose</td>
                                     <td><i class="text-muted font-weight-normal">No data yet</i></td>

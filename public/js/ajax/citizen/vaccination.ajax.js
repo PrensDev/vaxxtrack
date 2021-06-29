@@ -10,6 +10,7 @@
 
 $(() => {
     getAllVaccinesAJAX();
+    viewVaccCard();
 });
 
 /**
@@ -36,5 +37,93 @@ getAllVaccinesAJAX = () => {
     })
     .fail(() => {
         console.log('There was an error in retrieving vaccine records');
+    })
+}
+
+
+
+//Vaccination Record
+
+viewVaccCard = () => {
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }vaccination-records`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            if(result) {
+
+                // Get data from result
+                const data = result.data;
+
+                console.log(data);
+                
+                // Get vaccination records of citizen
+                const vaccRecords = data.vaccination_records;
+
+                $('#patientLastName').html(data.last_name);
+                $('#patientFirstName').html(data.first_name);
+                $('#patientMiddleInitial').html(`${data.middle_name[0]}.`);
+                $('#patientBirthDate').html(moment(data.birth_date).format('MMMM D, YYYY'));
+                $('#patientNumber').html(data.user_ID);
+
+                var rows = '';
+
+                // Get all records (max of 4)
+                for(var i = 0; i < 4; i++) {
+
+                    // Get each record
+                    const r = vaccRecords[i];
+
+                    if(i == 0) {
+                        col1 = `1<sup>st</sup> Dose`;
+                    } else if(i == 1) {
+                        col1 = `2<sup>nd</sup> Dose`;
+                    } else {
+                        col1 = `Other`
+                    }
+
+                    if(r != null) {
+                        col2 = `
+                            <div>${r.vaccine_used.product_name}</div>
+                            <div class="small text-secondary">${r.vaccine_used.manufacturer}</div>
+                        `;
+                        col3 = moment(r.vaccination_date).format('MMM. DD, YYYY');
+                        
+                        vaccinationSite = 
+                            (r.vaccininated_in == null || r.vaccininated_in == '') 
+                                ? 'Unknown vaccination site' 
+                                : r.vaccininated_in;
+
+                        col4 = `
+                            <div>${r.vaccinated_by}</div>
+                            <div class="small text-secondary">${vaccinationSite}</div>
+                        `;
+                    } else {
+                        col2 = `<i class="text-muted font-weight-normal">No data yet</i>`;
+                        col3 = `<i class="text-muted font-weight-normal">--:--:----</i>`
+                        col4 = `<i class="text-muted font-weight-normal">No data yet</i>`;
+                    }
+
+                    rows += `
+                        <tr>
+                            <td>${ col1 }</td>
+                            <td>${ col2 }</td>
+                            <td>${ col3 }</td>
+                            <td>${ col4 }</td>
+                        <tr>
+                    `
+                }
+
+                $('#vaccCardDataRows').html(rows);
+
+                // Show citizen vaccination card
+                //$('#vaccCardModal').modal('show');
+            } else {
+                console.log('No result was found');
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error in getting a vaccination record')
     })
 }
