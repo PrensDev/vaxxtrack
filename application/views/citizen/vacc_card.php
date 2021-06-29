@@ -22,31 +22,31 @@
                         <!-- Patient Full Name -->
                         <div class="row mb-2">
                             <div class="col-5">
-                                <span id="patientLastName">Dela Cruz,</span>
+                                <span id="citizenLastName"></span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">Last Name</span>
                             </div>
                             <div class="col-6">
-                                <span id="patientFirstName">Juan</span>
+                                <span id="citizenFirstName">Juan</span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">First Name</span>
                             </div>
                             <div class="col-1">
-                                <span>S.</span>
+                                <span id="citizenMiddleInitial">S.</span>
                                 <hr class="my-0">
-                                <span class="font-weight-semibold small" id="patientMiddleInitial">MI</span>
+                                <span class="font-weight-semibold small">MI</span>
                             </div>
                         </div>
 
                         <!-- Patient Details -->
                         <div class="row mb-2">
                             <div class="col-6">
-                                <span id="patientBirthDate">July 12, 1998,</span>
+                                <span id="citizenBirthDate">July 12, 1998,</span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">Date of Birth</span>
                             </div>
                             <div class="col-6">
-                                <span id="patientNumber">ABC-00001-BSIT</span>
+                                <span id="citizenNumber">ABC-00001-BSIT</span>
                                 <hr class="my-0">
                                 <span class="font-weight-semibold small">Patient Number</span>
                             </div>

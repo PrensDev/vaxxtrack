@@ -51,20 +51,20 @@ viewVaccCard = () => {
         headers: AJAX_HEADERS,
         success: (result) => {
             if(result) {
-
+                
                 // Get data from result
-                const data = result.data;
+                const data = result.data[0];
 
                 console.log(data);
                 
                 // Get vaccination records of citizen
                 const vaccRecords = data.vaccination_records;
-
-                $('#patientLastName').html(data.last_name);
-                $('#patientFirstName').html(data.first_name);
-                $('#patientMiddleInitial').html(`${data.middle_name[0]}.`);
-                $('#patientBirthDate').html(moment(data.birth_date).format('MMMM D, YYYY'));
-                $('#patientNumber').html(data.user_ID);
+                console.log(result.data[0].user_ID);
+                $('#citizenLastName').html(data.last_name);
+                $('#citizenFirstName').html(data.first_name);
+                $('#citizenMiddleInitial').html(`${data.middle_name[0]}.`);
+                $('#citizenBirthDate').html(moment(data.birth_date).format('MMMM D, YYYY'));
+                $('#citizenNumber').html(data.user_ID);
 
                 var rows = '';
 
