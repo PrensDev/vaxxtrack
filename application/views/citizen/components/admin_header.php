@@ -34,7 +34,7 @@
                             </div>
                             <span>Scan QR Code</span>
                         </div>
-                        <a class="nav-link" href="<?= base_url() ?>c" draggable="false">
+                        <a class="nav-link" href="<?= base_url() ?>c/health-status" draggable="false">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-briefcase-medical icon-container"></i>
                             </div>

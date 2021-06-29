@@ -14,7 +14,7 @@
  * ====================================================================
  */
 
- $(() => {
+$(() => {
     getInfoAJAX();
 });
 
@@ -75,4 +75,48 @@ getInfoAJAX = () => {
  * Send PUT request for updating user information
  * ====================================================================
  */
-// TODO: Please insert the update information method here
+
+updateInfoAJAX = () => {
+    const form = new FormData($('#editAdminInfoForm')[0]);
+
+    data = {
+        first_name: form.get('firstName'),
+        middle_name: form.get('middleName'),
+        last_name: form.get('lastName'),
+    }
+
+    $.ajax({
+        url: `${ BASE_URL_API }super-admin/info`,
+        type: 'PUT',
+        data: data,
+        dataType: 'json',
+        headers: AJAX_HEADERS,
+        success: () => {
+            alert('Your information has been updated');
+            getInfoAJAX()
+        }
+    })
+    .fail(() => {
+        console.log('There was an error in updating infomation')
+    });
+}
+
+$('#editAdminInfoForm').validate(validateOptions({
+    rules: {
+        firstName: {
+            required: true
+        },
+        lastName: {
+            required: true
+        }
+    },
+    messages: {
+        firstName: {
+            required: 'First name is required'
+        },
+        lastName: {
+            required: 'Last name is required'
+        }
+    },
+    submitHandler: () => updateInfoAJAX()
+}));

@@ -135,7 +135,7 @@ const showAlert = (theme, message) => {
         </div>
     `);
 
-    setTimeout(() => $('#alert').alert('close'), 5000)
+    setTimeout(() => $('#alert').alert('close'), 5000);
 }
 
 // Hide alert
@@ -168,10 +168,46 @@ const makeBtnLoading = (id = '') => {
     `);
 }
 
+// Make Button Set its default value
 const makeBtnDefault = (id = '', content = '') => {
     const btn = $('#' + id);
     btn.html(content);
     btn.removeAttr('disabled');
+}
+
+// Set Form Values
+const setFormValues = (formElement = '', formFieldNamesAndValues = []) => {
+
+    // Get the form
+    const form = $(formElement);
+    
+    // Check if form exists
+    if(form.length) {
+
+        // Set the values for each fields by name
+        formFieldNamesAndValues.forEach(el => {
+                        
+            // Get the name value for name attribute
+            const name = `[name="${ el.name }"]`;
+    
+            // Get the value for input fields
+            const value  = el.value;
+            
+            // If element is an input
+            if($(`input${ name }`).length) {
+                $(`input${ name }`).val(value);
+            }
+    
+            // If element is an textarea
+            if($(`textarea${ name }`).length) {
+                $(`textarea${ name }`).html(value)
+            }
+        });
+    }
+
+    // Reset the form
+    const vForm = form.validate();
+    vForm.resetForm();
 }
 
 // Live render the data

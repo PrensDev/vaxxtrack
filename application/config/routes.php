@@ -84,6 +84,7 @@ $route['c']                                 = 'citizen/profile';
 $route['c/profile']                         = 'citizen/profile';
 $route['c/edit-info']                       = 'citizen/edit_info';
 $route['c/account-settings']                = 'citizen/account_settings';
+$route['c/health-status']                   = 'citizen/health_status';
 $route['c/visiting-logbook']                = 'citizen/visiting_logbook';
 $route['c/vaccination-card']                = 'citizen/vaccination_card';
 $route['c/vaccination-appointments']        = 'citizen/vaccination_appointments';

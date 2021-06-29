@@ -22,6 +22,7 @@ class Citizen extends CI_Controller {
     // AJAX Scripts
     private Array $AJAX_files = [
         'info',
+        'vaccination'
     ];
 
     // Load Views Method
@@ -82,7 +83,14 @@ class Citizen extends CI_Controller {
         $this->load_views('Account Settings', [['account_settings']]);
     }
 
-    // Vaccination Logbook
+    // Health Status Logbook
+    public function health_status() {
+        $this->load_views('Health Status Logbook', [
+            ['health_status']
+        ]);
+    }
+
+    // Visiting Logbook
     public function visiting_logbook() {
         $this->load_views('Visiting Logbook', [
             ['components/modals/visiting_log_modals'],
@@ -98,14 +106,17 @@ class Citizen extends CI_Controller {
     // Vaccination Appointment 
     public function vaccination_appointments() {
         $this->load_views('Vaccination Appointments', [
-            ['components/modals/appointments_modals.php'],
+            ['components/modals/create_appointment_modals.php'],
             ['vacc_appointments']
         ]);
     }
 
     // Create Appointment
     public function create_appointment() {
-        $this->load_views('Create Appointment for Vaccination', [['create_appointment']]);
+        $this->load_views('Create Appointment for Vaccination', [
+            ['components/modals/create_appointment_modals'],
+            ['create_appointment'],
+        ]);
     }
 
     // Availbale Vaccines

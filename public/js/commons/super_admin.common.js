@@ -14,18 +14,18 @@
  * ===========================================================================
  */
 
-initDataTables([
+// initDataTables([
 
-    // COVID-19 Cases
-    'covidCasesDT',
+//     // COVID-19 Cases
+//     'covidCasesDT',
 
-    // User Management
-    'citizensDT',
-    'representativesDT',
-    'healthOfficialsDT',
-    'superAdminsDT',
+//     // User Management
+//     'citizensDT',
+//     'representativesDT',
+//     'healthOfficialsDT',
+//     'superAdminsDT',
 
-    // Vaccination Management
-    'vaccAppointmentsDT',
-    'vaccRecordsDT',
-]);
+//     // Vaccination Management
+//     'vaccAppointmentsDT',
+//     'vaccRecordsDT',
+// ]);

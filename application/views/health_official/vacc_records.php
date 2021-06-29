@@ -28,7 +28,7 @@
             <!-- Vaccination Records Table -->
             <div class="table-responsive">
                 <table 
-                    class       = "table" 
+                    class       = "table border-bottom" 
                     id          = "vaccinationRecordsDT" 
                     width       = "100%" 
                     cellspacing = "0"

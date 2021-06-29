@@ -9,7 +9,7 @@
     <div>
         <div class="flex-center mb-3">
             <div class="overflow-auto">
-                <div class="card" id="vaccinationCard" style="min-width: 750px; max-width: 750px;">
+                <div class="card border" id="vaccinationCard" style="min-width: 750px; max-width: 750px;">
                     <div class="card-body">
 
                         <!-- Vaccination Card Header -->

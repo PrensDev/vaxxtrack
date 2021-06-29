@@ -25,6 +25,7 @@ $(() => {
  * Send GET request for user information
  * ====================================================================
  */
+
 getInfoAJAX = () => {
     $.ajax({
         url: `${ HEALTH_OFFICIAL_API_ROUTE }info`,
@@ -68,3 +69,58 @@ getInfoAJAX = () => {
     })
     .fail(() => showConnErrModal('Cannot connect to the server'));
 }
+
+
+/**
+ * ====================================================================
+ * UPDATE INFORMATION
+ * Send PUT request for updating user information
+ * ====================================================================
+ */
+
+// Update Info AJAX
+updateInfoAJAX = () => {
+    const form = new FormData($('#editHealthOfficialInfoForm')[0]);
+
+    const data = {
+        first_name: form.get('firstName'),
+        middle_name: form.get('middleName'),
+        last_name: form.get('lastName'),
+    }
+
+    $.ajax({
+        url: `${ BASE_URL_API }health-official/update-info`,
+        type: 'PUT',
+        data: data,
+        dataType: 'json',
+        headers: AJAX_HEADERS,
+        success: () => {
+            alert('Your information has been updated');
+            getInfoAJAX();
+        }
+    })
+    .fail(() => {
+        console.log('There was an error in updating information')
+    })
+}
+
+// Validate Health Official Form
+$('#editHealthOfficialInfoForm').validate(validateOptions({
+    rules: {
+        firstName: {
+            required: true
+        },
+        lastName: {
+            required: true
+        },
+    },
+    messages: {
+        firstName: {
+            required: 'First name is required'
+        },
+        lastName: {
+            required: 'Last name is required'
+        },
+    },
+    submitHandler: () => updateInfoAJAX()
+}))

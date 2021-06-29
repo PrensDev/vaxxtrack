@@ -38,3 +38,17 @@ function getUsersCount() {
         }
     })
 }
+
+getAllCitizensAJAX();
+
+// Get All Citizens AJAX
+function getAllCitizensAJAX() {
+    $.ajax({
+        url: `${ SUPER_ADMIN_API_ROUTE }users/citizens`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            console.log(result);
+        }
+    });
+}

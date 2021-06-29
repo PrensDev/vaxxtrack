@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="dataTable">
+                <table class="table" id="visitingLogsDT">
                     <thead class="thead">
                         <th>Establishment</th>
                         <th>Location</th>
@@ -27,7 +27,6 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <?php for($i=0;$i<20;$i++) { ?>
                         <tr>
                             <td>ABC Company</td>
                             <td>Commonwaelth, Quezon City</td>
@@ -62,7 +61,6 @@
                                 </span>
                             </td>
                         </tr>
-                        <?php } ?>
                     </tbody>
                 </table>
             </div>

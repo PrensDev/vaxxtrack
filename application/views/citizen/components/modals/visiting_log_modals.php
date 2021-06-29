@@ -3,8 +3,6 @@
     class           = "modal fade" 
     id              = "visitingLogDetailsModal"
     tabindex        = "-1"
-    aria-labelledby = "visitingLogDetailsModal" 
-    aria-hidden     = "true"
 >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">

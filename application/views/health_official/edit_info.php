@@ -7,7 +7,7 @@
     </div>
     
     <!-- Edit Representative Form -->
-    <form id="editRepInfoForm">
+    <form id="editHealthOfficialInfoForm">
  
         <!-- General Information -->
         <div class="d-flex justify-content-center">
@@ -44,7 +44,7 @@
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
-                                    id          = "firstNameInput" 
+                                    id          = "firstName" 
                                     name        = "firstName"
                                     placeholder = "e.g. Juan"
                                 >
@@ -66,7 +66,7 @@
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
-                                    id          = "middleNameInput" 
+                                    id          = "middleName" 
                                     name        = "middleName"
                                     placeholder = "e.g. Simon"
                                 >
@@ -78,7 +78,7 @@
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
-                                    id          = "lastNameInput" 
+                                    id          = "lastName" 
                                     name        = "lastName"
                                     placeholder = "e.g. Dela Cruz"
                                 >

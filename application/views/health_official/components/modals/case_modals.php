@@ -203,13 +203,11 @@
 
 <!-- Case Details Modal -->
 <div 
-    class           = "modal" 
-    id              = "caseDetailsModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "caseDetailsModal" 
-    aria-hidden     = "true"
+    class     = "modal" 
+    id        = "viewCaseDetailsModal" 
+    tabindex  = "-1" 
 >
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="fas fa-file-medical modal-title-icon"></h5>
@@ -229,13 +227,13 @@
                 <table class="table">
                     <tr>
                         <th>Case Code</th>
-                        <td>CASE-00001</td>
+                        <td id="caseCode">CASE-00001</td>
                     </tr>
                     <tr>
                         <th>Patient Name</th>
                         <td>
-                            <div>Alejandro S. Matuta</div>
-                            <div class="text-secondary small">
+                            <div id="patientFullName">Alejandro S. Matuta</div>
+                            <div class="text-secondary small" id="patientInfo">
                                 <i class="fas fa-mars"></i>
                                 <span>Male, 21 years old. (Feb. 23, 1998)</span>
                             </div>
@@ -245,39 +243,42 @@
                     <tr>
                         <th>Patient Address</th>
                         <td>
-                            <div>NATIONAL CAPITAL REGION</div>
-                            <div>NCR, 3<sup>rd</sup> (THIRD) DISTRICT</div>
-                            <div>CITY OF CALOOCAN</div>
-                            <div>Damong Maliit Street</div>
-                            <div>Blk. 1 Lot 2, Sunrise Village</div>
-                            <div>1124</div>
+                            <div id="region">NATIONAL CAPITAL REGION</div>
+                            <div id="province">NCR, 3<sup>rd</sup> (THIRD) DISTRICT</div>
+                            <div id="cityMunicipality">CITY OF CALOOCAN</div>
+                            <div id="barangayDistrict">Damong Maliit Street</div>
+                            <div id="street">Damong Maliit Street</div>
+                            <div id="specificLocation">Blk. 1 Lot 2, Sunrise Village</div>
+                            <div id="zipCode">1124</div>
                         </td>
                     </tr>
                     <tr>
                         <th>Date Confirmed</th>
-                        <td>
+                        <td id="dateConfirmed">
                             <div>Tuesday, January 1, 2021</div>    
                             <div class="text-secondary small">2 weeks ago</div>    
                         </td>
                     </tr>
                     <tr>
                         <th>Admmitted</th>
-                        <td>Yes</td>
+                        <td id="admitted">Yes</td>
                     </tr>
                     <tr>
                         <th>Current Health Status</th>
-                        <td><div class="badge alert-success text-success p-2">Recovered</div></td>
+                        <td id="currentHealthStatus">
+                            <div class="badge alert-success text-success p-2">Recovered</div>
+                        </td>
                     </tr>
                     <tr>
                         <th>Date Added</th>
-                        <td>
+                        <td id="dateAdded">
                             <div>Tuesday, January 3, 2021</div>    
                             <div class="text-secondary small">2 weeks ago</div>    
                         </td>
                     </tr>
                     <tr>
                         <th>Last Updated</th>
-                        <td>
+                        <td id="lastUpdated">
                             <div>Tuesday, January 3, 2021</div>    
                             <div class="text-secondary small">2 weeks ago</div>    
                         </td>
@@ -285,11 +286,11 @@
                 </table>
             </div>
             <div class="modal-footer border-0">
-                <button type="button" class="btn btn-muted" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-blue">
-                    <i class="fas fa-edit mr-1"></i>
-                    <span>Edit</span>
-                </button>
+                <button 
+                    type="button"
+                    class="btn btn-muted" 
+                    data-dismiss="modal"
+                >Close</button>
             </div>
         </div>
     </div>

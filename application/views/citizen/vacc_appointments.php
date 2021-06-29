@@ -15,12 +15,17 @@
         </div>
         <div class="card-body">
 
-            <!-- Vaccination Appointments Controls -->
+            <!-- User Actions -->
             <div class="form-group text-center">
-                <a href="<?= base_url() ?>c/create-appointment" class="btn btn-primary btn-sm">
+                <button 
+                    class="btn btn-primary btn-sm" 
+                    type="button"
+                    data-toggle="modal" 
+                    data-target="#createAppointmentModal"
+                >
                     <i class="fas fa-plus mr-1"></i>
                     <span>Create new appointment</span>
-                </a>
+                </button>
             </div>
 
             <!-- Vaccination Appointments DataTable -->

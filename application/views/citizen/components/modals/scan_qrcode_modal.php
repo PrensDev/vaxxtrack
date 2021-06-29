@@ -7,6 +7,7 @@
 >
     <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title-icon fas fa-camera"></h5>
                 <h5 class="modal-title">Scan</h5>
@@ -21,6 +22,7 @@
                     </span>
                 </button>
             </div>
+
             <div class="modal-body">
 
                 <!-- Visiting Purpose Field -->
@@ -66,6 +68,8 @@
                 </div>
                 <p>Use this camera to scan QR Code of someone who are going to visit your establishment</p>
             </div>
+
+            <div class="modal-footer p-3 bg-white"></div>
         </div>
     </div>
 </div>

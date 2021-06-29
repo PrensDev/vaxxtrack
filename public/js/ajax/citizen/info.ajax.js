@@ -16,7 +16,6 @@
 
 $(() => {
     getInfoAJAX();
-    getUserTokenDataAJAX();
 });
 
 
@@ -26,6 +25,7 @@ $(() => {
  * Send GET request for user information
  * ====================================================================
  */
+
 getInfoAJAX = () => {
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }info`,
@@ -74,21 +74,28 @@ getInfoAJAX = () => {
 }
 
 
-getUserTokenDataAJAX = () => {
-    $.ajax({
-        url: `${ BASE_URL_API }citizen`,
-        type: 'GET',
-        headers: AJAX_HEADERS,
-        success: (result) => {
-            console.log(result.token_data)
-        }
-    })
-}
-
 /**
  * ====================================================================
- * UPDATE INFORMATION
- * Send PUT request for updating user information
+ * * UPDATE INFORMATION
  * ====================================================================
  */
-// TODO: Please insert the update information method here
+
+$('#editRepInfoForm').validate(validateOptions({
+    rules: {
+        firstName: {
+            required: true
+        },
+        lastName: {
+            required: true
+        }
+    },
+    messages: {
+        firstName: {
+            required: 'First name is required'
+        },
+        lastName: {
+            required: 'Last name is required'
+        }
+    },
+    submitHandler: () => alert('Form is submitted')
+}))

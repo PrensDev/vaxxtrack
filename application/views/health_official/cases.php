@@ -33,7 +33,7 @@
             <!-- Cases Table -->
             <div class="table-responsive">
                 <table 
-                    class       = "table" 
+                    class       = "table border-bottom" 
                     id          = "COVID19CasesDT" 
                     width       = "100%" 
                     cellspacing = "0"

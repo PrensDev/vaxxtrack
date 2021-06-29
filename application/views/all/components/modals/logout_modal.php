@@ -4,8 +4,6 @@
     id              = "logoutModal" 
     tabindex        = "-1" 
     data-backdrop   = "static"
-    aria-labelledby = "exampleModalLabel" 
-    aria-hidden     = "true"
 >
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

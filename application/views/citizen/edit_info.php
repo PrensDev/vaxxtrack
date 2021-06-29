@@ -69,7 +69,7 @@
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
-                                    id          = "middleNameInput" 
+                                    id          = "middleName" 
                                     name        = "middleName"
                                     placeholder = "e.g. Simon"
                                 >
@@ -81,7 +81,7 @@
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
-                                    id          = "lastNameInput" 
+                                    id          = "lastName" 
                                     name        = "lastName"
                                     placeholder = "e.g. Dela Cruz"
                                 >
@@ -299,14 +299,17 @@
         <!-- User Controls -->
         <div class="form-group text-center">
             <button 
-                type  = "submit" 
-                class = "btn btn-blue"
-            >Save</button>
-            <button 
                 type    = "button" 
                 class   = "btn btn-muted"
                 onclick = "history.back()"
             >Cancel</button>
+            <button 
+                type  = "submit" 
+                class = "btn btn-blue"
+            >
+                <span>Save</span>
+                <i class="fas fa-check ml-1"></i>
+            </button>
         </div>
     </form>
 </div>

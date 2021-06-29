@@ -34,9 +34,9 @@ loadCOVID19CasesDT = () => {
                 url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases`,
                 type: 'GET',
                 headers: AJAX_HEADERS,
-                error: err => {
-                    console.log(err);
-                }
+                // success: result => {
+                //     console.log(result.data);
+                // }
             },
             columns: [
 
@@ -127,10 +127,9 @@ loadCOVID19CasesDT = () => {
                                 
                                 <div class="dropdown-menu dropdown-menu-right border-0">
                                     <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#caseDetailsModal"
+                                        class   = "dropdown-item" 
+                                        role    = "button"
+                                        onclick = "viewCaseDetails('${ data.case_ID }')"
                                     >
                                         <i class="fas fa-list icon-container"></i>
                                         <span>View case details</span>
@@ -163,7 +162,79 @@ loadCOVID19CasesDT = () => {
                         `;
                     }
                 }
-            ]
+            ],
+            columnDefs: [{
+                'targets': [5],
+                'orderable': false,
+            }]
         });
     }
+}
+
+viewCaseDetails = (case_ID) => {
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases/${ case_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+
+                // Get data from result
+                const data = result.data;
+
+                console.log(data);
+
+                // Set data
+                $('#caseCode').html(data.case_code);
+                
+                const middle_name = 
+                    (data.patient.middle_name == null || data.patient.middle_name === '') ? '' : ' ' + data.patient.middle_name
+                
+                const patientFullName = 
+                    `${data.patient.last_name}, ${data.patient.first_name}${middle_name}`
+
+                $('#patientFullName').html(patientFullName);
+
+                const patientInfo = () => {
+                    
+                    if(data.patient.sex === "Male") {
+                        sexIcon = 'mars';
+                    } else if(data.patient.sex === "Female") {
+                        sexIcon = 'venus';
+                    }
+
+                    return `
+                        <i class="fas fa-${ sexIcon }"></i>
+                        <span>${data.patient.sex}, 21 years old. (${ data.patient.birth_date })</span>
+                    `
+                }
+
+                $('#patientInfo').html(patientInfo())
+
+                const currentHealthStatus = () => {
+                    const chs = data.current_health_status;
+
+                    if(chs === "Asymptomatic") {
+                        return `
+                            <div class="badge alert-secondary text-secondary p-2">${ chs }</div>
+                        `
+                    } else if(chs === "Severe") {
+                        return `
+                            <div class="badge alert-warning text-warning p-2">${ chs }</div>
+                        `
+                    }
+                }
+
+                $('#currentHealthStatus').html(currentHealthStatus())
+                
+                // Show modal
+                $('#viewCaseDetailsModal').modal('show');
+            } else {
+                console.log('No result was found')
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error in your request')
+    })
 }

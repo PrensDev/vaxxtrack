@@ -32,10 +32,6 @@ $(() => {
  * ===============================================================
  */
 
-// Initialize DataTable
-// Check first 
-if($('#dataTable').length) $('#dataTable').DataTable();
-
 // Enable all tooltips and popover
 $('[data-toggle="tooltip"]').tooltip();
 $('[data-toggle="popover"]').popover();
