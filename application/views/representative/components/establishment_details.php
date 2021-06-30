@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="d-flex flex-column flex-sm-row justify-content-between">
+                <div class="d-flex flex-column flex-sm-row">
 
                     <!-- QR Code for Entry -->
                     <div class="flex-center align-items-sm-start mb-3 mb-sm-0 mr-sm-4">
@@ -90,10 +90,13 @@
                     </div>
 
                     <!-- Establishment and Representative Details -->
-                    <div class="text-center text-sm-left">
+                    <div class="text-center text-sm-left flex-grow-1">
                         
                         <!-- Establihsment Name -->
-                        <h2 class="text-uppercase font-weight-normal text-uppercase mb-3">ABC COMPANY</h2>
+                        <h2 
+                            class="text-uppercase font-weight-normal text-uppercase mb-3"
+                            id="establishmentName"
+                        >ABC COMPANY</h2>
                         
                         <!-- Bagde of Details -->
                         <div class="font-weight-bold text-secondary text-uppercase mb-3">
@@ -104,7 +107,7 @@
                                 title           = "Establishment Type"
                             >
                                 <i class="fas fa-building mr-1"></i>
-                                <span>Organizational</span>
+                                <span id="establishmentType">Organizational</span>
                             </span>
                             <span
                                 class           = "badge alert-blue text-blue p-2 mb-1"
@@ -137,9 +140,7 @@
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                             </div>
-                            <div>
-                                <span>Don Fabian Street, Brgy. Commonwealth, CITY OF QUEZON, Metro Manila, NCR</span>
-                            </div>
+                            <div id="establishmentLocation"></div>
                         </div>
                     </div>
 
@@ -171,3 +172,66 @@
     </div>
 
 </div>
+
+<script>
+    const establishment_ID = location.pathname.split('/')[4];
+
+    $.ajax({
+        url: `${ REPRESENTATIVE_API_ROUTE }establishments/${ establishment_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            if(result) {
+                const data = result.data;
+
+                console.log(data);
+
+                // Generate Establishment QR Code
+                generateEstablishmentQRCode = (establihsment_id) => {
+
+                    // Check first if element with ID is existed
+                    // This is done because there is always error returned from QRCode function 
+                    if($('#establishmentQRCode').length !== 0) {
+                        
+                        // Set Establishment QC Code 
+                        const establishmentQRCode = new QRCode('establishmentQRCode', {
+                            text: "sample-text",
+                            width: 125,
+                            height: 125,
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                        establishmentQRCode.makeCode(establihsment_id);
+                    }
+
+                    // Check first if element with ID is existed
+                    // This is done because there is always error returned from QRCode function
+                    if($('#establishmentQRCodeInModal').length !== 0) {
+
+                        // Set Establishment QR Code in Modal
+                        const establishmentQRCodeInModal = new QRCode('establishmentQRCodeInModal', {
+                            text: "sample-text",
+                            width: 300,
+                            height: 300,
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                        establishmentQRCodeInModal.makeCode(establihsment_id);
+                    }
+                }
+                
+                generateEstablishmentQRCode(data.establishment_ID);
+
+                $('#establishmentName').html(data.name);
+                $('#establishmentType').html(data.type);
+                
+                const address = data.address;
+
+                $('#establishmentLocation').html(`${ address.street }, ${ address.barangay_district }, ${ address.city_municipality }`)
+            } else {
+                location.replace(`${ BASE_URL_MAIN }page_not_found`);
+            }
+        }
+    })
+    .fail(() => {
+        location.replace(`${ BASE_URL_MAIN }page_not_found`);
+    });
+</script>

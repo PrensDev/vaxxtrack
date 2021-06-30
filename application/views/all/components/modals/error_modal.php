@@ -82,3 +82,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    // When logout button is clicked
+    $(document).on('click', '#logoutBtnInErrorModal', (e) => {
+        var logoutBtn = $("#logoutBtnInErrorModal");
+
+        // Make button disabled and add spinner
+        logoutBtn.attr("disabled", true);
+        logoutBtn.html(`
+            <span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>
+        `);
+        
+        // Make a request to logout using ajax
+        e.preventDefault();
+        requestLogout();
+    });
+</script>

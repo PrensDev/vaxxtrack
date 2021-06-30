@@ -91,18 +91,22 @@ class Super_Admin extends CI_Controller {
     public function users(String $users_category) {
         if($users_category === 'citizens') {
             $this->load_views('User Management - Citizens', [
+                ['components/modals/citizens_modals'],
                 ['users', ['user_category' => 'Citizens']]
             ]);
         } else if($users_category === 'establishment-representatives') {
             $this->load_views('User Management - Establishment Representatives', [
+                ['components/modals/representatives_modals'],
                 ['users', ['user_category' => 'Establishment Representatives']]
             ]);
         } else if($users_category === 'health-officials') {
             $this->load_views('User Management - Health Officials', [
+                ['components/modals/health_officials_modals'],
                 ['users', ['user_category' => 'Health Officials']]
             ]);
         } else if($users_category === 'super-admins') {
             $this->load_views('User Management - Super Admins', [
+                ['components/modals/super_admins_modals'],
                 ['users', ['user_category' => 'Super Admins']]
             ]);
         } else {

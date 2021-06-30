@@ -195,3 +195,41 @@ fetchPHLocations = (selectors = {
 }
 
 hideAlert();
+
+// $(() => {
+
+//     const HERE_GEOCODE_API_KEY = 'wCzOTTWBWwbtIOhgfZWKvn_oThvZlhMY07JHNayyh_Y';
+//     const HERE_GEOCODE_SEARCH_QUERY = 'Bignay+Valenzuela+City';
+
+//     $.ajax({
+//         url: `https://geocode.search.hereapi.com/v1/geocode?q=${ HERE_GEOCODE_SEARCH_QUERY }&apiKey=${ HERE_GEOCODE_API_KEY }`,
+//         type: 'GET',
+//         success: (result) => {
+//             if(result) {
+
+//                 // Get the location
+//                 const location = result.items[0];
+
+//                 console.log(location);
+
+//                 // Get the address from location
+//                 const address = location.address;
+
+//                 console.log(address);
+
+//                 console.log(address.postalCode)
+
+//                 // Get the position from location
+//                 const position = location.position;
+
+//                 console.log(position)
+
+//             } else {
+//                 console.log('No result was found');
+//             }
+//         }
+//     })
+//     .fail(() => {
+//         console.log('There was an error in fetching location');
+//     })
+// });

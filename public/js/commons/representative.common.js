@@ -15,53 +15,12 @@
  * ===========================================================================
  */
 
-$(() => {
-    generateEstablishmentQRCode(); 
-});
-
 
 /**
  * ===========================================================================
  * FUNCTIONS AND METHODS
  * ===========================================================================
  */
-
-
-// Generate Establishment QR Code
-generateEstablishmentQRCode = () => {
-
-    // Get the establishement_ID
-    const establihsment_id = "405b-2h3n-12nw-03942";
-
-    // Check first if element with ID is existed
-    // This is done because there is always error returned from QRCode function 
-    if($('#establishmentQRCode').length !== 0) {
-        
-        // Set Establishment QC Code 
-        const establishmentQRCode = new QRCode('establishmentQRCode', {
-            text: "sample-text",
-            width: 125,
-            height: 125,
-            correctLevel: QRCode.CorrectLevel.H
-        });
-        establishmentQRCode.makeCode(establihsment_id);
-    }
-
-    // Check first if element with ID is existed
-    // This is done because there is always error returned from QRCode function
-    if($('#establishmentQRCodeInModal').length !== 0) {
-
-        // Set Establishment QR Code in Modal
-        const establishmentQRCodeInModal = new QRCode('establishmentQRCodeInModal', {
-            text: "sample-text",
-            width: 300,
-            height: 300,
-            correctLevel: QRCode.CorrectLevel.H
-        });
-        establishmentQRCodeInModal.makeCode(establihsment_id);
-    }
-}
-
 
 // Print Establishment QR Code
 $('#printQRCodeBtn').on('click', () => {

@@ -45,8 +45,12 @@ loadVaccRecordDT = () => {
     
                         return `
                             <div class="d-flex align-items-baseline">
-                                <i class="fas fa-user-circle icon-container"></i>
-                                <span>${ last_name }, ${ first_name + middle_name }</span>
+                                <div class="icon-container">
+                                    <i class="fas fa-user-circle text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ last_name }, ${ first_name + middle_name }</div>
+                                </div>
                             </div>
                         `
                     }
@@ -54,14 +58,18 @@ loadVaccRecordDT = () => {
                 { 
                     data: null,
                     render: data => {
-                        return moment().diff(moment(data.vaccinated_citizen.birth_date, 'YYYY'), 'years');
+                        const age = moment().diff(moment(data.vaccinated_citizen.birth_date, 'YYYY'), 'years');
+                        return age + ' y/o';
                     }
                 },
                 { data: 'vaccine_used.product_name'},
                 {
                     data: null,
                     render: data => {
-                        return moment(data.vaccination_date).format("MMM. d, YYYY");
+                        return `
+                            <div>${moment(data.vaccination_date).format("MMM. d, YYYY")}</div>
+                            <div class="small text-secondary">${moment(data.vaccination_date).fromNow()}</div>
+                        `;
                     }
                 },
                 { data: 'vaccinated_by'},

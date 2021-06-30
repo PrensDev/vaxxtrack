@@ -43,10 +43,14 @@ getAllVaccinesAJAX = () => {
 }
 
 
+/**
+ * ====================================================================
+ * GET VACCINATION RECORDS OF CITIZEN
+ * ====================================================================
+ */
 
-//Vaccination Record
-const user_ID = localStorage.getItem('user_ID');
-viewVaccCard = (user_ID) => {
+// Vaccination Record
+viewVaccCard = () => {
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }vaccination-records/${ localStorage.getItem('user_ID') }`,
         type: 'GET',
@@ -56,13 +60,10 @@ viewVaccCard = (user_ID) => {
                 
                 // Get data from result
                 const data = result.data;
-
-                
-                console.log(data);
                 
                 // Get vaccination records of citizen
                 const vaccRecords = data.vaccination_records;
-                //console.log(result.data[0].user_ID);
+
                 $('#citizenLastName').html(data.last_name);
                 $('#citizenFirstName').html(data.first_name);
                 $('#citizenMiddleInitial').html(`${data.middle_name[0]}.`);
@@ -118,9 +119,6 @@ viewVaccCard = (user_ID) => {
                 }
 
                 $('#vaccCardDataRows').html(rows);
-
-                // Show citizen vaccination card
-                //$('#vaccCardModal').modal('show');
             } else {
                 console.log('No result was found');
             }

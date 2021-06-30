@@ -35,9 +35,9 @@
                 >
                     <thead class="thead">
                         <tr>
-                            <th>Citizen</th>
+                            <th>Vaccinated Individual</th>
                             <th>Age</th>
-                            <th>Vaccine</th>
+                            <th>Vaccine Used</th>
                             <th>Date Vaccinated</th>
                             <th>Vaccinated by</th>
                             <th>Vaccinated in</th>

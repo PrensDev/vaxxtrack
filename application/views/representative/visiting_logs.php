@@ -65,7 +65,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for($i = 1;$i <= 25;$i++) { ?>
+                        <?php for($i = 1;$i <= 10;$i++) { ?>
                         <?php for($j = 1;$j <= 3;$j++) { ?>
                         <tr>
                             <td>Juan Dela Cruz</td>
@@ -213,6 +213,4 @@
 
     // Render the scanner
     scanner.render(onScanSuccess, onScanFailure);
-
-    console.log(location.pathname.split('/')[4]);
 </script>

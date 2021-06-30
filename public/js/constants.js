@@ -193,6 +193,11 @@ const setFormValues = (formElement = '', formFieldNamesAndValues = []) => {
             // Get the value for input fields
             const value  = el.value;
             
+            // If element is an input[type="radio"]
+            if($(`input[type="radio"]${ name }`).length) {
+                $(`input[type="radio"]${ name }[value="${value}"]`).prop('checked', true);
+            } else
+
             // If element is an input
             if($(`input${ name }`).length) {
                 $(`input${ name }`).val(value);
@@ -204,10 +209,6 @@ const setFormValues = (formElement = '', formFieldNamesAndValues = []) => {
             }
         });
     }
-
-    // Reset the form
-    const vForm = form.validate();
-    vForm.resetForm();
 }
 
 // Live render the data

@@ -24,14 +24,14 @@
         </div>
         <div class="card-body px-0">
             <div class="table-responsive">
-                <table class="table" id="citizensDT" width="100%" cellspacing="0">
+                <table class="table border-bottom" id="citizensDT" width="100%" cellspacing="0">
                     <thead class="thead text-nowrap">
                         <tr>
                             <th>Name</th>
                             <th>Age</th>
-                            <th>Gender</th>
+                            <th>Sex</th>
                             <th>Civil Status</th>
-                            <th>Location</th>
+                            <th>Address</th>
                             <th></th>
                         </tr>
                     </thead>

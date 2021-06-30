@@ -32,7 +32,7 @@
 
                         <!-- Establishments -->
                         <div class="sb-sidenav-menu-heading">Establishments</div>
-                       
+                        
                         <div id="establishmentsContainer"></div>
 
                         <div class="mt-2">

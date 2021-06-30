@@ -40,6 +40,7 @@ loadVaccRecordDT = () => {
             columns: [
                 { 
                     data: null,
+                    class: 'text-nowrap',
                     render: data => {
                         const vc = data.vaccinated_citizen;
                         const first_name = vc.first_name;
@@ -57,7 +58,8 @@ loadVaccRecordDT = () => {
                 { 
                     data: null,
                     render: data => {
-                        return moment().diff(moment(data.vaccinated_citizen.birth_date, 'YYYY'), 'years');
+                        const age = moment().diff(moment(data.vaccinated_citizen.birth_date, 'YYYY'), 'years');
+                        return age + ' y/o'
                     }
                 },
                 {
@@ -79,11 +81,44 @@ loadVaccRecordDT = () => {
                 {
                     data: null,
                     render: data => {
-                        return moment(data.vaccination_date).format("MMMM D, YYYY");
+                        return `
+                            <div>${moment(data.vaccination_date).format("MMM. D, YYYY")}</div>
+                            <div class="small text-secondary">${moment(data.vaccination_date).fromNow()}</div>
+                        `;
                     }
                 },
-                { data: 'vaccinated_by'},
-                { data: 'vaccinated_in'},
+                { 
+                    data: null,
+                    render: (data) => {
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-user-md text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ data.vaccinated_by }</div>
+                                    <div class="small text-secondary">Healthcare Professional</div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
+                { 
+                    data: null,
+                    render: (data) => {
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-hospital text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ data.vaccinated_in }</div>
+                                    <div class="small text-secondary">Healthcare Establishment</div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
                 { 
                     data: null,
                     render: data => {
@@ -163,8 +198,6 @@ viewVaccCard = (user_ID) => {
                 // Get data from result
                 const data = result.data;
 
-                console.log(data);
-                
                 // Get vaccination records of citizen
                 const vaccRecords = data.vaccination_records;
 
@@ -279,7 +312,10 @@ loadVaccinesDT = () => {
                         `
                     }
                 },
-                { data: 'type' },
+                { 
+                    data: 'type',
+                    class: 'text-nowrap' 
+                },
                 { data: 'manufacturer' },
                 { data: 'shots_details' },
                 {
@@ -289,7 +325,7 @@ loadVaccinesDT = () => {
                         return `
                             <div class="dropdown" data-toggle="tooltip" title="More">
                                 <div class="d-inline" data-toggle="dropdown">
-                                    <div class="btn btn-white-muted btn-small">
+                                    <div class="btn btn-white-muted btn-sm">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </div>
                                 </div>
@@ -358,12 +394,12 @@ viewVaccineDetails = (vaccine_ID) => {
                 $('#manufacturer').html(data.manufacturer);
                 $('#shotsDetails').html(data.shots_details);
                 $('#description').html(data.description);
-                $('#vaccDateAdded').html(moment(data.created_datetime).format('MMMM d, YYYY'));
+                $('#vaccDateAdded').html(moment(data.created_datetime).format('dddd, MMMM d, YYYY'));
                 $('#vaccTimeAdded').html(moment(data.created_datetime).format('hh:mm:ss A'));
                 $('#vaccDateAddedHumanized').html(moment(data.created_datetime).fromNow());
-                $('#vaccDateUpdated').html(moment(data.created_datetime).format('MMMM d, YYYY'));
-                $('#vaccTimeUpdated').html(moment(data.created_datetime).format('hh:mm:ss A'));
-                $('#vaccDateUpdatedHumanized').html(moment(data.created_datetime).fromNow());
+                $('#vaccDateUpdated').html(moment(data.updated_datetime).format('dddd, MMMM d, YYYY'));
+                $('#vaccTimeUpdated').html(moment(data.updated_datetime).format('hh:mm:ss A'));
+                $('#vaccDateUpdatedHumanized').html(moment(data.updated_datetime).fromNow());
 
                 $('#viewVaccineDetailsModal').modal('show');
             }

@@ -61,6 +61,9 @@
     <!-- Moment-Timer JS -->
     <script src="<?= base_url() ?>node_modules/moment-timer/lib/moment-timer.js"></script>
 
+    <!-- QRCode.js -->
+    <script src="<?= base_url() ?>node_modules/qrcodejs/qrcode.min.js"></script>
+
     <!-- Leaflet JS Library -->
     <script src="<?= base_url() ?>node_modules/leaflet/dist/leaflet.js"></script>
 
