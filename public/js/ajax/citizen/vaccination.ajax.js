@@ -8,7 +8,11 @@
  */
 
 
-
+/**
+ * ====================================================================
+ * Declare functions here that are required to render data on the page
+ * ====================================================================
+ */
 
 $(() => {
     getAllVaccinesAJAX();
@@ -17,10 +21,11 @@ $(() => {
 
 /**
  * ====================================================================
- * GET VACCINES
+ * * GET ALL VACCINES
  * ====================================================================
  */
 
+// Get All Vaccines AJAX
 getAllVaccinesAJAX = () => {
     $.ajax({
         url: `${ BASE_URL_API }vaccines`,
@@ -45,11 +50,11 @@ getAllVaccinesAJAX = () => {
 
 /**
  * ====================================================================
- * GET VACCINATION RECORDS OF CITIZEN
+ * * GET VACCINATION RECORDS OF CITIZEN
  * ====================================================================
  */
 
-// Vaccination Record
+// View Vaccination Record
 viewVaccCard = () => {
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }vaccination-records/${ localStorage.getItem('user_ID') }`,

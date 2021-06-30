@@ -21,7 +21,7 @@ $(() => {
 
 /**
  * ===========================================================================
- * GET ALL ESTABLISHMENTS
+ * * GET ALL ESTABLISHMENTS
  * ===========================================================================
  */
 
@@ -41,7 +41,7 @@ const establishmentContainerLink = (establishment_ID, establishment_name) => {
     `
 }
 
-// Send GET request for retrieving all estabslishments
+// Get All Establishment AJAX
 getAllEstablishmentsAJAX = () => {
     $.ajax({
         url: `${ REPRESENTATIVE_API_ROUTE }establishments`,
@@ -79,8 +79,7 @@ getAllEstablishmentsAJAX = () => {
  * ===========================================================================
  */
 
-
-// Update establishment AJAX
+// Update Establishment AJAX
 updateEstablishmentAJAX = () => {
     
     // Get date from form to rawData
@@ -102,7 +101,6 @@ updateEstablishmentAJAX = () => {
 
     console.log(data);
 }
-
 
 // Edit Establishment Details Form
 $('#editEstablishmentDetailsForm').validate(validateOptions({
@@ -172,7 +170,7 @@ $('#editEstablishmentDetailsForm').validate(validateOptions({
 
 /**
  * ===========================================================================
- * ADD ESTABLISHMENT
+ * * ADD ESTABLISHMENT
  * ===========================================================================
  */
 
@@ -243,7 +241,7 @@ $('#addEstablishmentForm').validate(validateOptions({
 
 /**
  * ===========================================================================
- * ADD ESTABLISHMENT REPRESENTATIVE
+ * * ADD REPRESENTATIVE
  * ===========================================================================
  */
 

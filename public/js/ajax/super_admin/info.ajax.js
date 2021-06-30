@@ -21,10 +21,11 @@ $(() => {
 
 /**
  * ====================================================================
- * GET INFORMATION
- * Send GET request for user information
+ * * GET INFORMATION
  * ====================================================================
  */
+
+// Get Information AJAX
 getInfoAJAX = () => {
     $.ajax({
         url: `${ SUPER_ADMIN_API_ROUTE }info`,
@@ -71,11 +72,11 @@ getInfoAJAX = () => {
 
 /**
  * ====================================================================
- * UPDATE INFORMATION
- * Send PUT request for updating user information
+ * * UPDATE INFORMATION
  * ====================================================================
  */
 
+// Update Information AJAX
 updateInfoAJAX = () => {
     const form = new FormData($('#editAdminInfoForm')[0]);
 
@@ -101,6 +102,7 @@ updateInfoAJAX = () => {
     });
 }
 
+// Validate Edit Admin Information Form
 $('#editAdminInfoForm').validate(validateOptions({
     rules: {
         firstName: {
