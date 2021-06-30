@@ -126,7 +126,10 @@ class Super_Admin extends CI_Controller {
 
     // Vaccines
     public function vaccines() {
-        $this->load_views('Vaccines', [['vaccines']]);
+        $this->load_views('Vaccines', [
+            ['components/modals/vaccines_modals'],
+            ['vaccines'],
+        ]);
     }
 
     // Edit Information

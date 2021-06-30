@@ -7,6 +7,7 @@
  * ====================================================================
  */
 
+
 /**
  * ====================================================================
  * Declare functions here that are required to render data
@@ -24,12 +25,14 @@ $(() => {
     loadSuperAdminsDT();
 })
 
+
 /**
  * ====================================================================
- * USERS COUNT
+ * * USERS COUNT
  * ====================================================================
  */
 
+// Get User Count
 function getUsersCount() {
     $.ajax({
         url: `${ SUPER_ADMIN_API_ROUTE }users-count`,
@@ -46,12 +49,14 @@ function getUsersCount() {
     })
 }
 
+
 /**
  * ====================================================================
- * GET ALL CITIZENS
+ * * GET ALL CITIZENS
  * ====================================================================
  */
 
+// Load Citizens DataTable
 loadCitizensDT = () => {
     const dt = $('#citizensDT');
 
@@ -205,6 +210,7 @@ loadCitizensDT = () => {
     }
 }
 
+// View Citizen Details
 viewCitizenDetails = (citizen_ID) => {
     $.ajax({
         url: `${ SUPER_ADMIN_API_ROUTE }users/citizens/${ citizen_ID }`,
@@ -282,12 +288,14 @@ viewCitizenDetails = (citizen_ID) => {
     })
 }
 
+
 /**
  * ====================================================================
- * GET ALL REPRESENTATIVES
+ * * GET ALL REPRESENTATIVES
  * ====================================================================
  */
 
+// Load Representative DataTable
 loadRepresentativesDT = () => {
     const dt = $('#representativesDT');
 
@@ -312,13 +320,13 @@ loadRepresentativesDT = () => {
 }
 
 
-
 /**
  * ====================================================================
- * GET ALL HEALTH OFFICIALS
+ * * GET ALL HEALTH OFFICIALS
  * ====================================================================
  */
 
+// Load Health Official DataTable
 loadHealthOfficialsDT = () => {
     const dt = $('#healthOfficialsDT');
 
@@ -420,10 +428,11 @@ loadHealthOfficialsDT = () => {
 
 /**
  * ====================================================================
- * GET ALL SUPER ADMINS
+ * * GET ALL SUPER ADMINS
  * ====================================================================
  */
 
+// Load Super Admins DataTable
 loadSuperAdminsDT = () => {
     const dt = $('#superAdminsDT');
 

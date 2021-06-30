@@ -20,10 +20,11 @@ liveRenderData(() => {
 
 /**
  * ====================================================================
- * CASES STATUS
+ * * CASES STATUS
  * ====================================================================
  */
 
+// Get Cases Status Data
 function getCasesStatusData() {
     $.ajax({
         url: `${ BASE_URL_API }covid-cases-status`,

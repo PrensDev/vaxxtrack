@@ -21,11 +21,11 @@ $(() => {
 
 /**
  * ====================================================================
- * GET INFORMATION
- * Send GET request for user information
+ * * GET INFORMATION
  * ====================================================================
  */
 
+// Get Information AJAX
 getInfoAJAX = () => {
     $.ajax({
         url: `${ HEALTH_OFFICIAL_API_ROUTE }info`,
@@ -73,12 +73,11 @@ getInfoAJAX = () => {
 
 /**
  * ====================================================================
- * UPDATE INFORMATION
- * Send PUT request for updating user information
+ * * UPDATE INFORMATION
  * ====================================================================
  */
 
-// Update Info AJAX
+// Update Information AJAX
 updateInfoAJAX = () => {
     const form = new FormData($('#editHealthOfficialInfoForm')[0]);
 

@@ -160,11 +160,11 @@
             </div>
             <div class="card-body d-flex justify-content-center align-items-center">
                 <div class="text-center">
-                    <div>
-                        <span class="display-4 mr-1" id="clockTime"></span>
-                        <span class="font-weight-normal h2" id="clockSession"></span>
+                    <div class="text-monospace">
+                        <span class="mb-0 mr-1" id="clockTime" style="font-size: 3rem;"></span>
+                        <span class="font-weight-normal h3" id="clockSession"></span>
                     </div>
-                    <h6 class="font-weight-normal text-uppercase" id="clockDate"></h6>
+                    <h6 class="font-weight-normal" id="clockDate"></h6>
                     <small>PHILIPPINE STANDARD TIME</small>
                 </div>
             </div>

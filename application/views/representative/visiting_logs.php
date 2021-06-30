@@ -48,8 +48,8 @@
             <!-- Visiting Logs Table -->
             <div class="table-responsive">
                 <table 
-                    class       = "table" 
-                    id          = "dataTable" 
+                    class       = "table border-bottom" 
+                    id          = "visitingLogsDT" 
                     width       = "100%" 
                     cellspacing = "0"
                 >
@@ -65,8 +65,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php for($i = 1;$i <= 10;$i++) { ?>
-                        <?php for($j = 1;$j <= 3;$j++) { ?>
                         <tr>
                             <td>Juan Dela Cruz</td>
                             <td>Today, 11:51:03 a.m.</td>
@@ -121,7 +119,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php } ?>
                         <tr class="flash-warning">
                             <td>Juan Dela Cruz</td>
                             <td>Today, 11:51:03 a.m.</td>
@@ -188,7 +185,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -213,4 +209,89 @@
 
     // Render the scanner
     scanner.render(onScanSuccess, onScanFailure);
+</script>
+
+<script>
+    $.ajax({
+        url: `${ REPRESENTATIVE_API_ROUTE }visiting-logs/${ establishment_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            if(result) {
+                console.log(result.data)
+            } else {
+                console.log('No result was found');
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error in getting visiting logs');
+    })
+
+    $(() => {
+        loadVisitingLogsDT();
+    });
+
+    loadVisitingLogsDT = () => {
+        const dt = $('#visitingLogsDT');
+
+        if(dt.length) {
+            dt.DataTable({
+                ajax: {
+                    url: `${ REPRESENTATIVE_API_ROUTE }visiting-logs/${ establishment_ID }`,
+                    type: 'GET',
+                    headers: AJAX_HEADERS,
+                },
+                columns: [
+                    {
+                        data: null,
+                        render: data => {
+                            const vlb = data.visiting_log_by;
+
+                            const fullName = vlb.last_name + ', ' + vlb.first_name;
+
+                            return `
+                                <div class="d-flex align-items-baseline">
+                                    <div class="icon-container">
+                                        <i class="fas fa-user-circle text-secondary"></i>
+                                    </div>
+                                    <div>
+                                        <div>${ fullName }</div>
+                                        <div class="small text-secondary">Visitor</div>
+                                    </div>
+                                </div>
+                            `
+                        }
+                    },
+                    {
+                        data: null,
+                        render: data => {
+                            return `
+                                <div>${ moment(data.created_datetime).format('MMM. D, YYYY') }</div>
+                                <div class="small text-secondary">${ moment(data.created_datetime).fromNow() }</div>
+                            `
+                        }
+                    },
+                    { data: 'purpose'},
+                    { 
+                        data: null,
+                        render: data => {
+                            return `
+                                <span class="badge alert-success text-success p-2 w-100">
+                                    <span>${ data.health_status_log.temperature }&deg;C</span>
+                                </span>
+                            `
+                        }
+                    },
+                    { data: 'purpose'},
+                    { data: 'purpose'},
+                    { data: 'purpose'},
+                ],
+                columnDefs: [{
+                    targets: [6],
+                    orderable: false
+                }]
+            })
+        }
+    }
 </script>

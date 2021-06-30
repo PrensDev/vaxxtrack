@@ -22,9 +22,10 @@ $(() => {
 /**
  * ====================================================================
  * GET INFORMATION
- * Send GET request for user information
  * ====================================================================
  */
+
+// Get Information AJAX
 getInfoAJAX = () => {
     $.ajax({
         url: `${ REPRESENTATIVE_API_ROUTE }info`,
@@ -72,8 +73,7 @@ getInfoAJAX = () => {
 
 /**
  * ====================================================================
- * UPDATE INFORMATION
- * Send PUT request for updating user information
+ * * UPDATE INFORMATION
  * ====================================================================
  */
 
@@ -110,7 +110,6 @@ updateInfoAJAX = () => {
         }
     });
 }
-
 
 // Validate Edit Representative Information Form and handle submit
 $('#editRepInfoForm').validate(validateOptions({

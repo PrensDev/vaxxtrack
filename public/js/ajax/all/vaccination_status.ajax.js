@@ -7,6 +7,7 @@
  * ====================================================================
  */
 
+
 /**
  * ====================================================================
  * Declare functions here that are required to render data on the page
@@ -21,10 +22,11 @@ liveRenderData(() => {
 
 /**
  * ====================================================================
- * VACCINATION RECORDS STATUS
+ * * GET VACCINATION RECORDS STATUS DATA
  * ====================================================================
  */
 
+// Get Vaccination Records Status Data
 function getVaccRecordsStatusData() {
     $.ajax({
         url: `${ BASE_URL_API }vaccination-records-status`,
@@ -36,10 +38,11 @@ function getVaccRecordsStatusData() {
 
 /**
  * ====================================================================
- * VACCINATION RECORDS STATUS
+ * * GET VACCINATION APPOINTMENT STATUS DATA
  * ====================================================================
  */
 
+// Get VAccination Appointments Status Data
 function getVaccAppointmentsStatusData() {
     $.ajax({
         url: `${ BASE_URL_API }vaccination-appointments-status`,

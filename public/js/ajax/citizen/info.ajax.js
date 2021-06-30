@@ -21,11 +21,11 @@ $(() => {
 
 /**
  * ====================================================================
- * GET INFORMATION
- * Send GET request for user information
+ * * GET INFORMATION
  * ====================================================================
  */
 
+// Get Information AJAX
 getInfoAJAX = () => {
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }info`,
@@ -80,6 +80,7 @@ getInfoAJAX = () => {
  * ====================================================================
  */
 
+// Validate Edit Representative Information Form
 $('#editRepInfoForm').validate(validateOptions({
     rules: {
         firstName: {

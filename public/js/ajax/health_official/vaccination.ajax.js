@@ -8,7 +8,6 @@
  */
 
 
-
 /**
  * ====================================================================
  * Declare functions here that are required to call on page load
@@ -187,6 +186,7 @@ loadVaccRecordDT = () => {
  * ====================================================================
  */
 
+// View Vaccination Card
 viewVaccCard = (user_ID) => {
     $.ajax({
         url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccinated-citizens/${ user_ID }`,
@@ -275,7 +275,6 @@ viewVaccCard = (user_ID) => {
  * * GET VACCINES RECORDS
  * ====================================================================
  */
-
 
 // Load Vaccines DataTable
 loadVaccinesDT = () => {
@@ -375,7 +374,6 @@ loadVaccinesDT = () => {
  * ====================================================================
  */
 
-
 // View Vaccine Details 
 viewVaccineDetails = (vaccine_ID) => {
     $.ajax({
@@ -409,6 +407,7 @@ viewVaccineDetails = (vaccine_ID) => {
         console.log('There was an error in retrieving vaccine data');
     });
 }
+
 
 /**
  * ====================================================================
@@ -463,7 +462,6 @@ editVaccineDetails = (vaccine_ID) => {
     });
 }
 
-
 // Update Vaccine Details AJAX
 updateVaccineDetailsAJAX = () => {
 
@@ -509,7 +507,6 @@ updateVaccineDetailsAJAX = () => {
         console.log('There was a problem in updating vaccine details')
     })
 }
-
 
 // Validate Edit Vaccine Details Form
 $('#editVaccineDetailsForm').validate(validateOptions({
@@ -696,7 +693,6 @@ removeVaccine = (vaccine_ID) => {
     $('#removeVaccineModal').modal('show');
 }
 
-
 // Remove Vacccine AJAX
 removeVaccineAJAX = () => {
     const form = new FormData($('#removeVaccineForm')[0]);
@@ -733,4 +729,4 @@ $('#removeVaccineForm').validate(validateOptions({
     rules: {},
     messages: {},
     submitHandler: () => removeVaccineAJAX()
-}))
+}));

@@ -21,10 +21,11 @@ $(() => {
 
 /**
  * ====================================================================
- * GET COVID19 CASES RECORDS
+ * * GET COVID19 CASES RECORDS
  * ====================================================================
  */
 
+// Load COVID-19 Cases DataTable
 loadCOVID19CasesDT = () => {
     const dt = $('#COVID19CasesDT');
 
@@ -171,6 +172,7 @@ loadCOVID19CasesDT = () => {
     }
 }
 
+// View Case Details
 viewCaseDetails = (case_ID) => {
     $.ajax({
         url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases/${ case_ID }`,
