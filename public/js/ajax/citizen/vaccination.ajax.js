@@ -8,6 +8,8 @@
  */
 
 
+
+
 $(() => {
     getAllVaccinesAJAX();
     viewVaccCard();
@@ -43,23 +45,24 @@ getAllVaccinesAJAX = () => {
 
 
 //Vaccination Record
-
-viewVaccCard = () => {
+const user_ID = localStorage.getItem('user_ID');
+viewVaccCard = (user_ID) => {
     $.ajax({
-        url: `${ CITIZEN_API_ROUTE }vaccination-records`,
+        url: `${ CITIZEN_API_ROUTE }vaccination-records/${ localStorage.getItem('user_ID') }`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (result) => {
             if(result) {
                 
                 // Get data from result
-                const data = result.data[0];
+                const data = result.data;
 
+                
                 console.log(data);
                 
                 // Get vaccination records of citizen
                 const vaccRecords = data.vaccination_records;
-                console.log(result.data[0].user_ID);
+                //console.log(result.data[0].user_ID);
                 $('#citizenLastName').html(data.last_name);
                 $('#citizenFirstName').html(data.first_name);
                 $('#citizenMiddleInitial').html(`${data.middle_name[0]}.`);
