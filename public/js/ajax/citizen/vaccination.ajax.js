@@ -37,6 +37,24 @@ getAllVaccinesAJAX = () => {
                 const data = result.data
 
                 console.log(data);
+
+                const createAppointmentForm = $('#createAppointmentForm');
+
+                if(createAppointmentForm.length) {
+                    
+                    var options = ''
+                    
+                    data.forEach(v => {
+                        options += `
+                            <option 
+                                value="${ v.vaccine_ID }" 
+                                data-subtext="${ v.vaccine_name }"
+                            >${ v.product_name }</option>
+                        `
+                    });
+
+                    $('#preferredVaccine').html(options).selectpicker('refresh');
+                }
             } else {
                 console.log('No result for vaccine records');
             }
@@ -133,3 +151,57 @@ viewVaccCard = () => {
         console.log('There was an error in getting a vaccination record')
     })
 }
+
+
+/**
+ * ====================================================================
+ * * CREATE APPOINTMENT
+ * ====================================================================
+ */
+
+
+// Create Appointment AJAX
+createAppointmentAJAX = () => {
+    const form = new FormData($('#createAppointmentForm')[0]);
+
+    data = {
+        requested_date: form.get('requestedDate'),
+        preferred_vaccine: form.get('preferredVaccine')
+    }
+
+    console.log(data);
+}
+
+
+// Validate Create Appointment Form
+$('#createAppointmentForm').validate(validateOptions({
+    rules: {
+        requestedDate: {
+            required: true
+        },
+        preferredVaccine: {
+            required: true
+        }
+    },
+    messages: {
+        requestedDate: {
+            required: 'Select the date you want to get vaccinated'
+        },
+        preferredVaccine: {
+            required: 'Select the vaccine you prefer'
+        }
+    },
+    submitHandler: () => createAppointmentAJAX()
+}))
+
+$('#createAppointmentModal').on('hidden.bs.modal', (event) => {
+    resetFields([
+        'requestedDate',
+        'preferredVaccine'
+    ]);
+
+    var validator = $("#createAppointmentForm").validate();
+    validator.resetForm();
+    $("#createAppointmentForm").find(".is-invalid").removeClass(".is-invalid");
+    $("#createAppointmentForm").find(".is-valid").removeClass(".is-valid");
+});

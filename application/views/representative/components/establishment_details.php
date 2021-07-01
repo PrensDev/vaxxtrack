@@ -1,3 +1,7 @@
+<script>
+    const establishment_ID = location.pathname.split('/')[4];
+</script>
+
 <!-- Establishment Details Card / Digital Clock Card -->
 <div class="row">
 
@@ -174,8 +178,6 @@
 </div>
 
 <script>
-    const establishment_ID = location.pathname.split('/')[4];
-
     $.ajax({
         url: `${ REPRESENTATIVE_API_ROUTE }establishments/${ establishment_ID }`,
         type: 'GET',

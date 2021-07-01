@@ -41,10 +41,21 @@
                         <th></th>
                     </thead>
                     <tbody>
+
+                        <!-- Pending -->
                         <tr>
-                            <td>March 10, 2021; 11:00 A.M.</td>
-                            <td>Pfizer BioTech</td>
-                            <td>April 1, 2021</td>
+                            <td>
+                                <div>March 10, 2021; 11:00 A.M.</div>
+                                <div class="small text-secondary">3 months ago</div>
+                            </td>
+                            <td>
+                                <div>Pfizer NBioTech</div>
+                                <div class="small text-secondary">Pfizer-001</div>
+                            </td>
+                            <td>
+                                <div>June 1, 2021</div>
+                                <div class="small text-secondary">in 3 weeks</div>
+                            </td>
                             <td>
                                 <div class="badge alert-blue text-blue p-2 w-100">
                                     <i class="fas fa-stopwatch mr-1"></i>
@@ -97,10 +108,21 @@
                                 </div>
                             </td>
                         </tr>
+
+                        <!-- Rejected -->
                         <tr>
-                            <td>March 10, 2021; 11:00 A.M.</td>
-                            <td>Pfizer BioTech</td>
-                            <td>April 1, 2021</td>
+                            <td>
+                                <div>March 10, 2021; 11:00 A.M.</div>
+                                <div class="small text-secondary">3 months ago</div>
+                            </td>
+                            <td>
+                                <div>Pfizer NBioTech</div>
+                                <div class="small text-secondary">Pfizer-001</div>
+                            </td>
+                            <td>
+                                <div>June 1, 2021</div>
+                                <div class="small text-secondary">in 3 weeks</div>
+                            </td>
                             <td>
                                 <div class="badge alert-danger text-danger p-2 w-100">
                                     <i class="fas fa-times mr-1"></i>
@@ -142,18 +164,32 @@
                                 </div>
                             </td>
                         </tr>
+
+                        <!-- Approved -->
                         <tr>
-                            <td>March 10, 2021; 11:00 A.M.</td>
-                            <td>Pfizer BioTech</td>
-                            <td>April 1, 2021</td>
+                            <td>
+                                <div>March 10, 2021; 11:00 A.M.</div>
+                                <div class="small text-secondary">3 months ago</div>
+                            </td>
+                            <td>
+                                <div>Pfizer NBioTech</div>
+                                <div class="small text-secondary">Pfizer-001</div>
+                            </td>
+                            <td>
+                                <div>June 1, 2021</div>
+                                <div class="small text-secondary">in 3 weeks</div>
+                            </td>
                             <td>
                                 <div class="badge alert-success text-success p-2 w-100">
                                     <i class="fas fa-check mr-1"></i>
                                     <span>Approved</span>
                                 </div>
                             </td>
-                            <td>Health Officer</td>
-                            <td>March 13, 2021; 5:00 AM</td>
+                            <td>Health Official</td>
+                            <td>
+                                <div>June 1, 2021</div>
+                                <div class="small text-secondary">2 weeks ago</div>
+                            </td>
                             <td>
                                 <div class="dropdown text-center">
                                     <div data-toggle="dropdown">

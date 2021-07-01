@@ -15,7 +15,7 @@
  */
 
 
-$('#resetCitizenFields').on('click', () => {
+$('#resetPatientInfoFields').on('click', () => {
     resetFields([
         'firstName',
         'middleName',
@@ -24,4 +24,15 @@ $('#resetCitizenFields').on('click', () => {
         'birthDate',
         'sex'
     ]);
-})
+});
+
+
+$('#resetVaccInfoFields').on('click', () => {
+    resetFields([
+        'vaccineUsed',
+        'vaccinationDate',
+        'vaccinatedBy',
+        'vaccinatedIn',
+        'remarks'
+    ]);
+});

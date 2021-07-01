@@ -151,7 +151,7 @@
                             class="btn btn-sm btn-danger" 
                             type="button"
                             data-toggle="modal"
-                            data-target="#resetCitizenFieldsModal"
+                            data-target="#resetPatientInfoFieldsModal"
                         >
                             <i class="fas fa-eraser mr-1"></i>
                             <span>Clear this field</span>
@@ -257,7 +257,7 @@
                             class="btn btn-sm btn-danger" 
                             type="button"
                             data-toggle="modal"
-                            data-target="#resetCitizenFieldsModal"
+                            data-target="#resetVaccInfoFieldsModal"
                         >
                             <i class="fas fa-eraser mr-1"></i>
                             <span>Clear this field</span>

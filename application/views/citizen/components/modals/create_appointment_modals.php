@@ -1,7 +1,7 @@
 <!-- Create Appointment Modal -->
 <div class= "modal" id="createAppointmentModal" tabindex= "-1" >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <form class="modal-content">
+        <form class="modal-content" id="createAppointmentForm">
 
             <div class="modal-header">
                 <h5 class="fas fa-file-signature modal-title-icon"></h5>
@@ -80,9 +80,8 @@
                     data-dismiss="modal"
                 >Cancel</button>
                 <button 
-                    type="button" 
+                    type="submit" 
                     class="btn btn-blue" 
-                    data-dismiss="modal"
                 >
                     <span>Create</span>
                     <i class="fas fa-plus ml-1"></i>
