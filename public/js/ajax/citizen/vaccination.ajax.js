@@ -407,7 +407,8 @@ LoadAllVaccAppointmentsDT = () => {
                                     <div 
                                         class       = "dropdown-item" 
                                         role        = "button"
-                                        onclick     = "viewVaccCard"
+                                        data-toggle = "modal"
+                                        data-target = "#vaccCardModal"
                                     >
                                         <i class="far fa-id-card icon-container"></i>
                                         <span>View citizen's card</span>
@@ -415,9 +416,10 @@ LoadAllVaccAppointmentsDT = () => {
                                     <div class="dropdown-divider"></div>
                                     <div 
                                         class       = "dropdown-item" 
+                                        onclick     = "viewVaccineAppointments('${ data.vaccination_appointment_ID }')"
                                         role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#vaccRecordDetailsModal"    
+                                        
+                                           
                                     >
                                         <i class="fas fa-list icon-container"></i>
                                         <span>View full details</span>
@@ -428,9 +430,9 @@ LoadAllVaccAppointmentsDT = () => {
                                     </div>
                                     <div 
                                         class       = "dropdown-item" 
+                                        onclick     = "removeVaccineAppointments('${ data.vaccination_appointment_ID }')"
                                         role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#deleteVaccRecordModal"    
+                                          
                                     >
                                         <i class="far fa-trash-alt icon-container"></i>
                                         <span>Delete this record</span>
@@ -448,3 +450,160 @@ LoadAllVaccAppointmentsDT = () => {
         });
     } 
 }
+
+/**
+ * ====================================================================
+ * * GET VACCINATION APPOINTMENT DETAILS
+ * ====================================================================
+ */
+
+// view vaccination appointment details
+viewVaccineAppointments = (vaccination_appointment_ID) => {
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }getone-vaccination-appointments/${ vaccination_appointment_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            if(result) {
+                //get data from result
+                const data = result.data;
+
+                console.log(data);
+
+                //set the content from data
+
+                $('#DayDate').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY'));
+                $('#Time').html(moment(data.created_datetime).format('hh:mm A'));
+                $('#Daymoments').html(moment(data.created_datetime).fromNow());
+                $('#productname').html(data.vaccine_preferrence.product_name);
+                $('#vaccname').html(data.vaccine_preferrence.vaccname);
+                $('#manufacturer').html(data.vaccine_preferrence.manufacturer);
+                $('#PreDayDate').html(moment(data.preferred_date).format('dddd, MMMM D, YYYY'));
+                $('#PreTime').html(moment(data.preferred_date).format('hh:mm A'));
+                $('#PreDayMoment').html(moment(data.preferred_date).fromNow());
+
+                const status = () => {
+
+                    if(data.status_approval == 'Pending') {
+                        alert = 'alert-blue text-blue p-2',
+                        icon = 'fa-stopwatch mr-1'
+                    } else if (data.status_approval == 'Rejected') {
+                        alert = 'alert-danger text-danger p-2',
+                        icon = 'fa-times mr-1'
+                    } else if (data.status_approval == 'Approved') {
+                        alert = 'alert-success text-success p-2',
+                        icon = 'fa-check mr-1-1'
+                    }
+
+                    return `
+                        <div class="badge ${ alert }" id = "status">
+                            <i class="fas ${ icon }"></i>
+                            <span>${ data.status_approval }</span>
+                        </div>
+                    `;
+
+                }
+
+                $('#status').html(status());
+
+                const aprrovedby = () => {
+
+                    if(data.approved_by == null || data.approved_by == '') {
+                        font = 'font-italic text-muted'
+                        text = 'No approval yet'
+                    } else {
+                        font = 'font-italic text'
+                        text = data.approved_by
+                    }
+
+                    return `
+                        <span class="font-weight-normal ${ font }">${ text }</span>
+                    `;
+                }
+
+                $('#aprrovedby').html(aprrovedby());
+
+                const datatimeapproved = () => {
+
+                    if(data.approved_datetime == null || data.approved_datetime == '') {
+                        font = 'font-italic text-muted'
+                        text = 'No data yet'
+                    } else {
+                        font = 'font-italic text'
+                        text = data.approved_datetime
+                    }
+                    
+                    return `
+                        <span class="font-weight-normal ${ font }">${ text }</span>
+                    `;
+                }
+
+                $('#datatimeapproved').html(datatimeapproved());
+
+                //show modal
+                $('#appointmentDetailsModal').modal('show')
+
+            } else {
+                console.log('no result has found')
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error when requesting')
+    })
+}
+
+/**
+ * ====================================================================
+ * * REMOVE VACCINATION APPOINTMENT DETAILS
+ * ====================================================================
+ */
+
+//  removeVaccineAppointments = (vaccination_appointment_ID) => {
+//     setFormValues('#cancelAppointmentForm', [
+//         {
+//             name: 'vaccinationAppointmentID',
+//             value: vaccination_appointment_ID
+//         }
+//     ]);
+
+//     $('#cancelAppointmentModal').modal('show');
+//  }
+
+//  removeVaccineAppointmentsAJAX = () => {
+//      const form = new FormData($('#cancelAppointmentForm')[0]);
+
+//      const data = form.get(vaccinationAppointmentID);
+
+//      $.ajax({
+//          url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
+//          type: 'DELETE',
+//          headers: AJAX_HEADERS,
+//          success: result => {
+//              if(result) {
+//                 // Refresh Datatable
+//                 const dt = $('#vaccAppointmentsDT').DataTable();
+//                 dt.ajax.reload();
+
+//                 //show alert
+//                 showAlert('blue', 'A vaccine Appointmets has been successfully deleted');
+
+//                 //hide modal
+//                 $('#cancelAppointmentModal').modal('hide');
+//              } else {
+//                  console.log('No result has found')
+//              }
+//          }
+//      })
+//      .fail(() => {
+//          console.log('There was an error when requesting')
+//      })
+//  }
+
+//  $('#cancelAppointmentForm').validate(validateOptions({
+//      rules: {},
+//      messages: {},
+//      submitHandler: () => removeVaccineAppointmentsAJAX()
+//  }));
+
+

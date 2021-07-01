@@ -25,19 +25,19 @@
                     <tr>
                         <th>Date & Time Requested</th>
                         <td>
-                            <span>Monday, February 24, 2021</span>
-                            <span>11:52:24 AM</span>
-                            <div class="small text-secondary">3 weeks ago</div>
+                            <span id = "DayDate">Monday, February 24, 2021</span>
+                            <span id = "Time">11:52:24 AM</span>
+                            <div class="small text-secondary" id = "Daymoments">3 weeks ago</div>
                         </td>
                     </tr>
                     <tr>
                         <th>Preferred Vaccine</th>
                         <td>
-                            <div>Pfizer-BioNTech</div>
-                            <div class="small text-secondary">
+                            <div id = "productname">Pfizer-BioNTech</div>
+                            <div class="small text-secondary" id = "vaccname">
                                 <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
                             </div>
-                            <div class="small text-secondary">
+                            <div class="small text-secondary" id = "manufacturer">
                                 <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
                             </div>
                         </td>
@@ -45,14 +45,15 @@
                     <tr>
                         <th>Preferred Date for Vaccination</th>
                         <td>
-                            <span>Thursday, April 1, 2021</span>
-                            <div class="small text-secondary">1 week from now</div>
+                            <span id = "PreDayDate">Thursday, April 1, 2021</span>
+                            <span id = "PreTime">11:52:24 AM</span>
+                            <div class="small text-secondary" id = "PreDayMoment">1 week from now</div>
                         </td>
                     </tr>
                     <tr>
                         <th>Status Approval</th>
                         <td>
-                            <div class="badge alert-blue text-blue p-2">
+                            <div class="badge alert-blue text-blue p-2" id = "status">
                                 <i class="fas fa-stopwatch mr-1"></i>
                                 <span>Pending</span>
                             </div>
@@ -60,11 +61,11 @@
                     </tr>
                     <tr>
                         <th>Approved By</th>
-                        <td><span class="font-italic text-muted font-weight-normal">Not approved yet</span></td>
+                        <td><span class="font-italic text-muted font-weight-normal" id = "aprrovedby">Not approved yet</span></td>
                     </tr>
                     <tr>
                         <th>Date & Time Approved</th>
-                        <td><span class="font-italic text-muted font-weight-normal">No data yet</span></td>
+                        <td><span class="font-italic text-muted font-weight-normal" id = "datatimeapproved">No data yet</span></td>
                     </tr>
                 </table>
             </div>
