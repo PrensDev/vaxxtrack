@@ -17,6 +17,7 @@
 $(() => {
     getAllVaccinesAJAX();
     viewVaccCard();
+    LoadAllVaccAppointmentsDT(); 
 });
 
 /**
@@ -205,3 +206,170 @@ $('#createAppointmentModal').on('hidden.bs.modal', (event) => {
     $("#createAppointmentForm").find(".is-invalid").removeClass(".is-invalid");
     $("#createAppointmentForm").find(".is-valid").removeClass(".is-valid");
 });
+
+/**
+ * ====================================================================
+ * * GET ALL APPOINTMENT
+ * ====================================================================
+ */
+
+LoadAllVaccAppointmentsDT = () => {
+    const vaccappointDT = $( '#vaccAppointmentsDT' );
+
+    if(vaccappointDT.length){
+        vaccappointDT.DataTable({
+            ajax: {
+                url: `${ CITIZEN_API_ROUTE }vaccination-appointments`,
+                type: 'GET',
+                headers: AJAX_HEADERS
+            },
+            columns: [
+                { 
+                    data: null,
+                    //'created_datetime' 
+                    render: data => {
+
+                        return `
+                            <div>${moment(data.created_datetime).format("MMM. D, YYYY")}</div>
+                            <div class="small text-secondary">${moment(data.created_datetime).fromNow()}</div>
+                        `;
+                    }
+                },
+                { 
+                    data: null,
+                    //'vaccine_preferrence.product_name' 
+                    render: data => {
+
+                        return `
+                            <div>${ data.vaccine_preferrence.product_name }</div>
+                            <div class="small text-secondary">${ data.vaccine_preferrence.vaccine_name }</div>
+                        `;
+                    }
+                },
+                { 
+                    data: null,
+                    //'preferred_date' 
+                    render: data => {
+
+                        return `
+                            <div>${moment(data.preferred_date).format("MMM. D, YYYY")}</div>
+                            <div class="small text-secondary">${moment(data.preferred_date).fromNow()}</div>
+                        `;
+                    }
+                },
+                { 
+                    data: null,
+                    //'status_approval' 
+                    render: data => {
+                        const statapproved = data.status_approval
+                        
+                        if(statapproved == 'Pending') {
+                            return `
+                                <div class="badge alert-blue text-blue p-2 w-100">
+                                    <i class="fas fa-stopwatch mr-1"></i>
+                                    <span>Pending</span>
+                                </div>
+                            `
+                        } else if (statapproved == 'Approved'){
+                            return `
+                                <div class="badge alert-success text-success p-2 w-100">
+                                    <i class="fas fa-check mr-1"></i>
+                                    <span>Approved</span>
+                                </div>
+                            `
+                        } else if (statapproved == 'Rejected'){
+                            return `
+                                <div class="badge alert-danger text-danger p-2 w-100">
+                                    <i class="fas fa-times mr-1"></i>
+                                    <span>Rejected</span>
+                                </div>
+                            `
+                        }
+                    }
+                },
+                { 
+                    data: null,
+                    //'approved_by' 
+                    render: data => {
+                        const approvedby = data.approved_by;
+                        const font = (approvedby == null || approvedby == '') ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
+                        const result = (approvedby == null || approvedby == '') ? 'No approval yet' : `${ approvedby }`;
+
+                        return `
+                            <td><span class="${ font }">${ result }</span></td>
+                        `;
+                    }
+                },
+                { 
+                    data: null,
+                    //'approved_datetime' 
+                    render: data => {
+                        const approvedate = data.approved_datetime;
+                        const font = (approvedate == null || approvedate == '') ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
+                        const result = (approvedate == null || approvedate == '') ? 'No data yet' : `${ approvedate }`;
+
+                        return `
+                            <td><span class="${ font }">${ result }</span></td>
+                        `;
+                    }
+                },
+                {
+                    data:null,
+                    render: data => {
+
+                        return `
+                            <div class="dropdown">
+                                <div class="d-inline" data-toggle="dropdown">
+                                    <div 
+                                        class       = "btn btn-white-muted btn-sm" 
+                                        role        = "button"
+                                        data-toggle = "tooltip" 
+                                        title       = "More"
+                                    ><i class="fas fa-ellipsis-v"></i></div>
+                                </div>
+
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div 
+                                        class       = "dropdown-item" 
+                                        role        = "button"
+                                        onclick     = "viewVaccCard"
+                                    >
+                                        <i class="far fa-id-card icon-container"></i>
+                                        <span>View citizen's card</span>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <div 
+                                        class       = "dropdown-item" 
+                                        role        = "button"
+                                        data-toggle = "modal"
+                                        data-target = "#vaccRecordDetailsModal"    
+                                    >
+                                        <i class="fas fa-list icon-container"></i>
+                                        <span>View full details</span>
+                                    </div>
+                                    <div class="dropdown-item" role="button">
+                                        <i class="far fa-edit icon-container"></i>
+                                        <span>Edit this details</span>
+                                    </div>
+                                    <div 
+                                        class       = "dropdown-item" 
+                                        role        = "button"
+                                        data-toggle = "modal"
+                                        data-target = "#deleteVaccRecordModal"    
+                                    >
+                                        <i class="far fa-trash-alt icon-container"></i>
+                                        <span>Delete this record</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            ],
+            columnDefs: [{
+                'targets': [6],
+                'orderable': false
+            }]
+        });
+    } 
+}

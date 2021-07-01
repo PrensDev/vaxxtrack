@@ -30,7 +30,7 @@
 
             <!-- Vaccination Appointments DataTable -->
             <div class="table-responsive">
-                <table class="table" id="vaccAppointmentsDT">
+                <table class="table w-100" id="vaccAppointmentsDT">
                     <thead class="thead text-center">
                         <th>Date & Time Requested</th>
                         <th>Preferred Vaccine</th>
@@ -43,7 +43,7 @@
                     <tbody>
 
                         <!-- Pending -->
-                        <tr>
+                        <!-- <tr>
                             <td>
                                 <div>March 10, 2021; 11:00 A.M.</div>
                                 <div class="small text-secondary">3 months ago</div>
@@ -107,10 +107,10 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
 
                         <!-- Rejected -->
-                        <tr>
+                        <!-- <tr>
                             <td>
                                 <div>March 10, 2021; 11:00 A.M.</div>
                                 <div class="small text-secondary">3 months ago</div>
@@ -163,10 +163,10 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
 
                         <!-- Approved -->
-                        <tr>
+                        <!-- <tr>
                             <td>
                                 <div>March 10, 2021; 11:00 A.M.</div>
                                 <div class="small text-secondary">3 months ago</div>
@@ -210,7 +210,7 @@
                                             <i class="icon-container fas fa-list"></i>
                                             <span>View Details</span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </td>
                         </tr>
