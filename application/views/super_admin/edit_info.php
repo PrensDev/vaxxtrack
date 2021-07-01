@@ -78,7 +78,7 @@
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
-                                    id          = "lastName" 
+                                    id          = "lastNameInput" 
                                     name        = "lastName"
                                     placeholder = "e.g. Dela Cruz"
                                 >

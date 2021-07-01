@@ -122,6 +122,9 @@ class Citizen extends CI_Controller {
 
     // Availbale Vaccines
     public function available_vaccines() {
-        $this->load_views('Available Vaccines', [['available_vaccines']]);
+        $this->load_views('Available Vaccines', [
+            ['components/modals/vaccines_modals'],
+            ['available_vaccines']
+        ]);
     }
 }

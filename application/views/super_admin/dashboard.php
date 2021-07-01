@@ -5,6 +5,16 @@
         'subtitle' => 'Manage your overall activities using this dashboard'
     ]); ?>
 
+    <!-- Alert -->
+    <?php if($this->session->has_userdata('alert')): ?>
+        <div class="alert alert-<?= $this->session->alertTheme ?> alert-dismissible fade show mb-4" role="alert" id="alert">
+            <div><?= $this->session->alertMessage ?></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+
     <!-- Dashboard Hero -->
     <div class="card mb-4">
         <div class="card-body bg-waves p-3 p-sm-5">
@@ -25,7 +35,61 @@
             </div>
         </div>
     </div>
+    <!-- Account Settings and Edit Information-->
+    <div class="row">
 
+        <!-- Account Settings -->
+        <div class="col-12 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <img 
+                            class     = "w-50" 
+                            src       = "<?= base_url() ?>public/images/brand/security.svg" 
+                            alt       = "Secure Account"
+                            draggable = "false"
+                        >
+                    </div>
+                    <div>
+                        <h4>Manage your accounts!</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <div class="text-right">
+                            <a href="<?= base_url() ?>admin/account-settings" class="btn btn-danger">
+                                <span>Manage</span>
+                                <i class="fas fa-cogs ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Information -->
+        <div class="col-12 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <img 
+                            class     = "w-50" 
+                            src       = "<?= base_url() ?>public/images/brand/information.svg" 
+                            alt       = "Edit Information"
+                            draggable = "false"
+                        >
+                    </div>
+                    <div>
+                        <h4>Edit your information!</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <div class="text-right">
+                            <a href="<?= base_url() ?>admin/edit-info" class="btn btn-blue">
+                                <span>Edit</span>
+                                <i class="fas fa-edit ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- COVID-19 Cases Summary -->
     <div class="flex-separated align-items-center mb-2">
         <h4>COVID-19 Cases</h4>
