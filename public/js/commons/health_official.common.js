@@ -9,12 +9,18 @@
 /**
  * ===========================================================================
  * ON PAGE LOAD
- * Declare functions and methods that is required to be called when a page is
- * fully loaded
  * ===========================================================================
  */
 
 
+
+/**
+ * ===========================================================================
+ * * ADD VACCININATION RECORDS
+ * ===========================================================================
+ */
+
+// Reset Patient Information Fields
 $('#resetPatientInfoFields').on('click', () => {
     resetFields([
         'firstName',
@@ -26,7 +32,7 @@ $('#resetPatientInfoFields').on('click', () => {
     ]);
 });
 
-
+// Reset Vaccination Information Fields
 $('#resetVaccInfoFields').on('click', () => {
     resetFields([
         'vaccineUsed',

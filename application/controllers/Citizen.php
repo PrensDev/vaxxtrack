@@ -21,8 +21,10 @@ class Citizen extends CI_Controller {
 
     // AJAX Scripts
     private Array $AJAX_files = [
+        'account',
+        'health_status_logs',
         'info',
-        'vaccination'
+        'vaccination',
     ];
 
     // Load Views Method
@@ -39,6 +41,7 @@ class Citizen extends CI_Controller {
             $this->load->view('all/components/modals/logout_modal');
             $this->load->view($this->dir . '/components/modals/scan_qrcode_modal');
             $this->load->view($this->dir . '/components/admin_header');
+            $this->load->view($this->dir . '/components/modals/health_status_modals');
             
             // Load all the content views
             foreach($views as $view) {
@@ -86,7 +89,7 @@ class Citizen extends CI_Controller {
     // Health Status Logbook
     public function health_status() {
         $this->load_views('Health Status Logbook', [
-            ['health_status']
+            ['health_status'],
         ]);
     }
 

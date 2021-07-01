@@ -4,7 +4,7 @@
     id              = "viewVaccineDetailsModal"
     tabindex        = "-1"
 >
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title-icon fas fa-syringe"></h5>

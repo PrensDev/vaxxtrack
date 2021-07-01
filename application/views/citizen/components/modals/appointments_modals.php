@@ -73,7 +73,6 @@
     </div>
 </div>
 
-
 <!-- Remove Appointment modal -->
 <div 
     class           = "modal" 
@@ -129,7 +128,6 @@
         </form>
     </div>
 </div>
-
 
 <!-- Cancel Appointment modal -->
 <div 
