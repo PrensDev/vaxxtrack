@@ -19,6 +19,7 @@ $(() => {
     viewVaccCard();
 });
 
+
 /**
  * ====================================================================
  * * GET ALL VACCINES
@@ -36,14 +37,10 @@ getAllVaccinesAJAX = () => {
                 // Get data from result
                 const data = result.data
 
-                console.log(data);
-
+                // For options in create appointment form
                 const createAppointmentForm = $('#createAppointmentForm');
-
                 if(createAppointmentForm.length) {
-                    
                     var options = ''
-                    
                     data.forEach(v => {
                         options += `
                             <option 
@@ -52,9 +49,60 @@ getAllVaccinesAJAX = () => {
                             >${ v.product_name }</option>
                         `
                     });
-
                     $('#preferredVaccine').html(options).selectpicker('refresh');
                 }
+                
+                // Vaccine List
+                const vaccineList = $('#vaccineList');
+                if(vaccineList.length) {
+                    vaccineCard = ''
+                    data.forEach(v => {
+                        vaccineCard += `
+                            <div class="col-md-6 mb-4">
+                                <div class="card bg-success pl-1 h-100">
+                                    <div class="card-body bg-white rounded-lg d-flex">
+                                        <div class="mr-3">
+                                            <div class="alert-success text-success flex-center rounded-lg" style="width: 4rem; height: 4rem;">
+                                                <h2><i class="fas fa-syringe"></i></h2>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 d-flex flex-column justify-content-between">
+                                            <div>
+                                                <h4 class="mb-1">${ v.product_name }</h4>
+                                                <table class="table table-borderless table-sm small">
+                                                    <tr>
+                                                        <td class="text-nowrap">Vaccine Name</td>
+                                                        <td>:</td>
+                                                        <td class="font-weight-normal">${ v.vaccine_name }</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Manufacturer</td>
+                                                        <td>:</td>
+                                                        <td class="font-weight-normal">${ v.manufacturer }</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Shots Details</td>
+                                                        <td>:</td>
+                                                        <td class="font-weight-normal">${ v.shots_details }</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="mt-2 text-right">
+                                                <button 
+                                                    class="btn btn-sm btn-success"
+                                                    onclick="viewVaccineDetails('${ v.vaccine_ID }')"
+                                                >More details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    });
+
+                    vaccineList.html(vaccineCard);
+                }
+
             } else {
                 console.log('No result for vaccine records');
             }
@@ -66,13 +114,39 @@ getAllVaccinesAJAX = () => {
 }
 
 
+// View Vaccine Details
+viewVaccineDetails = (vaccine_ID) => {
+
+    $.ajax({
+        url: `${ BASE_URL_API }vaccines/${ vaccine_ID }`,
+        type: 'GET',
+        success: (result) => {
+            if(result) {
+                const data = result.data;
+
+                $('#productName').html(data.product_name);
+                $('#vaccineName').html(data.vaccine_name);
+                $('#manufacturer').html(data.manufacturer);
+                $('#type').html(data.type);
+                $('#shotsDetails').html(data.shots_details);
+                $('#description').html(data.description);
+
+                $('#viewVaccineDetailsModal').modal('show');
+            } else {
+                console.log('No result for a details of vaccine');
+            }
+        }
+    });
+}
+
+
 /**
  * ====================================================================
  * * GET VACCINATION RECORDS OF CITIZEN
  * ====================================================================
  */
 
-// View Vaccination Record
+// View Vaccination Card
 viewVaccCard = () => {
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }vaccination-records/${ localStorage.getItem('user_ID') }`,
@@ -159,7 +233,6 @@ viewVaccCard = () => {
  * ====================================================================
  */
 
-
 // Create Appointment AJAX
 createAppointmentAJAX = () => {
     const form = new FormData($('#createAppointmentForm')[0]);
@@ -192,8 +265,10 @@ $('#createAppointmentForm').validate(validateOptions({
         }
     },
     submitHandler: () => createAppointmentAJAX()
-}))
+}));
 
+
+// On hide create appointment modal, reset fields
 $('#createAppointmentModal').on('hidden.bs.modal', (event) => {
     resetFields([
         'requestedDate',
