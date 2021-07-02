@@ -109,7 +109,6 @@ class Citizen extends CI_Controller {
     // Vaccination Appointment 
     public function vaccination_appointments() {
         $this->load_views('Vaccination Appointments', [
-            ['components/modals/create_appointment_modals.php'],
             ['components/modals/appointments_modals.php'],
             ['vacc_appointments']
         ]);

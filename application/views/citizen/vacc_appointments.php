@@ -5,6 +5,8 @@
         'subtitle' => 'Request and manage your vaccination appointments here'
     ]); ?>
 
+    <div id="alertContainer"></div>
+
     <!-- Appointments Card -->
     <div class="card">
         <div class="card-header">
@@ -31,10 +33,10 @@
             <!-- Vaccination Appointments DataTable -->
             <div class="table-responsive">
                 <table class="table w-100" id="vaccAppointmentsDT">
-                    <thead class="thead text-center">
+                    <thead class="thead">
                         <th>Date & Time Requested</th>
                         <th>Preferred Vaccine</th>
-                        <th>Date Preferred</th>
+                        <th>Preferred Date</th>
                         <th>Status Approval</th>
                         <th>Approved By</th>
                         <th>Date & Time Approved</th>
@@ -43,7 +45,7 @@
                     <tbody>
 
                         <!-- Pending -->
-                        <!-- <tr>
+                        <tr>
                             <td>
                                 <div>March 10, 2021; 11:00 A.M.</div>
                                 <div class="small text-secondary">3 months ago</div>
@@ -107,10 +109,10 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr> -->
+                        </tr>
 
                         <!-- Rejected -->
-                        <!-- <tr>
+                        <tr>
                             <td>
                                 <div>March 10, 2021; 11:00 A.M.</div>
                                 <div class="small text-secondary">3 months ago</div>
@@ -163,10 +165,10 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr> -->
+                        </tr>
 
                         <!-- Approved -->
-                        <!-- <tr>
+                        <tr>
                             <td>
                                 <div>March 10, 2021; 11:00 A.M.</div>
                                 <div class="small text-secondary">3 months ago</div>
@@ -210,7 +212,7 @@
                                             <i class="icon-container fas fa-list"></i>
                                             <span>View Details</span>
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </td>
                         </tr>

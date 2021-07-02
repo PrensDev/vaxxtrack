@@ -220,3 +220,70 @@ const liveRenderData = (handler) => {
     // Live execute the handler
     setInterval(() => handler(), LIVE_UPDATE_DATA_TIMEOUT);
 }
+
+// Live Reload Datatable
+const liveReloadDataTables = (DataTables = []) => {
+    DataTables.forEach(DataTable => {
+        setInterval(() => {
+            const dtEl = $('#'+DataTable);
+            if(dtEl.length) {
+                const dt = dtEl.DataTable();
+                dt.ajax.reload();
+            }
+        }, LIVE_UPDATE_DATA_TIMEOUT)
+    })
+}
+
+// Set Full Name
+const setFullName = (format, userName = {
+    firstName: '',
+    middleName: '',
+    lastName: ''
+}) => {
+    
+    var firstName   = userName.firstName;
+    var middleName  = userName.middleName;
+    var lastName    = userName.lastName;
+    
+    // {last name}, {first name} {middle name}
+    if(format === 'L, F M') {
+        middleName = (middleName == null || middleName === '') ? '' : ' ' + middleName;
+        return lastName + ', ' + firstName + middleName;
+    } 
+    
+    // {first name} {middle name} {last name}
+    else if(format === 'F M L') {
+        middleName = (middleName == null || middleName === '') ? ' ' : ' ' + middleName + ' ';
+        return firstName + middleName + lastName;
+    }
+
+    // {last name}, {first name} {middle initial}
+    else if(format === 'L, F Mi') {
+        if(middleName == null || middleName === '') {
+            middleName = ''
+        } else {
+            middleNameWord = middleName.split(' ');
+            middleName = ' ';
+            middleNameWord.forEach(w => {
+                middleName += w.charAt(0);
+            });
+            middleName += '.'
+        }
+        return lastName + ', ' + firstName + middleName;
+    }
+
+    // {first name} {middle initial} {last name}
+    else if(format === 'F Mi L') {
+        if(middleName == null || middleName === '') {
+            middleName = ''
+        } else {
+            middleNameWord = middleName.split(' ');
+            middleName = ' ';
+            middleNameWord.forEach(w => {
+                middleName += w.charAt(0);
+            });
+            middleName += '. '
+        }
+        return firstName + middleName + lastName;
+    }
+}

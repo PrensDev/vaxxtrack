@@ -1,20 +1,38 @@
 <!-- Health Status Modal -->
-<div 
-    class="modal" 
-    id="healthStatusModal" 
-    tabindex= "-1" 
-    data-backdrop="static"
-    data-keyboard="false"
->
+<!-- Health Check Modal -->
+<div class="modal" id="healthStatusModal" tabindex= "-1" data-backdrop="static"data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="healthStatusForm">
 
             <div class="modal-header">
+                <h5 class="fas fa-notes-medical modal-title-icon"></h5>
                 <h5 class="modal-title">Health Check</h5>
             </div>
 
             <div class="modal-body">
                 
+                <div class="form-group">
+                    <label for="temperature">Please insert your current temperature</label>
+                    <div class="input-group">
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            id="temperature"
+                            name="temperature"
+                            min="30.0"
+                            max="42.0"
+                            step="0.1"
+                        >
+                        <div 
+                            class="input-group-append"
+                            data-toggle="tooltip"
+                            title="in degree Celsius"
+                        >
+                            <div class="input-group-text font-weight-semibold">&deg;C</div>
+                        </div>
+                    </div>
+                </div>
+
                 <p class="font-weight-semibold">Do you experience one of the following:</p>
 
                 <!-- Fever -->

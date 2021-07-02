@@ -239,12 +239,9 @@ createAppointmentAJAX = () => {
     const form = new FormData($('#createAppointmentForm')[0]);
 
     data = {
-
         preferred_date: form.get('requestedDate'),
         preferred_vaccine: form.get('preferredVaccine')
     }
-
-    // console.log(data);
 
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }add-vaccination-appointments`,
@@ -254,15 +251,15 @@ createAppointmentAJAX = () => {
         dataType: 'json',
         success: (result) => {
             if(result) {
-                //reload datatable
+                // Reload datatable
                 const dt = $( '#vaccAppointmentsDT' ).DataTable();
                 dt.ajax.reload();
 
-                //show alert
-                showAlert('success', 'Successfully Created A New Vaccination Appointment');
+                // Show alert
+                showAlert('success', 'Success! Your requested appointment is on pending');
 
-                //hide modal
-                $('#createAppointmentModal').modal('hide')
+                // Hide modal
+                $('#createAppointmentModal').modal('hide');
 
             } else {
                 console.log('No result has been found');
@@ -273,7 +270,6 @@ createAppointmentAJAX = () => {
         console.log('There was an error when creating a vaccination appointments');
     })
 }
-
 
 // Validate Create Appointment Form
 $('#createAppointmentForm').validate(validateOptions({
@@ -296,26 +292,21 @@ $('#createAppointmentForm').validate(validateOptions({
     submitHandler: () => createAppointmentAJAX()
 }));
 
-
 // On hide create appointment modal, reset fields
-$('#createAppointmentModal').on('hidden.bs.modal', (event) => {
+$('#createAppointmentModal').on('hidden.bs.modal', () => {
     resetFields([
         'requestedDate',
         'preferredVaccine'
     ]);
-
-    var validator = $("#createAppointmentForm").validate();
-    validator.resetForm();
-    $("#createAppointmentForm").find(".is-invalid").removeClass(".is-invalid");
-    $("#createAppointmentForm").find(".is-valid").removeClass(".is-valid");
 });
 
 /**
  * ====================================================================
- * * GET ALL APPOINTMENT
+ * * GET ALL VACCINATION APPOINTMENTS
  * ====================================================================
  */
 
+// Load All Vaccination Appointments
 LoadAllVaccAppointmentsDT = () => {
     const vaccappointDT = $( '#vaccAppointmentsDT' );
 
@@ -324,12 +315,13 @@ LoadAllVaccAppointmentsDT = () => {
             ajax: {
                 url: `${ CITIZEN_API_ROUTE }vaccination-appointments`,
                 type: 'GET',
-                headers: AJAX_HEADERS
+                headers: AJAX_HEADERS,
             },
             columns: [
+
+                // Date and Time Requested
                 { 
                     data: null,
-                    //'created_datetime' 
                     render: data => {
 
                         return `
@@ -338,9 +330,10 @@ LoadAllVaccAppointmentsDT = () => {
                         `;
                     }
                 },
+
+                // Preferred Vaccine
                 { 
                     data: null,
-                    //'vaccine_preferrence.product_name' 
                     render: data => {
 
                         return `
@@ -349,9 +342,10 @@ LoadAllVaccAppointmentsDT = () => {
                         `;
                     }
                 },
+
+                // Preferred Date
                 { 
                     data: null,
-                    //'preferred_date' 
                     render: data => {
 
                         return `
@@ -360,9 +354,10 @@ LoadAllVaccAppointmentsDT = () => {
                         `;
                     }
                 },
+
+                // Status Approval
                 { 
                     data: null,
-                    //'status_approval' 
                     render: data => {
                         const statapproved = data.status_approval
                         
@@ -390,84 +385,135 @@ LoadAllVaccAppointmentsDT = () => {
                         }
                     }
                 },
+
+                // Approved By
                 { 
                     data: null,
-                    //'approved_by' 
                     render: data => {
-                        const approvedby = data.approved_by;
-                        const font = (approvedby == null || approvedby == '') ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = (approvedby == null || approvedby == '') ? 'No approval yet' : `${ approvedby }`;
+                        const approvedBy = data.approved_by;
+                        const style = (approvedBy == null || approvedBy == '') ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
+                        const result = (approvedBy == null || approvedBy == '') ? 'No approval yet' : `${ approvedBy }`;
 
-                        return `
-                            <td><span class="${ font }">${ result }</span></td>
-                        `;
+                        return `<td><span class="${ style }">${ result }</span></td>`;
                     }
                 },
+
+                // Approved Date and Time
                 { 
                     data: null,
-                    //'approved_datetime' 
                     render: data => {
-                        const approvedate = data.approved_datetime;
-                        const font = (approvedate == null || approvedate == '') ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = (approvedate == null || approvedate == '') ? 'No data yet' : `${ approvedate }`;
+                        const approveDate = data.approved_datetime == null || data.approved_datetime  == '';
+                        const style = approveDate ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
+                        const result = approveDate ? 'No data yet' : `${ data.approved_datetime }`;
 
-                        return `
-                            <td><span class="${ font }">${ result }</span></td>
-                        `;
+                        return `<td><span class="${ style }">${ result }</span></td>`;
                     }
                 },
+
+                // Actions
                 {
-                    data:null,
+                    data: null,
                     render: data => {
+                        const id = data.vaccination_appointment_ID;
+                        const statusApproval = data.status_approval
 
-                        return `
-                            <div class="dropdown">
-                                <div class="d-inline" data-toggle="dropdown">
-                                    <div 
-                                        class       = "btn btn-white-muted btn-sm" 
-                                        role        = "button"
-                                        data-toggle = "tooltip" 
-                                        title       = "More"
-                                    ><i class="fas fa-ellipsis-v"></i></div>
-                                </div>
+                        if(statusApproval === "Pending") {
+                            return `
+                                <div class="dropdown text-center">
+                                    <div data-toggle="dropdown">
+                                        <div 
+                                            class       = "btn btn-sm btn-white-muted text-secondary"
+                                            data-toggle = "tooltip"
+                                            title       = "More"
+                                        >
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </div>
+                                    </div>
 
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#vaccCardModal"
-                                    >
-                                        <i class="far fa-id-card icon-container"></i>
-                                        <span>View citizen's card</span>
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                    <div 
-                                        class       = "dropdown-item" 
-                                        onclick     = "viewVaccineAppointments('${ data.vaccination_appointment_ID }')"
-                                        role        = "button"
-                                        
-                                           
-                                    >
-                                        <i class="fas fa-list icon-container"></i>
-                                        <span>View full details</span>
-                                    </div>
-                                    <div class="dropdown-item" role="button">
-                                        <i class="far fa-edit icon-container"></i>
-                                        <span>Edit this details</span>
-                                    </div>
-                                    <div 
-                                        class       = "dropdown-item" 
-                                        onclick     = "removeVaccineAppointments('${ data.vaccination_appointment_ID }')"
-                                        role        = "button"
-                                          
-                                    >
-                                        <i class="far fa-trash-alt icon-container"></i>
-                                        <span>Delete this record</span>
+                                    <div class="dropdown-menu dropdown-menu-right border-0">
+                                        <div 
+                                            class       = "dropdown-item" 
+                                            role        = "button"
+                                            onclick     = "viewVaccAppointment('${ id }')"
+                                        >
+                                            <i class="icon-container fas fa-list"></i>
+                                            <span>View Details</span>
+                                        </div>
+                                        <div 
+                                            class       = "dropdown-item" 
+                                            role        = "button"
+                                            data-toggle = "modal"
+                                            data-target = "#appointmentDetailsModal"
+                                        >
+                                            <i class="icon-container far fa-edit"></i>
+                                            <span>Edit Appointment</span>
+                                        </div>
+                                        <div 
+                                            class       = "dropdown-item" 
+                                            role        = "button"
+                                            onclick     = "removeVaccAppointment('${ id }')"
+                                        >
+                                            <i class="icon-container far fa-times-circle"></i>
+                                            <span>Cancel Appointment</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
+                            `;
+                        } else if(statusApproval === 'Approved') {
+                            return `
+                                <div class="dropdown text-center">
+                                    <div data-toggle="dropdown">
+                                        <div 
+                                            class       = "btn btn-sm btn-white-muted text-secondary"
+                                            data-toggle = "tooltip"
+                                            title       = "More"
+                                        ><i class="fas fa-ellipsis-v"></i></div>
+                                    </div>
+
+                                    <div class="dropdown-menu dropdown-menu-right border-0">
+                                        <div 
+                                            class       = "dropdown-item" 
+                                            role        = "button"
+                                            onclick     = "viewVaccAppointment('${ id }')"
+                                        >
+                                            <i class="icon-container fas fa-list"></i>
+                                            <span>View Details</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `
+                        } else if(statusApproval === 'Rejected') {
+                            return `
+                                <div class="dropdown">
+                                    <div data-toggle="dropdown">
+                                        <div 
+                                            class       = "btn btn-sm btn-white-muted text-secondary"
+                                            data-toggle = "tooltip"
+                                            title       = "More"
+                                        ><i class="fas fa-ellipsis-v"></i></div>
+                                    </div>
+
+                                    <div class="dropdown-menu dropdown-menu-right border-0">
+                                        <div 
+                                            class       = "dropdown-item" 
+                                            role        = "button"
+                                            onclick     = "viewVaccAppointment('${ id }')"
+                                        >
+                                            <i class="icon-container fas fa-list"></i>
+                                            <span>View Details</span>
+                                        </div>
+                                        <div 
+                                            class       = "dropdown-item" 
+                                            role        = "button"
+                                            onclick     = "removeVaccAppointment('${ id }')"
+                                        >
+                                            <i class="icon-container far fa-trash-alt"></i>
+                                            <span>Remove from list</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `
+                        }
                     }
                 }
             ],
@@ -486,7 +532,7 @@ LoadAllVaccAppointmentsDT = () => {
  */
 
 // view vaccination appointment details
-viewVaccineAppointments = (vaccination_appointment_ID) => {
+viewVaccAppointment = (vaccination_appointment_ID) => {
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
         type: 'GET',
@@ -587,18 +633,8 @@ viewVaccineAppointments = (vaccination_appointment_ID) => {
  * ====================================================================
  */
 
- removeVaccineAppointments = (vaccination_appointment_ID) => {
-    setFormValues('#cancelAppointmentForm', [
-        {
-            name: 'vaccinationAppointmentID',
-            value: vaccination_appointment_ID
-        }
-    ]);
-
-    $('#cancelAppointmentModal').modal('show')
- }
-
- removeVaccineAppointmentsAJAX = () => {
+// Remove Vaccinetion Appointment AJAX
+removeVaccAppointmentAJAX = () => {
     const form = new FormData($('#cancelAppointmentForm')[0]);
 
     const vaccination_appointment_ID = form.get('vaccinationAppointmentID');
@@ -609,14 +645,15 @@ viewVaccineAppointments = (vaccination_appointment_ID) => {
         headers: AJAX_HEADERS,
         success: result => {
             if(result) {
-                //reload page
+
+                // Peload Vaccination Appointment DataTable
                 const dt = $( '#vaccAppointmentsDT' ).DataTable();
                 dt.ajax.reload();
 
-                //show alert
-                showAlert('blue', 'A vaccination appointment has been successfully deleted');
+                // show alert
+                showAlert('blue', 'An appointment has been removed');
 
-                //hide modal
+                // Hide Modal
                 $('#cancelAppointmentModal').modal('hide')
             } else {
                 console.log('No result has found');
@@ -626,12 +663,24 @@ viewVaccineAppointments = (vaccination_appointment_ID) => {
     .fail(() => {
         console.log('There was an error when deleteng vaccination appointment')
     })
- }
+}
 
- $('#cancelAppointmentForm').validate(validateOptions({
+// Validate Cancel Appointment Form
+$('#cancelAppointmentForm').validate(validateOptions({
     rules: {},
     messages: {},
-    submitHandler: () => removeVaccineAppointmentsAJAX()
+    submitHandler: () => removeVaccAppointmentAJAX()
 }));
 
+// Remove Vaccination Appointment
+removeVaccAppointment = (vaccination_appointment_ID) => {
+    setFormValues('#cancelAppointmentForm', [
+        {
+            name: 'vaccinationAppointmentID',
+            value: vaccination_appointment_ID
+        }
+    ]);
+
+    $('#cancelAppointmentModal').modal('show')
+}
 

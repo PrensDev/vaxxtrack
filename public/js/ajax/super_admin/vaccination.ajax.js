@@ -16,8 +16,14 @@
 
 $(() => {
     loadVaccRecordDT();
+    loadVaccAppointmentsDT();
     loadVaccinesDT();
 });
+
+liveReloadDataTables([
+    'vaccAppointmentsDT',
+    'vaccinesDT'
+]);
 
 
 /**
@@ -641,4 +647,216 @@ loadVaccRecordDT = () => {
         });
     }
 
+}
+
+/**
+ * ====================================================================
+ * * GET ALL VACCINATION APPOINTMENTS
+ * ====================================================================
+ */
+
+// Load Vaccination Appointment DataTable
+loadVaccAppointmentsDT = () => {
+    const dt = $('#vaccAppointmentsDT');
+
+    if(dt.length) {
+        dt.DataTable({
+            ajax: {
+                url: `${ SUPER_ADMIN_API_ROUTE }vaccination-appointments`,
+                type: 'GET',
+                headers: AJAX_HEADERS,
+            },
+            columns: [
+                
+                // Citizen
+                { 
+                    data: null,
+                    class: 'text-nowrap',
+                    render: data => {
+                        const ab = data.appointed_by;
+
+                        const fullName = setFullName('L, F Mi', {
+                            firstName: ab.first_name,
+                            middleName: ab.middle_name,
+                            lastName: ab.last_name
+                        });
+
+                        const sex = data.appointed_by.sex;
+
+                        if(sex === 'Female') {
+                            sexIcon = 'venus';
+                            sexColor = 'danger';
+                        } else if(sex === 'Male') {
+                            sexIcon = 'mars';
+                            sexColor = 'blue';
+                        }
+    
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <i class="fas fa-user-circle icon-container text-secondary"></i>
+                                <div>
+                                    <div>${ fullName }</div>
+                                    <div class="small text-secondary d-flex align-items-baseline">
+                                        <i class="fas fa-${ sexIcon } text-${ sexColor } mr-2"></i>
+                                        <div>${ sex }</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
+
+                // Age
+                { 
+                    data: null,
+                    render: data => {
+                        const age = moment().diff(moment(data.appointed_by.birth_date, 'YYYY'), 'years');
+                        return age + ' y/o'
+                    }
+                },
+
+                // Preferred Vaccine
+                {
+                    data: null,
+                    render: data => {
+                        const vp = data.vaccine_preferrence;
+
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-syringe text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ vp.product_name }</div>
+                                    <div class="small text-secondary">${ vp.manufacturer }</div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
+
+                // Preferred Date
+                {
+                    data: null,
+                    render: data => {
+                        return `
+                            <div>${moment(data.preferred_date).format("MMM. D, YYYY")}</div>
+                            <div class="small text-secondary">${moment(data.preferred_date).toNow()}</div>
+                        `;
+                    }
+                },
+
+                // Status Approval
+                { 
+                    data: null,
+                    render: data => {
+                        const statusApproval = data.status_approval;
+                        const id = data.vaccination_appointment_ID;
+                        
+                        if(statusApproval == 'Pending') {
+                            return `
+                                <div 
+                                    class="badge alert-blue text-blue p-2 w-100"
+                                    role=button
+                                    onclick="changeStatusApproval('${ id }')"
+                                >
+                                    <i class="fas fa-stopwatch mr-1"></i>
+                                    <span>Pending</span>
+                                </div>
+                            `
+                        } else if (statusApproval == 'Approved'){
+                            return `
+                                <div 
+                                    class="badge alert-success text-success p-2 w-100"
+                                    role=button
+                                    onclick="changeStatusApproval('${ id }')"
+                                >
+                                    <i class="fas fa-check mr-1"></i>
+                                    <span>Approved</span>
+                                </div>
+                            `
+                        } else if (statusApproval == 'Rejected'){
+                            return `
+                                <div 
+                                    class="badge alert-danger text-danger p-2 w-100"
+                                    role=button
+                                    onclick="changeStatusApproval('${ id }')"
+                                >
+                                    <i class="fas fa-times mr-1"></i>
+                                    <span>Rejected</span>
+                                </div>
+                            `
+                        }
+                    }
+                },
+
+                // Approved By
+                { 
+                    data: null,
+                    render: data => {
+                        var approvedBy = data.approved_by == null || data.approved_by == '';
+                        const style = approvedBy ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
+                        const result = approvedBy ? 'No approval yet' : `${ data.approved_by }`;
+
+                        return `<td><span class="${ style }">${ result }</span></td>`;
+                    }
+                },
+
+                // Date and Time Approved
+                { 
+                    data: null,
+                    render: data => {
+                        const approveDate = data.approved_datetime == null || data.approved_datetime  == '';
+                        const style = approveDate ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
+                        const result = approveDate ? 'No data yet' : `${ data.approved_datetime }`;
+
+                        return `<td><span class="${ style }">${ result }</span></td>`;
+                    }
+                },
+
+                // Actions
+                {
+                    data: null,
+                    render: data => {
+                        return `
+                            <div class="dropdown">
+                                <div data-toggle="dropdown">
+                                    <div 
+                                        class       = "btn btn-white-muted btn-sm" 
+                                        data-toggle = "tooltip"
+                                        title       = "More"
+                                    ><i class="fas fa-ellipsis-v"></i></div>
+                                </div>
+
+                                <div class="dropdown-menu dropdown-menu-right border-0">
+                                    <div 
+                                        class       = "dropdown-item"
+                                        role        = "button"
+                                        data-toggle = "modal"
+                                        data-target = "#vaccAppointmentDetailsModal"    
+                                    >
+                                        <i class="fas fa-list icon-container"></i>
+                                        <span>View full details</span>
+                                    </div>
+                                    <div 
+                                        class       = "dropdown-item" 
+                                        role        = "button"
+                                        data-toggle = "modal"
+                                        data-target = "#changeApprovalStatusModal"  
+                                    >
+                                        <i class="far fa-edit icon-container"></i>
+                                        <span>Change Status Approval</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                }
+            ],
+            columnDefs: [{
+                targets: [7],
+                orderable: false
+            }]
+        });
+    }
 }

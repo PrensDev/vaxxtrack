@@ -5,6 +5,8 @@
         'subtitle' => 'Welcome to your profile page!'
     ]); ?>
 
+    <div id="alertContainer"></div>
+
     <!-- QR Code ID & Other Dashboard Components Container -->
     <div class="d-flex flex-column flex-xl-row">
 

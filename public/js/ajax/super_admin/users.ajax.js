@@ -23,7 +23,14 @@ $(() => {
     loadRepresentativesDT();
     loadHealthOfficialsDT();
     loadSuperAdminsDT();
-})
+});
+
+liveReloadDataTables([
+    'citizensDT',
+    'representativesDT',
+    'healthOfficialsDT',
+    'superAdminsDT'
+]);
 
 
 /**
