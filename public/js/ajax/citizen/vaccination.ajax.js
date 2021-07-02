@@ -239,11 +239,39 @@ createAppointmentAJAX = () => {
     const form = new FormData($('#createAppointmentForm')[0]);
 
     data = {
-        requested_date: form.get('requestedDate'),
+
+        preferred_date: form.get('requestedDate'),
         preferred_vaccine: form.get('preferredVaccine')
     }
 
-    console.log(data);
+    // console.log(data);
+
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }add-vaccination-appointments`,
+        type: 'POST',
+        headers: AJAX_HEADERS,
+        data: data,
+        dataType: 'json',
+        success: (result) => {
+            if(result) {
+                //reload datatable
+                const dt = $( '#vaccAppointmentsDT' ).DataTable();
+                dt.ajax.reload();
+
+                //show alert
+                showAlert('success', 'Successfully Created A New Vaccination Appointment');
+
+                //hide modal
+                $('#createAppointmentModal').modal('hide')
+
+            } else {
+                console.log('No result has been found');
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error when creating a vaccination appointments');
+    })
 }
 
 
@@ -460,7 +488,7 @@ LoadAllVaccAppointmentsDT = () => {
 // view vaccination appointment details
 viewVaccineAppointments = (vaccination_appointment_ID) => {
     $.ajax({
-        url: `${ CITIZEN_API_ROUTE }getone-vaccination-appointments/${ vaccination_appointment_ID }`,
+        url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (result) => {
@@ -559,51 +587,51 @@ viewVaccineAppointments = (vaccination_appointment_ID) => {
  * ====================================================================
  */
 
-//  removeVaccineAppointments = (vaccination_appointment_ID) => {
-//     setFormValues('#cancelAppointmentForm', [
-//         {
-//             name: 'vaccinationAppointmentID',
-//             value: vaccination_appointment_ID
-//         }
-//     ]);
+ removeVaccineAppointments = (vaccination_appointment_ID) => {
+    setFormValues('#cancelAppointmentForm', [
+        {
+            name: 'vaccinationAppointmentID',
+            value: vaccination_appointment_ID
+        }
+    ]);
 
-//     $('#cancelAppointmentModal').modal('show');
-//  }
+    $('#cancelAppointmentModal').modal('show')
+ }
 
-//  removeVaccineAppointmentsAJAX = () => {
-//      const form = new FormData($('#cancelAppointmentForm')[0]);
+ removeVaccineAppointmentsAJAX = () => {
+    const form = new FormData($('#cancelAppointmentForm')[0]);
 
-//      const data = form.get(vaccinationAppointmentID);
+    const vaccination_appointment_ID = form.get('vaccinationAppointmentID');
 
-//      $.ajax({
-//          url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
-//          type: 'DELETE',
-//          headers: AJAX_HEADERS,
-//          success: result => {
-//              if(result) {
-//                 // Refresh Datatable
-//                 const dt = $('#vaccAppointmentsDT').DataTable();
-//                 dt.ajax.reload();
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
+        type: 'DELETE',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                //reload page
+                const dt = $( '#vaccAppointmentsDT' ).DataTable();
+                dt.ajax.reload();
 
-//                 //show alert
-//                 showAlert('blue', 'A vaccine Appointmets has been successfully deleted');
+                //show alert
+                showAlert('blue', 'A vaccination appointment has been successfully deleted');
 
-//                 //hide modal
-//                 $('#cancelAppointmentModal').modal('hide');
-//              } else {
-//                  console.log('No result has found')
-//              }
-//          }
-//      })
-//      .fail(() => {
-//          console.log('There was an error when requesting')
-//      })
-//  }
+                //hide modal
+                $('#cancelAppointmentModal').modal('hide')
+            } else {
+                console.log('No result has found');
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error when deleteng vaccination appointment')
+    })
+ }
 
-//  $('#cancelAppointmentForm').validate(validateOptions({
-//      rules: {},
-//      messages: {},
-//      submitHandler: () => removeVaccineAppointmentsAJAX()
-//  }));
+ $('#cancelAppointmentForm').validate(validateOptions({
+    rules: {},
+    messages: {},
+    submitHandler: () => removeVaccineAppointmentsAJAX()
+}));
 
 
