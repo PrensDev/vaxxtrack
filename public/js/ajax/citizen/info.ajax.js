@@ -80,6 +80,35 @@ getInfoAJAX = () => {
  * ====================================================================
  */
 
+// Update Information AJAX
+updateInfoAJAX = () => {
+    const form = new FormData($('#editCitizenInfoForm')[0]);
+
+    data = {
+        first_name: form.get('firstName'),
+        middle_name: form.get('middleName'),
+        last_name: form.get('lastName'),
+        suffix_name: form.get('suffixName'),
+    }
+
+    c19ctavms_API.sendUserRequest({
+        url: 'citizen/info',
+        type: 'PUT',
+        data: data,
+        success: () => {
+            getInfoAJAX()
+            $.ajax({
+                url: `${ BASE_URL_MAIN }alert`,
+                type: 'POST',
+                data: {
+                    theme: 'success',
+                    message: 'Success! Your information has been updated'
+                },
+                success: () => location.replace(`${ BASE_URL_MAIN }c`)
+            });
+        }
+    });
+}
 // Validate Edit Representative Information Form
 $('#editRepInfoForm').validate(validateOptions({
     rules: {
