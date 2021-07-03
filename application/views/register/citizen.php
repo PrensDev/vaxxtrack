@@ -10,6 +10,8 @@
     >Step 0 of 0</div>
 </div>
 
+<div id="alertContainer"></div>
+
 <!-- Register Citizen Form -->
 <form id="registerCitizenForm">
 
@@ -125,45 +127,57 @@
 
         <!-- Region Field -->
         <div class="form-group">
-            <label for="region">Region</label>
+            <label for="regionsDropdown">Region</label>
             <select 
-                name="region" 
-                id="regionsDropdown" 
-                class="custom-select"
-                placeholder="Select region"
+                class            = "selectpicker form-control border" 
+                name             = "region" 
+                id               = "regionsDropdown"
+                title            = "Select a region"
+                data-style       = "btn-white"
+                data-size        = "5"
+                data-live-search = "true"
             ></select>
         </div>
 
         <!-- Province Field -->
         <div class="form-group">
-            <label for="province">Province</label>
+            <label for="provincesDropdown">Province</label>
             <select 
-                name="province" 
-                id="provincesDropdown" 
-                class="custom-select"
-                placeholder="Select province"
+                class            = "selectpicker form-control border" 
+                name             = "provinces" 
+                id               = "provincesDropdown"
+                title            = "Select a province"
+                data-style       = "btn-white"
+                data-size        = "5"
+                data-live-search = "true"
             ></select>
         </div>
 
         <!-- City/Municipality Field -->
         <div class="form-group">
-            <label for="cityMunicipality">City/Municipality</label>
+            <label for="cities">City</label>
             <select 
-                name="cityMunicipality" 
-                id="citiesDropdown" 
-                class="custom-select"
-                placeholder="Select city or municipality"
+                class            = "selectpicker form-control border" 
+                name             = "cities" 
+                id               = "citiesDropdown"
+                title            = "Select a city"
+                data-style       = "btn-white"
+                data-size        = "5"
+                data-live-search = "true"
             ></select>
         </div>
 
         <!-- Barangay/District Field -->
         <div class="form-group">
-            <label for="baranggayDistrict">Barangay/District</label>
+            <label for="barangaysDropdown">Barangay</label>
             <select 
-                name="baranggayDistrict" 
-                id="barangaysDropdown" 
-                class="custom-select"
-                placeholder="Select barangay or district"
+                class            = "selectpicker form-control border" 
+                name             = "barangays" 
+                id               = "barangaysDropdown"
+                title            = "Select a baranggay"
+                data-style       = "btn-white"
+                data-size        = "5"
+                data-live-search = "true"
             ></select>
         </div>
 
@@ -203,10 +217,10 @@
                 title       = "Select your biological sex"
                 data-style  = "btn-white"
             >
-                <option value="F" data-icon="fas fa-venus icon-container text-danger">
+                <option value="Female" data-icon="fas fa-venus icon-container text-danger">
                     <span>Female</span>
                 </option>
-                <option value="M" data-icon="fas fa-mars icon-container text-blue">
+                <option value="Male" data-icon="fas fa-mars icon-container text-blue">
                     <span>Male</span>
                 </option>
             </select>

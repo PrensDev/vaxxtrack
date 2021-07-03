@@ -8,7 +8,7 @@
     
     <!-- Edit Representative Form -->
     <form id="editAdminInfoForm">
- 
+
         <!-- General Information -->
         <div class="d-flex justify-content-center">
             <div class="col-lg-8 col-md-10 col-sm-12 p-0">
@@ -52,7 +52,7 @@
 
                             <!-- Middle Name Field -->
                             <div class="form-group">
-                                <label for="middleName" class="d-flex justify-content-between">
+                                <label for="middleNameInput" class="d-flex justify-content-between">
                                     <span>Middle name</span>
                                     <div
                                         class           = "d-inline text-muted ml-1"
@@ -66,7 +66,7 @@
                                 <input 
                                     class       = "form-control" 
                                     type        = "text" 
-                                    id          = "middleName" 
+                                    id          = "middleNameInput" 
                                     name        = "middleName"
                                     placeholder = "e.g. Simon"
                                 >

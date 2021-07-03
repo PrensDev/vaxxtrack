@@ -1,11 +1,5 @@
 <!-- Vaccination Appointment Details Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "vaccAppointmentDetailsModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "vaccAppointmentDetailsModal" 
-    aria-hidden     = "true"
->
+<div class="modal fade" id="vaccAppointmentDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -83,16 +77,9 @@
 
 
 <!-- Change Approval Status Modal -->
-<div 
-    class           = "modal" 
-    id              = "changeApprovalStatusModal" 
-    data-backdrop   = "static"
-    tabindex        = "-1" 
-    aria-labelledby = "changeApprovalStatusModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="changeStatusApprovalModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
+        <form class="modal-content" id="changeStatusApprovalForm">
             <div class="modal-header">
                 <h5 class="far fa-edit modal-title-icon"></h5>
                 <h5 class="modal-title">Change Approval Status</h5>
@@ -107,39 +94,56 @@
                     </span>
                 </button>
             </div>
-            <form id="changeApprovalStatusForm">
-                <div class="modal-body" id="QRCodeContainer">
-                    <label>Select the new status of this appointment</label>
-                    <div class="custom-control custom-radio py-2">
-                        <input type="radio" id="pending" name="approvalStatus" class="custom-control-input">
-                        <label class="custom-control-label font-weight-semibold" for="pending">
-                            <i class="fas fa-stopwatch icon-container text-blue"></i>
-                            <span>Pending</span>
-                        </label>
-                    </div>
-                    <div class="custom-control custom-radio py-2">
-                        <input type="radio" id="approved" name="approvalStatus" class="custom-control-input">
-                        <label class="custom-control-label font-weight-semibold" for="approved">
-                            <i class="fas fa-check icon-container text-success"></i>
-                            <span>Approve</span>
-                        </label>
-                    </div>
-                    <div class="custom-control custom-radio py-2">
-                        <input type="radio" id="rejected" name="approvalStatus" class="custom-control-input">
-                        <label class="custom-control-label font-weight-semibold" for="rejected">
-                            <i class="fas fa-times icon-container text-danger"></i>
-                            <span>Reject</span>
-                        </label>
-                    </div>
+            <div class="modal-body" id="QRCodeContainer">
+                <label>Select the new status of this appointment</label>
+                <input type="hidden" id="vaccAppointmentID" name="vaccAppointmentID">
+                <div class="custom-control custom-radio py-2">
+                    <input 
+                        type="radio" 
+                        id="pending" 
+                        name="statusApproval" 
+                        class="custom-control-input"
+                        value="Pending"
+                    >
+                    <label class="custom-control-label font-weight-semibold" for="pending">
+                        <i class="fas fa-stopwatch icon-container text-blue"></i>
+                        <span>Pending</span>
+                    </label>
                 </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-blue">
-                        <span>Save</span>
-                        <i class="fas fa-check ml-1"></i>
-                    </button>
+                <div class="custom-control custom-radio py-2">
+                    <input 
+                        type="radio" 
+                        id="approved" 
+                        name="statusApproval" 
+                        class="custom-control-input"
+                        value="Approved"
+                    >
+                    <label class="custom-control-label font-weight-semibold" for="approved">
+                        <i class="fas fa-check icon-container text-success"></i>
+                        <span>Approve</span>
+                    </label>
                 </div>
-            </form>
-        </div>
+                <div class="custom-control custom-radio py-2">
+                    <input 
+                        type="radio" 
+                        id="rejected" 
+                        name="statusApproval" 
+                        class="custom-control-input"
+                        value="Rejected"
+                    >
+                    <label class="custom-control-label font-weight-semibold" for="rejected">
+                        <i class="fas fa-times icon-container text-danger"></i>
+                        <span>Reject</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-blue">
+                    <span>Save</span>
+                    <i class="fas fa-check ml-1"></i>
+                </button>
+            </div>
+        </form>
     </div>
 </div>

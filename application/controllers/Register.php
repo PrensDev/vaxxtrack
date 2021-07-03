@@ -54,7 +54,10 @@ class Register extends CI_Controller {
 
     // Register as Citizen
     public function citizen() {
-        $this->load_views('Citizen Registration', [['citizen']]);
+        $this->load_views('Citizen Registration', [
+            ['components/modals/register_modals'],
+            ['citizen'],
+        ]);
     }
 
     // Register as Establishment Representative

@@ -6,6 +6,7 @@
  * ===========================================================================
  */
 
+
 /**
  * ===========================================================================
  * * INSTANCES
@@ -15,16 +16,16 @@
 // Margin Top Navbar to adjust element after it
 $("#mainNavbar").next().css("margin-top", $("#mainNavbar").outerHeight());
 
+
 /**
  * ===========================================================================
  * * FUNCTIONS AND METHODS
  * ===========================================================================
  */
 
-// Progress Indicator
+// Set Step for Progress Indicator
 setStepIndicator = (currentVal, maxValue) => {
-    stepIndicator = $('#stepIndicator');
-
+    const stepIndicator = $('#stepIndicator');
     if(stepIndicator.length) {
         stepIndicator.html(`Step ${ currentVal } of ${ maxValue }`);
         width = (currentVal/maxValue)*100;
@@ -32,29 +33,26 @@ setStepIndicator = (currentVal, maxValue) => {
     }
 }
 
+
 // Get the buttons for multistep form
-const prevBtn = $('#prevBtn');
-const nextBtn = $('#nextBtn');
+const prevBtn   = $('#prevBtn');
+const nextBtn   = $('#nextBtn');
 const submitBtn = $('#submitBtn');
+
 
 // Show Field Set 
 // For multistep form 
 showFieldset = (fieldsets, step) => {
     step -= 1;
-
     fieldsets.forEach((fieldset, i) => {
-        if(step == i) {
-            $('#' + fieldset).show();
-        } else {
-            $('#' + fieldset).hide();
-        }
 
-        if(step == 0) {
-            $('#prevBtnContainer').hide()
-        } else {
-            $('#prevBtnContainer').show()
-        }
+        // Show the only fieldset declared
+        step == i ? $('#' + fieldset).show() : $('#' + fieldset).hide();
 
+        // Hide the previous button in first fieldset
+        step == 0 ? $('#prevBtnContainer').hide() : $('#prevBtnContainer').show();
+
+        // Show the submit button in the last fieldset, hide if not
         if(step == fieldsets.length - 1) {
             nextBtn.hide();
             submitBtn.show();
@@ -63,7 +61,6 @@ showFieldset = (fieldsets, step) => {
             submitBtn.hide();
         }
     });
-
     setStepIndicator(showed, fieldsets.length);
 }
 
@@ -91,6 +88,7 @@ if($('#registerCitizenForm').length) {
     showFieldset(fieldsets, showed)
     setStepIndicator(showed, fieldsets.length);
 
+    // For form validation
     validateForm = () => {
         {
 
@@ -208,8 +206,43 @@ if($('#registerCitizenForm').length) {
         }
     }
 
+    // Next Event
+    nextEvent = () => {
+
+        // Check if account is already used
+        if($('#emailFieldset').is(':visible')) {
+
+            data = {
+                details: `${ $('#email').val() }`
+            };
+
+            $.ajax({
+                url: `${ BASE_URL_API }check-account`,
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: result => {
+                    if(result) {
+                        const data = result.data;
+                        
+                        if(data.length) {
+                            showAlert('danger', 'This account is already used')
+                        } else {
+                            $('#alert').alert('close');
+                            validateForm();
+                        }
+                    } else {
+                        
+                    }
+                }
+            })
+        } else {
+            validateForm();
+        }
+    }
+
     // When next button is clicked
-    nextBtn.on('click', () => validateForm())
+    nextBtn.on('click', () => nextEvent());
 
     // When enter button is clicked
     registerCitizenForm.on('keyup keypress', function(e) {
@@ -217,13 +250,13 @@ if($('#registerCitizenForm').length) {
         if(showed != fieldsets.length) {
             if (keyCode === 13) { 
                 e.preventDefault();
-                validateForm()
+                nextEvent()
             }
         } else {
             if (keyCode === 13) { 
                 if(!registerCitizenForm.valid()) {
                     e.preventDefault();
-                    validateForm()
+                    nextEvent()
                 }
             }
         }

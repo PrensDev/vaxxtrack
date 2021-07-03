@@ -322,9 +322,8 @@ loadVaccAppointmentsDT = () => {
                     render: data => {
                         const ab = data.appointed_by;
 
-                        const fullName = setFullName('L, F Mi', {
+                        const fullName = setFullName('L, F', {
                             firstName: ab.first_name,
-                            middleName: ab.middle_name,
                             lastName: ab.last_name
                         });
 
@@ -388,7 +387,7 @@ loadVaccAppointmentsDT = () => {
                     render: data => {
                         return `
                             <div>${moment(data.preferred_date).format("MMM. D, YYYY")}</div>
-                            <div class="small text-secondary">${moment(data.preferred_date).toNow()}</div>
+                            <div class="small text-secondary">${moment(data.preferred_date).fromNow()}</div>
                         `;
                     }
                 },
@@ -440,24 +439,51 @@ loadVaccAppointmentsDT = () => {
                 // Approved By
                 { 
                     data: null,
+                    class: 'text-nowrap',
                     render: data => {
-                        var approvedBy = data.approved_by == null || data.approved_by == '';
-                        const style = approvedBy ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = approvedBy ? 'No approval yet' : `${ data.approved_by }`;
+                        const ap = data.approved_person;
 
-                        return `<td><span class="${ style }">${ result }</span></td>`;
+                        if(ap == null || ap == '') {
+                            return `
+                                <div class="text-secondary font-italic font-weight-normal text-nowrap">Not yet approved</div>
+                            `
+                        } else {
+                            const fullName = setFullName('L, F', {
+                                firstName: ap.first_name,
+                                lastName: ap.last_name
+                            });
+    
+                            const userApproved = ap.user_ID == localStorage.getItem('user_ID') ? `You, ${ ap.user_type }` : ap.user_type;
+    
+                            return `
+                                <div class="d-flex align-items-baseline">
+                                    <i class="fas fa-user-circle icon-container text-secondary"></i>
+                                    <div>
+                                        <div>${ fullName }</div>
+                                        <div class="small text-secondary">${ userApproved }</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
                     }
                 },
 
                 // Date and Time Approved
-                { 
+                {
                     data: null,
                     render: data => {
-                        const approveDate = data.approved_datetime == null || data.approved_datetime  == '';
-                        const style = approveDate ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = approveDate ? 'No data yet' : `${ data.approved_datetime }`;
+                        const approvedDatetime = data.approved_datetime;
 
-                        return `<td><span class="${ style }">${ result }</span></td>`;
+                        if(approvedDatetime == null || approvedDatetime == '') {
+                            return `
+                                <div class="text-secondary font-italic font-weight-normal">No data yet</div>
+                            `
+                        } else {
+                            return `
+                                <div>${moment(approvedDatetime).format("MMM. D, YYYY; hh:mm A")}</div>
+                                <div class="small text-secondary">${moment(approvedDatetime).fromNow()}</div>
+                            `;
+                        }
                     }
                 },
 
@@ -465,6 +491,8 @@ loadVaccAppointmentsDT = () => {
                 {
                     data: null,
                     render: data => {
+                        const id = data.vaccination_appointment_ID;
+
                         return `
                             <div class="dropdown">
                                 <div data-toggle="dropdown">
@@ -486,10 +514,9 @@ loadVaccAppointmentsDT = () => {
                                         <span>View full details</span>
                                     </div>
                                     <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#changeApprovalStatusModal"  
+                                        class   = "dropdown-item" 
+                                        role    = "button"
+                                        onclick = "changeStatusApproval('${ id }')" 
                                     >
                                         <i class="far fa-edit icon-container"></i>
                                         <span>Change Status Approval</span>
@@ -508,10 +535,89 @@ loadVaccAppointmentsDT = () => {
     }
 }
 
+/**
+ * ====================================================================
+ * * UPDATE VACCINATION APPOINTMENT
+ * ====================================================================
+ */
+
 // Change Status Approval
 changeStatusApproval = (id) => {
-    alert(id);
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccination-appointments/${ id }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                const data = result.data;
+                if(data || data.length) {
+
+                    // Set the ID in form
+                    $('#vaccAppointmentID').val(data.vaccination_appointment_ID);
+
+                    // Set the checked radio for status approval
+                    var radios = $(`input:radio[name="statusApproval"]`);
+                    radios.filter(`[value="${ data.status_approval }"]`).prop('checked', true);
+
+                    // Show modal
+                    $('#changeStatusApprovalModal').modal('show');
+                } else {
+                    showAlert('danger', 'The information of that vaccination appointment is blank')
+                }
+            } else {
+                showAlert('danger', 'No result was found')
+            }
+        }
+    })
+    .fail(() => {
+        showAlert('danger', 'There was an error in getting the information of that vaccination appointment')
+    })
 }
+
+// Change Status Approval
+changeStatusApprovalAJAX = () => {
+    const form = new FormData($('#changeStatusApprovalForm')[0]);
+
+    data = {
+        status_approval: form.get('statusApproval'),
+        approved_datetime: moment().format(),
+    }
+
+    const id = form.get('vaccAppointmentID');
+
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccination-appointments/${ id }`,
+        type: 'PUT',
+        data: data,
+        dataType: 'json',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                
+                // Hide the modal
+                $('#changeStatusApprovalModal').modal('hide');
+
+                // Show success alert
+                showAlert('success', 'Success! A vaccination appointment is updated.');
+
+                // Reload DataTable
+                const dt = $('#vaccAppointmentsDT').DataTable();
+                dt.ajax.reload();
+            }
+        }
+    })
+    .fail(() => {
+        $('#changeStatusApprovalModal').modal('hide');
+        showAlert('danger', 'There was an error in updating a vaccination appointment.');
+    });
+}
+
+// Change Status Approval Form
+$('#changeStatusApprovalForm').validate(validateOptions({
+    rules: {},
+    messages: {},
+    submitHandler: () => changeStatusApprovalAJAX()
+}));
 
 
 

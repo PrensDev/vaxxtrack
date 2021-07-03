@@ -37,12 +37,12 @@ getInfoAJAX = () => {
                 // Get data from response
                 var data = res.data;
 
-                // Check first if user's middle name is null or blank
-                var userHasNoMiddleName = data.middle_name == null || data.middle_name === '';
-                var userMiddleName = userHasNoMiddleName ?  ' ' : ' ' + data.middle_name + ' ';
-
                 // Get user full name
-                var userFullName = data.first_name + userMiddleName + data.last_name;
+                var userFullName = setFullName('F M L', {
+                    firstName:  data.first_name,
+                    middleName: data.middle_name,
+                    lastName:   data.last_name
+                });
                 
                 // Display Name for Topbar
                 $('#userFullNameForTopbar').html(userFullName);

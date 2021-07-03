@@ -5,6 +5,8 @@
         'subtitle' => 'Manage here the appointments of citizens for vaccination'
     ]); ?>
 
+    <div id="alertContainer"></div>
+
     <?php $this->load->view('all/components/vacc_registered_summary_detailed'); ?>
 
     <!-- Vaccination Appointments List -->

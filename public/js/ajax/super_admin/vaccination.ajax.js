@@ -77,6 +77,8 @@ loadVaccinesDT = () => {
                     data: null,
                     class: 'text-center',
                     render: data => {
+                        const id = data.vaccine_ID;
+
                         return `
                             <div class="dropdown" data-toggle="tooltip" title="More">
                                 <div class="d-inline" data-toggle="dropdown">
@@ -84,11 +86,11 @@ loadVaccinesDT = () => {
                                         <i class="fas fa-ellipsis-v"></i>
                                     </div>
                                 </div>
-                            
+                                
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <div 
                                         class   = "dropdown-item"
-                                        onclick = "viewVaccineDetails('${ data.vaccine_ID }')"
+                                        onclick = "viewVaccineDetails('${ id }')"
                                         role    = "button"
                                     >
                                         <i class="fas fa-list icon-container"></i>
@@ -96,7 +98,7 @@ loadVaccinesDT = () => {
                                     </div>
                                     <div 
                                         class   = "dropdown-item"
-                                        onclick = "editVaccineDetails('${ data.vaccine_ID }')"
+                                        onclick = "editVaccineDetails('${ id }')"
                                         role    = "button"
                                     >
                                         <i class="far fa-edit icon-container"></i>
@@ -104,7 +106,7 @@ loadVaccinesDT = () => {
                                     </div>
                                     <div 
                                         class   = "dropdown-item"
-                                        onclick = "removeVaccine('${ data.vaccine_ID }')"
+                                        onclick = "removeVaccine('${ id }')"
                                         role    = "button"
                                     >
                                         <i class="far fa-trash-alt icon-container"></i>

@@ -15,8 +15,22 @@
  * ===========================================================================
  */
 
+const symptomsFields = [
+    'fever',
+    'dryCough',
+    'soreThroat',
+    'breathShortness',
+    'smellTasteLoss',
+    'fatigue',
+    'achesPain',
+    'runnyNose',
+    'diarrhea',
+    'headache'
+];
+
 $(() => {
     generateCitizensQRCode(); 
+    symtomsCheckBoxOnChange(symptomsFields);
 });
 
 
@@ -60,7 +74,6 @@ generateCitizensQRCode = () => {
         citizenQRCodeInModal.makeCode(user_ID);
     }
 }
-
 
 // Print Vaccination Card
 printVaccinationCard = () => {
@@ -121,116 +134,35 @@ disableHealthStatusButton = () => {
         'headache'
     ];
 
+    // Initialize the button as disabled
     var disabled = true;
 
+    // If one or more fields are checked
+    // Enable button
     fields.forEach(f => {
         if($('#'+f).is(':checked')) disabled = false;
     });
 
-    if(disabled) $('#saveHealthStatus').prop('disabled', true);
+    // Set button to enabled/disabled
+    $('#saveHealthStatus').prop('disabled', disabled);
 }
 
-// Uncheck symptoms
+// Uncheck all symptoms
 $('#healthy').on('change', () => {
     disableHealthStatusButton();
     if($('#healthy').is(':checked')) {
-        const symptomsFields = [
-            'fever',
-            'dryCough',
-            'soreThroat',
-            'breathShortness',
-            'smellTasteLoss',
-            'fatigue',
-            'achesPain',
-            'runnyNose',
-            'diarrhea',
-            'headache'
-        ];
-
-        symptomsFields.forEach(field => {
-            $('#'+field).prop('checked', false);
-        });
-
+        symptomsFields.forEach(field => $('#'+field).prop('checked', false));
         $('#saveHealthStatus').prop('disabled', false);
     }
 });
 
-$('#fever').on('change', () => {
-    disableHealthStatusButton();
-    if($('#fever').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#dryCough').on('change', () => {
-    disableHealthStatusButton();
-    if($('#dryCough').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#soreThroat').on('change', () => {
-    disableHealthStatusButton();
-    if($('#soreThroat').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#breathShortness').on('change', () => {
-    disableHealthStatusButton();
-    if($('#breathShortness').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#smellTasteLoss').on('change', () => {
-    disableHealthStatusButton();
-    if($('#smellTasteLoss').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#fatigue').on('change', () => {
-    disableHealthStatusButton();
-    if($('#fatigue').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#achesPain').on('change', () => {
-    disableHealthStatusButton();
-    if($('#achesPain').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#runnyNose').on('change', () => {
-    disableHealthStatusButton();
-    if($('#runnyNose').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#diarrhea').on('change', () => {
-    disableHealthStatusButton();
-    if($('#diarrhea').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
-
-$('#headache').on('change', () => {
-    disableHealthStatusButton();
-    if($('#headache').is(':checked')) {
-        $('#healthy').prop('checked', false);
-        $('#saveHealthStatus').prop('disabled', false);
-    }
-});
+// Symptoms Check Box On Change
+symtomsCheckBoxOnChange = (ids = []) => {
+    ids.forEach(id => $('#'+id).on('change', () => {
+        disableHealthStatusButton();
+        if($('#'+id).is(':checked')) {
+            $('#healthy').prop('checked', false);
+            $('#saveHealthStatus').prop('disabled', false);
+        }
+    }));
+}

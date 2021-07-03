@@ -35,6 +35,10 @@ const HEALTH_OFFICIAL_API_ROUTE = `${ BASE_URL_API }health-official/`;
 const SUPER_ADMIN_API_ROUTE     = `${ BASE_URL_API }super-admin/`;
 
 
+// PSGC API Route
+const PSGC_API_ROUTE = 'https://psgc-api.wareneutron.com/api/';
+
+
 // jQuery Validation Variables
 const JQUERY_VALIDATE_DEBUG = false;
 
@@ -44,7 +48,7 @@ const AJAX_REQUEST_TIMEOUT = 30000;
 
 
 // Live update data timeout
-const LIVE_UPDATE_DATA_TIMEOUT = 3000;
+const LIVE_UPDATE_DATA_TIMEOUT = 5000;
 
 
 // Leaflet Variables
@@ -221,17 +225,27 @@ const liveRenderData = (handler) => {
     setInterval(() => handler(), LIVE_UPDATE_DATA_TIMEOUT);
 }
 
+// Live Reload DataTables Interval
+var liveReloadDataTablesInterval = (dtEl) => {
+    setInterval(() => {
+        if(dtEl.length) {
+            const dt = dtEl.DataTable();
+            dt.ajax.reload();
+        }
+    }, LIVE_UPDATE_DATA_TIMEOUT)
+}
+
 // Live Reload Datatable
 const liveReloadDataTables = (DataTables = []) => {
     DataTables.forEach(DataTable => {
-        setInterval(() => {
-            const dtEl = $('#'+DataTable);
-            if(dtEl.length) {
-                const dt = dtEl.DataTable();
-                dt.ajax.reload();
-            }
-        }, LIVE_UPDATE_DATA_TIMEOUT)
+        const dtEl = $('#'+DataTable);
+        liveReloadDataTablesInterval(dtEl);
     })
+}
+
+// Pause reload DataTables
+const pauseReloadDataTables = () => { 
+    clearInterval(liveReloadDataTablesInterval);
 }
 
 // Set Full Name
@@ -285,5 +299,10 @@ const setFullName = (format, userName = {
             middleName += '. '
         }
         return firstName + middleName + lastName;
+    }
+
+    // {last name}, {first name} {middle initial}
+    else if(format === 'L, F') {
+        return lastName + ', ' + firstName;
     }
 }

@@ -47,7 +47,7 @@
                     <div class="flex-separated">
                         <div>
                             <h6 class="text-success">Approved</h6>
-                            <h3 class="font-weight-bold mb-0" id="vaccPendingApprovedCountData">0</h3>
+                            <h3 class="font-weight-bold mb-0" id="vaccApprovedAppointmentsCountData">0</h3>
                         </div>
                         <div class="alert-success flex-center rounded-lg" style="height: 60px; width: 60px">
                             <h1 class="mb-0">
