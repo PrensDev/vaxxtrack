@@ -129,8 +129,8 @@
                                 class       = "selectpicker form-control border" 
                                 name        = "civilStatus" 
                                 id          = "civilStatus"
-                                title       = "Choose your current civil status"
                                 data-style  = "btn-white"
+                                title       = "Choose your current civil status"
                             >
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
@@ -285,7 +285,15 @@
                     <div class="col-12 col-lg-6">
                         <div class="form-group">
                             <label for="dateConfirmed">Current Health Status</label>
-                            <select class="selectpicker form-control" name="currentHealthStatus" id="currentHealthStatus" data-style="border">
+                            <select 
+                                class="selectpicker form-control" 
+                                name="currentHealthStatus" 
+                                id="currentHealthStatus" 
+                                data-style="border"
+                                data-size="6"
+                                data-live-search="true"
+                                title="Select the current health status of patient"
+                            >
                                 <optgroup label="Active">
                                     <option value="Asymptomatic" data-icon="fas fa-circle icon-container text-muted">
                                         <span>Asymptomatic</span>

@@ -195,10 +195,19 @@ $('img').bind('contextmenu', (e) => { return false });
 //     }
 // }
 
-$(() => {
+getLongLat = (query) => {
+
+    const rawQuery = query.split(' ');
+
+    var newQuery = '';
+
+    rawQuery.forEach((q, i) => {
+        newQuery += q;
+        if(i !== rawQuery.length-1) newQuery += '+';
+    });
 
     const HERE_GEOCODE_API_KEY = 'wCzOTTWBWwbtIOhgfZWKvn_oThvZlhMY07JHNayyh_Y';
-    const HERE_GEOCODE_SEARCH_QUERY = 'Bignay+Valenzuela+City';
+    const HERE_GEOCODE_SEARCH_QUERY = newQuery;
 
     $.ajax({
         url: `https://geocode.search.hereapi.com/v1/geocode?q=${ HERE_GEOCODE_SEARCH_QUERY }&apiKey=${ HERE_GEOCODE_API_KEY }`,
@@ -228,7 +237,5 @@ $(() => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in fetching location');
-    })
-});
+    .fail(() => console.log('There was an error in fetching location'));
+}

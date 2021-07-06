@@ -23,6 +23,7 @@ class Representative extends CI_Controller {
     private Array $AJAX_files = [
         'account',
         'establishment',
+        'visiting_log',
         'info',
     ];
 

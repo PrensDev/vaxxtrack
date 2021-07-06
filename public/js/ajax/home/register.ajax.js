@@ -107,26 +107,22 @@ $('#regionsDropdown').on('changed.bs.select', () => {
         success: result => {
             if(result) {
                 const provinces = result;
-                console.log(provinces)
-    
+
                 var options = '';
-    
-                provinces.forEach(p => {
-                    options += `
-                        <option
-                            value="${ p.code }"
-                        >${ p.name }</option>
-                    `;
-                });
-    
+                provinces.forEach(p => options += `<option value="${ p.code }">${ p.name }</option>`);
+                
+                // Reset provinces dropdown
                 $('#provincesDropdown').html(options);
                 $('#provincesDropdown').selectpicker('refresh');
                 
+                // Reset cities dropdown
                 $('#citiesDropdown').html('');
                 $('#citiesDropdown').selectpicker('refresh');
 
-                $('#barangaysDropdown').html('');
-                $('#barangaysDropdown').selectpicker('refresh');
+                // Reset barangay, street, and specific location inputs
+                $('#barangay').val('');
+                $('#street').val('');
+                $('#specificLocation').val('');
             }
         }
     });
@@ -145,16 +141,8 @@ $('#provincesDropdown').on('changed.bs.select', () => {
         type: 'GET',
         success: result => {
             if(result) {
-                const cities = result;
-                console.log(cities)
-
-                cities.forEach(c => {
-                    options += `
-                        <option
-                            value="${ c.code }"
-                        >${ c.name }</option>
-                    `;
-                });
+                console.log(result);
+                result.forEach(c => options += `<option value="${ c.code }">${ c.name }</option>`);
             }
         }
     });
@@ -166,82 +154,34 @@ $('#provincesDropdown').on('changed.bs.select', () => {
         type: 'GET',
         success: result => {
             if(result) {
-                const municipality = result;
-                console.log(municipality)
-
-                municipality.forEach(m => {
-                    options += `
-                        <option
-                            value="${ m.code }"
-                        >${ m.name }</option>
-                    `;
-                });
-    
+                console.log(result);
+                result.forEach(m => options += `<option value="${ m.code }">${ m.name }</option>`);
             }
         }
     });
     
+    // Reset cities dropdown
     $('#citiesDropdown').html(options);
     $('#citiesDropdown').selectpicker('refresh');
 
-    $('#barangaysDropdown').html('');
-    $('#barangaysDropdown').selectpicker('refresh');
+    // Reset barangay, street, and specific location inputs
+    $('#barangay').val('');
+    $('#street').val('');
+    $('#specificLocation').val('');
 });
 
-// On change (or select) cities select input
+// On chnage (or select) cities select input
 $('#citiesDropdown').on('changed.bs.select', () => {
-    code = $('#citiesDropdown').val();
-    alert(code);
 
-    $.ajax({
-        url: `${ PSGC_API_ROUTE }city/${ code }/barangay`,
-        type: 'GET',
-        success: result => {
-            if(result) {
-                const barangays = result;
-                console.log(barangays);
+    alert($('#citiesDropdown').html());
 
-                var options = '';
+    // Reset barangay, street, and specific location inputs
+    $('#barangay').val('');
+    $('#street').val('');
+    $('#specificLocation').val('');
 
-                barangays.forEach(b => {
-                    options += `
-                        <option
-                            value="${ b.code }"
-                        >${ b.name }</option>
-                    `;
-                });
-
-                $('#barangaysDropdown').html(options);
-                $('#barangaysDropdown').selectpicker('refresh');
-            }
-        }
-    });
-
-    $.ajax({
-        url: `${ PSGC_API_ROUTE }municipality/${ code }/barangay`,
-        type: 'GET',
-        success: result => {
-            if(result) {
-                const barangays = result;
-                console.log(barangays);
-
-                var options = '';
-
-                barangays.forEach(b => {
-                    options += `
-                        <option
-                            value="${ b.code }"
-                        >${ b.name }</option>
-                    `;
-                });
-
-                $('#barangaysDropdown').html(options);
-                $('#barangaysDropdown').selectpicker('refresh');
-            }
-        }
-    });
+    const query = $('#barangay').val() + ' ' + $('#provincesDropdown').html();
 });
-
 
 /**
  * ===========================================================================

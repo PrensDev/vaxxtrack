@@ -88,7 +88,6 @@
                                 data-toggle    = "tooltip"
                                 data-placement = "bottom"
                                 title          = "QR Code" 
-                                
                             ></div>
                         </div>
                     </div>
@@ -193,7 +192,7 @@
 
                     // Check first if element with ID is existed
                     // This is done because there is always error returned from QRCode function 
-                    if($('#establishmentQRCode').length !== 0) {
+                    if($('#establishmentQRCode').length) {
                         
                         // Set Establishment QC Code 
                         const establishmentQRCode = new QRCode('establishmentQRCode', {
@@ -207,7 +206,7 @@
 
                     // Check first if element with ID is existed
                     // This is done because there is always error returned from QRCode function
-                    if($('#establishmentQRCodeInModal').length !== 0) {
+                    if($('#establishmentQRCodeInModal').length) {
 
                         // Set Establishment QR Code in Modal
                         const establishmentQRCodeInModal = new QRCode('establishmentQRCodeInModal', {
@@ -233,7 +232,5 @@
             }
         }
     })
-    .fail(() => {
-        location.replace(`${ BASE_URL_MAIN }page_not_found`);
-    });
+    .fail(() => location.replace(`${ BASE_URL_MAIN }page_not_found`));
 </script>

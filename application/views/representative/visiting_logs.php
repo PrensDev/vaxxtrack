@@ -33,7 +33,7 @@
                         class       = "btn btn-blue btn-sm"
                         id          = "scanQrCodeBtn"
                         data-toggle = "modal"
-                        data-target = "#scanModal"
+                        data-target = "#QRCodeScannerModal"
                     >
                         <i class="fas fa-camera mr-1"></i>
                         <span>Scan</span>
@@ -47,15 +47,10 @@
 
             <!-- Visiting Logs Table -->
             <div class="table-responsive">
-                <table 
-                    class       = "table border-bottom" 
-                    id          = "visitingLogsDT" 
-                    width       = "100%" 
-                    cellspacing = "0"
-                >
+                <table class="table border-bottom w-100" id="visitingLogsDT" width="100%" cellspacing="0">
                     <thead class="thead">
                         <tr>
-                            <th>Name</th>
+                            <th>Visitor's Name</th>
                             <th>Entry Log</th>
                             <th>Purpose</th>
                             <th>Temp</th>
@@ -194,104 +189,22 @@
 
 <!-- Scripts -->
 <script type="module">
-    // Scanner Instance
-    let scanner = new Html5QrcodeScanner("reader", { fps: 25, qrbox: 250 }, false);
+    $('#QRCodeScannerModal').on('show.bs.modal', () => {
 
-    // On success scan
-    const onScanSuccess = (qrMessage) => {
-        console.log(`Data: ${ qrMessage }`);
-    }
-
-    // On failed scan
-    const onScanFailure = (error) => {
-        // console.warn(`QR error = ${error}`);
-    }
-
-    // Render the scanner
-    scanner.render(onScanSuccess, onScanFailure);
-</script>
-
-<script>
-    $.ajax({
-        url: `${ REPRESENTATIVE_API_ROUTE }visiting-logs/${ establishment_ID }`,
-        type: 'GET',
-        headers: AJAX_HEADERS,
-        success: (result) => {
-            if(result) {
-                console.log(result.data)
-            } else {
-                console.log('No result was found');
-            }
+        // Scanner Instance
+        let scanner = new Html5QrcodeScanner("reader", { fps: 25, qrbox: 250 }, false);
+    
+        // On success scan
+        const onScanSuccess = (qrMessage) => {
+            console.log(`Data: ${ qrMessage }`);
         }
-    })
-    .fail(() => {
-        console.log('There was an error in getting visiting logs');
-    })
-
-    $(() => {
-        loadVisitingLogsDT();
+    
+        // On failed scan
+        const onScanFailure = (error) => {
+            // console.warn(`QR error = ${error}`);
+        }
+    
+        // Render the scanner
+        scanner.render(onScanSuccess, onScanFailure);
     });
-
-    loadVisitingLogsDT = () => {
-        const dt = $('#visitingLogsDT');
-
-        if(dt.length) {
-            dt.DataTable({
-                ajax: {
-                    url: `${ REPRESENTATIVE_API_ROUTE }visiting-logs/${ establishment_ID }`,
-                    type: 'GET',
-                    headers: AJAX_HEADERS,
-                },
-                columns: [
-                    {
-                        data: null,
-                        render: data => {
-                            const vlb = data.visiting_log_by;
-
-                            const fullName = vlb.last_name + ', ' + vlb.first_name;
-
-                            return `
-                                <div class="d-flex align-items-baseline">
-                                    <div class="icon-container">
-                                        <i class="fas fa-user-circle text-secondary"></i>
-                                    </div>
-                                    <div>
-                                        <div>${ fullName }</div>
-                                        <div class="small text-secondary">Visitor</div>
-                                    </div>
-                                </div>
-                            `
-                        }
-                    },
-                    {
-                        data: null,
-                        render: data => {
-                            return `
-                                <div>${ moment(data.created_datetime).format('MMM. D, YYYY') }</div>
-                                <div class="small text-secondary">${ moment(data.created_datetime).fromNow() }</div>
-                            `
-                        }
-                    },
-                    { data: 'purpose'},
-                    { 
-                        data: null,
-                        render: data => {
-                            return `
-                                <span class="badge alert-success text-success p-2 w-100">
-                                    <span>${ data.health_status_log.temperature }&deg;C</span>
-                                </span>
-                            `
-                        }
-                    },
-                    { data: 'purpose'},
-                    { data: 'purpose'},
-                    { data: 'purpose'},
-                ],
-                columnDefs: [{
-                    targets: [6],
-                    orderable: false
-                }]
-            })
-        }
-    }
 </script>

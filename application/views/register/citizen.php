@@ -167,18 +167,16 @@
             ></select>
         </div>
 
-        <!-- Barangay/District Field -->
+        <!-- Barangay -->
         <div class="form-group">
-            <label for="barangaysDropdown">Barangay</label>
-            <select 
-                class            = "selectpicker form-control border" 
-                name             = "barangays" 
-                id               = "barangaysDropdown"
-                title            = "Select a baranggay"
-                data-style       = "btn-white"
-                data-size        = "5"
-                data-live-search = "true"
-            ></select>
+            <label for="barangay">Barangay</label>
+            <input 
+                type        = "text" 
+                class       = "form-control" 
+                name        = "barangay"
+                id          = "barangay"
+                placeholder = "Type street here"
+            >
         </div>
 
         <!-- Street -->

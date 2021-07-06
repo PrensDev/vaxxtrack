@@ -130,6 +130,7 @@ const validateOptions = (
 
 // showAlert
 const showAlert = (theme, message) => {
+    $("html, body").animate({ scrollTop: 0 }, 500);
     $('#alertContainer').html(`
         <div class="alert alert-${ theme } alert-dismissible fade show mb-4" role="alert" id="alert">
             <span class="font-weight-semibold">${ message }</span>

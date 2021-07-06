@@ -1,11 +1,5 @@
 <!-- Vaccination Card Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "vaccCardModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "vaccCardModal" 
-    aria-hidden     = "true"
->
+<div class="modal fade" id="vaccCardModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -122,13 +116,7 @@
 
 
 <!-- Vaccination Record Details Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "vaccRecordDetailsModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "vaccRecordDetailsModal" 
-    aria-hidden     = "true"
->
+<div class="modal fade" id="vaccRecordDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -146,33 +134,51 @@
                     <tr>
                         <th>Citizen</th>
                         <td>
-                            <div>Juan Dela Cruz</div>
-                            <div class="text-secondary small">
-                                <i class="fas fa-mars"></i>
-                                <span>Male, 21 years old</span>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-user-circle text-secondary"></i>
+                                </div>
+                                <div>
+                                <div>Juan Dela Cruz</div>
+                                <div class="text-secondary small">
+                                    <i class="fas fa-mars"></i>
+                                    <span>Male, 21 years old</span>
+                                </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Vaccine Used</th>
                         <td>
-                            <div>(1<sup>st</sup> Dose) Pfizer-BioNTech</div>
-                            <div class="small text-secondary">
-                                <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-syringe text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>(1<sup>st</sup> Dose) Pfizer-BioNTech</div>
+                                    <div class="small text-secondary">
+                                        <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
+                                    </div>
+                                    <div class="small text-secondary">
+                                        <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                                    </div>
+                                </div>
                             </div>
-                            <div class="small text-secondary">
-                                <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
-                            </div>
-
+                            
                             <div class="dropdown-divider"></div>
 
-                            <div class="mb-2">
-                                <div>(2<sup>nd</sup> Dose) Pfizer-BioNTech</div>
-                                <div class="small text-secondary">
-                                    <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-syringe text-secondary"></i>
                                 </div>
-                                <div class="small text-secondary">
-                                    <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                                <div>
+                                    <div>(2<sup>nd</sup> Dose) Pfizer-BioNTech</div>
+                                    <div class="small text-secondary">
+                                        <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
+                                    </div>
+                                    <div class="small text-secondary">
+                                        <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -204,14 +210,7 @@
 
 
 <!-- Delete Vaccination Record Modal -->
-<div 
-    class           = "modal" 
-    id              = "deleteVaccRecordModal" 
-    data-backdrop   = "static"
-    tabindex        = "-1" 
-    aria-labelledby = "deleteVaccRecordModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="deleteVaccRecordModal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">

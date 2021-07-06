@@ -1,11 +1,5 @@
 <!-- Establishment QR Code Modal -->
-<div 
-    class           = "modal" 
-    id              = "QRCodeModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "QRCodeModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="QRCodeModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -40,14 +34,7 @@
 </div>
 
 <!-- Change Position Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "changePositionModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "exampleModalLabel" 
-    aria-hidden     = "true"
->
+<div class="modal fade" id="changePositionModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form action="">
@@ -87,13 +74,7 @@
 </div>
 
 <!-- Establishment Details Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "establishmentDetailsModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "establishmentDetailsModal" 
-    aria-hidden     = "true"
->
+<div class="modal fade" id="establishmentDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">

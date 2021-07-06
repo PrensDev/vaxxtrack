@@ -160,34 +160,34 @@
                             <span>Mild</span>
                         </label>
                     </label>
-                    <div class="custom-control custom-radio py-2">
+                    <label class="custom-control custom-radio py-2">
                         <input type="radio" id="severe" name="approvalStatus" class="custom-control-input">
                         <label class="custom-control-label font-weight-semibold" for="severe">
                             <i class="fas fa-circle icon-container text-warning"></i>
                             <span>Severe</span>
                         </label>
-                    </div>
-                    <div class="custom-control custom-radio py-2">
+                    </label>
+                    <label class="custom-control custom-radio py-2">
                         <input type="radio" id="critical" name="approvalStatus" class="custom-control-input">
                         <label class="custom-control-label font-weight-semibold" for="critical">
                             <i class="fas fa-circle icon-container text-danger"></i>
                             <span>Critical</span>
                         </label>
-                    </div>
-                    <div class="custom-control custom-radio py-2">
+                    </label>
+                    <label class="custom-control custom-radio py-2">
                         <input type="radio" id="died" name="approvalStatus" class="custom-control-input">
                         <label class="custom-control-label font-weight-semibold" for="died">
                             <i class="fas fa-circle icon-container text-dark"></i>
                             <span>Died</span>
                         </label>
-                    </div>
-                    <div class="custom-control custom-radio py-2">
+                    </label>
+                    <label class="custom-control custom-radio py-2">
                         <input type="radio" id="recovered" name="approvalStatus" class="custom-control-input">
                         <label class="custom-control-label font-weight-semibold" for="recovered">
                             <i class="fas fa-circle icon-container text-success"></i>
                             <span>Recovered</span>
                         </label>
-                    </div>
+                    </label>
                 </div>
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>

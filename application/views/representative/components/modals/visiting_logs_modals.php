@@ -1,10 +1,5 @@
 <!-- QR Scanner Modal -->
-<div 
-    class="modal" 
-    id="scanModal" 
-    tabindex="-1" 
-    data-backdrop="static"
->
+<div class="modal" id="QRCodeScannerModal" tabindex="-1" data-backdrop="static">
     <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
