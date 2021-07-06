@@ -796,11 +796,27 @@ loadVaccAppointmentsDT = () => {
                 { 
                     data: null,
                     render: data => {
-                        var approvedBy = data.approved_by == null || data.approved_by == '';
-                        const style = approvedBy ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = approvedBy ? 'No approval yet' : `${ data.approved_by }`;
+                        const approvedBy = data.approved_person;
 
-                        return `<td><span class="${ style }">${ result }</span></td>`;
+                        if (data.approved_by == null || data.approved_by == '') {
+                            return `
+                                <td><span class="font-weight-normal font-italic text-muted">No approval yet</span></td>
+                            `;
+                        } else {
+                            // return `
+                            //     <td><span class="font-weight-normal font-italic text-muted">yeadawda</span></td>
+                            // `;
+                            if (approvedBy.middle_name == null || approvedBy.middle_name == '') {
+                                return `
+                                    <td><span class="font-weight-normal font-italic text">${ approvedBy.first_name } ${ approvedBy.last_name }</span></td>
+                                `;
+                            } else {
+                                return `
+                                    <td><span class="font-weight-normal font-italic text-muted">${ approvedBy.first_name } ${ approvedBy.middle_name } ${ approvedBy.last_name }</span></td>
+                                `;
+                            }
+                            
+                        }
                     }
                 },
 
@@ -808,11 +824,18 @@ loadVaccAppointmentsDT = () => {
                 { 
                     data: null,
                     render: data => {
-                        const approveDate = data.approved_datetime == null || data.approved_datetime  == '';
-                        const style = approveDate ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = approveDate ? 'No data yet' : `${ data.approved_datetime }`;
+                        const approvedDatetime = data.approved_datetime;
 
-                        return `<td><span class="${ style }">${ result }</span></td>`;
+                        if(approvedDatetime == null || approvedDatetime == '') {
+                            return `
+                                <div class="text-secondary font-italic font-weight-normal">No data yet</div>
+                            `
+                        } else {
+                            return `
+                                <div>${moment(approvedDatetime).format("MMM. D, YYYY; hh:mm A")}</div>
+                                <div class="small text-secondary">${moment(approvedDatetime).fromNow()}</div>
+                            `;
+                        }
                     }
                 },
 
@@ -820,6 +843,8 @@ loadVaccAppointmentsDT = () => {
                 {
                     data: null,
                     render: data => {
+                        const id = data.vaccination_appointment_ID;
+
                         return `
                             <div class="dropdown">
                                 <div data-toggle="dropdown">
@@ -834,8 +859,7 @@ loadVaccAppointmentsDT = () => {
                                     <div 
                                         class       = "dropdown-item"
                                         role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#vaccAppointmentDetailsModal"    
+                                        onclick     = "viewVaccAppointment('${ id }')"    
                                     >
                                         <i class="fas fa-list icon-container"></i>
                                         <span>View full details</span>
@@ -861,4 +885,123 @@ loadVaccAppointmentsDT = () => {
             }]
         });
     }
+}
+
+viewVaccAppointment = (vaccination_appointment_ID) => {
+    $.ajax({
+        url: `${ SUPER_ADMIN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            if(result) {
+                const data = result.data
+
+                console.log(data);
+
+                //set the content from data
+
+                const fullName = () => {
+                    if(data.appointed_by.middle_name) {
+                        return `
+                            <td id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.middle_name } ${ data.appointed_by.last_name }</td>
+                        `
+                    } else {
+                        return `
+                            <td id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.last_name }</td>
+                        `
+                    }
+                }
+
+                $('#Patientname').html(fullName());
+                $('#Productname').html(data.vaccine_preferrence.product_name);
+                $('#Vaccinename').html(data.vaccine_preferrence.vaccine_name);
+                $('#Manufacturer').html(data.vaccine_preferrence.manufacturer);
+                $('#PreDate').html(moment(data.preferred_date).format('dddd, MMMM D, YYYY'));
+                $('#PreMoment').html(moment(data.preferred_date).fromNow());
+                $('#ColDate').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY'));
+                $('#ColTime').html(moment(data.created_datetime).format('hh:mm A'));
+                $('#ColMoment').html(moment(data.created_datetime).fromNow());
+
+                const status = () => {
+
+                    if(data.status_approval == 'Pending') {
+                        return `
+                            <div class="badge alert-blue text-blue p-2">
+                                <i class="fas fa-stopwatch mr-1"></i>
+                                <span id=Status>Pending</span>
+                            </div>
+                        `;
+                        // alert = 'alert-blue text-blue p-2',
+                        // icon = 'fas fa-stopwatch mr-1'
+                    } else if (data.status_approval == 'Rejected') {
+                        return `
+                            <div class="badge alert-danger text-danger p-2">
+                                <i class="fas fa-times mr-1"></i>
+                                <span id=Status>Rejected</span>
+                            </div>
+                        `;
+                        // alert = 'alert-danger text-danger p-2',
+                        // icon = 'fas fa-times mr-1'
+                    } else if (data.status_approval == 'Approved') {
+                        return `
+                            <div class="badge alert-success text-success p-2">
+                                <i class="fas fa-check mr-1-1"></i>
+                                <span id=Status>Approved</span>
+                            </div>
+                        `;
+
+                        // alert = 'alert-success text-success p-2',
+                        // icon = 'fas fa-check mr-1-1'
+                    }
+
+                }
+
+                $('#Status').html(status());
+
+                const approvedBy = () => {
+                    if (data.approved_by == null || data.approved_by == '') {
+                        return `
+                            <td><span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span></td>
+                        `
+                    } else {
+                        if (data.approved_person.middle_name) {
+                            return `
+                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span></td>
+                            `;
+                        } else {
+                            return `
+                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</span></td>
+                            `;
+                        }
+                    }
+                }
+
+                $('#Approvedby').html(approvedBy());
+
+                const approvedDandT = () => {
+                    if (data.approved_datetime == null || data.approved_datetime == '') {
+                        return `
+                            <td><span class="font-weight-norma text-muted font-italic" id=ApprovedDandT>No data yet</span></td>
+                        `
+                    } else {
+                        return `
+                            <td><span class="font-weight-norma text font-italic" id=ApprovedDandT>${ data.approved_datetime }</span></td>
+                        `
+                    }
+                }
+
+                $('#ApprovedDandT').html(approvedDandT());
+                
+
+
+                //show modal
+                $('#vaccAppointmentDetailsModal').modal('show')
+            } else {
+                console.log('No data reseved')
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error when requesting')
+    })
 }

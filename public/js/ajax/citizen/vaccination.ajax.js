@@ -390,11 +390,27 @@ LoadAllVaccAppointmentsDT = () => {
                 { 
                     data: null,
                     render: data => {
-                        const approvedBy = data.approved_by;
-                        const style = (approvedBy == null || approvedBy == '') ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = (approvedBy == null || approvedBy == '') ? 'No approval yet' : `${ approvedBy }`;
+                        const approvedBy = data.approved_person;
 
-                        return `<td><span class="${ style }">${ result }</span></td>`;
+                        if (data.approved_by == null || data.approved_by == '') {
+                            return `
+                                <td><span class="font-weight-normal font-italic text-muted">No approval yet</span></td>
+                            `;
+                        } else {
+                            // return `
+                            //     <td><span class="font-weight-normal font-italic text-muted">yeadawda</span></td>
+                            // `;
+                            if (approvedBy.middle_name == null || approvedBy.middle_name == '') {
+                                return `
+                                    <td><span class="font-weight-normal font-italic text">${ approvedBy.first_name } ${ approvedBy.last_name }</span></td>
+                                `;
+                            } else {
+                                return `
+                                    <td><span class="font-weight-normal font-italic text-muted">${ approvedBy.first_name } ${ approvedBy.middle_name } ${ approvedBy.last_name }</span></td>
+                                `;
+                            }
+                            
+                        }
                     }
                 },
 
@@ -402,11 +418,18 @@ LoadAllVaccAppointmentsDT = () => {
                 { 
                     data: null,
                     render: data => {
-                        const approveDate = data.approved_datetime == null || data.approved_datetime  == '';
-                        const style = approveDate ? 'font-weight-normal font-italic text-muted' : `font-weight-normal font-italic text`;
-                        const result = approveDate ? 'No data yet' : `${ data.approved_datetime }`;
+                        const approvedDatetime = data.approved_datetime;
 
-                        return `<td><span class="${ style }">${ result }</span></td>`;
+                        if(approvedDatetime == null || approvedDatetime == '') {
+                            return `
+                                <div class="text-secondary font-italic font-weight-normal">No data yet</div>
+                            `
+                        } else {
+                            return `
+                                <div>${moment(approvedDatetime).format("MMM. D, YYYY; hh:mm A")}</div>
+                                <div class="small text-secondary">${moment(approvedDatetime).fromNow()}</div>
+                            `;
+                        }
                     }
                 },
 
@@ -582,17 +605,21 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
 
                 const aprrovedby = () => {
 
-                    if(data.approved_by == null || data.approved_by == '') {
-                        font = 'font-italic text-muted'
-                        text = 'No approval yet'
+                    if (data.approved_by == null || data.approved_by == '') {
+                        return `
+                            <td><span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span></td>
+                        `
                     } else {
-                        font = 'font-italic text'
-                        text = data.approved_by
+                        if (data.approved_person.middle_name) {
+                            return `
+                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span></td>
+                            `;
+                        } else {
+                            return `
+                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</span></td>
+                            `;
+                        }
                     }
-
-                    return `
-                        <span class="font-weight-normal ${ font }">${ text }</span>
-                    `;
                 }
 
                 $('#aprrovedby').html(aprrovedby());

@@ -121,7 +121,10 @@ class Super_Admin extends CI_Controller {
 
     // Vaccination Appointments
     public function vacc_appointments() {
-        $this->load_views('Vaccination Appointments', [['vacc_appointments']]);
+        $this->load_views('Vaccination Appointments', [
+            ['components/modals/vacc_appointments_modals'],
+            ['vacc_appointments']
+        ]);
     }
 
     // Vaccines
