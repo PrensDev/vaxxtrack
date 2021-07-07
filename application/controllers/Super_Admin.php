@@ -114,6 +114,17 @@ class Super_Admin extends CI_Controller {
         }
     }
 
+    // Register User
+    public function register($user) {
+        if($user === 'health-official') {
+            $this->load_views('Register a Health Official', [['register_health_official']]);
+        } else if($user === 'super-admin') {
+            $this->load_views('Register a Super Admin', [['register_super_admin']]);
+        } else {
+            $this->Auth_model->page_not_found();
+        }
+    }
+
     // Vaccination Record
     public function vacc_records() {
         $this->load_views('Vaccination Records', [['vacc_records']]);

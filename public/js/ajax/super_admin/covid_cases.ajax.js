@@ -15,7 +15,7 @@
  */
 
 $(() => {
-    loadCOVID19CasesDT()
+    loadCOVID19CasesDT();
 });
 
 
@@ -164,7 +164,11 @@ loadCOVID19CasesDT = () => {
                         `;
                     }
                 }
-            ]
+            ],
+            columnDefs: [{
+                targets: [5],
+                orderable: false,
+            }]
         });
     }
 }

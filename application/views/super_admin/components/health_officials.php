@@ -23,13 +23,14 @@
             <span>Health Officials</span>
         </div>
         <div class="card-body px-0">
+            <div class="form-group text-center">
+                <a href="<?= base_url() ?>admin/register/health-official" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus mr-1"></i>
+                    <span>Register new Health Official</>
+                </a>
+            </div>
             <div class="table-responsive">
-                <table 
-                    class="table border-bottom" 
-                    id="healthOfficialsDT" 
-                    width="100%" 
-                    cellspacing="0"
-                >
+                <table class="table border-bottom" id="healthOfficialsDT" width="100%" cellspacing="0">
                     <thead class="thead text-nowrap">
                         <tr>
                             <th>Name</th>
@@ -39,17 +40,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Cruz, Juan Dela</td>
-                            <td>Torres, Jetsun Prince P.</td>
-                            <td>
-                                <div></div>
-                                <div class="small text-secondary"></div>
-                            </td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

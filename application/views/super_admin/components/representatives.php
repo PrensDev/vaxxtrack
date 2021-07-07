@@ -1,4 +1,4 @@
-<!-- Citizen Summary -->
+<!-- Representatives Summary -->
 <div class="card mb-4 bg-blue" id="usersCountContainer">
     <div class="card-body ml-1 bg-white py-3 rounded-lg">
         <div class="flex-separated">
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<!-- Citizens List -->
+<!-- Representatives List -->
 <div class="card">
     <div class="card-header">
         <div class="card-header-text">
@@ -33,38 +33,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-baseline">
-                                    <div class="icon-container">
-                                        <i class="fas fa-user-circle text-secondary"></i>
-                                    </div>
-                                    <div>
-                                        <span>Dela Cruz, Juan</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-baseline">
-                                    <div class="icon-container">
-                                        <i class="fas fa-building text-secondary"></i>
-                                    </div>
-                                    <div>
-                                        <span>1 establishment</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div>January, 23, 2021</div>
-                                <div class="small text-secondary">3 months ago</div>
-                            </td>
-                            <td>
-                                <div>January, 23, 2021</div>
-                                <div class="small text-secondary">3 months ago</div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

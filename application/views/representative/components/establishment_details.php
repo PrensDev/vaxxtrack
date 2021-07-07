@@ -1,13 +1,9 @@
-<script>
-    const establishment_ID = location.pathname.split('/')[4];
-</script>
-
 <!-- Establishment Details Card / Digital Clock Card -->
 <div class="row">
 
     <!-- Establishment Details -->
     <div class="col-xl-8 mb-4">
-        <div class="card h-100">
+        <div class="card h-100" id="establishmentDetails">
             <div class="card-header d-flex justify-content-between align-items-center">
                 
                 <!-- Card Title -->
@@ -177,60 +173,62 @@
 </div>
 
 <script>
-    $.ajax({
-        url: `${ REPRESENTATIVE_API_ROUTE }establishments/${ establishment_ID }`,
-        type: 'GET',
-        headers: AJAX_HEADERS,
-        success: (result) => {
-            if(result) {
-                const data = result.data;
+    if($('#establishmentDetails').length) {
+        const establishment_ID = location.pathname.split('/')[4];
 
-                console.log(data);
+        $.ajax({
+            url: `${ REPRESENTATIVE_API_ROUTE }establishments/${ establishment_ID }`,
+            type: 'GET',
+            headers: AJAX_HEADERS,
+            success: (result) => {
+                if(result) {
+                    const data = result.data;
 
-                // Generate Establishment QR Code
-                generateEstablishmentQRCode = (establihsment_id) => {
+                    // Generate Establishment QR Code
+                    generateEstablishmentQRCode = (establihsment_id) => {
 
-                    // Check first if element with ID is existed
-                    // This is done because there is always error returned from QRCode function 
-                    if($('#establishmentQRCode').length) {
-                        
-                        // Set Establishment QC Code 
-                        const establishmentQRCode = new QRCode('establishmentQRCode', {
-                            text: "sample-text",
-                            width: 125,
-                            height: 125,
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
-                        establishmentQRCode.makeCode(establihsment_id);
+                        // Check first if element with ID is existed
+                        // This is done because there is always error returned from QRCode function 
+                        if($('#establishmentQRCode').length) {
+                            
+                            // Set Establishment QC Code 
+                            const establishmentQRCode = new QRCode('establishmentQRCode', {
+                                text: "sample-text",
+                                width: 125,
+                                height: 125,
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                            establishmentQRCode.makeCode(establihsment_id);
+                        }
+
+                        // Check first if element with ID is existed
+                        // This is done because there is always error returned from QRCode function
+                        if($('#establishmentQRCodeInModal').length) {
+
+                            // Set Establishment QR Code in Modal
+                            const establishmentQRCodeInModal = new QRCode('establishmentQRCodeInModal', {
+                                text: "sample-text",
+                                width: 300,
+                                height: 300,
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                            establishmentQRCodeInModal.makeCode(establihsment_id);
+                        }
                     }
+                    
+                    generateEstablishmentQRCode(data.establishment_ID);
 
-                    // Check first if element with ID is existed
-                    // This is done because there is always error returned from QRCode function
-                    if($('#establishmentQRCodeInModal').length) {
+                    $('#establishmentName').html(data.name);
+                    $('#establishmentType').html(data.type);
+                    
+                    const address = data.address;
 
-                        // Set Establishment QR Code in Modal
-                        const establishmentQRCodeInModal = new QRCode('establishmentQRCodeInModal', {
-                            text: "sample-text",
-                            width: 300,
-                            height: 300,
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
-                        establishmentQRCodeInModal.makeCode(establihsment_id);
-                    }
+                    $('#establishmentLocation').html(`${ address.street }, ${ address.barangay_district }, ${ address.city_municipality }`)
+                } else {
+                    location.replace(`${ BASE_URL_MAIN }page_not_found`);
                 }
-                
-                generateEstablishmentQRCode(data.establishment_ID);
-
-                $('#establishmentName').html(data.name);
-                $('#establishmentType').html(data.type);
-                
-                const address = data.address;
-
-                $('#establishmentLocation').html(`${ address.street }, ${ address.barangay_district }, ${ address.city_municipality }`)
-            } else {
-                location.replace(`${ BASE_URL_MAIN }page_not_found`);
             }
-        }
-    })
-    .fail(() => location.replace(`${ BASE_URL_MAIN }page_not_found`));
+        })
+        .fail(() => location.replace(`${ BASE_URL_MAIN }page_not_found`));
+    }
 </script>

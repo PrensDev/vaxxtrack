@@ -35,67 +35,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php for($i=0;$i<25;$i++): ?>
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-baseline text-nowrap">
-                                    <div class="icon-container">
-                                        <i class="fas fa-user-circle text-secondary"></i>
-                                    </div>
-                                    <span>Juan Dela Cruz</span>
-                                </div>
-                            </td>
-                            <td>24</td>
-                            <td>
-                                <i class="fas fa-mars icon-container text-blue"></i>
-                                <span>Male</span>
-                            </td>
-                            <td>Single</td>
-                            <td class="text-nowrap">Quezon City, NCR, THIRD DISTRICT</td>
-                            <td>
-                                <div class="dropdown">
-                                    <div 
-                                        class="d-inline-block"
-                                        data-toggle="dropdown"
-                                    >
-                                        <div 
-                                            class       = "btn btn-sm btn-muted"
-                                            role        = "button"
-                                            data-toggle = "tooltip"
-                                            title       = "More"
-                                        >
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </div>
-                                    </div>
-
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <div 
-                                            class="dropdown-item"
-                                            data-toggle="modal"
-                                            data-target=""
-                                        >
-                                            <div class="icon-container">
-                                                <i class="fas fa-list"></i>
-                                            </div>
-                                            <span>View More</span>
-                                        </div>
-                                        <div 
-                                            class="dropdown-item"
-                                            data-toggle="modal"
-                                            data-target=""
-                                        >
-                                            <div class="icon-container">
-                                                <i class="fas fa-user-cog"></i>
-                                            </div>
-                                            <span>Make administrative action</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endfor ?>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

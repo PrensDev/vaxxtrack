@@ -16,7 +16,7 @@
                     </span>
                 </button>
             </div>
-            <div class="modal-body" id="QRCodeContainer">
+            <div class="modal-body">
                 <div class="d-flex align-items-center justify-content-center" id="QRCodeContainer">
                     <div class="border rounded p-3" id="establishmentQRCodeInModal"></div>
                 </div>
@@ -42,10 +42,10 @@
                     <h5 class="modal-title-icon fas fa-edit"></h5>
                     <h5 class="modal-title">Change position</h5>
                     <button 
-                        class           = "btn btn-sm btn-white-muted" 
-                        type            = "button" 
-                        data-dismiss    = "modal" 
-                        aria-label      = "Close"
+                        class        = "btn btn-sm btn-white-muted" 
+                        type         = "button" 
+                        data-dismiss = "modal" 
+                        aria-label   = "Close"
                     >
                         <span aria-hidden="true">
                             <i class="fas fa-times"></i>
@@ -56,11 +56,11 @@
                     <div class="form-group">
                         <label for="position">Position</label>
                         <input 
-                            class       = "form-control" 
-                            type        = "text" 
-                            id          = "position" 
-                            name        = "position"
-                            value       = "Dean"
+                            class = "form-control" 
+                            type  = "text" 
+                            id    = "position" 
+                            name  = "position"
+                            value = "Dean"
                         >
                     </div>
                 </div>

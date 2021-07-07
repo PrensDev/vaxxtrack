@@ -1,10 +1,10 @@
-<!-- Citizen Summary -->
+<!-- Super Admin Summary -->
 <div class="card mb-4 bg-blue" id="usersCountContainer">
     <div class="card-body ml-1 bg-white py-3 rounded-lg">
         <div class="flex-separated">
             <div>
                 <h6 class="text-blue">Registered Super Admins</h6>
-                <h2 class="font-weight-bold mb-0" id="superAdminsCount">1,362</h2>
+                <h2 class="font-weight-bold mb-0" id="superAdminsCount">0</h2>
             </div>
             <div class="flex-center alert-blue rounded-lg" style="width:75px; height:75px;">
                 <h1 class="text-blue m-0">
@@ -23,13 +23,14 @@
             <span>Super Admins</span>
         </div>
         <div class="card-body px-0">
+            <div class="form-group text-center">
+                <a href="<?= base_url() ?>admin/register/super-admin" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus mr-1"></i>
+                    <span>Register new Super Admin</span>
+                </a>
+            </div>
             <div class="table-responsive">
-                <table 
-                    class="table border-bottom" 
-                    id="superAdminsDT" 
-                    width="100%" 
-                    cellspacing="0"
-                >
+                <table class="table border-bottom w-100" id="superAdminsDT" width="100%" cellspacing="0">
                     <thead class="thead text-nowrap">
                         <tr>
                             <th>Name</th>
@@ -39,15 +40,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Cruz, Juan Dela</td>
-                            <td>Torres, Jetsun Prince P.</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

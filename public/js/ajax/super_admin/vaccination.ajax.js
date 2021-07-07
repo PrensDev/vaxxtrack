@@ -645,7 +645,7 @@ loadVaccRecordDT = () => {
             columnDefs: [{
                 'targets': [6],
                 'orderable': false,
-            }]
+            }],
         });
     }
 
@@ -796,26 +796,29 @@ loadVaccAppointmentsDT = () => {
                 { 
                     data: null,
                     render: data => {
-                        const approvedBy = data.approved_person;
+                        const ap = data.approved_person;
 
-                        if (data.approved_by == null || data.approved_by == '') {
+                        if(ap == null || ap == '') {
                             return `
-                                <td><span class="font-weight-normal font-italic text-muted">No approval yet</span></td>
-                            `;
+                                <div class="text-secondary font-italic font-weight-normal text-nowrap">Not yet approved</div>
+                            `
                         } else {
-                            // return `
-                            //     <td><span class="font-weight-normal font-italic text-muted">yeadawda</span></td>
-                            // `;
-                            if (approvedBy.middle_name == null || approvedBy.middle_name == '') {
-                                return `
-                                    <td><span class="font-weight-normal font-italic text">${ approvedBy.first_name } ${ approvedBy.last_name }</span></td>
-                                `;
-                            } else {
-                                return `
-                                    <td><span class="font-weight-normal font-italic text-muted">${ approvedBy.first_name } ${ approvedBy.middle_name } ${ approvedBy.last_name }</span></td>
-                                `;
-                            }
-                            
+                            const fullName = setFullName('L, F', {
+                                firstName: ap.first_name,
+                                lastName: ap.last_name
+                            });
+    
+                            const userApproved = ap.user_ID == localStorage.getItem('user_ID') ? `You, ${ ap.user_type }` : ap.user_type;
+    
+                            return `
+                                <div class="d-flex align-items-baseline">
+                                    <i class="fas fa-user-circle icon-container text-secondary"></i>
+                                    <div>
+                                        <div>${ fullName }</div>
+                                        <div class="small text-secondary">${ userApproved }</div>
+                                    </div>
+                                </div>
+                            `;
                         }
                     }
                 },
@@ -887,6 +890,7 @@ loadVaccAppointmentsDT = () => {
     }
 }
 
+// View Vaccination Appointment
 viewVaccAppointment = (vaccination_appointment_ID) => {
     $.ajax({
         url: `${ SUPER_ADMIN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,

@@ -35,6 +35,7 @@
             </div>
         </div>
     </div>
+
     <!-- Account Settings and Edit Information-->
     <div class="row">
 
@@ -90,6 +91,7 @@
             </div>
         </div>
     </div>
+
     <!-- COVID-19 Cases Summary -->
     <div class="flex-separated align-items-center mb-2">
         <h4>COVID-19 Cases</h4>
@@ -113,7 +115,7 @@
                             <h2 class="font-weight-bold mb-0" id="vaccRecordsCountData">0</h2>  
                             
                             <div class="mt-3">
-                                <a href="<?= base_url() ?>h/vaccination-records" class="btn btn-sm btn-primary">Click here for more details</a>
+                                <a href="<?= base_url() ?>admin/vaccination-records" class="btn btn-sm btn-primary">Click here for more details</a>
                             </div>
                         </div>
                         <div>
@@ -141,7 +143,7 @@
                             <h2 class="font-weight-bold mb-0" id="registeredForVaccCountData">0</h2>
 
                             <div class="mt-3">
-                                <a href="<?= base_url() ?>h/vaccination-appointments" class="btn btn-sm btn-danger">Click here for more details</a>
+                                <a href="<?= base_url() ?>admin/vaccination-appointments" class="btn btn-sm btn-danger">Click here for more details</a>
                             </div>
                         </div>
                         <div>

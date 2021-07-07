@@ -540,7 +540,7 @@ loadVaccAppointmentsDT = () => {
  * ====================================================================
  */
 
- viewVaccAppointment = (vaccination_appointment_ID) => {
+viewVaccAppointment = (vaccination_appointment_ID) => {
     $.ajax({
         url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
         type: 'GET',
@@ -659,7 +659,7 @@ loadVaccAppointmentsDT = () => {
     .fail(() => {
         console.log('There was an error when requesting')
     })
- }
+}
 
 /**
  * ====================================================================

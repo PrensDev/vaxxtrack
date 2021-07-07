@@ -18,40 +18,38 @@
             <div class="modal-body">
 
                 <!-- Visiting Purpose Field -->
-                <form action="">
-                    <div class="form-group">
-                        <label for="position">Purpose of visiting</label>
-                        <select 
-                            name="visitPurpose" 
-                            id="visitPurpose" 
-                            class="selectpicker form-control border"
-                            data-style="btn btn-outline-primary"
-                            data-size="6"
-                            data-live-search="true"
-                            title="Select a purpose of visit"
-                        >
-                            <optgroup label="General">
-                                <option 
-                                    value="Visiting" 
-                                    data-subtext="Default"
-                                    selected
-                                >Visiting</option>
-                            </optgroup>
-                            <optgroup label="Business">
-                                <option value="Customer">Customer</option>
-                                <option value="Employee">Employee</option>
-                                <option value="Meeting">Meeting</option>
-                            </optgroup>
-                            <optgroup label="Residential">
-                                <option value="Resident">Resident</option>
-                            </optgroup>
-                            <optgroup label="Others">
-                                <option value="Organizational Member">Organizational Member</option>
-                                <option value="Others">Others</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </form>
+                <div class="form-group">
+                    <label for="position">Purpose of visiting</label>
+                    <select 
+                        name="visitPurpose" 
+                        id="visitPurpose" 
+                        class="selectpicker form-control border"
+                        data-style="btn btn-outline-primary"
+                        data-size="6"
+                        data-live-search="true"
+                        title="Select a purpose of visit"
+                    >
+                        <optgroup label="General">
+                            <option 
+                                value="Visiting" 
+                                data-subtext="Default"
+                                selected
+                            >Visiting</option>
+                        </optgroup>
+                        <optgroup label="Business">
+                            <option value="Customer">Customer</option>
+                            <option value="Employee">Employee</option>
+                            <option value="Meeting">Meeting</option>
+                        </optgroup>
+                        <optgroup label="Residential">
+                            <option value="Resident">Resident</option>
+                        </optgroup>
+                        <optgroup label="Others">
+                            <option value="Organizational Member">Organizational Member</option>
+                            <option value="Others">Others</option>
+                        </optgroup>
+                    </select>
+                </div>
 
                 <!-- QR Code Scanner -->
                 <div class="my-5 mb-3 d-flex justify-content-center align-items-center">
@@ -60,19 +58,57 @@
                 </div>
                 <p>Use this camera to scan QR Code of someone who are going to visit your establishment</p>
             </div>
+            <div class="modal-footer bg-white p-3"></div>
         </div>
     </div>
 </div>
 
+<!-- Scripts -->
+<script type="module">
+    $('#QRCodeScannerModal').on('show.bs.modal', () => {
+
+        const URLParams = location.pathname.split('/');
+        const establishmentID = URLParams[URLParams.length-1]; 
+
+        // Scanner Instance
+        let scanner = new Html5QrcodeScanner("reader", { fps: 25, qrbox: 250 }, false);
+    
+        // On success scan
+        const onScanSuccess = (citizenID) => {
+            console.log(`Data: ${ citizenID }`);
+            $.ajax({
+                url: `${ REPRESENTATIVE_API_ROUTE }add-visiting-log`,
+                type: 'POST',
+                headers: AJAX_HEADERS,
+                data: {
+                    citizen_ID: citizenID,
+                    establishment_ID: establishmentID,
+                    purpose: $('#visitPurpose').val(),
+                },
+                dataType: 'json',
+                success: result => {
+                    if(result) {
+                        $('#QRCodeScannerModal').modal('hide');
+                    } else {
+                        console.log('No result');
+                    }
+                }
+            })
+            .fail(() => console.error('There was an error in creating a visiting log'));
+        }
+    
+        // On failed scan
+        const onScanFailure = (error) => {
+            // console.warn(`QR error = ${error}`);
+        }
+    
+        // Render the scanner
+        scanner.render(onScanSuccess, onScanFailure);
+    });
+</script>
+
 <!-- View Visiting Log Details Modal -->
-<div
-    class           = "modal" 
-    id              = "viewVisitLogModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "viewVisitLogModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="viewVisitLogModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -92,77 +128,32 @@
             <div class="modal-body">
                 <table class="table">
                     <tr>
-                        <th>Name</th>
-                        <td>Dela Cruz, Juan</td>
+                        <th>Visitor's Details</th>
+                        <td id="visitorDetails"></td>
                     </tr>
                     <tr>
                         <th>Entry Log</th>
-                        <td>Today, May 1, 2021<br>11:24:12 AM</td>
+                        <td id="entryLog"></td>
                     </tr>
                     <tr>
                         <th>Purpose</th>
-                        <td>Visiting</td>
+                        <td id="purposeOfVisit"></td>
                     </tr>
                     <tr>
                         <th>Temperature</th>
-                        <td>
-                            <span>37.1&deg;C</span>
-                            <i 
-                                class          = "fas fa-exclamation-triangle text-warning ml-1"
-                                data-toggle    = "tooltip"
-                                data-placement = "top"
-                                title          = "High Temperature"    
-                            ></i>
-                        </td>
+                        <td id="visitorTemp"></td>
                     </tr>
                     <tr>
                         <th>Health Status</th>
-                        <td>
-                            <button
-                                class       = "btn btn-muted btn-block"
-                                data-toggle = "collapse"
-                                data-target = "#symptomsDetails"
-                            >
-                                <i class="fas fa-exclamation-triangle text-warning mr-1"></i>
-                                <span>With Symptoms</span>
-                            </button>
-                            <div class="collapse" id="symptomsDetails">
-                                <div class="card card-body">
-                                    <table class="table table-borderless table-sm">
-                                        <tr>
-                                            <td><i class="fas fa-exclamation text-danger"></i></td>
-                                            <td>High Fever</td>
-                                        </tr>
-                                        <tr>
-                                            <td><i class="fas fa-exclamation text-danger"></i></td>
-                                            <td>Loss of Taste and Smell</td>
-                                        </tr>
-                                        <tr>
-                                            <td><i class="fas fa-exclamation text-danger"></i></td>
-                                            <td>Fatigue</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </td>
+                        <td id="healthStatus"></td>
                     </tr>
                     <tr>
                         <th>Allow to enter?</th>
-                        <td>
-                            <span class="text-danger font-weight-bold text-uppercase">Not Allowed</span>
-                        </td>
+                        <td id="allowedToEnter"></td>
                     </tr>
                 </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-muted" data-dismiss="modal">Close</button>
-                <a 
-                    href    = "<?= base_url() ?>r/edit_representative/1/1"
-                    class   = "btn btn-blue">
-                    <i class="fas fa-edit mr-1"></i>
-                    <span>Edit</span>
-                </a>
-            </div>
+            <div class="modal-footer p-3 bg-white"></div>
         </div>
     </div>
 </div>

@@ -125,6 +125,7 @@ $route['admin/registered-establishments']   = 'super_admin/registered_establishm
 $route['admin/covid-cases']                 = 'super_admin/covid_cases';
 $route['admin/heatmap-cases']               = 'super_admin/heatmap_cases';
 $route['admin/users/(:any)']                = 'super_admin/users/$1';
+$route['admin/register/(:any)']             = 'super_admin/register/$1';
 $route['admin/vaccination-records']         = 'super_admin/vacc_records';
 $route['admin/vaccination-appointments']    = 'super_admin/vacc_appointments';
 $route['admin/vaccines']                    = 'super_admin/vaccines';

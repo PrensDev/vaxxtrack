@@ -239,3 +239,47 @@ getLongLat = (query) => {
     })
     .fail(() => console.log('There was an error in fetching location'));
 }
+
+// Get OTP
+getOTP = () => {
+    const email = prompt('Type your email')
+    const password = prompt('Type your password')
+
+    $.ajax({
+        url: `${ BASE_URL_API }send-verification`,
+        type: 'POST',
+        data: {
+            email: email,
+            password: password
+        },
+        dataType: 'json',
+        success: result => {
+            if(result) {
+                console.log(result);
+
+                const user_otp = prompt('Type OTP');
+
+                $.ajax({
+                    url: `${ BASE_URL_API }verify-otp`,
+                    type: 'POST',
+                    data: {
+                        user_otp: user_otp
+                    },
+                    success: result => {
+                        if(result) {
+                            if(result.matched) {
+                                alert('Verified');
+                            } else {
+                                alert('Not Verified');
+                            }
+                        }
+                    }
+                })
+                .fail(() => console.error('There was an error in verifying otp'));
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in sending otp'));
+}
+
+// getOTP();
