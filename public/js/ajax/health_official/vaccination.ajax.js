@@ -315,6 +315,12 @@ loadVaccAppointmentsDT = () => {
             },
             columns: [
                 
+                // Hidden column for default ordering
+                {
+                    data: 'created_datetime',
+                    visible: false,
+                },
+
                 // Citizen
                 { 
                     data: null,
@@ -527,9 +533,10 @@ loadVaccAppointmentsDT = () => {
                 }
             ],
             columnDefs: [{
-                targets: [7],
+                targets: [8],
                 orderable: false
-            }]
+            }],
+            order: [[0, 'desc']]
         });
     }
 }
@@ -1029,7 +1036,7 @@ $('#editVaccineDetailsForm').validate(validateOptions({
         }
     },
     submitHandler: () => updateVaccineDetailsAJAX()
-}))
+}));
 
 
 /**

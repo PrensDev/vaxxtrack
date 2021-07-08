@@ -22,11 +22,11 @@
 
                 <!-- Requested Date Field -->
                 <div class="form-group">
-                    <label for="requestedDate">When do you want to get vaccinated?</label>
+                    <label for="requestedDateForAdd">When do you want to get vaccinated?</label>
                     <input 
                         type        = "date" 
                         class       = "form-control" 
-                        id          = "requestedDate"
+                        id          = "requestedDateForAdd"
                         name        = "requestedDate"
                         placeholder = "Select a date"
                     >
@@ -37,14 +37,93 @@
                     <label for="preferredVaccine">What vaccine do you prefer?</label>
                     <select 
                         class="selectpicker w-100" 
-                        id="preferredVaccine"
+                        id="preferredVaccineForAdd"
                         name="preferredVaccine"
                         data-style="border btn"
                         data-size="3"
                         data-live-search="true"
                         title="Select a vaccine"
+                    ></select>
+                </div>
+
+                <!-- Know more about vaccines -->
+                <div class="form-group text-center">
+                    <a href="<?= base_url() ?>c/available-vaccines" class="btn btn-sm btn-muted">Know more about vaccines?</a>
+                </div>
+            </div>
+
+            <div class="modal-footer border-0">
+                <button 
+                    type="button" 
+                    class="btn btn-muted" 
+                    data-dismiss="modal"
+                >Cancel</button>
+                <button 
+                    type="submit" 
+                    class="btn btn-blue" 
+                >
+                    <span>Create</span>
+                    <i class="fas fa-plus ml-1"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Appointment Modal -->
+<div class= "modal" id="editAppointmentModal" tabindex= "-1" >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form class="modal-content" id="editAppointmentForm">
+
+            <div class="modal-header">
+                <h5 class="fas fa-file-signature modal-title-icon"></h5>
+                <h5 class="modal-title">Edit Appointment</h5>
+                <button 
+                    class        = "btn btn-sm btn-white-muted" 
+                    type         = "button" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
+                >
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- Vaccination Appointment ID -->
+                <input type="hidden" id="vaccinationAppointmentIDForEdit" name="vaccinationAppointmentID">
+
+                <!-- Requested Date Field -->
+                <div class="form-group">
+                    <label for="requestedDateForEdit">When do you want to get vaccinated?</label>
+                    <input 
+                        type        = "date" 
+                        class       = "form-control" 
+                        id          = "requestedDateForEdit"
+                        name        = "requestedDate"
+                        placeholder = "Select a date"
                     >
-                    </select>
+                </div>
+
+                <!-- Preferred Vaccine Field -->
+                <div class="form-group">
+                    <label for="preferredVaccineForEdit">What vaccine do you prefer?</label>
+                    <select 
+                        class="selectpicker w-100" 
+                        id="preferredVaccineForEdit"
+                        name="preferredVaccine"
+                        data-style="border btn"
+                        data-size="3"
+                        data-live-search="true"
+                        title="Select a vaccine"
+                    ></select>
+                </div>
+
+                <!-- Know more about vaccines -->
+                <div class="form-group text-center">
+                    <a href="<?= base_url() ?>c/available-vaccines" class="btn btn-sm btn-muted">Know more about vaccines?</a>
                 </div>
             </div>
 
@@ -109,27 +188,22 @@
                     <tr>
                         <th>Preferred Date for Vaccination</th>
                         <td>
-                            <span id = "PreDayDate">Thursday, April 1, 2021</span>
-                            <span id = "PreTime">11:52:24 AM</span>
+                            <span id="PreDayDate">Thursday, April 1, 2021</span>
+                            <span id="PreTime">11:52:24 AM</span>
                             <div class="small text-secondary" id = "PreDayMoment">1 week from now</div>
                         </td>
                     </tr>
                     <tr>
                         <th>Status Approval</th>
-                        <td>
-                            <div class="badge alert-blue text-blue p-2" id = "status">
-                                <i class="fas fa-stopwatch mr-1"></i>
-                                <span>Pending</span>
-                            </div>
-                        </td>
+                        <td id="status"></td>
                     </tr>
                     <tr>
                         <th>Approved By</th>
-                        <td><span class="font-italic text-muted font-weight-normal" id = "aprrovedby">Not approved yet</span></td>
+                        <td><span id="aprrovedby">Not approved yet</span></td>
                     </tr>
                     <tr>
                         <th>Date & Time Approved</th>
-                        <td><span class="font-italic text-muted font-weight-normal" id = "datatimeapproved">No data yet</span></td>
+                        <td><span id="datatimeapproved">No data yet</span></td>
                     </tr>
                 </table>
             </div>

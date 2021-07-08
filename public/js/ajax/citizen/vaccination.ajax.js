@@ -38,9 +38,10 @@ getAllVaccinesAJAX = () => {
                 // Get data from result
                 const data = result.data
 
-                // For options in create appointment form
+                // For options in create/edit appointment form
                 const createAppointmentForm = $('#createAppointmentForm');
-                if(createAppointmentForm.length) {
+                const editAppointmentForm   = $('#editAppointmentForm');
+                if(createAppointmentForm.length || editAppointmentForm.length) {
                     var options = ''
                     data.forEach(v => {
                         options += `
@@ -50,7 +51,8 @@ getAllVaccinesAJAX = () => {
                             >${ v.product_name }</option>
                         `
                     });
-                    $('#preferredVaccine').html(options).selectpicker('refresh');
+                    $('#preferredVaccineForAdd').html(options).selectpicker('refresh');
+                    $('#preferredVaccineForEdit').html(options).selectpicker('refresh');
                 }
                 
                 // Vaccine List
@@ -100,7 +102,6 @@ getAllVaccinesAJAX = () => {
                             </div>
                         `
                     });
-
                     vaccineList.html(vaccineCard);
                 }
 
@@ -300,6 +301,95 @@ $('#createAppointmentModal').on('hidden.bs.modal', () => {
     ]);
 });
 
+
+/**
+ * ====================================================================
+ * * EDIT/UPDATE APPOINTMENT
+ * ====================================================================
+ */
+
+// Edit Vaccination Appointment
+editVaccAppointment = (vaccination_appointment_ID) => {
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                const data = result.data;
+                $('#vaccinationAppointmentIDForEdit').val(data.vaccination_appointment_ID);
+                $('#requestedDateForEdit').val(moment(data.preferred_date).format("YYYY-MM-DD"));
+                $('#preferredVaccineForEdit').selectpicker('val', data.vaccine_preferrence.vaccine_ID);
+                $('#editAppointmentModal').modal('show');
+            } else {
+                console.log('No result was found');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in getting vaccines'))
+}
+
+// Validate edit vaccination appointment form
+$('#editAppointmentForm').validate(validateOptions({
+    rules: {
+        requestedDate: {
+            required: true
+        },
+        preferredVaccine: {
+            required: true
+        }
+    },
+    messages: {
+        requestedDate: {
+            required: 'Select the date you want to get vaccinated'
+        },
+        preferredVaccine: {
+            required: 'Select the vaccine you prefer'
+        }
+    },
+    submitHandler: () => updateAppointmentAJAX()
+}));
+
+// Update Appointment AJAX
+updateAppointmentAJAX = () => {
+    const form = new FormData($('#editAppointmentForm')[0]);
+
+    data = {
+        preferred_vaccine: form.get('preferredVaccine'),
+        preferred_date: form.get('requestedDate'),
+    }
+
+    console.log(data);
+    
+    const vaccination_appointment_ID = form.get('vaccinationAppointmentID');
+    
+    console.log(vaccination_appointment_ID);
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
+        type: 'PUT',
+        headers: AJAX_HEADERS,
+        data: data,
+        dataType: 'json',
+        success: result => {
+            if(result) {
+
+                // Hide modal
+                $('#editAppointmentModal').modal('hide');
+
+                // Reload Vaccine Appointments DataTable
+                const dt =  $('#vaccAppointmentsDT').DataTable();
+                dt.ajax.reload();
+
+                // Show success alert
+                showAlert('success', 'Success! Your appointment has been updated');
+            } else {
+                console.log('No result was found');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error while tryig to update an appointment'));
+}
+
 /**
  * ====================================================================
  * * GET ALL VACCINATION APPOINTMENTS
@@ -308,7 +398,7 @@ $('#createAppointmentModal').on('hidden.bs.modal', () => {
 
 // Load All Vaccination Appointments
 LoadAllVaccAppointmentsDT = () => {
-    const vaccappointDT = $( '#vaccAppointmentsDT' );
+    const vaccappointDT = $('#vaccAppointmentsDT');
 
     if(vaccappointDT.length){
         vaccappointDT.DataTable({
@@ -318,6 +408,12 @@ LoadAllVaccAppointmentsDT = () => {
                 headers: AJAX_HEADERS,
             },
             columns: [
+
+                // Hidden column for order
+                {
+                    data: 'created_datetime',
+                    visible: false,
+                },
 
                 // Date and Time Requested
                 { 
@@ -337,8 +433,15 @@ LoadAllVaccAppointmentsDT = () => {
                     render: data => {
 
                         return `
-                            <div>${ data.vaccine_preferrence.product_name }</div>
-                            <div class="small text-secondary">${ data.vaccine_preferrence.vaccine_name }</div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-syringe text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ data.vaccine_preferrence.product_name }</div>
+                                    <div class="small text-secondary">${ data.vaccine_preferrence.vaccine_name }</div>
+                                </div>
+                            </div>
                         `;
                     }
                 },
@@ -465,8 +568,7 @@ LoadAllVaccAppointmentsDT = () => {
                                         <div 
                                             class       = "dropdown-item" 
                                             role        = "button"
-                                            data-toggle = "modal"
-                                            data-target = "#appointmentDetailsModal"
+                                            onclick     = "editVaccAppointment('${ id }')"
                                         >
                                             <i class="icon-container far fa-edit"></i>
                                             <span>Edit Appointment</span>
@@ -541,9 +643,12 @@ LoadAllVaccAppointmentsDT = () => {
                 }
             ],
             columnDefs: [{
-                'targets': [6],
+                'targets': [7],
                 'orderable': false
-            }]
+            }],
+            order: [
+                [0, 'desc']
+            ]
         });
     } 
 }
@@ -562,13 +667,10 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
         headers: AJAX_HEADERS,
         success: (result) => {
             if(result) {
-                //get data from result
+                // Get data from result
                 const data = result.data;
 
-                console.log(data);
-
-                //set the content from data
-
+                // Set the content from data
                 $('#DayDate').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY'));
                 $('#Time').html(moment(data.created_datetime).format('hh:mm A'));
                 $('#Daymoments').html(moment(data.created_datetime).fromNow());

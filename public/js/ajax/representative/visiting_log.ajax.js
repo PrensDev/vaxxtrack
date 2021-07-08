@@ -324,9 +324,9 @@ viewVisitLog = (visiting_log_ID) => {
                 
                 // Purpose of Visit
                 $('#purposeOfVisit').html(data.purpose);
-
+                
                 var temp = 0;
-                symptomatic = false;
+                var symptomatic = false;
 
                 if(hsl) {
                     temp = hsl.temperature;
@@ -347,16 +347,17 @@ viewVisitLog = (visiting_log_ID) => {
                         `);
                     }
 
-                    if(hsl.fever)            symptomatic = true;
-                    if(hsl.dry_cough)        symptomatic = true;
-                    if(hsl.sore_throat)      symptomatic = true;
-                    if(hsl.breath_shortness) symptomatic = true;
-                    if(hsl.smell_taste_loss) symptomatic = true;
-                    if(hsl.fatigue)          symptomatic = true;
-                    if(hsl.aches_pain)       symptomatic = true;
-                    if(hsl.runny_nose)       symptomatic = true;
-                    if(hsl.diarrhea)         symptomatic = true;
-                    if(hsl.headache)         symptomatic = true;
+                    symptomatic = 
+                        hsl.fever            ||
+                        hsl.dry_cough        ||
+                        hsl.sore_throat      ||
+                        hsl.breath_shortnes  ||
+                        hsl.smell_taste_loss ||
+                        hsl.fatigue          ||
+                        hsl.aches_pain       ||
+                        hsl.runny_nose       ||
+                        hsl.diarrhea         ||
+                        hsl.headache;
 
                     if(symptomatic) {
                         $('#healthStatus').html(`
