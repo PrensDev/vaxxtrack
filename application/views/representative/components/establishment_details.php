@@ -163,7 +163,7 @@
                         <span class="mb-0 mr-1" id="clockTime" style="font-size: 3rem;"></span>
                         <span class="font-weight-normal h3" id="clockSession"></span>
                     </div>
-                    <h6 class="font-weight-normal" id="clockDate"></h6>
+                    <h6 class="font-weight-normal text-monospace" id="clockDate"></h6>
                     <small>PHILIPPINE STANDARD TIME</small>
                 </div>
             </div>

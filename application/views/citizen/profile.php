@@ -109,7 +109,7 @@
                             <h3>Monitor your health status</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet.</p>
                             <div class="text-right text-md-left">
-                                <a href="#" class="btn btn-primary">Check now!</a>
+                                <a href="<?= base_url() ?>c/health-status" class="btn btn-primary">Check now!</a>
                             </div>
                         </div>
                         <div class="col-12 col-md-4 order-0 order-md-1 mb-3 mb-md-0 flex-center">
@@ -140,7 +140,7 @@
                             <h3>Trace the Establishments you visit</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet.</p>
                             <div class="text-right text-md-left">
-                                <a href="#" class="btn btn-primary">Check my visiting logbook</a>
+                                <a href="<?= base_url() ?>c/visiting-logbook" class="btn btn-primary">Check my visiting logbook</a>
                             </div>
                         </div>
                     </div>

@@ -25,44 +25,48 @@
                     <tr>
                         <th>Preferred Vaccine</th>
                         <td>
-                            <div id="Productname">Pfizer-BioNTech</div>
-                            <div class="small text-secondary">
-                                <span data-toggle="tooltip" title="Vaccine Name" id="Vaccinename">BNT162b2</span>
-                            </div>
-                            <div class="small text-secondary">
-                                <span data-toggle="tooltip" title="Manufacturer" id="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-syringe text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div id="Productname">Pfizer-BioNTech</div>
+                                    <div class="small text-secondary">
+                                        <span data-toggle="tooltip" title="Vaccine Name" id="Vaccinename">BNT162b2</span>
+                                    </div>
+                                    <div class="small text-secondary">
+                                        <span data-toggle="tooltip" title="Manufacturer" id="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                                    </div>
+                                </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>Preffered Date</th>
+                        <th>Preferred Date</th>
                         <td>
-                            <div id="PreDate">Tuesday, January 1, 2021</div>    
-                            <div class="text-secondary small" id="PreMoment">4 weeks from now</div>    
+                            <div id="PreDate"></div>    
+                            <div class="text-secondary small" id="PreMoment"></div>    
                         </td>
                     </tr>
                     <tr>
-                        <th>Date and Time Collected</th>
+                        <th>Date & Time Requested</th>
                         <td>
-                            <div id="ColDate">Tuesday, January 1, 2021</div>    
-                            <div id="ColTime">11:00:00 AM</div>    
-                            <div class="text-secondary small" id="ColMoment">2 weeks ago</div>    
+                            <div id="ColDate"></div>    
+                            <div id="ColTime"></div>    
+                            <div class="text-secondary small" id="ColMoment"></div>    
                         </td>
                     </tr>
                     <tr>
                         <th>Apporval Status</th>
-                        <td>
-                            <div id="Status">
-                            </div>
-                        </td>
+                        <td id="Status"></td>
                     </tr>
                     <tr>
                         <th>Approved By</th>
-                        <td><span class="font-weight-norma text-muted font-italic" id="Approvedby">Not yet approved</span></td>
+                        <td id="Approvedby"></span></td>
                     </tr>
                     <tr>
                         <th>Date & Time Approved</th>
-                        <td><span class="font-weight-norma text-muted font-italic" id="ApprovedDandT">No data yet</span></td>
+                        <td id="ApprovedDandT"></span></td>
                     </tr>
                 </table>
             </div>

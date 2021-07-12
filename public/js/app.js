@@ -195,21 +195,22 @@ $('img').bind('contextmenu', (e) => { return false });
 //     }
 // }
 
-getLongLat = (query) => {
 
-    const rawQuery = query.split(' ');
+setPosition = (pos) => {
+    let position = {
+        lat: 0,
+        lng: 0
+    };
+    position.lat = pos.lat;
+    position.lng = pos.lng;
+    return position;
+}
 
-    var newQuery = '';
+getLongLat = async (query) => {
 
-    rawQuery.forEach((q, i) => {
-        newQuery += q;
-        if(i !== rawQuery.length-1) newQuery += '+';
-    });
+    const HERE_GEOCODE_SEARCH_QUERY = query;
 
-    const HERE_GEOCODE_API_KEY = 'wCzOTTWBWwbtIOhgfZWKvn_oThvZlhMY07JHNayyh_Y';
-    const HERE_GEOCODE_SEARCH_QUERY = newQuery;
-
-    $.ajax({
+    await $.ajax({
         url: `https://geocode.search.hereapi.com/v1/geocode?q=${ HERE_GEOCODE_SEARCH_QUERY }&apiKey=${ HERE_GEOCODE_API_KEY }`,
         type: 'GET',
         success: (result) => {
@@ -224,13 +225,14 @@ getLongLat = (query) => {
                 const address = location.address;
 
                 console.log(address);
-
                 console.log(address.postalCode)
 
                 // Get the position from location
                 const position = location.position;
 
-                console.log(position)
+                console.log(position);
+
+                setPosition(position);
 
             } else {
                 console.log('No result was found');
@@ -239,6 +241,7 @@ getLongLat = (query) => {
     })
     .fail(() => console.log('There was an error in fetching location'));
 }
+
 
 // Get OTP
 getOTP = () => {

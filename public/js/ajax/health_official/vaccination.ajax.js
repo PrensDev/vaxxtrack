@@ -463,7 +463,7 @@ loadVaccAppointmentsDT = () => {
     
                             return `
                                 <div class="d-flex align-items-baseline">
-                                    <i class="fas fa-user-circle icon-container text-secondary"></i>
+                                    <i class="fas fa-user-tie icon-container text-secondary"></i>
                                     <div>
                                         <div>${ fullName }</div>
                                         <div class="small text-secondary">${ userApproved }</div>
@@ -554,25 +554,44 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
         headers: AJAX_HEADERS,
         success: (result) => {
             if(result) {
-                const data = result.data
+                const data = result.data;
 
                 console.log(data);
 
-                //set the content from data
+                const appointedBy = data.appointed_by;
 
-                const fullName = () => {
-                    if(data.appointed_by.middle_name) {
-                        return `
-                            <td id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.middle_name } ${ data.appointed_by.last_name }</td>
-                        `
-                    } else {
-                        return `
-                            <td id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.last_name }</td>
-                        `
-                    }
+                var appointedFullName = setFullName('F M L', {
+                    firstName: appointedBy.first_name,
+                    middleName: appointedBy.middle_name,
+                    lastName: appointedBy.last_name
+                });
+
+                var sexBlade;
+                if(appointedBy.sex === 'Female') {
+                    sexBlade = `
+                        <i class="fas fa-venus text-danger mr-1"></i>
+                        <span>Female</span>
+                    `;
+                } else if(appointedBy.sex === 'Male') {
+                    sexBlade = `
+                        <i class="fas fa-mars text-blue mr-1"></i>
+                        <span>Male</span>
+                    `;
                 }
 
-                $('#Patientname').html(fullName());
+                $('#Patientname').html(`
+                    <div class="d-flex align-items-baseline">
+                        <div class="icon-container">
+                            <i class="fas fa-user-circle text-secondary"></i>
+                        </div>
+                        <div>
+                            <div>${ appointedFullName }</div>
+                            <div class="text-secondary small">
+                                ${ sexBlade }, ${ getAge(appointedBy.birth_date) }
+                            </div>
+                        </div>
+                    </div>
+                `);
                 $('#Productname').html(data.vaccine_preferrence.product_name);
                 $('#Vaccinename').html(data.vaccine_preferrence.vaccine_name);
                 $('#Manufacturer').html(data.vaccine_preferrence.manufacturer);
@@ -591,8 +610,6 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                                 <span id=Status>Pending</span>
                             </div>
                         `;
-                        // alert = 'alert-blue text-blue p-2',
-                        // icon = 'fas fa-stopwatch mr-1'
                     } else if (data.status_approval == 'Rejected') {
                         return `
                             <div class="badge alert-danger text-danger p-2">
@@ -600,8 +617,6 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                                 <span id=Status>Rejected</span>
                             </div>
                         `;
-                        // alert = 'alert-danger text-danger p-2',
-                        // icon = 'fas fa-times mr-1'
                     } else if (data.status_approval == 'Approved') {
                         return `
                             <div class="badge alert-success text-success p-2">
@@ -609,9 +624,6 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                                 <span id=Status>Approved</span>
                             </div>
                         `;
-
-                        // alert = 'alert-success text-success p-2',
-                        // icon = 'fas fa-check mr-1-1'
                     }
 
                 }
@@ -621,16 +633,16 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 const approvedBy = () => {
                     if (data.approved_by == null || data.approved_by == '') {
                         return `
-                            <td><span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span></td>
+                            <span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span>
                         `
                     } else {
                         if (data.approved_person.middle_name) {
                             return `
-                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span></td>
+                            <span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span>
                             `;
                         } else {
                             return `
-                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</span></td>
+                            <span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</span>
                             `;
                         }
                     }
@@ -641,31 +653,25 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 const approvedDandT = () => {
                     if (data.approved_datetime == null || data.approved_datetime == '') {
                         return `
-                            <td><span class="font-weight-norma text-muted font-italic" id=ApprovedDandT>No data yet</span></td>
+                            <span class="font-weight-norma text-muted font-italic" id=ApprovedDandT>No data yet</span>
                         `
                     } else {
                         return `
-                            <td><span class="font-weight-norma text font-italic" id=ApprovedDandT>${ data.approved_datetime }</span></td>
+                            <span class="font-weight-norma text font-italic" id=ApprovedDandT>${ data.approved_datetime }</span>
                         `
                     }
                 }
 
                 $('#ApprovedDandT').html(approvedDandT());
                 
-
-
-                //show modal
-                
-
+                // Show modal
                 $('#vaccAppointmentDetailsModal').modal('show')
             } else {
                 console.log('No data reseved')
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error when requesting')
-    })
+    .fail(() => console.error('There was an error when requesting'))
 }
 
 /**
@@ -772,6 +778,8 @@ loadVaccinesDT = () => {
                 headers: AJAX_HEADERS,
             },
             columns: [
+
+                // Vaccine
                 { 
                     data: null,
                     render: data => {
@@ -795,12 +803,20 @@ loadVaccinesDT = () => {
                         `
                     }
                 },
+
+                // Vaccine Type
                 { 
                     data: 'type',
                     class: 'text-nowrap' 
                 },
+
+                // Manufacturer
                 { data: 'manufacturer' },
+
+                // Shots Details
                 { data: 'shots_details' },
+
+                // User actions
                 {
                     data: null,
                     class: 'text-center',

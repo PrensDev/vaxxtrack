@@ -1,9 +1,5 @@
 <!-- Visiting Log Details Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "visitingLogDetailsModal"
-    tabindex        = "-1"
->
+<div class="modal fade" id="visitingLogDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,52 +21,43 @@
                     <tr>
                         <th>Establishment</th>
                         <td>
-                            <div>ABC Company</div>
-                            <div class="small text-secondary">Company</div>
+                            <div id="establishmentName"></div>
+                            <div class="small text-secondary" id="establishmentType"></div>
                         </td>
                     </tr>
                     <tr>
                         <th>Location</th>
                         <td>
-                            <div>NATIONAL CAPITAL REGION</div>
-                            <div>NCR, THIRD (3<sup>rd</sup>) DISTRICT</div>
-                            <div>Bignay, City of Valenzuela</div>
-                            <div>281 Bignay Road, Hulo Street</div>
-                            <div>1440</div>
+                            <div id="establishmentRegion"></div>
+                            <div id="establishmentProvince"></div>
+                            <div id="establishmentCityBrgy"></div>
+                            <div id="establishmentSpecificLocation"></div>
+                            <div id="establishmentZipCode"></div>
                         </td>
                     </tr>
                     <tr>
                         <th>Purpose</th>
-                        <td>Visiting</td>
+                        <td id="visitingPurpose"></td>
                     </tr>
                     <tr>
                         <th>Date & Time Entered</th>
                         <td>
-                            <div>Wednesday, February 3, 2021</div>
-                            <div>11:54:23 AM</div>
-                            <div class="small text-secondary">1 week ago</div>
+                            <div id="dateEntered"></div>
+                            <div id="timeEntered"></div>
+                            <div class="small text-secondary" id="enteredFromNow"></div>
                         </td>
                     </tr>
                     <tr>
                         <th>Your temperature</th>
-                        <td>
-                            <div class="badge alert-success text-success p-2">34.1&deg;C</div>
-                        </td>
+                        <td id="tempWhenVisit"></td>
                     </tr>
                     <tr>
                         <th>Your health status</th>
-                        <td>
-                            <div class="badge alert-success text-success p-2">No Symptoms</div>
-                        </td>
+                        <td id="healthStatusWhenVisit"></td>
                     </tr>
                     <tr>
                         <th>Allowed?</th>
-                        <td>
-                            <div class="badge alert-success text-success p-2">
-                                <i class="fas fa-check mr-1"></i>
-                                <span>Allowed</span>
-                            </div>
-                        </td>
+                        <td id="allowedStatus"></td>
                     </tr>
                 </table>
             </div>

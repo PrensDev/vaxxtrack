@@ -40,10 +40,12 @@
                         id="preferredVaccineForAdd"
                         name="preferredVaccine"
                         data-style="border btn"
-                        data-size="3"
+                        data-size="2"
                         data-live-search="true"
                         title="Select a vaccine"
-                    ></select>
+                    >
+                        <option class="text-center small" disabled>No available vaccine yet</option>
+                    </select>
                 </div>
 
                 <!-- Know more about vaccines -->

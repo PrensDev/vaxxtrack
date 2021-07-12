@@ -47,7 +47,19 @@ getAllVaccinesAJAX = () => {
                         options += `
                             <option 
                                 value="${ v.vaccine_ID }" 
-                                data-subtext="${ v.vaccine_name }"
+                                data-content="
+                                    <div class='d-flex align-items-baseline'>
+                                        <div class='icon-container'>
+                                            <i class='fas fa-syringe'></i>
+                                        </div>
+                                        <div>
+                                            <div>${ v.product_name }</div>
+                                            <div class='small'>${ v.vaccine_name }</div>
+                                            <div class='small'>${ v.manufacturer }</div>
+                                        </div>
+                                    </div>
+                                "
+                                title="${ v.product_name }"
                             >${ v.product_name }</option>
                         `
                     });
@@ -421,8 +433,15 @@ LoadAllVaccAppointmentsDT = () => {
                     render: data => {
 
                         return `
-                            <div>${moment(data.created_datetime).format("MMM. D, YYYY")}</div>
-                            <div class="small text-secondary">${moment(data.created_datetime).fromNow()}</div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-file-signature text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${moment(data.created_datetime).format("MMM. D, YYYY")}</div>
+                                    <div class="small text-secondary">${moment(data.created_datetime).fromNow()}</div>
+                                </div>
+                            </div>
                         `;
                     }
                 },
@@ -497,24 +516,15 @@ LoadAllVaccAppointmentsDT = () => {
 
                         if (data.approved_by == null || data.approved_by == '') {
                             return `
-                                <td><span class="font-weight-normal font-italic text-muted">No approval yet</span></td>
+                                <span class="font-weight-normal font-italic text-muted">No approval yet</span>
                             `;
                         } else {
-                            // return `
-                            //     <td><span class="font-weight-normal font-italic text-muted">yeadawda</span></td>
-                            // `;
-                            if (approvedBy.middle_name == null || approvedBy.middle_name == '') {
-                                return `
-                                    <td><span class="font-weight-normal font-italic text">${ approvedBy.first_name } ${ approvedBy.last_name }</span></td>
-                                `;
-                            } else {
-                                return `
-                                    <td><span class="font-weight-normal font-italic text-muted">${ approvedBy.first_name } ${ approvedBy.middle_name } ${ approvedBy.last_name }</span></td>
-                                `;
-                            }
-                            
+                            return `
+                                <span>${ approvedBy.user_type }</span>
+                            `;
                         }
-                    }
+                    },
+                    visible: false
                 },
 
                 // Approved Date and Time
@@ -677,7 +687,7 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 $('#productname').html(data.vaccine_preferrence.product_name);
                 $('#vaccname').html(data.vaccine_preferrence.vaccname);
                 $('#manufacturer').html(data.vaccine_preferrence.manufacturer);
-                $('#PreDayDate').html(moment(data.preferred_date).format('dddd, MMMM D, YYYY'));
+                $('#PreDayDate').html(moment(data.preferred_date).format('dddd, MMMM D, YYYY;'));
                 $('#PreTime').html(moment(data.preferred_date).format('hh:mm A'));
                 $('#PreDayMoment').html(moment(data.preferred_date).fromNow());
 
@@ -709,16 +719,16 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
 
                     if (data.approved_by == null || data.approved_by == '') {
                         return `
-                            <td><span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span></td>
+                            <span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span>
                         `
                     } else {
                         if (data.approved_person.middle_name) {
                             return `
-                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span></td>
+                                <span class="font-weight-norma text font-italic">${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span>
                             `;
                         } else {
                             return `
-                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</span></td>
+                                <span class="font-weight-norma text font-italic">${ data.approved_person.first_name } ${ data.approved_person.last_name }</span>
                             `;
                         }
                     }
@@ -729,21 +739,21 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 const datatimeapproved = () => {
 
                     if(data.approved_datetime == null || data.approved_datetime == '') {
-                        font = 'font-italic text-muted'
-                        text = 'No data yet'
+                        return `
+                            <span class="font-weight-normal text-muted font-italic">No data yet</span>
+                        `;
                     } else {
-                        font = 'font-italic text'
-                        text = data.approved_datetime
+                        const approvedDatetime = data.approved_datetime;
+                        return `
+                            <div>${ moment(approvedDatetime).format('dddd, MMMM D, YYYY; hh:mm A') }</div>
+                            <div class="text-secondary small">${ moment(approvedDatetime).fromNow() }</div>
+                        `;
                     }
-                    
-                    return `
-                        <span class="font-weight-normal ${ font }">${ text }</span>
-                    `;
                 }
 
                 $('#datatimeapproved').html(datatimeapproved());
 
-                //show modal
+                // Show modal
                 $('#appointmentDetailsModal').modal('show')
 
             } else {
@@ -751,9 +761,7 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error when requesting')
-    })
+    .fail(() => console.error('There was an error when requesting'))
 }
 
 /**
