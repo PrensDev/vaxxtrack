@@ -25,6 +25,7 @@ class Citizen extends CI_Controller {
         'health_status_logs',
         'info',
         'vaccination',
+        'visiting_logs',
     ];
 
     // Load Views Method

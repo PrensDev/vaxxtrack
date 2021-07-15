@@ -57,6 +57,11 @@ const LEAFLET_ACCESS_TOKEN ='pk.eyJ1IjoicHJlbnNkZXYiLCJhIjoiY2tweXo0eXNtMWxicjJw
 const LEAFLET_ATTRIBUTION = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 
 
+// HERE Geocode API Key
+// DO NOT DISTRIBUTE THIS API KEY
+const HERE_GEOCODE_API_KEY = 'wCzOTTWBWwbtIOhgfZWKvn_oThvZlhMY07JHNayyh_Y';
+
+
 /**
  * ===========================================================================
  * * CONSTANT OBJECTS
@@ -306,4 +311,9 @@ const setFullName = (format, userName = {
     else if(format === 'L, F') {
         return lastName + ', ' + firstName;
     }
+}
+
+// Get Age
+const getAge = (birthDate) => {
+    return moment().diff(moment(birthDate, 'YYYY'), 'years') + ' years old';
 }

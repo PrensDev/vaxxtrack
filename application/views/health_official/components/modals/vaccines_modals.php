@@ -1,9 +1,5 @@
 <!-- View Vaccine Details Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "viewVaccineDetailsModal"
-    tabindex        = "-1"
->
+<div class="modal fade" id="viewVaccineDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             
@@ -236,12 +232,7 @@
 
 
 <!-- Add Vaccine -->
-<div 
-    class           = "modal" 
-    id              = "addVaccineModal"
-    data-backdrop   = "static"
-    tabindex        = "-1"
->
+<div class="modal" id="addVaccineModal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="addVaccineForm">
 

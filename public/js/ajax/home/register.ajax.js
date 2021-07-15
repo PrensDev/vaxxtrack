@@ -8,6 +8,7 @@
 
 $(() => {
     // fetchPHLocations();
+    populateRegionSelectAJAX();
 });
 
 
@@ -37,15 +38,15 @@ registerCitizenAJAX = () => {
             verified: true,
         }],
         address: {
-            region:            form.get('region'),
-            province:          form.get('province'),
-            city_municipality: form.get('cityMunicipality'),
-            barangay_district: form.get('baranggayDistrict'),
+            region:            form.get('regionName'),
+            province:          form.get('provinceName'),
+            city_municipality: form.get('cityName'),
+            barangay_district: form.get('barangay'),
             street:            form.get('street'),
             specific_location: form.get('specificLocation'),
-            zip_code:          '1121',
-            latitude:          '23.8623',            
-            longitude:         '43.0235',
+            zip_code:          form.get('postalCode'),
+            latitude:          form.get('latitude'),            
+            longitude:         form.get('longitude'),
         }
     }
 
@@ -65,41 +66,40 @@ registerCitizenAJAX = () => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error while registering your account.');
-    })
+    .fail(() => console.error('There was an error while registering your account.'));
 }
 
 // Populate Region Select Input
-$.ajax({
-    url: `${ PSGC_API_ROUTE }region`,
-    type: 'GET',
-    success: result => {
-        if(result) {
-            const data = result.data;
-            const region = data[0].region
-
-            console.log(region);
-
-            var options = '';
-
-            region.forEach(r => {
-                options += `
-                    <option
-                        value="${ r.code }"
-                    >${ r.name }</option>
-                `;
-            });
-
-            $('#regionsDropdown').html(options);
-            $('#regionsDropdown').selectpicker('refresh');
+populateRegionSelectAJAX = () => {
+    $.ajax({
+        url: `${ PSGC_API_ROUTE }region`,
+        type: 'GET',
+        success: result => {
+            if(result) {
+                const data = result.data;
+                const region = data[0].region;
+                let options = '';
+                region.forEach(r => {
+                    options += `<option value="${ r.code }">${ r.name }</option>`;
+                });
+                $('#regionsDropdown').html(options);
+                $('#regionsDropdown').selectpicker('refresh');
+            }
         }
-    }
-});
+    });
+}
 
 // On change (or select) region select input
 $('#regionsDropdown').on('changed.bs.select', () => {
     code = $('#regionsDropdown').val();
+
+    $('#provincesDropdown').html(`
+        <option class="text-center small" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span>Loading... Please wait</span>
+        </option>
+    `);
+    $('#provincesDropdown').selectpicker('refresh');
 
     $.ajax({
         url: `${ PSGC_API_ROUTE }region/${ code }/province`,
@@ -109,14 +109,22 @@ $('#regionsDropdown').on('changed.bs.select', () => {
                 const provinces = result;
 
                 var options = '';
-                provinces.forEach(p => options += `<option value="${ p.code }">${ p.name }</option>`);
+                provinces.forEach(p => options += `
+                    <option 
+                        value="${ p.code }"
+                        data-content="<div>${ p.name }</div>"
+                        title="${ p.name }"
+                    >${ p.name }</option>`
+                );
                 
                 // Reset provinces dropdown
                 $('#provincesDropdown').html(options);
                 $('#provincesDropdown').selectpicker('refresh');
                 
                 // Reset cities dropdown
-                $('#citiesDropdown').html('');
+                $('#citiesDropdown').html(`
+                    <option class="text-center small" disabled>Please select a province first</option>
+                `);
                 $('#citiesDropdown').selectpicker('refresh');
 
                 // Reset barangay, street, and specific location inputs
@@ -126,11 +134,29 @@ $('#regionsDropdown').on('changed.bs.select', () => {
             }
         }
     });
+    
+    $.ajax({
+        url: `${ PSGC_API_ROUTE }region/${ code }`,
+        type: 'GET',
+        success: result => {
+            if(result) {
+                $('#regionName').val(result.name);
+            }
+        }
+    })
 });
 
 // On change (or select) province select input
 $('#provincesDropdown').on('changed.bs.select', () => {
     code = $('#provincesDropdown').val();
+
+    $('#citiesDropdown').html(`
+        <option class="text-center small" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span>Loading... Please wait</span>
+        </option>
+    `);
+    $('#citiesDropdown').selectpicker('refresh');
 
     var options = '';
 
@@ -141,7 +167,6 @@ $('#provincesDropdown').on('changed.bs.select', () => {
         type: 'GET',
         success: result => {
             if(result) {
-                console.log(result);
                 result.forEach(c => options += `<option value="${ c.code }">${ c.name }</option>`);
             }
         }
@@ -154,7 +179,6 @@ $('#provincesDropdown').on('changed.bs.select', () => {
         type: 'GET',
         success: result => {
             if(result) {
-                console.log(result);
                 result.forEach(m => options += `<option value="${ m.code }">${ m.name }</option>`);
             }
         }
@@ -168,19 +192,36 @@ $('#provincesDropdown').on('changed.bs.select', () => {
     $('#barangay').val('');
     $('#street').val('');
     $('#specificLocation').val('');
+
+    $.ajax({
+        url: `${ PSGC_API_ROUTE }province/${ code }`,
+        type: 'GET',
+        success: result => {
+            if(result) {
+                $('#provinceName').val(result.name);
+            }
+        }
+    })
 });
 
 // On chnage (or select) cities select input
 $('#citiesDropdown').on('changed.bs.select', () => {
-
-    alert($('#citiesDropdown').html());
+    code = $('#citiesDropdown').val();
 
     // Reset barangay, street, and specific location inputs
     $('#barangay').val('');
     $('#street').val('');
     $('#specificLocation').val('');
 
-    const query = $('#barangay').val() + ' ' + $('#provincesDropdown').html();
+    $.ajax({
+        url: `${ PSGC_API_ROUTE }city/${ code }`,
+        type: 'GET',
+        success: result => {
+            if(result) {
+                $('#cityName').val(result.name);
+            }
+        }
+    })
 });
 
 /**

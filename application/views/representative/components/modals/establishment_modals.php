@@ -177,7 +177,7 @@
             dragging: false,
             doubleClickZoom: false
         }).setView([14.6309,121.0577], 13);
-    
+
         L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${ LEAFLET_ACCESS_TOKEN }`, {
             id: 'mapbox/streets-v11',
             attribution: LEAFLET_ATTRIBUTION,
@@ -188,7 +188,7 @@
             zoomOffset: -1,
             accessToken: 'your.mapbox.access.token'
         }).addTo(mymap);
-    
+
         var marker = L.marker([14.6309,121.0577]).addTo(mymap);
         
         marker.bindPopup(`

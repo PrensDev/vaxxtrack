@@ -120,19 +120,25 @@ if($('#registerCitizenForm').length) {
                     region: {
                         required: true
                     },
-                    province: {
+                    provinces: {
                         required: true
                     },
-                    cityMunicipality: {
+                    cities: {
                         required: true
                     },
-                    barangayDistrict: {
+                    barangay: {
                         required: true
                     },
                     street: {
                         required: true
                     },
                     specificLocation: {
+                        required: true
+                    },
+                    latitude: {
+                        required: true
+                    },
+                    longitude: {
                         required: true
                     },
                     password: {
@@ -170,13 +176,13 @@ if($('#registerCitizenForm').length) {
                     region: {
                         required: 'Select the region where you currently living'
                     },
-                    province: {
+                    provinces: {
                         required: 'Select the province where you currently living'
                     },
-                    cityMunicipality: {
+                    cities: {
                         required: 'Select the city or municipality where you currently living'
                     },
-                    barangayDistrict: {
+                    barangay: {
                         required: 'Select the barangay or district where you currently living'
                     },
                     street: {
@@ -184,6 +190,12 @@ if($('#registerCitizenForm').length) {
                     },
                     specificLocation: {
                         required: 'Type the specific location where you currently living'
+                    },
+                    latitude: {
+                        required: 'Latitude must be generate'
+                    },
+                    longitude: {
+                        required: 'Longitude must be generate'
                     },
                     password: {
                         required: 'Your password is required',
@@ -206,20 +218,17 @@ if($('#registerCitizenForm').length) {
         }
     }
 
-    // Next Event
+    // Next Event for fieldset
     nextEvent = () => {
 
-        // Check if account is already used
+        // For email fieldset
         if($('#emailFieldset').is(':visible')) {
 
-            data = {
-                details: `${ $('#email').val() }`
-            };
-
+            // Check if account is already used
             $.ajax({
                 url: `${ BASE_URL_API }check-account`,
                 type: 'POST',
-                data: data,
+                data: { details: `${ $('#email').val() }`},
                 dataType: 'json',
                 success: result => {
                     if(result) {
@@ -231,11 +240,66 @@ if($('#registerCitizenForm').length) {
                             $('#alert').alert('close');
                             validateForm();
                         }
-                    } else {
-                        
                     }
                 }
-            })
+            });
+
+        // For address fieldset
+        } else if($('#addressFieldset').is(':visible')) {
+            validateForm();
+
+            const cityCode = $('#citiesDropdown').val();
+            const barangay = $('#barangay').val();
+            const street = $('#street').val();
+            
+            if(
+                (cityCode != null && cityCode != '') && 
+                (barangay != null && barangay != '') && 
+                (street != null && street != '')
+            ) {
+                $.ajax({
+                    url: `${ PSGC_API_ROUTE }city/${ cityCode }`,
+                    type: 'GET',
+                    success: result => {
+                        if(result) {
+                            const city = result.name;
+    
+                            var rawQuery = street + ' ' + barangay + ' ' + city;
+                            var queryArr = rawQuery.split(' ');
+                            var HERE_GEOCODE_SEARCH_QUERY = '';
+                            queryArr.forEach((q, i) => {
+                                HERE_GEOCODE_SEARCH_QUERY += q;
+                                if(i != queryArr.length-1) HERE_GEOCODE_SEARCH_QUERY += '+';
+                            });
+    
+                            $.ajax({
+                                url: `https://geocode.search.hereapi.com/v1/geocode?q=${ HERE_GEOCODE_SEARCH_QUERY }&apiKey=${ HERE_GEOCODE_API_KEY }`,
+                                type: 'GET',
+                                success: (result) => {
+                                    if(result) {
+                        
+                                        // Get the location
+                                        const location = result.items[0];
+                        
+                                        // Get the position from location
+                                        const position = location.position;
+                                        const address = location.address;
+                                        
+                                        // Set the values
+                                        $('#latitude').val(position.lat);
+                                        $('#longitude').val(position.lng);
+                                        $('#postalCode').val(address.postalCode);
+                                    } else {
+                                        console.log('No result was found');
+                                    }
+                                }
+                            })
+                            .fail(() => console.log('There was an error in fetching location'));
+                        }
+                    }
+                });
+            }
+
         } else {
             validateForm();
         }
@@ -244,7 +308,7 @@ if($('#registerCitizenForm').length) {
     // When next button is clicked
     nextBtn.on('click', () => nextEvent());
 
-    // When enter button is clicked
+    // Prevent default (or submitting form) when enter key is clicked
     registerCitizenForm.on('keyup keypress', function(e) {
         var keyCode = e.keyCode || e.which;
         if(showed != fieldsets.length) {
@@ -407,8 +471,44 @@ if($('#registerRepresentativeForm').length) {
         }
     }
 
+    // Next event when next button is clicked
+    nextEvent = () => {
+
+        // If email fieldset is visible
+        if($('#userAccountFieldset').is(':visible')) {
+            
+            const email = $('#email').val();
+
+            if(email == '' || email == null) {
+                validateForm();
+            } else { 
+                // Check if account is already used
+                $.ajax({
+                    url: `${ BASE_URL_API }check-account`,
+                    type: 'POST',
+                    data: { details: `${ email }`},
+                    dataType: 'json',
+                    success: result => {
+                        if(result) {
+                            const data = result.data;
+                            
+                            if(data.length) {
+                                showAlert('danger', 'This account is already used')
+                            } else {
+                                $('#alert').alert('close');
+                                validateForm();
+                            }
+                        }
+                    }
+                });
+            }
+        } else {
+            validateForm();
+        }
+    }
+
     // When next button is clicked
-    nextBtn.on('click', () => validateForm());
+    nextBtn.on('click', () => nextEvent());
 
     // When enter button is clicked
     registerRepresentativeForm.on('keyup keypress', function(e) {

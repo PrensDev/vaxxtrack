@@ -11746,7 +11746,7 @@ body {
 
 /* Modal Customization */
 .modal-content {
-  max-height: 75% !important;
+  max-height: 90% !important;
 }
 
 .modal-header {

@@ -15,6 +15,7 @@
 
     <!-- User Account Fieldset -->
     <fieldset id="userAccountFieldset">
+        <div id="alertContainer"></div>
         <div class="form-group">
             <label for="email">Email</label>
             <input 
@@ -39,7 +40,6 @@
                 placeholder="Type verification code here"
             >
         </div>
-
     </fieldset>
 
     <!-- Representative Information -->
@@ -164,51 +164,70 @@
         </div>
     </fieldset>
 
-    <!-- Citizen's Address -->
+    <!-- Establishment Address -->
     <fieldset id="addressFieldset">
 
         <!-- Region Field -->
         <div class="form-group">
-            <label for="region">Region</label>
+            <label for="regionsDropdown">Region</label>
+            <input type="hidden" id="regionName" name="regionName">
             <select 
-                name="region" 
-                id="regionsDropdown" 
-                class="custom-select"
-                placeholder="Select region"
-            ></select>
+                class            = "selectpicker form-control border" 
+                name             = "region" 
+                id               = "regionsDropdown"
+                title            = "Select a region"
+                data-style       = "btn-white"
+                data-size        = "5"
+                data-live-search = "true"
+            >
+                <option class="text-center small" disabled>No data</option>
+            </select>
         </div>
 
         <!-- Province Field -->
         <div class="form-group">
-            <label for="province">Province</label>
+            <label for="provincesDropdown">Province</label>
+            <input type="hidden" id="provinceName" name="provinceName">
             <select 
-                name="province" 
-                id="provincesDropdown" 
-                class="custom-select"
-                placeholder="Select province"
-            ></select>
+                class            = "selectpicker form-control border" 
+                name             = "provinces" 
+                id               = "provincesDropdown"
+                title            = "Select a province"
+                data-style       = "btn-white"
+                data-size        = "5"
+                data-live-search = "true"
+            >
+                <option class="text-center small" disabled>Please select a region first</option>
+            </select>
         </div>
 
         <!-- City/Municipality Field -->
         <div class="form-group">
-            <label for="cityMunicipality">City/Municipality</label>
+            <label for="cities">City</label>
+            <input type="hidden" id="cityName" name="cityName">
             <select 
-                name="cityMunicipality" 
-                id="citiesDropdown" 
-                class="custom-select"
-                placeholder="Select city or municipality"
-            ></select>
+                class            = "selectpicker form-control border" 
+                name             = "cities" 
+                id               = "citiesDropdown"
+                title            = "Select a city"
+                data-style       = "btn-white"
+                data-size        = "5"
+                data-live-search = "true"
+            >
+                <option class="text-center small" disabled>Please select a province first</option>
+            </select>
         </div>
 
-        <!-- Barangay/District Field -->
+        <!-- Barangay -->
         <div class="form-group">
-            <label for="baranggayDistrict">Barangay/District</label>
-            <select 
-                name="baranggayDistrict" 
-                id="barangaysDropdown" 
-                class="custom-select"
-                placeholder="Select barangay or district"
-            ></select>
+            <label for="barangay">Barangay</label>
+            <input 
+                type        = "text" 
+                class       = "form-control" 
+                name        = "barangay"
+                id          = "barangay"
+                placeholder = "Type street here"
+            >
         </div>
 
         <!-- Street -->
@@ -233,6 +252,46 @@
                 name        = "specificLocation"
                 placeholder = "Type specific location here"
             >
+        </div>
+
+        <!-- Longitude, latitude and Postal Code -->
+        <div class="form-row d-none">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="latitude">Latitude</label>
+                    <input 
+                        type        = "hidden" 
+                        class       = "form-control disabled" 
+                        id          = "latitude"
+                        name        = "latitude"
+                        placeholder = "Latitude should display here"
+                    >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="longitude">Longitude</label>
+                    <input 
+                        type        = "hidden" 
+                        class       = "form-control disabled" 
+                        id          = "longitude"
+                        name        = "longitude"
+                        placeholder = "Longitude should display here"
+                    >
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="postalCode">Postal Code</label>
+                    <input 
+                        type        = "hidden" 
+                        class       = "form-control disabled" 
+                        id          = "postalCode"
+                        name        = "postalCode"
+                        placeholder = "Longitude should display here"
+                    >
+                </div>
+            </div>
         </div>
     </fieldset>
 

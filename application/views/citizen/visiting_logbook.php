@@ -15,10 +15,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="visitingLogsDT">
+                <table class="table w-100" id="visitingLogsDT" width="100%" cellspacing="0">
                     <thead class="thead">
+                        <th>Date and Time Entered (hidden)</th>
                         <th>Establishment</th>
-                        <th>Location</th>
                         <th>Purpose</th>
                         <th>Temp</th>
                         <th>Health Status</th>
@@ -26,42 +26,7 @@
                         <th>Date & Time Entered</th>
                         <th></th>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>ABC Company</td>
-                            <td>Commonwaelth, Quezon City</td>
-                            <td>Visiting</td>
-                            <td>
-                                <div class="badge alert-success text-success p-2 w-100">
-                                    <span>34.5&deg;C</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge alert-success text-success p-2 w-100">
-                                    <span>No symptoms</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge alert-success text-success p-2 w-100">
-                                    <i class="fas fa-check mr-1"></i>
-                                    <span>Allowed</span>
-                                </div>
-                            </td>
-                            <td>February 3, 2021; 11:54 AM</td>
-                            <td class="text-center">
-                                <span data-toggle="tooltip" title="View Full Details">
-                                    <div 
-                                        class       = "btn btn-white-muted btn-sm"
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#visitingLogDetailsModal"
-                                    >
-                                        <i class="far fa-file-alt"></i>
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

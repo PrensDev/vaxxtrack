@@ -17,6 +17,7 @@
 
     <!-- User Account Fieldset -->
     <fieldset id="emailFieldset">
+        <div id="alertContainer"></div>
         <div class="form-group">
             <label for="email">Email</label>
             <input 
@@ -128,6 +129,7 @@
         <!-- Region Field -->
         <div class="form-group">
             <label for="regionsDropdown">Region</label>
+            <input type="hidden" id="regionName" name="regionName">
             <select 
                 class            = "selectpicker form-control border" 
                 name             = "region" 
@@ -136,12 +138,15 @@
                 data-style       = "btn-white"
                 data-size        = "5"
                 data-live-search = "true"
-            ></select>
+            >
+                <option class="text-center small" disabled>No data</option>
+            </select>
         </div>
 
         <!-- Province Field -->
         <div class="form-group">
             <label for="provincesDropdown">Province</label>
+            <input type="hidden" id="provinceName" name="provinceName">
             <select 
                 class            = "selectpicker form-control border" 
                 name             = "provinces" 
@@ -150,12 +155,15 @@
                 data-style       = "btn-white"
                 data-size        = "5"
                 data-live-search = "true"
-            ></select>
+            >
+                <option class="text-center small" disabled>Please select a region first</option>
+            </select>
         </div>
 
         <!-- City/Municipality Field -->
         <div class="form-group">
             <label for="cities">City</label>
+            <input type="hidden" id="cityName" name="cityName">
             <select 
                 class            = "selectpicker form-control border" 
                 name             = "cities" 
@@ -164,7 +172,9 @@
                 data-style       = "btn-white"
                 data-size        = "5"
                 data-live-search = "true"
-            ></select>
+            >
+                <option class="text-center small" disabled>Please select a province first</option>
+            </select>
         </div>
 
         <!-- Barangay -->
@@ -201,6 +211,46 @@
                 name        = "specificLocation"
                 placeholder = "Type specific location here"
             >
+        </div>
+
+        <!-- Longitude, latitude and Postal Code -->
+        <div class="form-row d-none">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="latitude">Latitude</label>
+                    <input 
+                        type        = "hidden" 
+                        class       = "form-control disabled" 
+                        id          = "latitude"
+                        name        = "latitude"
+                        placeholder = "Latitude should display here"
+                    >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="longitude">Longitude</label>
+                    <input 
+                        type        = "hidden" 
+                        class       = "form-control disabled" 
+                        id          = "longitude"
+                        name        = "longitude"
+                        placeholder = "Longitude should display here"
+                    >
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="postalCode">Postal Code</label>
+                    <input 
+                        type        = "hidden" 
+                        class       = "form-control disabled" 
+                        id          = "postalCode"
+                        name        = "postalCode"
+                        placeholder = "Longitude should display here"
+                    >
+                </div>
+            </div>
         </div>
     </fieldset>
 
@@ -249,7 +299,11 @@
                 <option value="Civil Partnership">Civil Partnership</option>
                 <option 
                     value        = "Former Civil Partner" 
-                    data-subtext = "(in a civil partnership that has ended by death or been dissolved)"
+                    data-content = "
+                        <div>Former Civil Status</div>
+                        <div class='small'>(in a civil partnership that has ended by death or been dissolved)</div>
+                    "
+                    title        = "Former Civil Partner"
                 >Former Civil Partner</option>
             </select>
         </div>
