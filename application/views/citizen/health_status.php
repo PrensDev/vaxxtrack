@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="visitingLogsDT">
+                <table class="table" id="healthStatusLogsDT">
                     <thead class="thead">
                         <th>Date Recorded</th>
                         <th>Temperature</th>
@@ -23,21 +23,52 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <td>March 1, 2020</td>
-                        <td>37&deg;C</td>
-                        <td>Healthy</td>
-                        <td class="text-center">
-                            <div class="dropdown">
-                                <div data-toggle="dropdown">
-                                    <div class="btn btn-sm btn-white-muted">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Health Status Log Details Modal -->
+<div class="modal" id="viewHealthStatusModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title-icon fas fa-list"></h5>
+                <h5 class="modal-title">Health Status Log Details</h5>
+                <button 
+                    class        = "btn btn-sm btn-white-muted" 
+                    type         = "button" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
+                >
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>Citizen Details</th>
+                        <td id="citizenDetails"></td>
+                    </tr>
+                    <tr>
+                        <th>Entry Log</th>
+                        <td id="entryLog"></td>
+                    </tr>
+                    <tr>
+                        <th>Temperature</th>
+                        <td id="citizenTemp"></td>
+                    </tr>
+                    <tr>
+                        <th>Overall Status</th>
+                        <td id="Status"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer p-3 bg-white"></div>
         </div>
     </div>
 </div>
