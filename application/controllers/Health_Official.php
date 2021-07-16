@@ -20,6 +20,7 @@ class Health_Official extends CI_Controller {
 
     // AJAX Scripts
     private Array $AJAX_files = [
+        'account',
         'covid_cases',
         'vaccination',
         'info',
@@ -73,7 +74,10 @@ class Health_Official extends CI_Controller {
 
     // Account Settings
     public function account_settings() {
-        $this->load_views('Account Settings', [['account_settings']]);
+        $this->load_views('Account Settings', [
+            ['components/modals/account_settings_modals'],
+            ['account_settings']
+        ]);
     }
 
     // COVID-19 Cases

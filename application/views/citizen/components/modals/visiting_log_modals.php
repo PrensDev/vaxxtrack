@@ -21,18 +21,57 @@
                     <tr>
                         <th>Establishment</th>
                         <td>
-                            <div id="establishmentName"></div>
-                            <div class="small text-secondary" id="establishmentType"></div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-building text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div id="establishmentName"></div>
+                                    <div class="small text-secondary" id="establishmentType"></div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Location</th>
                         <td>
-                            <div id="establishmentRegion"></div>
-                            <div id="establishmentProvince"></div>
-                            <div id="establishmentCityBrgy"></div>
-                            <div id="establishmentSpecificLocation"></div>
-                            <div id="establishmentZipCode"></div>
+                            <div class="d-flex align-item-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-map-marker-alt text-danger"></i>
+                                </div>
+                                <div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Region"
+                                        id="establishmentRegion"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Province"
+                                        id="establishmentProvince"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Street & Barangay"
+                                        id="establishmentCityBrgy"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Specific Location"
+                                        id="establishmentSpecificLocation"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Zip Code"
+                                        id="establishmentZipCode"
+                                    ></div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -61,9 +100,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-muted" data-dismiss="modal">Close</button>
-            </div>
+            <div class="modal-footer bg-white p-2"></div>
         </div>
     </div>
 </div>

@@ -50,7 +50,7 @@ loadVaccinesDT = () => {
                         return `
                             <div class="d-flex align-items-baseline text-nowrap">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div
@@ -500,7 +500,6 @@ $('#removeVaccineForm').validate(validateOptions({
 // Load Vaccination Record DataTable
 loadVaccRecordDT = () => {
     const dt = $('#vaccinationRecordsDT');
-    
     if(dt.length) {
         dt.DataTable({
             ajax: {
@@ -509,37 +508,58 @@ loadVaccRecordDT = () => {
                 headers: AJAX_HEADERS
             },
             columns: [
+
+                // Added at (hidden)
+                { data: 'created_datetime', visible: false },
+
+                // Vaccinated Individual
                 { 
                     data: null,
-                    class: 'text-nowrap',
                     render: data => {
                         const vc = data.vaccinated_citizen;
-                        const first_name = vc.first_name;
-                        const middle_name = (vc.middle_name == null || vc.middle_name == '') ? ' ' : ` ${ vc.middle_name }`;
-                        const last_name = vc.last_name;
-    
+                        const fullName = setFullName('L, F Mi', {
+                            firstName: vc.first_name,
+                            middleName: vc.middle_name,
+                            lastName: vc.last_name
+                        });
+
+                        const age = getAge(data.vaccinated_citizen.birth_date);
+                        
+                        details = '';
+                        if(vc.sex === 'Female') {
+                            details += `
+                                <i class="fas fa-venus text-danger mr-1"></i>
+                                <span>${ vc.sex }, ${ age } y/o</span>
+                            `;
+                        } else if(vc.sex === 'Male') {
+                            details += `
+                                <i class="fas fa-mars text-blue mr-1"></i>
+                                <span>${ vc.sex }, ${ age } y/o</span>
+                            `;
+                        }
+
                         return `
                             <div class="d-flex align-items-baseline">
-                                <i class="fas fa-user-circle icon-container text-secondary"></i>
-                                <span>${ last_name }, ${ first_name + middle_name }</span>
+                                <div class="icon-container">
+                                    <i class="fas fa-user-circle text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ fullName }</div>
+                                    <div class="small text-secondary">${ details }</div>
+                                </div>
                             </div>
                         `
                     }
                 },
-                { 
-                    data: null,
-                    render: data => {
-                        const age = moment().diff(moment(data.vaccinated_citizen.birth_date, 'YYYY'), 'years');
-                        return age + ' y/o'
-                    }
-                },
+
+                // Vaccine Used
                 {
                     data: null,
                     render: data => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div>${ data.vaccine_used.product_name }</div>
@@ -549,6 +569,8 @@ loadVaccRecordDT = () => {
                         `
                     }
                 },
+
+                // Date Vaccinated
                 {
                     data: null,
                     render: data => {
@@ -558,13 +580,15 @@ loadVaccRecordDT = () => {
                         `;
                     }
                 },
+
+                // Vaccinated By
                 { 
                     data: null,
                     render: (data) => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-user-md text-secondary"></i>
+                                    <i class="fas fa-user-md text-info"></i>
                                 </div>
                                 <div>
                                     <div>${ data.vaccinated_by }</div>
@@ -574,13 +598,15 @@ loadVaccRecordDT = () => {
                         `
                     }
                 },
+
+                // Vaccinated In
                 { 
                     data: null,
                     render: (data) => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-hospital text-secondary"></i>
+                                    <i class="fas fa-hospital-alt text-danger"></i>
                                 </div>
                                 <div>
                                     <div>${ data.vaccinated_in }</div>
@@ -590,6 +616,8 @@ loadVaccRecordDT = () => {
                         `
                     }
                 },
+
+                // Actions
                 { 
                     data: null,
                     render: data => {
@@ -603,8 +631,15 @@ loadVaccRecordDT = () => {
                                         title       = "More"
                                     ><i class="fas fa-ellipsis-v"></i></div>
                                 </div>
-    
                                 <div class="dropdown-menu dropdown-menu-right">
+                                    <div 
+                                        class       = "dropdown-item" 
+                                        role        = "button"
+                                        onclick     = "viewVaccRecordDetails('${ data.vaccination_record_ID }')"    
+                                    >
+                                        <i class="fas fa-list icon-container"></i>
+                                        <span>View full details</span>
+                                    </div>
                                     <div 
                                         class       = "dropdown-item" 
                                         role        = "button"
@@ -612,29 +647,6 @@ loadVaccRecordDT = () => {
                                     >
                                         <i class="far fa-id-card icon-container"></i>
                                         <span>View citizen's card</span>
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                    <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#vaccRecordDetailsModal"    
-                                    >
-                                        <i class="fas fa-list icon-container"></i>
-                                        <span>View full details</span>
-                                    </div>
-                                    <div class="dropdown-item" role="button">
-                                        <i class="far fa-edit icon-container"></i>
-                                        <span>Edit this details</span>
-                                    </div>
-                                    <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#deleteVaccRecordModal"    
-                                    >
-                                        <i class="far fa-trash-alt icon-container"></i>
-                                        <span>Delete this record</span>
                                     </div>
                                 </div>
                             </div>
@@ -646,9 +658,102 @@ loadVaccRecordDT = () => {
                 'targets': [6],
                 'orderable': false,
             }],
+            order: [[0, 'desc']]
         });
     }
 
+}
+
+
+/**
+ * ====================================================================
+ * * GET VACCINATION RECORD DETAILS
+ * ====================================================================
+ */
+
+// View vaccination record details
+viewVaccRecordDetails = (vaccination_record_ID) => {
+    $.ajax({
+        url: `${ SUPER_ADMIN_API_ROUTE }vaccination-records/${ vaccination_record_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+
+                // Get data form result
+                const data = result.data;
+                
+                // Get Vaccinated Citizen
+                const vc = data.vaccinated_citizen;
+
+                // Get Vaccinated Citizen Full Name
+                const vcFullName = setFullName('F M L', {
+                    firstName: vc.first_name,
+                    middleName: vc.middle_name,
+                    lastName: vc.last_name
+                });
+                $('#vaccinatedFullName').html(vcFullName);
+                
+                // Get Vaccinated Citizen's Details
+                var vcDetails;
+                if(vc.sex === 'Female') {
+                    vcDetails = `
+                        <i class="fas fa-venus text-danger mr-1"></i>
+                        <span id="vaccinatedDetails">${ vc.sex }, ${ getAge(vc.birth_date) } years old</span>
+                    `;
+                } else if(vc.sex === 'Male') {
+                    vcDetails = `
+                        <i class="fas fa-mars text-blue mr-1"></i>
+                        <span id="vaccinatedDetails">${ vc.sex }, ${ getAge(vc.birth_date) } years old</span>
+                    `;
+                }
+                $('#vaccinatedDetails').html(vcDetails);
+
+                // Get Vaccinated Citizen's Address
+                const vcAddress = vc.address;
+                $('#vaccinatedRegion').html(vcAddress.region);
+                $('#vaccinatedProvince').html(vcAddress.province);
+                $('#vaccinatedCity').html(vcAddress.city_municipality);
+                $('#vaccinatedStreetAndBrgy').html(vcAddress.street + ', ' + vcAddress.barangay_district);
+                $('#vaccinatedSpecificLocation').html(vcAddress.specific_location);
+                $('#vaccinatedZipCode').html(vcAddress.zip_code);
+
+                // Get Vaccine Used
+                const vaccineUsed = data.vaccine_used;
+                $('#productName').html(vaccineUsed.product_name);
+                $('#vaccineName').html(vaccineUsed.vaccine_name);
+                $('#vaccManufacturer').html(vaccineUsed.manufacturer);
+
+                // Get Date Vaccinated
+                $('#vaccDate').html(moment(data.vaccination_date).format('dddd, MMMM D, YYYY'));
+                $('#vaccDateHumanized').html(moment(data.vaccination_date).fromNow());
+
+                // Get vaccinated by and in
+                $('#vaccinatedBy').html(data.vaccinated_by);
+                $('#vaccinatedIn').html(data.vaccinated_in);
+
+                // Get remarks
+                const remarks = data.remarks;
+                if(remarks == null || remarks == '') {
+                    $('#remarks').html(`
+                        <span class="font-weight-normal text-muted font-italic">No remarks</span>
+                    `);
+                } else {
+                    $('#remarks').html(`<p>${ remarks }</p>`);
+                }
+
+                // Get record added at & updated at
+                $('#recordAddedAt').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY<br>hh:mm A'));
+                $('#recordAddedAtHumanized').html(moment(data.created_datetime).fromNow());
+                $('#recordUpdatedAt').html(moment(data.updated_datetime).format('dddd, MMMM D, YYYY<br>hh:mm A'));
+                $('#recordUpdatedAtHumanized').html(moment(data.updated_datetime).fromNow());
+                
+                // Show Vaccination Record Details Modal
+                $('#vaccRecordDetailsModal').modal('show');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in getting vaccination record details'));
 }
 
 /**
@@ -660,7 +765,6 @@ loadVaccRecordDT = () => {
 // Load Vaccination Appointment DataTable
 loadVaccAppointmentsDT = () => {
     const dt = $('#vaccAppointmentsDT');
-
     if(dt.length) {
         dt.DataTable({
             ajax: {
@@ -670,6 +774,9 @@ loadVaccAppointmentsDT = () => {
             },
             columns: [
                 
+                // Hidden column for default ordering
+                { data: 'created_datetime', visible: false },
+
                 // Citizen
                 { 
                     data: null,
@@ -677,9 +784,8 @@ loadVaccAppointmentsDT = () => {
                     render: data => {
                         const ab = data.appointed_by;
 
-                        const fullName = setFullName('L, F Mi', {
+                        const fullName = setFullName('L, F', {
                             firstName: ab.first_name,
-                            middleName: ab.middle_name,
                             lastName: ab.last_name
                         });
 
@@ -726,7 +832,7 @@ loadVaccAppointmentsDT = () => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div>${ vp.product_name }</div>
@@ -740,10 +846,11 @@ loadVaccAppointmentsDT = () => {
                 // Preferred Date
                 {
                     data: null,
+                    class: 'text-nowrap',
                     render: data => {
                         return `
                             <div>${moment(data.preferred_date).format("MMM. D, YYYY")}</div>
-                            <div class="small text-secondary">${moment(data.preferred_date).toNow()}</div>
+                            <div class="small text-secondary">${moment(data.preferred_date).fromNow()}</div>
                         `;
                     }
                 },
@@ -757,33 +864,21 @@ loadVaccAppointmentsDT = () => {
                         
                         if(statusApproval == 'Pending') {
                             return `
-                                <div 
-                                    class="badge alert-blue text-blue p-2 w-100"
-                                    role=button
-                                    onclick="changeStatusApproval('${ id }')"
-                                >
+                                <div class="badge alert-blue text-blue p-2 w-100">
                                     <i class="fas fa-stopwatch mr-1"></i>
                                     <span>Pending</span>
                                 </div>
                             `
                         } else if (statusApproval == 'Approved'){
                             return `
-                                <div 
-                                    class="badge alert-success text-success p-2 w-100"
-                                    role=button
-                                    onclick="changeStatusApproval('${ id }')"
-                                >
+                                <div class="badge alert-success text-success p-2 w-100">
                                     <i class="fas fa-check mr-1"></i>
                                     <span>Approved</span>
                                 </div>
                             `
                         } else if (statusApproval == 'Rejected'){
                             return `
-                                <div 
-                                    class="badge alert-danger text-danger p-2 w-100"
-                                    role=button
-                                    onclick="changeStatusApproval('${ id }')"
-                                >
+                                <div class="badge alert-danger text-danger p-2 w-100">
                                     <i class="fas fa-times mr-1"></i>
                                     <span>Rejected</span>
                                 </div>
@@ -795,6 +890,7 @@ loadVaccAppointmentsDT = () => {
                 // Approved By
                 { 
                     data: null,
+                    class: 'text-nowrap',
                     render: data => {
                         const ap = data.approved_person;
 
@@ -812,7 +908,7 @@ loadVaccAppointmentsDT = () => {
     
                             return `
                                 <div class="d-flex align-items-baseline">
-                                    <i class="fas fa-user-circle icon-container text-secondary"></i>
+                                    <i class="fas fa-user-tie icon-container text-secondary"></i>
                                     <div>
                                         <div>${ fullName }</div>
                                         <div class="small text-secondary">${ userApproved }</div>
@@ -824,7 +920,7 @@ loadVaccAppointmentsDT = () => {
                 },
 
                 // Date and Time Approved
-                { 
+                {
                     data: null,
                     render: data => {
                         const approvedDatetime = data.approved_datetime;
@@ -835,7 +931,7 @@ loadVaccAppointmentsDT = () => {
                             `
                         } else {
                             return `
-                                <div>${moment(approvedDatetime).format("MMM. D, YYYY; hh:mm A")}</div>
+                                <div>${moment(approvedDatetime).format("MMM. D, YYYY<br>hh:mm A")}</div>
                                 <div class="small text-secondary">${moment(approvedDatetime).fromNow()}</div>
                             `;
                         }
@@ -862,19 +958,10 @@ loadVaccAppointmentsDT = () => {
                                     <div 
                                         class       = "dropdown-item"
                                         role        = "button"
-                                        onclick     = "viewVaccAppointment('${ id }')"    
+                                        onclick     = "viewVaccAppointment('${ id }')"
                                     >
                                         <i class="fas fa-list icon-container"></i>
                                         <span>View full details</span>
-                                    </div>
-                                    <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#changeApprovalStatusModal"  
-                                    >
-                                        <i class="far fa-edit icon-container"></i>
-                                        <span>Change Status Approval</span>
                                     </div>
                                 </div>
                             </div>
@@ -883,9 +970,10 @@ loadVaccAppointmentsDT = () => {
                 }
             ],
             columnDefs: [{
-                targets: [7],
+                targets: [8],
                 orderable: false
-            }]
+            }],
+            order: [[0, 'desc']]
         });
     }
 }

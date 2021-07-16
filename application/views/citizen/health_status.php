@@ -5,7 +5,9 @@
         'subtitle' => 'Track your daily health status here'
     ]); ?>
 
-    <!-- Visiting Records -->
+    <div id="alertContainer"></div>
+
+    <!-- Health Status Logs -->
     <div class="card">
         <div class="card-header">
             <div class="card-header-text">
@@ -14,61 +16,25 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" id="healthStatusLogsDT">
-                    <thead class="thead">
-                        <th>Date Recorded</th>
-                        <th>Temperature</th>
-                        <th>Overall Status</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- View Health Status Log Details Modal -->
-<div class="modal" id="viewHealthStatusModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title-icon fas fa-list"></h5>
-                <h5 class="modal-title">Health Status Log Details</h5>
-                <button 
-                    class        = "btn btn-sm btn-white-muted" 
-                    type         = "button" 
-                    data-dismiss = "modal" 
-                    aria-label   = "Close"
-                >
-                    <span aria-hidden="true">
-                        <i class="fas fa-times"></i>
-                    </span>
+            <div class="form-group text-center">
+                <button class="btn btn-sm btn-primary">
+                    <i class="fas fa-edit mr-1"></i>
+                    <span>Update your current health status</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <table class="table">
-                    <tr>
-                        <th>Citizen Details</th>
-                        <td id="citizenDetails"></td>
-                    </tr>
-                    <tr>
-                        <th>Entry Log</th>
-                        <td id="entryLog"></td>
-                    </tr>
-                    <tr>
+
+            <div class="table-responsive">
+                <table class="table w-100" id="healthStatusLogsDT" width="100%" cellspacing="0">
+                    <thead class="thead">
+                        <th>Date & Time Recorded (hidden)</th>
+                        <th>Date & Time Recorded</th>
                         <th>Temperature</th>
-                        <td id="citizenTemp"></td>
-                    </tr>
-                    <tr>
-                        <th>Overall Status</th>
-                        <td id="Status"></td>
-                    </tr>
+                        <th>Overall Health Status</th>
+                        <th></th>
+                    </thead>
+                    <tbody></tbody>
                 </table>
             </div>
-            <div class="modal-footer p-3 bg-white"></div>
         </div>
     </div>
 </div>

@@ -58,7 +58,7 @@
     </div>
 
     <!-- Active Cases Summary -->
-    <div class="col-12 col-lg-5 col-xl-4 mb-4">
+    <div class="col-12 col-lg-5 col-xl-4">
         <div class="card bg-warning">
             <div class="card-body py-3 rounded-lg bg-white mt-1">
                 <h6 class="text-warning">Active Cases</h6>
@@ -66,18 +66,30 @@
 
                     <!-- Asymptomatic Cases Data -->
                     <tr>
-                        <td class="font-weight-semibold">
-                            <i class="fas fa-circle text-secondary mr-1"></i>
-                            <span>Asymptomatic</span>
-                        </td>
+                        <th class="font-weight-semibold">
+                            <div class="d-flex align-items-center">
+                                <div class="small icon-container">
+                                    <div class="small">
+                                        <i class="fas fa-circle text-secondary"></i>
+                                    </div>
+                                </div>
+                                <div>Asymptomatic</div>
+                            </div>
+                        </th>
                         <td class="text-right font-weight-bold text-secondary" id="asymptomaticCasesData">0</td>
                     </tr>
 
                     <!-- Mild Cases Data -->
                     <tr>
                         <th class="font-weight-semibold">
-                            <i class="fas fa-circle text-info mr-1"></i>
-                            <span>Mild</span>
+                            <div class="d-flex align-items-center">
+                                <div class="small icon-container">
+                                    <div class="small">
+                                        <i class="fas fa-circle text-info"></i>
+                                    </div>
+                                </div>
+                                <div>Mild</div>
+                            </div>
                         </th>
                         <td class="text-right font-weight-bold text-info" id="mildCasesData">0</td>
                     </tr>
@@ -85,8 +97,14 @@
                     <!-- Severe Cases Data -->
                     <tr>
                         <th class="font-weight-semibold">
-                            <i class="fas fa-circle text-warning mr-1"></i>
-                            <span>Severe</span>
+                            <div class="d-flex align-items-center">
+                                <div class="small icon-container">
+                                    <div class="small">
+                                        <i class="fas fa-circle text-warning"></i>
+                                    </div>
+                                </div>
+                                <div>Severe</div>
+                            </div>
                         </th>
                         <td class="text-right font-weight-bold text-warning" id="severeCasesData">0</td>
                     </tr>
@@ -94,8 +112,14 @@
                     <!-- Critical Cases Data -->
                     <tr class="border-bottom">
                         <th class="font-weight-semibold">
-                            <i class="fas fa-circle text-danger mr-1"></i>
-                            <span>Critical</span>
+                            <div class="d-flex align-items-center">
+                                <div class="small icon-container">
+                                    <div class="small">
+                                        <i class="fas fa-circle text-danger"></i>
+                                    </div>
+                                </div>
+                                <div>Critical</div>
+                            </div>
                         </th>
                         <td class="text-right font-weight-bold text-danger" id="criticalCasesData">0</td>
                     </tr>

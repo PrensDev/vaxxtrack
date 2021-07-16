@@ -11,9 +11,7 @@
                     data-dismiss = "modal" 
                     aria-label   = "Close"
                 >
-                    <span aria-hidden="true">
-                        <i class="fas fa-times"></i>
-                    </span>
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
                 </button>
             </div>
             <div class="modal-body" id="QRCodeContainer">
@@ -27,15 +25,25 @@
                         <td>
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
-                                    <div id="Productname">Pfizer-BioNTech</div>
+                                    <div id="Productname"></div>
                                     <div class="small text-secondary">
-                                        <span data-toggle="tooltip" title="Vaccine Name" id="Vaccinename">BNT162b2</span>
+                                        <span 
+                                            data-toggle="tooltip" 
+                                            data-placement="left"
+                                            title="Vaccine Name" 
+                                            id="Vaccinename"
+                                        ></span>
                                     </div>
                                     <div class="small text-secondary">
-                                        <span data-toggle="tooltip" title="Manufacturer" id="Manufacturer">Pfizer, Inc., and BioNTech</span>    
+                                        <span 
+                                            data-toggle="tooltip" 
+                                            data-placement="left"
+                                            title="Manufacturer" 
+                                            id="Manufacturer"
+                                        ></span>    
                                     </div>
                                 </div>
                             </div>
@@ -70,9 +78,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-muted" data-dismiss="modal">Close</button>
-            </div>
+            <div class="modal-footer bg-white p-3"></div>
         </div>
     </div>
 </div>

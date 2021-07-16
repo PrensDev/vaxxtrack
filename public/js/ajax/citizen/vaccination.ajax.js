@@ -18,6 +18,7 @@ $(() => {
     getAllVaccinesAJAX();
     viewVaccCard();
     LoadAllVaccAppointmentsDT(); 
+    vaccAppointmentCountAJAX();
 });
 
 
@@ -29,102 +30,105 @@ $(() => {
 
 // Get All Vaccines AJAX
 getAllVaccinesAJAX = () => {
-    $.ajax({
-        url: `${ BASE_URL_API }vaccines`,
-        type: 'GET',
-        success: (result) => {
-            if(result) {
-
-                // Get data from result
-                const data = result.data
-
-                // For options in create/edit appointment form
-                const createAppointmentForm = $('#createAppointmentForm');
-                const editAppointmentForm   = $('#editAppointmentForm');
-                if(createAppointmentForm.length || editAppointmentForm.length) {
-                    var options = ''
-                    data.forEach(v => {
-                        options += `
-                            <option 
-                                value="${ v.vaccine_ID }" 
-                                data-content="
-                                    <div class='d-flex align-items-baseline'>
-                                        <div class='icon-container'>
-                                            <i class='fas fa-syringe'></i>
-                                        </div>
-                                        <div>
-                                            <div>${ v.product_name }</div>
-                                            <div class='small'>${ v.vaccine_name }</div>
-                                            <div class='small'>${ v.manufacturer }</div>
-                                        </div>
-                                    </div>
-                                "
-                                title="${ v.product_name }"
-                            >${ v.product_name }</option>
-                        `
-                    });
-                    $('#preferredVaccineForAdd').html(options).selectpicker('refresh');
-                    $('#preferredVaccineForEdit').html(options).selectpicker('refresh');
-                }
-                
-                // Vaccine List
-                const vaccineList = $('#vaccineList');
-                if(vaccineList.length) {
-                    vaccineCard = ''
-                    data.forEach(v => {
-                        vaccineCard += `
-                            <div class="col-md-6 mb-4">
-                                <div class="card bg-success pl-1 h-100">
-                                    <div class="card-body bg-white rounded-lg d-flex">
-                                        <div class="mr-3">
-                                            <div class="alert-success text-success flex-center rounded-lg" style="width: 4rem; height: 4rem;">
-                                                <h2><i class="fas fa-syringe"></i></h2>
+    const createAppointmentForm = $('#createAppointmentForm');
+    const editAppointmentForm   = $('#editAppointmentForm');
+    const appointmentFormsExists = createAppointmentForm.length || editAppointmentForm.length;
+    const vaccineList = $('#vaccineList');
+    const vaccineListExists = vaccineList.length;
+    
+    if(appointmentFormsExists || vaccineListExists) {
+        $.ajax({
+            url: `${ BASE_URL_API }vaccines`,
+            type: 'GET',
+            success: (result) => {
+                if(result) {
+    
+                    // Get data from result
+                    const data = result.data
+    
+                    // For options in create/edit appointment form
+                    if(appointmentFormsExists) {
+                        var options = ''
+                        data.forEach(v => {
+                            options += `
+                                <option 
+                                    value="${ v.vaccine_ID }" 
+                                    data-content="
+                                        <div class='d-flex align-items-baseline'>
+                                            <div class='icon-container'>
+                                                <i class='fas fa-syringe'></i>
                                             </div>
-                                        </div>
-                                        <div class="flex-grow-1 d-flex flex-column justify-content-between">
                                             <div>
-                                                <h4 class="mb-1">${ v.product_name }</h4>
-                                                <table class="table table-borderless table-sm small">
-                                                    <tr>
-                                                        <td class="text-nowrap">Vaccine Name</td>
-                                                        <td>:</td>
-                                                        <td class="font-weight-normal">${ v.vaccine_name }</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-nowrap">Manufacturer</td>
-                                                        <td>:</td>
-                                                        <td class="font-weight-normal">${ v.manufacturer }</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-nowrap">Shots Details</td>
-                                                        <td>:</td>
-                                                        <td class="font-weight-normal">${ v.shots_details }</td>
-                                                    </tr>
-                                                </table>
+                                                <div>${ v.product_name }</div>
+                                                <div class='small'>${ v.vaccine_name }</div>
+                                                <div class='small'>${ v.manufacturer }</div>
                                             </div>
-                                            <div class="mt-2 text-right">
-                                                <button 
-                                                    class="btn btn-sm btn-success"
-                                                    onclick="viewVaccineDetails('${ v.vaccine_ID }')"
-                                                >More details</button>
+                                        </div>
+                                    "
+                                    title="${ v.product_name }"
+                                >${ v.product_name }</option>
+                            `
+                        });
+                        $('#preferredVaccineForAdd').html(options).selectpicker('refresh');
+                        $('#preferredVaccineForEdit').html(options).selectpicker('refresh');
+                    }
+                    
+                    // Vaccine List
+                    if(vaccineListExists) {
+                        vaccineCard = ''
+                        data.forEach(v => {
+                            vaccineCard += `
+                                <div class="col-md-6 mb-4">
+                                    <div class="card bg-success pl-1 h-100">
+                                        <div class="card-body bg-white rounded-lg d-flex">
+                                            <div class="mr-3">
+                                                <div class="alert-success text-success flex-center rounded-lg" style="width: 4rem; height: 4rem;">
+                                                    <h2><i class="fas fa-syringe"></i></h2>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 d-flex flex-column justify-content-between">
+                                                <div>
+                                                    <h4 class="mb-1">${ v.product_name }</h4>
+                                                    <table class="table table-borderless table-sm small">
+                                                        <tr>
+                                                            <td class="text-nowrap">Vaccine Name</td>
+                                                            <td>:</td>
+                                                            <td class="font-weight-normal">${ v.vaccine_name }</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-nowrap">Manufacturer</td>
+                                                            <td>:</td>
+                                                            <td class="font-weight-normal">${ v.manufacturer }</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-nowrap">Shots Details</td>
+                                                            <td>:</td>
+                                                            <td class="font-weight-normal">${ v.shots_details }</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="mt-2 text-right">
+                                                    <button 
+                                                        class="btn btn-sm btn-success"
+                                                        onclick="viewVaccineDetails('${ v.vaccine_ID }')"
+                                                    >More details</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        `
-                    });
-                    vaccineList.html(vaccineCard);
+                            `
+                        });
+                        vaccineList.html(vaccineCard);
+                    }
+    
+                } else {
+                    console.log('No result for vaccine records');
                 }
-
-            } else {
-                console.log('No result for vaccine records');
             }
-        }
-    })
-    .fail(() => {
-        console.log('There was an error in retrieving vaccine records');
-    })
+        })
+        .fail(() => console.error('There was an error in retrieving vaccine records'))
+    }
 }
 
 
@@ -274,6 +278,8 @@ createAppointmentAJAX = () => {
                 // Hide modal
                 $('#createAppointmentModal').modal('hide');
 
+                // Update vaccination appointment count
+                vaccAppointmentCountAJAX();
             } else {
                 console.log('No result has been found');
             }
@@ -394,6 +400,9 @@ updateAppointmentAJAX = () => {
 
                 // Show success alert
                 showAlert('success', 'Success! Your appointment has been updated');
+                
+                // Update vaccination appointment count
+                vaccAppointmentCountAJAX();
             } else {
                 console.log('No result was found');
             }
@@ -454,7 +463,7 @@ LoadAllVaccAppointmentsDT = () => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div>${ data.vaccine_preferrence.product_name }</div>
@@ -619,7 +628,7 @@ LoadAllVaccAppointmentsDT = () => {
                             `
                         } else if(statusApproval === 'Rejected') {
                             return `
-                                <div class="dropdown">
+                                <div class="dropdown text-center">
                                     <div data-toggle="dropdown">
                                         <div 
                                             class       = "btn btn-sm btn-white-muted text-secondary"
@@ -791,7 +800,10 @@ removeVaccAppointmentAJAX = () => {
                 showAlert('blue', 'An appointment has been removed');
 
                 // Hide Modal
-                $('#cancelAppointmentModal').modal('hide')
+                $('#cancelAppointmentModal').modal('hide');
+                
+                // Update vaccination appointment count
+                vaccAppointmentCountAJAX();
             } else {
                 console.log('No result has found');
             }
@@ -821,3 +833,29 @@ removeVaccAppointment = (vaccination_appointment_ID) => {
     $('#cancelAppointmentModal').modal('show')
 }
 
+/**
+ * ====================================================================
+ * * VACCINATION APPOINTMENT STATUS APPROVAL COUNT
+ * ====================================================================
+ */
+
+// Status Approval Count
+vaccAppointmentCountAJAX = () => {
+    if(('#vaccAptCountContainerForCitizen').length) {
+        $.ajax({
+            url: `${ CITIZEN_API_ROUTE }vaccination-appointments/count`,
+            type: 'GET',
+            headers: AJAX_HEADERS,
+            success: result => {
+                if(result) {
+                    const c = result.status_approval_count;
+                    $('#totalAptCountForCitizen').html(c.all);
+                    $('#pendingAptCountForCitizen').html(c.pending);
+                    $('#approvedAptCountForCitizen').html(c.approved);
+                    $('#rejectedAptCountForCitizen').html(c.rejected);
+                }
+            }
+        })
+        .fail(() => console.error('There was a problem in getting vaccination appointments count'))
+    }
+}

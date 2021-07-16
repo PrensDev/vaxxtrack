@@ -42,10 +42,13 @@
 
             <!-- User -->
             <div 
-                class         = "btn btn-white-muted" 
+                class         = "btn btn-white-muted d-flex align-items-center" 
                 data-toggle   = "dropdown"
             >   
                 <i class="fas fa-user-tie"></i>
+                <div class="d-none d-sm-inline-block ml-2 text-truncate" style="max-width: 10rem">
+                    <span id="userNameForNavbar"></span>
+                </div>
             </div>
 
             <!-- Dropdown Menu -->
@@ -58,7 +61,7 @@
                             <i class="fas fa-user-tie"></i>
                         </div>
                     </div>
-                    <h5 class="font-weight-semibold mb-1 mx-3" id="userFullNameForTopbar"></h5>
+                    <h5 class="font-weight-semibold mb-1 mx-3 text-monospace" id="userFullNameForTopbar"></h5>
                     <div class="badge alert-primary border border-primary text-primary bg-light px-2 py-1">
                         <?= $user_type !== 'Representative' ? $user_type : 'Establishment Representative' ?>
                     </div>

@@ -61,6 +61,25 @@ getAllVisitingLogsAJAX = () => {
                     }
                 },
 
+                // Date and Time Entered
+                {
+                    data: null,
+                    render: data => {
+                        const entered = data.created_datetime;
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i  class="fas fa-walking text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ moment(entered).format('MMM. D, YYYY; hh:mm A') }</div>
+                                    <div class="text-secondary small"> ${ moment(entered).fromNow() }</span></div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
+
                 // Purpose
                 { data: 'purpose' },
 
@@ -103,18 +122,6 @@ getAllVisitingLogsAJAX = () => {
                                 <i class="fas fa-check mr-1"></i>
                                 <span>Allowed</span>
                             </span>
-                        `
-                    }
-                },
-
-                // Date and Time Entered
-                {
-                    data: null,
-                    render: data => {
-                        const entered = data.created_datetime;
-                        return `
-                            <div>${ moment(entered).format('MMM. D, YYYY; hh:mm A') }</div>
-                            <div class="text-secondary small"> ${ moment(entered).fromNow() }</span></div>
                         `
                     }
                 },

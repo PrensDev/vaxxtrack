@@ -5,6 +5,19 @@
         'subtitle' => 'Manage vaccinated individuals and their records'
     ]); ?>
 
+    <!-- Alert -->
+    <div id="alertContainer"></div>
+
+    <!-- Sessioned Alert -->
+    <?php if($this->session->has_userdata('alert')): ?>
+        <div class="alert alert-<?= $this->session->alertTheme ?> alert-dismissible fade show mb-4" role="alert" id="alert">
+            <div><?= $this->session->alertMessage ?></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+
     <!-- Vaccination Record Summary -->
     <?php $this->load->view('all/components/vaccination_summary'); ?>
 
@@ -28,15 +41,15 @@
             <!-- Vaccination Records Table -->
             <div class="table-responsive">
                 <table 
-                    class       = "table border-bottom" 
+                    class       = "table border-bottom w-100" 
                     id          = "vaccinationRecordsDT" 
                     width       = "100%" 
                     cellspacing = "0"
                 >
                     <thead class="thead">
                         <tr>
+                            <th>Added At (hidden)</th>
                             <th>Vaccinated Individual</th>
-                            <th>Age</th>
                             <th>Vaccine Used</th>
                             <th>Date Vaccinated</th>
                             <th>Vaccinated by</th>
@@ -44,66 +57,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="d-flex align-items-baseline">
-                                <i class="fas fa-user-circle icon-container"></i>
-                                <span>Dela Cruz, Juan</span>
-                            </td>
-                            <td>21</td>
-                            <td>Moderna COVID-19 Vaccine PF</td>
-                            <td>March 2, 2021</td>
-                            <td>Dr. Jimmy D. Valero</td>
-                            <td>Philippine General Hospital</td>
-                            <td>
-                                <div class="dropdown">
-                                    <div class="d-inline" data-toggle="dropdown">
-                                        <div 
-                                            class       = "btn btn-white-muted btn-sm" 
-                                            role        = "button"
-                                            data-toggle = "tooltip" 
-                                            title       = "More"
-                                        ><i class="fas fa-ellipsis-v"></i></div>
-                                    </div>
-
-                                    <div class="dropdown-menu dropdown-menu-right border-0">
-                                        <div 
-                                            class       = "dropdown-item" 
-                                            role        = "button"
-                                            data-toggle = "modal"
-                                            data-target = "#vaccCardModal"
-                                        >
-                                            <i class="far fa-id-card icon-container"></i>
-                                            <span>View citizen's card</span>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-                                        <div 
-                                            class       = "dropdown-item" 
-                                            role        = "button"
-                                            data-toggle = "modal"
-                                            data-target = "#vaccRecordDetailsModal"    
-                                        >
-                                            <i class="fas fa-list icon-container"></i>
-                                            <span>View full details</span>
-                                        </div>
-                                        <div class="dropdown-item" role="button">
-                                            <i class="far fa-edit icon-container"></i>
-                                            <span>Edit this details</span>
-                                        </div>
-                                        <div 
-                                            class       = "dropdown-item" 
-                                            role        = "button"
-                                            data-toggle = "modal"
-                                            data-target = "#deleteVaccRecordModal"    
-                                        >
-                                            <i class="far fa-trash-alt icon-container"></i>
-                                            <span>Delete this record</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

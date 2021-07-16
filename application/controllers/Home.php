@@ -95,13 +95,21 @@ class Home extends CI_Controller {
 
     // Login
     public function login() {
-        $this->load_views('Login', [
-            ['components/modals/register_modal'],
-            ['login'],
-        ]);
+        if($this->session->has_userdata('user_type')) {
+            $user_type = $this->session->user_type;
+            if($user_type === 'Citizen')         redirect('c');
+            if($user_type === 'Representative')  redirect('r');
+            if($user_type === 'Health Official') redirect('h');
+            if($user_type === 'Super Admin')     redirect('admin');
+        } else {
+            $this->load_views('Login', [
+                ['components/modals/register_modal'],
+                ['login'],
+            ]);
+        }
     }
 
-    // Alert
+    // Sessioned Alert
     public function alert() {
         if($this->input->is_ajax_request()) {
             $theme = $this->input->post('theme');

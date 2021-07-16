@@ -22,6 +22,7 @@
                 <table class="table" id="vaccAppointmentsDT" width="100%" cellspacing="0">
                     <thead class="thead">
                         <tr>
+                            <th>Date Vaccinated (Hidden)</th>
                             <th>Citizen</th>
                             <th>Age</th>
                             <th>Preferred Vaccine</th>

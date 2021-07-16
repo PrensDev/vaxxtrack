@@ -8,10 +8,10 @@
         </div>
     </div>
 
-    <form class="d-flex justify-content-center" id="registerHealthOfficial">
+    <form class="d-flex justify-content-center" id="registerSuperAdminForm">
         <div class="col-md-8 p-0">
 
-            <!-- Super Admin Information -->
+            <!-- Health Official Information -->
             <div class="card mb-4">
                 <div class="card-header">
                     <div class="card-header-text">
@@ -19,31 +19,46 @@
                         <span>General Information</span>
                     </div>
                 </div>
+
                 <div class="card-body">
+
+                    <!-- First Name Field -->
                     <div class="form-group">
                         <label for="firstName">First Name</label>
                         <input 
                             type="text" 
                             class="form-control"
+                            id="firstName"
+                            name="firstName"
                             placeholder="Enter first name here"
                         >
                     </div>
+                    
+                    <!-- Middle Name Field -->
                     <div class="form-group">
                         <label for="middleName">Middle Name</label>
                         <input 
                             type="text" 
                             class="form-control"
+                            id="middleName"
+                            name="middleName"
                             placeholder="Enter middle name here"
                         >
                     </div>
+
+                    <!-- Last Name Field -->
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
                         <input 
                             type="text" 
                             class="form-control"
+                            id="lastName"
+                            name="lastName"
                             placeholder="Enter last name here"
                         >
                     </div>
+
+                    <!-- Suffix name -->
                     <div class="form-group">
                         <label for="suffixName">Suffix Name</label>
                         <select 
@@ -71,9 +86,11 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="account">Account</label>
+                        <label for="account">Email</label>
                         <input 
                             type="text" 
+                            id="accountDetails"
+                            name="accountDetails"
                             class="form-control"
                             placeholder="Enter health officials account here"
                         >
@@ -81,9 +98,21 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input 
-                            type="text" 
+                            type="password" 
+                            id="password"
+                            name="password"
                             class="form-control"
                             placeholder="Set user password here"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Retype Password</label>
+                        <input 
+                            type="password" 
+                            id="retypePassword"
+                            name="retypePassword"
+                            class="form-control"
+                            placeholder="Retype password to confirm"
                         >
                     </div>
                 </div>

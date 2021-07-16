@@ -5,6 +5,8 @@
         'subtitle' => 'This is your vaccination card and will include your vaccination records'
     ]); ?>
 
+    <div id="alertContainer"></div>
+
     <!-- Vaccination Card -->
     <div>
         <div class="flex-center mb-3">

@@ -37,14 +37,15 @@ getInfoAJAX = () => {
                 // Get data from response
                 var data = res.data;
 
-                // Check first if user's middle name is null or blank
-                var userHasNoMiddleName = data.middle_name == null || data.middle_name === '';
-                var userMiddleName = userHasNoMiddleName ?  ' ' : ' ' + data.middle_name + ' ';
-
                 // Get user full name
-                var userFullName = data.first_name + userMiddleName + data.last_name;
+                var userFullName = setFullName('F M L', {
+                    firstName: data.first_name,
+                    middleName: data.middle_name,
+                    lastName: data.last_name
+                });
                 
                 // Display Name for Topbar
+                $('#userNameForNavbar').html(data.first_name);
                 $('#userFullNameForTopbar').html(userFullName);
                 $('#userFirstNameForTopbar').html(data.first_name);
 
@@ -55,10 +56,11 @@ getInfoAJAX = () => {
                 $('#userFullNamePreviewForEdit').html(userFullName);
 
                 // Set Form Values for Updating User Information
-                $('#firstNameInput').val(data.first_name);
-                $('#middleNameInput').val(data.middle_name);
-                $('#lastNameInput').val(data.last_name);
-                $('#suffixNameInput').val(data.suffix_name);
+                if($('#editInfoForm').length) {
+                    $('#firstName').val(data.first_name);
+                    $('#middleName').val(data.middle_name);
+                    $('#lastName').val(data.last_name);
+                }
             } else {
                 showFetchErrModal('No data has been retrieved');
             }
@@ -79,7 +81,7 @@ getInfoAJAX = () => {
 
 // Update Information AJAX
 updateInfoAJAX = () => {
-    const form = new FormData($('#editHealthOfficialInfoForm')[0]);
+    const form = new FormData($('#editInfoForm')[0]);
 
     const data = {
         first_name: form.get('firstName'),
@@ -94,8 +96,20 @@ updateInfoAJAX = () => {
         dataType: 'json',
         headers: AJAX_HEADERS,
         success: () => {
-            alert('Your information has been updated');
+
+            // Update information
             getInfoAJAX();
+
+            // Request sessioned alert
+            $.ajax({
+                url: `${ BASE_URL_MAIN }alert`,
+                type: 'POST',
+                data: {
+                    theme: 'success',
+                    message: 'Success! Your information has been updated'
+                },
+                success: () => location.replace(`${ BASE_URL_MAIN }h`)
+            });
         }
     })
     .fail(() => {
@@ -104,7 +118,7 @@ updateInfoAJAX = () => {
 }
 
 // Validate Health Official Form
-$('#editHealthOfficialInfoForm').validate(validateOptions({
+$('#editInfoForm').validate(validateOptions({
     rules: {
         firstName: {
             required: true

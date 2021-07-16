@@ -19,6 +19,11 @@ $(() => {
 });
 
 
+liveReloadDataTables([
+    'COVID19CasesDT'
+]);
+
+
 /**
  * ====================================================================
  * * GET COVID19 CASES RECORDS
@@ -28,30 +33,27 @@ $(() => {
 // Load COVID-19 Cases DataTable
 loadCOVID19CasesDT = () => {
     const dt = $('#COVID19CasesDT');
-
     if(dt.length) {
         dt.DataTable({
             ajax: {
                 url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases`,
                 type: 'GET',
                 headers: AJAX_HEADERS,
-                // success: result => {
-                //     console.log(result.data);
-                // }
             },
             columns: [
 
                 // Case Code
-                { 
-                    data: 'case_code',
-                    class: 'text-nowrap'
-                },
+                { data: 'case_code', class: 'text-nowrap' },
 
                 // Date Confirmed
                 { 
                     data: null,
                     render: data => {
-                        return moment(data.date_confirmed).format('MMM. d, YYYY');
+                        const dateConfirmed = data.confirmed_date;
+                        return `
+                            <div>${moment(dateConfirmed).format('MMM. D, YYYY')}</div>
+                            <div class="text-secondary small">${ humanizeDate(dateConfirmed) }</div>
+                        `
                     }
                 },
 
@@ -60,10 +62,18 @@ loadCOVID19CasesDT = () => {
                     data: null,
                     class: 'text-center',
                     render: data => {
-                        if(data.admitted)
-                            return `<i class="fas fa-check text-success"></i>`
-                        else
-                            return `<i class="fas fa-times text-danger"></i>`
+                        if(data.admitted) return `
+                                <div class="badge alert-success text-success p-2 w-100">
+                                    <i class="fas fa-check mr-1"></i>
+                                    <span>Yes</span>
+                                </div>
+                            `
+                        else return `
+                                <div class="badge alert-danger text-danger p-2 w-100">
+                                    <i class="fas fa-times mr-1"></i>
+                                    <span>No</span>
+                                </div>
+                            `
                     }
                 },
 
@@ -189,46 +199,90 @@ viewCaseDetails = (case_ID) => {
                 // Set data
                 $('#caseCode').html(data.case_code);
                 
-                const middle_name = 
-                    (data.patient.middle_name == null || data.patient.middle_name === '') ? '' : ' ' + data.patient.middle_name
-                
-                const patientFullName = 
-                    `${data.patient.last_name}, ${data.patient.first_name}${middle_name}`
-
+                // Get Patient Full Name
+                const patient = data.patient;
+                const patientFullName = setFullName('F M L', {
+                    firstName: patient.first_name,
+                    middleName: patient.middle_name,
+                    lastName: patient.last_name,
+                });
                 $('#patientFullName').html(patientFullName);
 
-                const patientInfo = () => {
-                    
-                    if(data.patient.sex === "Male") {
-                        sexIcon = 'mars';
-                    } else if(data.patient.sex === "Female") {
-                        sexIcon = 'venus';
-                    }
-
-                    return `
-                        <i class="fas fa-${ sexIcon }"></i>
-                        <span>${data.patient.sex}, 21 years old. (${ data.patient.birth_date })</span>
+                // Get Patient Info
+                var patientInfo;
+                if(patient.sex === 'Female') {
+                    patientInfo = `
+                        <i class="fas fa-venus text-danger mr-1"></i>
+                        <span>${ patient.sex }, ${ getAge(patient.birth_date) } years old</span>
+                    `
+                } else if(patient.sex === 'Male') {
+                    patientInfo = `
+                        <i class="fas fa-mars text-blue mr-1"></i>
+                        <span>${ patient.sex }, ${ getAge(patient.birth_date) } years old</span>
                     `
                 }
+                $('#patientInfo').html(patientInfo);
 
-                $('#patientInfo').html(patientInfo())
+                // Get Patient Address
+                const address = patient.address;
+                $('#patientRegion').html(address.region);
+                $('#patientProvince').html(address.province);
+                $('#patientCity').html(address.city_municipality);
+                $('#patientStreetAndBrgy').html(address.street + ', ' + address.barangay_district);
+                $('#patientSpecificLocation').html(address.specific_location);
+                $('#patientZipCode').html(address.zip_code);
+                $('#patientLongLat').html(`(Lat: ${ address.latitude }, Lng: ${ address.longitude })`);
+                
+                // Get Date Confirmed
+                $('#confirmedDate').html(moment(data.date_confirmed).format('dddd, MMMM D, YYYY'))
+                $('#confirmedDateHumanized').html(moment(data.date_confirmed).fromNow())
+                
+                // Get if admitted
+                if(data.admitted) {
+                    $('#admitted').html(`
+                        <div class="badge alert-success text-success p-2">
+                            <i class="fas fa-check mr-1"></i>
+                            <span>Yes</span>
+                        </div>
+                    `);
+                } else {
+                    $('#admitted').html(`
+                        <div class="badge alert-danger text-danger p-2">
+                            <i class="fas fa-times mr-1"></i>
+                            <span>No</span>
+                        </div>
+                    `);
+                }
 
+                // Get Current Health Status
                 const currentHealthStatus = () => {
                     const chs = data.current_health_status;
 
-                    if(chs === "Asymptomatic") {
-                        return `
-                            <div class="badge alert-secondary text-secondary p-2">${ chs }</div>
-                        `
-                    } else if(chs === "Severe") {
-                        return `
-                            <div class="badge alert-warning text-warning p-2">${ chs }</div>
-                        `
-                    }
+                    if(chs === "Asymptomatic")
+                        return `<div class="badge alert-secondary text-secondary p-2">${ chs }</div>`;
+                    else if(chs === "Mild")
+                        return `<div class="badge alert-info text-info p-2">${ chs }</div>`;
+                    else if(chs === "Severe")
+                        return `<div class="badge alert-warning text-warning p-2">${ chs }</div>`;
+                    else if(chs === "Critical")
+                        return `<div class="badge alert-danger text-danger p-2">${ chs }</div>`;
+                    else if(chs === "Recovered")
+                        return `<div class="badge alert-success text-success p-2">${ chs }</div>`;
+                    else if(chs === "Died")
+                        return `<div class="badge alert-dark text-dark p-2">${ chs }</div>`;
+                    else
+                        return `<div class="badge border p-2">No data</div>`;
                 }
-
                 $('#currentHealthStatus').html(currentHealthStatus())
                 
+                // Get Date Confirmed
+                $('#addedAt').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY'))
+                $('#addedAtHumanized').html(moment(data.created_datetime).fromNow())
+
+                // Get Date Confirmed
+                $('#updatedAt').html(moment(data.updated_datetime).format('dddd, MMMM D, YYYY'))
+                $('#updatedAtHumanized').html(moment(data.updated_datetime).fromNow())
+
                 // Show modal
                 $('#viewCaseDetailsModal').modal('show');
             } else {

@@ -26,7 +26,7 @@
             <div class="card-body">
 
                 <!-- Patient's Full Name-->
-                <h5 class="text-secondary">Full Name</h5>
+                <h5 class="text-info font-weight-bold">Full Name</h5>
                 <div class="form-row">
 
                     <!-- First Name Field -->
@@ -89,7 +89,7 @@
                 <hr>
 
                 <!-- Patient's General Information -->
-                <h5 class="text-secondary">General Information</h5>
+                <h5 class="text-info font-weight-bold">General Information</h5>
                 <div class="form-row">
 
                     <!-- Date of Birth Field -->
@@ -147,7 +147,7 @@
                 <hr>
 
                 <!-- Patient's Address -->
-                <h5 class="text-secondary">Address</h5>
+                <h5 class="text-info font-weight-bold">Address</h5>
                 <div class="form-row">
 
                     <!-- Region Field -->
@@ -185,8 +185,8 @@
                             <input 
                                 type        = "text" 
                                 class       = "form-control" 
-                                id          = "cityMunicipality" 
-                                name        = "cityMunicipality" 
+                                id          = "city" 
+                                name        = "city" 
                                 placeholder = "Enter city/municipality here"
                             >
                         </div>
@@ -199,8 +199,8 @@
                             <input 
                                 type        = "text" 
                                 class       = "form-control" 
-                                id          = "region" 
-                                name        = "region" 
+                                id          = "barangay" 
+                                name        = "barangay" 
                                 placeholder = "Enter region here"
                             >
                         </div>
@@ -342,7 +342,7 @@
 
         <!-- User Actions -->
         <div class="form-group text-center mb-4">
-            <button class="btn btn-muted">Cancel</button>
+            <button class="btn btn-muted" type="button" onclick="history.back()">Cancel</button>
             <button class="btn btn-blue" type="submit">
                 <i class="fas fa-plus mr-1"></i>
                 <span>Add</span>

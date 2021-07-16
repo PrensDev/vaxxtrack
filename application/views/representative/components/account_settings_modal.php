@@ -1,23 +1,16 @@
 <!-- Verify Account Modal -->
-<div 
-    class           = "modal" 
-    id              = "verifyAccountModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "exampleModalLabel" 
-    aria-hidden     = "true"
->
+<div class="modal" id="verifyAccountModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title-icon fas fa-user-lock"></h5>
                 <h5 class="modal-title">Verify</h5>
                 <button 
-                    class           ="btn btn-sm btn-muted" 
-                    type            ="button" 
-                    class           ="close" 
-                    data-dismiss    ="modal" 
-                    aria-label      ="Close"
+                    class        = "btn btn-sm btn-muted" 
+                    type         = "button" 
+                    class        = "close" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
                 >
                     <span aria-hidden="true">
                         <i class="fas fa-times"></i>
@@ -47,14 +40,7 @@
 </div>
 
 <!-- Make as Primary Modal -->
-<div 
-    class           = "modal" 
-    id              = "makeAsPrimaryModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "exampleModalLabel" 
-    aria-hidden     = "true"
->
+<div class="modal" id="makeAsPrimaryModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,14 +71,7 @@
 </div>
 
 <!-- Remove Account Modal -->
-<div 
-    class           = "modal" 
-    id              = "removeAccountModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "exampleModalLabel" 
-    aria-hidden     = "true"
->
+<div class="modal" id="removeAccountModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -127,16 +106,8 @@
     </div>
 </div>
 
-
 <!-- Recover Password -->
-<div 
-    class           = "modal" 
-    id              = "recoverModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "recoverModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="recoverModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -183,14 +154,7 @@
 </div>
 
 <!-- Add Another Account Modal -->
-<div 
-    class           = "modal" 
-    id              = "addAccountModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
-    aria-labelledby = "exampleModalLabel" 
-    aria-hidden     = "true"
->
+<div class="modal" id="addAccountModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

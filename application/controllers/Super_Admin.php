@@ -21,6 +21,7 @@ class Super_Admin extends CI_Controller {
 
     // AJAX Scripts
     private Array $AJAX_files = [
+        'account',
         'covid_cases',
         'vaccination',
         'info',
@@ -37,7 +38,7 @@ class Super_Admin extends CI_Controller {
         } else {
 
             // Load the header template and other reusable views
-            $this->load->view('all/templates/header', ['title'=>$pageTitle]);
+            $this->load->view('all/templates/header', ['title' => $pageTitle]);
             $this->load->view('all/components/modals/logout_modal');
             $this->load->view($this->dir . '/components/admin_header');
             
@@ -77,7 +78,7 @@ class Super_Admin extends CI_Controller {
         $this->load_views('Registered Establishements', [['registered_establishments']]);
     }
 
-    // Heatmap
+    // COVID-19 Cases
     public function covid_cases() {
         $this->load_views('COVID-19 Cases', [['covid_cases']]);
     }
@@ -127,7 +128,10 @@ class Super_Admin extends CI_Controller {
 
     // Vaccination Record
     public function vacc_records() {
-        $this->load_views('Vaccination Records', [['vacc_records']]);
+        $this->load_views('Vaccination Records', [
+            ['components/modals/vacc_records_modals'],
+            ['vacc_records'],
+        ]);
     }
 
     // Vaccination Appointments
@@ -153,6 +157,9 @@ class Super_Admin extends CI_Controller {
 
     // Account Settings
     public function account_settings() {
-        $this->load_views('Account Settings', [['account_settings']]);
+        $this->load_views('Account Settings', [
+            ['components/modals/account_settings_modals'],
+            ['account_settings']
+        ]);
     }
 }

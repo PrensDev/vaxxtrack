@@ -84,7 +84,10 @@ class Citizen extends CI_Controller {
 
     // Account Settings
     public function account_settings() {        
-        $this->load_views('Account Settings', [['account_settings']]);
+        $this->load_views('Account Settings', [
+            ['components/modals/account_settings_modals'],
+            ['account_settings'],
+        ]);
     }
 
     // Health Status Logbook

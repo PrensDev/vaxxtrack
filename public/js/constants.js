@@ -127,8 +127,22 @@ const validateOptions = (
             err.addClass("invalid-feedback");
             el.closest(".form-group").append(err);
         },
-        highlight:   (el) => $(el).addClass('is-invalid').removeClass('is-valid'),
-        unhighlight: (el) => $(el).addClass('is-valid').removeClass('is-invalid'),
+        highlight:   (el) => {
+            if($(el).hasClass('selectpicker')) {
+                $(el).selectpicker('setStyle', 'border-success', 'remove');
+                $(el).selectpicker('setStyle', 'border-danger', 'add');
+            } else {
+                $(el).addClass('is-invalid').removeClass('is-valid');
+            }
+        },
+        unhighlight: (el) => {
+            if($(el).hasClass('selectpicker')) {
+                $(el).selectpicker('setStyle', 'border-danger', 'remove');
+                $(el).selectpicker('setStyle', 'border-success', 'add');
+            } else {
+                $(el).addClass('is-valid').removeClass('is-invalid');
+            }
+        },
         submitHandler: validateOptions.submitHandler
     }
 }
@@ -282,12 +296,7 @@ const setFullName = (format, userName = {
         if(middleName == null || middleName === '') {
             middleName = ''
         } else {
-            middleNameWord = middleName.split(' ');
-            middleName = ' ';
-            middleNameWord.forEach(w => {
-                middleName += w.charAt(0);
-            });
-            middleName += '.'
+            middleName = ' ' + middleName.charAt(0) + '.'
         }
         return lastName + ', ' + firstName + middleName;
     }
@@ -295,14 +304,10 @@ const setFullName = (format, userName = {
     // {first name} {middle initial} {last name}
     else if(format === 'F Mi L') {
         if(middleName == null || middleName === '') {
-            middleName = ''
+            middleName = ' ';
         } else {
             middleNameWord = middleName.split(' ');
-            middleName = ' ';
-            middleNameWord.forEach(w => {
-                middleName += w.charAt(0);
-            });
-            middleName += '. '
+            middleName = w.charAt(0) + '. ';
         }
         return firstName + middleName + lastName;
     }
@@ -315,5 +320,11 @@ const setFullName = (format, userName = {
 
 // Get Age
 const getAge = (birthDate) => {
-    return moment().diff(moment(birthDate, 'YYYY'), 'years') + ' years old';
+    return moment().diff(moment(birthDate, 'YYYY'), 'years');
+}
+
+
+// Humanized Date
+const humanizeDate = (date) => {
+    return moment(date).fromNow();
 }

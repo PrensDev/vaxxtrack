@@ -39,12 +39,13 @@ getInfoAJAX = () => {
 
                 // Get user full name
                 var userFullName = setFullName('F M L', {
-                    firstName:  data.first_name,
+                    firstName: data.first_name,
                     middleName: data.middle_name,
-                    lastName:   data.last_name
+                    lastName: data.last_name
                 });
                 
                 // Display Name for Topbar
+                $('#userNameForNavbar').html(data.first_name);
                 $('#userFullNameForTopbar').html(userFullName);
                 $('#userFirstNameForTopbar').html(data.first_name);
 

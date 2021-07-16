@@ -1,11 +1,5 @@
 <!-- Search Registered Citizen Modal -->
-<div 
-    class           = "modal" 
-    id              = "searchCitizenModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "searchCitizenModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="searchCitizenModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +22,18 @@
                     <div class="col-10 ml-0">
                         <div class="form-group">
                             <div class="input-group">
-                                <input class="form-control" type="text">
+                                <select 
+                                    name="findPatient" 
+                                    id="findPatient"
+                                    class="selectpicker form-control"
+                                    data-style="form-control border"
+                                    data-container="body"
+                                    data-live-search="true"
+                                    data-size="3"
+                                    title="Please select a registered citizen here"
+                                >
+                                    <option class="text-center small" disabled>No data</option>
+                                </select>
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button">
                                         <i class="fas fa-search"></i>
@@ -53,12 +58,8 @@
     </div>
 </div>
 
-<!-- Patient Information Fields -->
-<div 
-    class    = "modal" 
-    id       = "resetPatientInfoFieldsModal" 
-    tabindex = "-1" 
->
+<!-- Reset Patient Information Fields -->
+<div class="modal" id="resetPatientInfoFieldsModal" tabindex="-1" >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -108,12 +109,8 @@
     </div>
 </div>
 
-<!-- Vaccination Information Fields -->
-<div 
-    class    = "modal" 
-    id       = "resetVaccInfoFieldsModal" 
-    tabindex = "-1" 
->
+<!-- Reset Vaccination Information Fields -->
+<div class="modal" id="resetVaccInfoFieldsModal" tabindex="-1" >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">

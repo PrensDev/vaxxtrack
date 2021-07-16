@@ -29,29 +29,24 @@
                                 <i class="fas fa-user-circle text-secondary"></i>
                             </div>
                             <div>
-                                <span id="citizenFullName">Dela Cruz, Juan</span>
+                                <div id="citizenFullName"></div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Age</th>
                         <td>
-                            <div id="citizenAge">21 years old</div>
-                            <div class="small text-secondary" id="citizenBirthDate">April 14, 2000</div>
+                            <div id="citizenAge"></div>
+                            <div class="small text-secondary" id="citizenBirthDate"></div>
                         </td>
                     </tr>
                     <tr>
                         <th>Sex</th>
-                        <td class="d-flex align-items-baseline" id="citizenSex">
-                            <div class="icon-container">
-                                <i class="fas fa-venus text-danger"></i>
-                            </div>
-                            <div>Female</div>
-                        </td>
+                        <td class="d-flex align-items-baseline" id="citizenSex"></td>
                     </tr>
                     <tr>
                         <th>Civil Status</th>
-                        <td id="citizenCivilStatus">Single</td>
+                        <td id="citizenCivilStatus"></td>
                     </tr>
                     <tr>
                         <th>Address</th>
@@ -60,16 +55,56 @@
                                 <i class="fas fa-map-marker-alt text-danger"></i>
                             </div>
                             <div>
-                                <div id="region">NATIONAL CAPITAL REGION</div>
-                                <div id="province">NCR, THIRD DISTRICT</div>
-                                <div id="cityMunicipality">CITY OF VALENZUELA</div>
-                                <div id="barangayDistrict">Bignay</div>
-                                <div id="street">Hulo Street</div>
-                                <div id="specificLocation">284 Hulo Ext.</div>
-                                <div id="zipCode">1447</div>
-                                <div class="small text-secondary">
-                                    <span>Lat: <span id="latitude">14.25765</span></span>
-                                    <span>Lng: <span id="longitude">114.25658</span></span>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Region"
+                                    id="region"
+                                ></div>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Province"
+                                    id="province"
+                                ></div>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="City"
+                                    id="cityMunicipality"
+                                ></div>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Barangay"
+                                    id="barangayDistrict"
+                                ></div>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Street"
+                                    id="street"
+                                ></div>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Specific Location"
+                                    id="specificLocation"
+                                ></div>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Zip Code"
+                                    id="zipCode"
+                                ></div>
+                                <div
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Longitude & Latitude"
+                                    class="small text-secondary"
+                                >
+                                    <span>Lat: <span id="latitude"></span></span>
+                                    <span>Lng: <span id="longitude"></span></span>
                                 </div>
                             </div>
                         </td>
@@ -77,8 +112,8 @@
                     <tr>
                         <th>Date Registered</th>
                         <td>
-                            <div id="dateRegistered">January 1, 2021</div>
-                            <div class="small text-secondary" id="dateRegisteredHumanized">3 months ago</div>
+                            <div id="dateRegistered"></div>
+                            <div class="small text-secondary" id="dateRegisteredHumanized"></div>
                         </td>
                     </tr>
                 </table>

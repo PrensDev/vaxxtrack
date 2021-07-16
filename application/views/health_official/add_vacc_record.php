@@ -9,7 +9,7 @@
     </div>
 
     <!-- Form -->
-    <form id="addVaccinationRecordForm">
+    <form id="addVaccRecordForm">
 
         <!-- Patient's Information -->
         <div class="card mb-4">
@@ -27,11 +27,26 @@
                 <div class="form-group">
                 
                     <!-- Patient's Full Name-->
-                    <h5 class="text-secondary">Full Name</h5>
+                    <h5 class="text-info font-weight-bold">Full Name</h5>
                     <div class="form-row">
 
+                        <!-- Patient ID Field (Hidden) -->
+                        <div class="col-12 d-none">
+                            <div class="form-group">
+                                <label for="firstName">Patient ID</label>
+                                <input 
+                                    class       = "form-control" 
+                                    type        = "hidden" 
+                                    id          = "patientID" 
+                                    name        = "patientID" 
+                                    placeholder = "Patient ID should display here"
+                                    readonly
+                                >
+                            </div>
+                        </div>
+
                         <!-- First Name Field -->
-                        <div class="col-12 col-lg-3">
+                        <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
                                 <input 
@@ -45,7 +60,7 @@
                         </div>
 
                         <!-- Middle Name Field -->
-                        <div class="col-12 col-lg-3">
+                        <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="middleName" class="d-flex justify-content-between">
                                     <span>Middle Name</span>
@@ -69,7 +84,7 @@
                         </div>
 
                         <!-- Patient's Last Name -->
-                        <div class="col-12 col-lg-3">
+                        <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
                                 <input 
@@ -83,7 +98,7 @@
                         </div>
 
                         <!-- Patient's Suffix Name -->
-                        <div class="col-12 col-md-3">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="suffix" class="d-flex justify-content-between">
                                     <span>Suffix</span>
@@ -114,28 +129,43 @@
                     <hr>
 
                     <!-- Patient's General Information -->
-                    <h5 class="text-secondary">General Information</h5>
+                    <h5 class="text-info font-weight-bold">General Information</h5>
                     <div class="form-row">
+
+                        <!-- Date of Birth -->
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="birthDate">Date of birth</label>
-                                <input type="date" class="form-control" id="birthDate">
+                                <input 
+                                    type="date" 
+                                    class="form-control" 
+                                    id="birthDate"
+                                    name="birthDate"
+                                >
                             </div>
                         </div>
+
+                        <!-- Sex -->
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="sex">Sex</label>
                                 <select 
-                                    class       = "selectpicker form-control border" 
+                                    class       = "selectpicker form-control" 
                                     name        = "sex" 
                                     id          = "sex"
-                                    title       = "Select the sex of the patient"
-                                    data-style  = "btn-white"
+                                    title       = "Select the biological sex of the patient"
+                                    data-style  = "form-control border"
                                 >
-                                    <option value="F" data-icon="fas fa-venus icon-container text-danger">
+                                    <option 
+                                        value="Female" 
+                                        data-icon="fas fa-venus icon-container text-danger"
+                                    >
                                         <span>Female</span>
                                     </option>
-                                    <option value="M" data-icon="fas fa-mars icon-container text-blue">
+                                    <option 
+                                        value="Male" 
+                                        data-icon="fas fa-mars icon-container text-blue"
+                                    >
                                         <span>Male</span>
                                     </option>
                                 </select>
@@ -143,6 +173,97 @@
                         </div>
                     </div>
                     
+                    <hr>
+
+                    <!-- Patient's Address -->
+                    <h5 class="text-info font-weight-bold">Address</h5>
+                    <div class="form-row">
+
+                        <!-- Region Field -->
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="region">Region</label>
+                                <input 
+                                    type        = "text" 
+                                    class       = "form-control" 
+                                    id          = "patientRegion" 
+                                    name        = "patientRegion" 
+                                    placeholder = "Enter region here"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Province Field -->
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="province">Province</label>
+                                <input 
+                                    type        = "text" 
+                                    class       = "form-control" 
+                                    id          = "patientProvince" 
+                                    name        = "patientProvince" 
+                                    placeholder = "Enter province here"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- City Field -->
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="cityMunicipality">City/Municipality</label>
+                                <input 
+                                    type        = "text" 
+                                    class       = "form-control" 
+                                    id          = "patientCity" 
+                                    name        = "patientCity" 
+                                    placeholder = "Enter city/municipality here"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Baranggay Field -->
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="branggayDistrict">Barangay/District</label>
+                                <input 
+                                    type        = "text" 
+                                    class       = "form-control" 
+                                    id          = "patientBarangay" 
+                                    name        = "patientBarangay" 
+                                    placeholder = "Enter region here"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Street Field -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="street">Street</label>
+                                <input 
+                                    type        = "text" 
+                                    class       = "form-control" 
+                                    id          = "patientStreet" 
+                                    name        = "patientStreet" 
+                                    placeholder = "Enter street here"
+                                    >
+                            </div>
+                        </div>
+
+                        <!-- Specific Location Field -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="specificLocation">Specific Location</label>
+                                <input 
+                                    type        = "text" 
+                                    class       = "form-control" 
+                                    id          = "patientSpecificLocation" 
+                                    name        = "patientSpecificLocation" 
+                                    placeholder = "Enter specific location here"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
                     <hr>
 
                     <!-- Reset this field -->
@@ -173,6 +294,8 @@
                 
                 <!-- Vaccine Used and Date of Vaccination Field -->
                 <div class="form-row">
+
+                    <!-- Vaccine Used -->
                     <div class="col-12 col-lg-6">
                         <div class="form-group">
                             <label for="vaccineUsed">Vaccine Used</label>
@@ -182,35 +305,24 @@
                                 class            = "selectpicker form-control" 
                                 data-style       = "border form-control"
                                 data-live-search = "true"
-                                title            = "Select the vaccined has been given to citizen"
+                                data-size        = "3"
+                                title            = "Select the vaccine that has been given to this citizen"
                             >
-                                <option 
-                                    value       ="vaccineID"
-                                    data-token  = ""
-                                >Pfizer BioNTech</option>
-                                <option 
-                                    value       ="vaccineID"
-                                    data-token  = ""
-                                >Pfizer BioNTech</option>
-                                <option 
-                                    value       ="vaccineID"
-                                    data-token  = ""
-                                >Pfizer BioNTech</option>
-                                <option 
-                                    value       ="vaccineID"
-                                    data-token  = ""
-                                >Pfizer BioNTech</option>
-                                <option 
-                                    value       ="vaccineID"
-                                    data-token  = ""
-                                >Pfizer BioNTech</option>
+                                <option class="text-center small" disabled>No data</option>
                             </select>
                         </div>
                     </div>
+
+                    <!-- Date of Vaccination -->
                     <div class="col-12 col-lg-6">
                         <div class="form-group">
                             <label for="vaccinationDate">Date of Vaccination</label>
-                            <input type="date" class="form-control" id="vaccinationDate" name="vaccinationDate">
+                            <input 
+                                type="date" 
+                                class="form-control" 
+                                id="vaccinationDate" 
+                                name="vaccinationDate"
+                            >
                         </div>
                     </div>
                 </div>
@@ -253,16 +365,16 @@
 
                 <!-- Reset this field -->
                 <div class="form-group text-center">
-                        <button 
-                            class="btn btn-sm btn-danger" 
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#resetVaccInfoFieldsModal"
-                        >
-                            <i class="fas fa-eraser mr-1"></i>
-                            <span>Clear this field</span>
-                        </button>
-                    </div>
+                    <button 
+                        class="btn btn-sm btn-danger" 
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#resetVaccInfoFieldsModal"
+                    >
+                        <i class="fas fa-eraser mr-1"></i>
+                        <span>Clear this field</span>
+                    </button>
+                </div>
             </div>
         </div>
 

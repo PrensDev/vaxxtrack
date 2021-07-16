@@ -1,9 +1,7 @@
-<!-- Health Status Modal -->
 <!-- Health Check Modal -->
 <div class="modal" id="healthStatusModal" tabindex= "-1" data-backdrop="static"data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="healthStatusForm">
-
             <div class="modal-header">
                 <h5 class="fas fa-notes-medical modal-title-icon"></h5>
                 <h5 class="modal-title">Health Check</h5>
@@ -11,6 +9,7 @@
 
             <div class="modal-body">
                 
+                <!-- Temperature -->
                 <div class="form-group">
                     <label for="temperature">Please insert your current temperature</label>
                     <div class="input-group">
@@ -228,3 +227,45 @@
 </div>
 
 
+<!-- View Health Status Log Modal -->
+<div class="modal fade" id="viewHealthStatusLogModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title-icon far fa-file-alt"></h5>
+                <h5 class="modal-title">Health Status Log Details</h5>
+                <button 
+                    class        = "btn btn-sm btn-white-muted" 
+                    type         = "button" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
+                >
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table border-bottom w-100">
+                    <tr>
+                        <th>Date & Time Recorded</th>
+                        <td id="recordedDatetime"></td>
+                    </tr>
+                    <tr>
+                        <th>Temperature</th>
+                        <td id="recordedTemp"></td>
+                    </tr>
+                    <tr>
+                        <th>Health Status</th>
+                        <td id="recordedHealthStatus">
+                    </tr>
+                    <tr>
+                        <th>Overall Status</th>
+                        <td id="overallStatus"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer p-3 bg-white"></div>
+        </div>
+    </div>
+</div>

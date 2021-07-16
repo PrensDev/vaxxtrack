@@ -27,6 +27,7 @@
                 <table class="table border-bottom" id="citizensDT" width="100%" cellspacing="0">
                     <thead class="thead text-nowrap">
                         <tr>
+                            <th>Date Registered (hidden)</th>
                             <th>Name</th>
                             <th>Age</th>
                             <th>Sex</th>

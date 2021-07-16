@@ -8,6 +8,8 @@
         </div>
     </div>
 
+    <div id="alertContainer"></div>
+
     <!-- Form -->
     <div class="d-flex justify-content-center">
         <form class="col-12 col-sm-10 col-md-8" id="createVaccAppointment">

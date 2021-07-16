@@ -15,12 +15,13 @@
  */
 
 $(() => {
-    loadVaccRecordDT();
+    loadVaccRecordsDT();
     loadVaccAppointmentsDT();
     loadVaccinesDT();
 });
 
 liveReloadDataTables([
+    'vaccinationRecordsDT',
     'vaccAppointmentsDT',
     'vaccinesDT'
 ]);
@@ -32,9 +33,8 @@ liveReloadDataTables([
  */
 
 // Load Vaccination Record DataTable
-loadVaccRecordDT = () => {
+loadVaccRecordsDT = () => {
     const dt = $('#vaccinationRecordsDT');
-    
     if(dt.length) {
         dt.DataTable({
             ajax: {
@@ -44,10 +44,12 @@ loadVaccRecordDT = () => {
             },
             columns: [
 
+                // Added at (hidden)
+                { data: 'created_datetime', visible: false },
+
                 // Vaccinated Individual
                 { 
                     data: null,
-                    class: 'text-nowrap',
                     render: data => {
                         const vc = data.vaccinated_citizen;
                         const fullName = setFullName('L, F Mi', {
@@ -55,22 +57,33 @@ loadVaccRecordDT = () => {
                             middleName: vc.middle_name,
                             lastName: vc.last_name
                         });
-    
+
+                        const age = getAge(data.vaccinated_citizen.birth_date);
+                        
+                        details = '';
+                        if(vc.sex === 'Female') {
+                            details += `
+                                <i class="fas fa-venus text-danger mr-1"></i>
+                                <span>${ vc.sex }, ${ age } y/o</span>
+                            `;
+                        } else if(vc.sex === 'Male') {
+                            details += `
+                                <i class="fas fa-mars text-blue mr-1"></i>
+                                <span>${ vc.sex }, ${ age } y/o</span>
+                            `;
+                        }
+
                         return `
                             <div class="d-flex align-items-baseline">
-                                <i class="fas fa-user-circle icon-container text-secondary"></i>
-                                <span>${ fullName }</span>
+                                <div class="icon-container">
+                                    <i class="fas fa-user-circle text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ fullName }</div>
+                                    <div class="small text-secondary">${ details }</div>
+                                </div>
                             </div>
                         `
-                    }
-                },
-
-                // Age 
-                { 
-                    data: null,
-                    render: data => {
-                        const age = moment().diff(moment(data.vaccinated_citizen.birth_date, 'YYYY'), 'years');
-                        return age + ' y/o'
                     }
                 },
 
@@ -81,7 +94,7 @@ loadVaccRecordDT = () => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div>${ data.vaccine_used.product_name }</div>
@@ -110,7 +123,7 @@ loadVaccRecordDT = () => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-user-md text-secondary"></i>
+                                    <i class="fas fa-user-md text-info"></i>
                                 </div>
                                 <div>
                                     <div>${ data.vaccinated_by }</div>
@@ -128,7 +141,7 @@ loadVaccRecordDT = () => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-hospital text-secondary"></i>
+                                    <i class="fas fa-hospital-alt text-danger"></i>
                                 </div>
                                 <div>
                                     <div>${ data.vaccinated_in }</div>
@@ -143,6 +156,7 @@ loadVaccRecordDT = () => {
                 { 
                     data: null,
                     render: data => {
+                        const vaccRecordID = data.vaccination_record_ID;
                         return `
                             <div class="dropdown">
                                 <div class="d-inline" data-toggle="dropdown">
@@ -153,7 +167,6 @@ loadVaccRecordDT = () => {
                                         title       = "More"
                                     ><i class="fas fa-ellipsis-v"></i></div>
                                 </div>
-    
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <div 
                                         class       = "dropdown-item" 
@@ -167,21 +180,23 @@ loadVaccRecordDT = () => {
                                     <div 
                                         class       = "dropdown-item" 
                                         role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#vaccRecordDetailsModal"    
+                                        onclick     = "viewVaccRecordDetails('${ vaccRecordID }')"    
                                     >
                                         <i class="fas fa-list icon-container"></i>
                                         <span>View full details</span>
                                     </div>
-                                    <div class="dropdown-item" role="button">
+                                    <div 
+                                        class="dropdown-item" 
+                                        role="button"
+                                        onclick     = "editVaccRecord('${ vaccRecordID }')"
+                                    >
                                         <i class="far fa-edit icon-container"></i>
                                         <span>Edit this details</span>
                                     </div>
                                     <div 
                                         class       = "dropdown-item" 
                                         role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#deleteVaccRecordModal"    
+                                        onclick     = "deleteVaccRecord('${ vaccRecordID }')" 
                                     >
                                         <i class="far fa-trash-alt icon-container"></i>
                                         <span>Delete this record</span>
@@ -195,12 +210,82 @@ loadVaccRecordDT = () => {
             columnDefs: [{
                 'targets': [6],
                 'orderable': false,
-            }]
+            }],
+            order: [[0, 'desc']]
         });
     }
 
 }
 
+
+/**
+ * ====================================================================
+ * * DELETE VACCINATION RECORDS
+ * ====================================================================
+ */
+
+const deleteVaccRecordForm = $('#deleteVaccRecordForm');
+const deleteVaccRecordModal = $('#deleteVaccRecordModal');
+
+// Delete Vaccination Record
+deleteVaccRecord = (vaccRecordID) => {
+    $('#vaccRecordIDForDelete').val(vaccRecordID);
+    deleteVaccRecordModal.modal('show');
+}
+
+
+// When Vaccination Record Modal is hidden
+deleteVaccRecordModal.on('hide.bs.modal', () => deleteVaccRecordForm.trigger('reset'));
+
+
+// Delete Vaccination Record Form
+deleteVaccRecordForm.validate(validateOptions({
+    rules: {
+        vaccRecordID: {
+            required: true
+        },
+        confirm: {
+            required: true,
+            equalTo: '#confirmRef'
+        }
+    },
+    messages: {
+        vaccRecordID: {
+            required: 'Vaccination Record ID must display here'
+        },
+        confirm: {
+            required: 'You must enter "CONFIRM" if you wish to delete this record',
+            equalTo: 'You must enter "CONFIRM" if you wish to delete this record'
+        }
+    },
+    submitHandler: () => deleteVaccRecordAJAX()
+}));
+
+
+// Delete Vaccination Record AJAX
+deleteVaccRecordAJAX = () => {
+    const form = new FormData(deleteVaccRecordForm[0]);
+    vaccRecordID = form.get('vaccRecordID');
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccination-records/${ vaccRecordID }`,
+        type: 'DELETE',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                
+                // Refresh DataTable
+                const dt = $('#vaccinationRecordsDT').DataTable();
+                dt.ajax.reload();
+
+                // Show alert
+                showAlert('info', 'A vaccination record has been deleted');
+
+                // Hide modal
+                deleteVaccRecordModal.modal('hide');
+            }
+        }
+    });
+}
 
 /**
  * ====================================================================
@@ -223,47 +308,60 @@ viewVaccCard = (user_ID) => {
                 // Get vaccination records of citizen
                 const vaccRecords = data.vaccination_records;
 
+                // Set patient detailss
                 $('#patientLastName').html(data.last_name);
                 $('#patientFirstName').html(data.first_name);
                 $('#patientMiddleInitial').html(`${data.middle_name[0]}.`);
                 $('#patientBirthDate').html(moment(data.birth_date).format('MMMM D, YYYY'));
                 $('#patientNumber').html(data.user_ID);
 
+                // Sort the records in ascending order by vaccination date
+                const vaccRecordsSorted = vaccRecords.sort((a,b) => {
+                    return new Date(a.vaccination_date) - new Date(b.vaccination_date);
+                });
+
+                // Initialize rows blade
                 var rows = '';
 
                 // Get all records (max of 4)
                 for(var i = 0; i < 4; i++) {
 
                     // Get each record
-                    const r = vaccRecords[i];
+                    const r = vaccRecordsSorted[i];
 
-                    if(i == 0) {
-                        col1 = `1<sup>st</sup> Dose`;
-                    } else if(i == 1) {
-                        col1 = `2<sup>nd</sup> Dose`;
-                    } else {
-                        col1 = `Other`
-                    }
+                    // Set the first column
+                    if(i == 0)      col1 = `1<sup>st</sup> Dose`;
+                    else if(i == 1) col1 = `2<sup>nd</sup> Dose`;
+                    else            col1 = `Other`;
 
+                    // Set the second, third, and fourth column
                     if(r != null) {
+
+                        // Set the vaccine (2nd column)
                         col2 = `
                             <div>${r.vaccine_used.product_name}</div>
                             <div class="small text-secondary">${r.vaccine_used.manufacturer}</div>
                         `;
-                        col3 = moment(r.vaccination_date).format('MMM. DD, YYYY');
-                        
-                        vaccinationSite = 
-                            (r.vaccininated_in == null || r.vaccininated_in == '') 
-                                ? 'Unknown vaccination site' 
-                                : r.vaccininated_in;
 
+                        // Set the vaccination date (3rd column)
+                        col3 = `
+                            <div class="text-nowrap">${moment(r.vaccination_date).format('MMM. DD, YYYY')}</div>
+                        `;
+                        
+                        // Get vaccination site
+                        vaccinationSite = 
+                            (r.vaccinated_in == null || r.vaccinated_in == '') 
+                                ? 'Unknown vaccination site' 
+                                : r.vaccinated_in;
+
+                        // Set the healthcare professional and establishment
                         col4 = `
                             <div>${r.vaccinated_by}</div>
                             <div class="small text-secondary">${vaccinationSite}</div>
                         `;
                     } else {
                         col2 = `<i class="text-muted font-weight-normal">No data yet</i>`;
-                        col3 = `<i class="text-muted font-weight-normal">--:--:----</i>`
+                        col3 = `<i class="text-muted font-weight-normal">--:--:----</i>`;
                         col4 = `<i class="text-muted font-weight-normal">No data yet</i>`;
                     }
 
@@ -277,6 +375,7 @@ viewVaccCard = (user_ID) => {
                     `
                 }
 
+                // Set the rows in vaccination card
                 $('#vaccCardDataRows').html(rows);
 
                 // Show citizen vaccination card
@@ -286,11 +385,348 @@ viewVaccCard = (user_ID) => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in getting a vaccination record')
-    })
+    .fail(() => console.error('There was an error in getting a vaccination record'));
 }
 
+// View Vaccination Record Details
+viewVaccRecordDetails = (vaccination_record_ID) => {
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccination-records/${ vaccination_record_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+
+                // Get data form result
+                const data = result.data;
+                
+                // Get Vaccinated Citizen
+                const vc = data.vaccinated_citizen;
+
+                // Get Vaccinated Citizen Full Name
+                const vcFullName = setFullName('F M L', {
+                    firstName: vc.first_name,
+                    middleName: vc.middle_name,
+                    lastName: vc.last_name
+                });
+                $('#vaccinatedFullName').html(vcFullName);
+                
+                // Get Vaccinated Citizen's Details
+                var vcDetails;
+                if(vc.sex === 'Female') {
+                    vcDetails = `
+                        <i class="fas fa-venus text-danger mr-1"></i>
+                        <span id="vaccinatedDetails">${ vc.sex }, ${ getAge(vc.birth_date) } years old</span>
+                    `;
+                } else if(vc.sex === 'Male') {
+                    vcDetails = `
+                        <i class="fas fa-mars text-blue mr-1"></i>
+                        <span id="vaccinatedDetails">${ vc.sex }, ${ getAge(vc.birth_date) } years old</span>
+                    `;
+                }
+                $('#vaccinatedDetails').html(vcDetails);
+
+                // Get Vaccinated Citizen's Address
+                const vcAddress = vc.address;
+                $('#vaccinatedRegion').html(vcAddress.region);
+                $('#vaccinatedProvince').html(vcAddress.province);
+                $('#vaccinatedCity').html(vcAddress.city_municipality);
+                $('#vaccinatedStreetAndBrgy').html(vcAddress.street + ', ' + vcAddress.barangay_district);
+                $('#vaccinatedSpecificLocation').html(vcAddress.specific_location);
+                $('#vaccinatedZipCode').html(vcAddress.zip_code);
+
+                // Get Vaccine Used
+                const vaccineUsed = data.vaccine_used;
+                $('#productName').html(vaccineUsed.product_name);
+                $('#vaccineName').html(vaccineUsed.vaccine_name);
+                $('#vaccManufacturer').html(vaccineUsed.manufacturer);
+
+                // Get Date Vaccinated
+                $('#vaccDate').html(moment(data.vaccination_date).format('dddd, MMMM D, YYYY'));
+                $('#vaccDateHumanized').html(moment(data.vaccination_date).fromNow());
+
+                // Get vaccinated by and in
+                $('#vaccinatedBy').html(data.vaccinated_by);
+                $('#vaccinatedIn').html(data.vaccinated_in);
+
+                // Get remarks
+                const remarks = data.remarks;
+                if(remarks == null || remarks == '') {
+                    $('#remarks').html(`
+                        <span class="font-weight-normal text-muted font-italic">No remarks</span>
+                    `);
+                } else {
+                    $('#remarks').html(`<p>${ remarks }</p>`);
+                }
+
+                // Get record added at & updated at
+                $('#recordAddedAt').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY<br>hh:mm A'));
+                $('#recordAddedAtHumanized').html(moment(data.created_datetime).fromNow());
+                $('#recordUpdatedAt').html(moment(data.updated_datetime).format('dddd, MMMM D, YYYY<br>hh:mm A'));
+                $('#recordUpdatedAtHumanized').html(moment(data.updated_datetime).fromNow());
+                
+                // Show Vaccination Record Details Modal
+                $('#vaccRecordDetailsModal').modal('show');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in getting vaccination record details'));
+}
+
+
+/**
+ * ====================================================================
+ * * ADD VACCINATION RECORD
+ * ====================================================================
+ */
+
+const addVaccRecordForm = $('#addVaccRecordForm');
+const findPatientSelectpicker = $('#findPatient');
+const searchCitizenModal = $('#searchCitizenModal');
+
+// Populate Vaccine Used Selectpicker
+if(addVaccRecordForm.length) {
+    $.ajax({
+        url: `${ BASE_URL_API }vaccines`,
+        type: 'GET',
+        success: result => {
+            if(result) {
+                const data = result.data;
+                var options = ''
+                data.forEach(v => {
+                    options += `
+                        <option 
+                            value="${ v.vaccine_ID }" 
+                            data-content="
+                                <div class='d-flex align-items-baseline'>
+                                    <div class='icon-container'>
+                                        <i class='fas fa-syringe'></i>
+                                    </div>
+                                    <div>
+                                        <div>${ v.product_name }</div>
+                                        <div class='small'>${ v.vaccine_name }</div>
+                                        <div class='small'>${ v.manufacturer }</div>
+                                    </div>
+                                </div>
+                            "
+                            title="${ v.product_name }"
+                        >${ v.product_name }</option>
+                    `
+                });
+                $('#vaccineUsed').html(options).selectpicker('refresh');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in getting vaccines'));
+}
+
+// Add Vaccination Record AJAX
+addVaccRecordAJAX = () => {
+    const form = new FormData(addVaccRecordForm[0]);
+
+    const patientID = form.get('patientID');
+    if(patientID == '' || patientID == null) {
+        alert('without');
+    } else {
+        data = {
+            citizen_ID: patientID,
+            vaccine_ID: form.get('vaccineUsed'),
+            vaccination_date: form.get('vaccinationDate'),
+            vaccinated_by: form.get('vaccinatedBy'),
+            vaccinated_in: form.get('vaccinatedIn'),
+            remarks: form.get('remarks'),
+        }
+
+        $.ajax({
+            url: `${ HEALTH_OFFICIAL_API_ROUTE }add-vaccination-record`,
+            type: 'POST',
+            headers: AJAX_HEADERS,
+            data: data,
+            dataType: 'json',
+            success: result => {
+                if(result) {
+                    $.ajax({
+                        url: `${ BASE_URL_MAIN }alert`,
+                        type: 'POST',
+                        data: {
+                            theme: 'success',
+                            message: 'Success! A new vaccination record has been added'
+                        },
+                        success: () => location.replace(`${ BASE_URL_MAIN }h/vaccination-records`)
+                    });
+                }
+            }
+        })
+        .fail(() => console.error('There was an error in creating new vaccination record'));
+    }
+}
+
+// Validate Add Vaccination Form
+addVaccRecordForm.validate(validateOptions({
+    rules: {
+        firstName: {
+            required: true
+        },
+        lastName: {
+            required: true
+        },
+        birthDate: {
+            required: true
+        },
+        sex: {
+            required: true
+        },
+        vaccineUsed: {
+            required: true
+        },
+        vaccinationDate: {
+            required: true
+        },
+        vaccinatedBy: {
+            required: true
+        },
+        vaccinatedIn: {
+            required: true
+        }
+    },
+    messages: {
+        firstName: {
+            required: `Patient's first name is required`
+        },
+        lastName: {
+            required: `Patient's last name is required`
+        },
+        birthDate: {
+            required:  `Patient's date of birth is required`
+        },
+        sex: {
+            required: `Patient's biological sex is required`
+        },
+        vaccineUsed: {
+            required: `Please select the vaccine given to the patient`
+        },
+        vaccinationDate: {
+            required: `Please insert the date when patient has been vaccinated`
+        },
+        vaccinatedBy: {
+            required: 'Please insert the healthcare professional who done vaccination'
+        },
+        vaccinatedIn: {
+            required: 'Please insert what healthcare establishment or where did the vaccination happen'
+        }
+    },
+    submitHandler: () => addVaccRecordAJAX()
+}));
+
+// When search citizen modal is showned
+searchCitizenModal.on('show.bs.modal', () => {
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }probable-patients`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                const data = result.data;
+                console.log(data);
+
+                var options = '';
+                data.forEach(p => {
+                    const patientFullName = setFullName('L, F M', {
+                        firstName: p.first_name,
+                        middleName: p.middle_name,
+                        lastName: p.last_name
+                    });
+
+                    options += `
+                        <option
+                            data-content="
+                                <div class='d-flex align-items-baseline'>
+                                    <div class='icon-container'>
+                                        <i class='fas fa-user-circle'></i>
+                                    </div>
+                                    <div>
+                                        <div>${ patientFullName }</div>
+                                        <div class='small'>${ p.sex }, ${ getAge(p.birth_date) }</div>
+                                    </div>
+                                </div>
+                            "
+                            value="${ p.user_ID }"
+                            title="${ patientFullName }"
+                        >${ patientFullName }</option>
+                    `
+                })
+
+                findPatientSelectpicker.html(options);
+                findPatientSelectpicker.selectpicker('refresh');
+            }
+        }
+    })
+});
+
+// When find patient selectpicker is change
+findPatientSelectpicker.on('change.bs.modal', () => {
+    const patientID = findPatientSelectpicker.val();
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }probable-patients/${ patientID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                const data = result.data;
+
+                // Set Patient's ID and Full Name
+                $('#patientID').val(data.user_ID);
+                $('#firstName').val(data.first_name);
+                $('#middleName').val(data.middle_name);
+                $('#lastName').val(data.last_name);
+                
+                // Set Patient's General Information
+                $('#birthDate').val(data.birth_date);
+                $('#sex').selectpicker('val', data.sex);
+                
+                // Set Patient's Address
+                const address = data.address;
+                $('#patientRegion').val(address.region);
+                $('#patientProvince').val(address.province);
+                $('#patientCity').val(address.city_municipality);
+                $('#patientBarangay').val(address.barangay_district);
+                $('#patientStreet').val(address.street);
+                $('#patientSpecificLocation').val(address.specific_location);
+                
+                patientInfoFields = [
+                    'patientID',
+                    'firstName',
+                    'middleName',
+                    'lastName',
+                    'suffixName',
+                    'birthDate',
+                    'sex',
+                    'patientRegion',
+                    'patientProvince',
+                    'patientCity',
+                    'patientBarangay',
+                    'patientStreet',
+                    'patientSpecificLocation'
+                ];
+
+                // Clear disabled form controls
+                patientInfoFields.forEach(f => {
+                    const el = $(`#${f}`);
+                    if(el.hasClass('selectpicker')) {
+                        el.attr('disabled', true);
+                        el.selectpicker('refresh');
+                    } else {
+                        el.prop('readonly', true);
+                    }
+                });
+
+                // Hide Search Citizen Modal
+                searchCitizenModal.modal('hide');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in getting a probable patient'));
+});
 
 
 /**
@@ -307,11 +743,7 @@ loadVaccAppointmentsDT = () => {
         dt.DataTable({
             ajax: {
                 url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccination-appointments`,
-                type: 'GET',
                 headers: AJAX_HEADERS,
-                // success: result => {
-                //     console.log(result.data);
-                // }
             },
             columns: [
                 
@@ -376,7 +808,7 @@ loadVaccAppointmentsDT = () => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div>${ vp.product_name }</div>
@@ -390,6 +822,7 @@ loadVaccAppointmentsDT = () => {
                 // Preferred Date
                 {
                     data: null,
+                    class: 'text-nowrap',
                     render: data => {
                         return `
                             <div>${moment(data.preferred_date).format("MMM. D, YYYY")}</div>
@@ -486,7 +919,7 @@ loadVaccAppointmentsDT = () => {
                             `
                         } else {
                             return `
-                                <div>${moment(approvedDatetime).format("MMM. D, YYYY; hh:mm A")}</div>
+                                <div>${moment(approvedDatetime).format("MMM. D, YYYY<br>hh:mm A")}</div>
                                 <div class="small text-secondary">${moment(approvedDatetime).fromNow()}</div>
                             `;
                         }
@@ -547,6 +980,7 @@ loadVaccAppointmentsDT = () => {
  * ====================================================================
  */
 
+// View vaccination appointment details
 viewVaccAppointment = (vaccination_appointment_ID) => {
     $.ajax({
         url: `${ HEALTH_OFFICIAL_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
@@ -556,10 +990,9 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
             if(result) {
                 const data = result.data;
 
-                console.log(data);
-
                 const appointedBy = data.appointed_by;
-
+                
+                // Set Patient Full Name
                 var appointedFullName = setFullName('F M L', {
                     firstName: appointedBy.first_name,
                     middleName: appointedBy.middle_name,
@@ -567,17 +1000,16 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 });
 
                 var sexBlade;
-                if(appointedBy.sex === 'Female') {
+                if(appointedBy.sex === 'Female')
                     sexBlade = `
                         <i class="fas fa-venus text-danger mr-1"></i>
                         <span>Female</span>
                     `;
-                } else if(appointedBy.sex === 'Male') {
+                else if(appointedBy.sex === 'Male')
                     sexBlade = `
                         <i class="fas fa-mars text-blue mr-1"></i>
                         <span>Male</span>
                     `;
-                }
 
                 $('#Patientname').html(`
                     <div class="d-flex align-items-baseline">
@@ -596,10 +1028,10 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 $('#Vaccinename').html(data.vaccine_preferrence.vaccine_name);
                 $('#Manufacturer').html(data.vaccine_preferrence.manufacturer);
                 $('#PreDate').html(moment(data.preferred_date).format('dddd, MMMM D, YYYY'));
-                $('#PreMoment').html(moment(data.preferred_date).fromNow());
+                $('#PreMoment').html(humanizeDate(data.preferred_date));
                 $('#ColDate').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY'));
                 $('#ColTime').html(moment(data.created_datetime).format('hh:mm A'));
-                $('#ColMoment').html(moment(data.created_datetime).fromNow());
+                $('#ColMoment').html(humanizeDate(data.created_datetime));
 
                 const status = () => {
 
@@ -632,32 +1064,46 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
 
                 const approvedBy = () => {
                     if (data.approved_by == null || data.approved_by == '') {
-                        return `
-                            <span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span>
-                        `
+                        return `<span class="text-muted font-italic font-weight-normal">Not yet approved</span>`
                     } else {
-                        if (data.approved_person.middle_name) {
-                            return `
-                            <span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span>
-                            `;
-                        } else {
-                            return `
-                            <span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</span>
-                            `;
-                        }
+                        const approvedBy = data.approved_person;
+                        const approvedByFullName = setFullName('F Mi L', {
+                            firstName: approvedBy.first_name,
+                            middleName: approvedBy.middle_name,
+                            lastName: approvedBy.last_name
+                        });
+
+                        const approvedUserType = 
+                            approvedBy.user_ID == localStorage.getItem('user_ID')
+                                ? `You, ${ approvedBy.user_type }`
+                                : approvedUserType = approvedBy.user_type
+
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-user-tie text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ approvedByFullName }</div>
+                                    <div class="text-secondary small">${ approvedUserType }</div>
+                                </div>
+                            </div>
+                        `
                     }
                 }
 
                 $('#Approvedby').html(approvedBy());
 
                 const approvedDandT = () => {
-                    if (data.approved_datetime == null || data.approved_datetime == '') {
+                    const approvedDatetime = data.approved_datetime;
+                    if (approvedDatetime == null || approvedDatetime == '') {
                         return `
-                            <span class="font-weight-norma text-muted font-italic" id=ApprovedDandT>No data yet</span>
+                            <span class="font-weight-normal text-muted font-italic">No data yet</span>
                         `
                     } else {
                         return `
-                            <span class="font-weight-norma text font-italic" id=ApprovedDandT>${ data.approved_datetime }</span>
+                            <div>${moment(approvedDatetime).format("MMM. D, YYYY<br>hh:mm A")}</div>
+                            <div class="small text-secondary">${humanizeDate(approvedDatetime)}</div>
                         `
                     }
                 }
@@ -759,7 +1205,6 @@ $('#changeStatusApprovalForm').validate(validateOptions({
 }));
 
 
-
 /**
  * ====================================================================
  * * GET ALL VACCINES RECORDS
@@ -769,7 +1214,6 @@ $('#changeStatusApprovalForm').validate(validateOptions({
 // Load Vaccines DataTable
 loadVaccinesDT = () => {
     const dt = $('#vaccinesDT');
-
     if(dt.length) {
         dt.DataTable({
             ajax: {
@@ -779,6 +1223,9 @@ loadVaccinesDT = () => {
             },
             columns: [
 
+                // Added AT (hidden for default sort)
+                { data: 'created_datetime', visible: false },
+
                 // Vaccine
                 { 
                     data: null,
@@ -786,7 +1233,7 @@ loadVaccinesDT = () => {
                         return `
                             <div class="d-flex align-items-baseline text-nowrap">
                                 <div class="icon-container">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div
@@ -861,9 +1308,10 @@ loadVaccinesDT = () => {
                 },
             ],
             columnDefs: [{
-                targets: [4],
+                targets: [5],
                 orderable: false,
-            }]
+            }],
+            order: [[0, 'desc']]
         });
     }
 }
@@ -1197,7 +1645,6 @@ removeVaccine = (vaccine_ID) => {
 // Remove Vacccine AJAX
 removeVaccineAJAX = () => {
     const form = new FormData($('#removeVaccineForm')[0]);
-
     const vaccine_ID = form.get('vaccineID');
 
     $.ajax({
@@ -1206,6 +1653,7 @@ removeVaccineAJAX = () => {
         headers: AJAX_HEADERS,
         success: result => {
             if(result) {
+
                 // Refresh/reload DataTable
                 const dt = $('#vaccinesDT').DataTable();
                 dt.ajax.reload();

@@ -25,7 +25,7 @@
                         <td>
                             <div class="d-flex align-items-baseline">
                                 <div class="mr-2">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div 
@@ -72,7 +72,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Date Added</th>
+                        <th>Record Added At</th>
                         <td>
                             <div id="vaccDateAdded">
                                 <div class="text-secondary font-italic">No data</div>
@@ -82,7 +82,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Date Updated</th>
+                        <th>Record Updated At</th>
                         <td>
                             <div id="vaccDateUpdated">
                                 <div class="text-secondary font-italic">No data</div>
@@ -100,12 +100,7 @@
 </div>
 
 <!-- Edit Vaccine Details -->
-<div 
-    class           = "modal" 
-    id              = "editVaccineDetailsModal"
-    data-backdrop   = "static"
-    tabindex        = "-1"
->
+<div class="modal" id="editVaccineDetailsModal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="editVaccineDetailsForm">
 
@@ -357,12 +352,7 @@
 </div>
 
 <!-- Remove Vaccine modal -->
-<div 
-    class           = "modal" 
-    id              = "removeVaccineModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
->
+<div class="modal" id="removeVaccineModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content" id="removeVaccineForm">
             <div class="modal-header">

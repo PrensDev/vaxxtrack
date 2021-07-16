@@ -8,6 +8,8 @@
         </div>
     </div>
 
+    <div id="alertContainer"></div>
+
     <!-- Edit Representative Form -->
     <form id="editRepInfoForm">
 

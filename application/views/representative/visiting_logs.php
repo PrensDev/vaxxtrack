@@ -45,6 +45,7 @@
                 <table class="table border-bottom w-100" id="visitingLogsDT" width="100%" cellspacing="0">
                     <thead class="thead">
                         <tr>
+                            <th>Entry Log (hidden)</th>
                             <th>Visitor's Name</th>
                             <th>Entry Log</th>
                             <th>Purpose</th>

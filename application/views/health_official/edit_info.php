@@ -6,9 +6,9 @@
         <p class="text-secondary mb-0">Edit your information here by providing the appropriate fields</p>
     </div>
     
-    <!-- Edit Representative Form -->
-    <form id="editHealthOfficialInfoForm">
- 
+    <!-- Edit Info Form -->
+    <form id="editInfoForm">
+
         <!-- General Information -->
         <div class="d-flex justify-content-center">
             <div class="col-lg-8 col-md-10 col-sm-12 p-0">
@@ -117,14 +117,17 @@
         <!-- User Controls -->
         <div class="form-group text-center">
             <button 
-                type  = "submit" 
-                class = "btn btn-blue"
-            >Save</button>
-            <button 
                 type    = "button" 
                 class   = "btn btn-muted"
                 onclick = "history.back()"
             >Cancel</button>
+            <button 
+                type  = "submit" 
+                class = "btn btn-blue"
+            >
+                <span>Save</span>
+                <i class="fas fa-check ml-1"></i>
+            </button>
         </div>
     </form>
 </div>

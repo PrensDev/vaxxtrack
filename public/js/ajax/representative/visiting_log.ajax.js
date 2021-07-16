@@ -22,7 +22,7 @@ liveReloadDataTables([
 
 /**
  * ====================================================================
- * GET ALL VISITING LOGS
+ * * GET ALL VISITING LOGS
  * ====================================================================
  */
 
@@ -38,6 +38,9 @@ loadVisitingLogsDT = (establishment_ID) => {
                 headers: AJAX_HEADERS,
             },
             columns: [
+
+                // Entry log (hidden for default sort)
+                { data: 'created_datetime', visible: false },
 
                 // Visitor's Name
                 {
@@ -69,7 +72,7 @@ loadVisitingLogsDT = (establishment_ID) => {
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
-                                    <i class="fas fa-sign-in-alt text-secondary"></i>
+                                    <i class="fas fa-walking text-secondary"></i>
                                 </div>
                                 <div>
                                     <div>${ moment(data.created_datetime).format('MMM. D, YYYY; hh:mm A') }</div>
@@ -89,21 +92,18 @@ loadVisitingLogsDT = (establishment_ID) => {
                     render: data => {
                         if(data.health_status_log) {
                             const temp = data.health_status_log.temperature;
-                            if(temp > 37.5) {
-                                return `
+                            if(temp > 37.5) return `
                                     <span class="badge alert-danger text-danger p-2 w-100">
                                         <i class="fas fa-temperature-high mr-1"></i>
                                         <span>${ temp }&deg;C</span>
                                     </span>
-                                `
-                            } else {
-                                return `
+                                `;
+                            else return `
                                     <span class="badge alert-success text-success p-2 w-100">
                                         <i class="fas fa-temperature-low mr-1"></i>
                                         <span>${ temp }&deg;C</span>
                                     </span>
-                                `
-                            }
+                                `;
                         } else {
                             return `
                                 <span class="badge alert-secondary text-secondary p-2 w-100">
@@ -261,10 +261,10 @@ loadVisitingLogsDT = (establishment_ID) => {
                 },
             ],
             columnDefs: [{
-                targets: [6],
+                targets: [7],
                 orderable: false
             }],
-            order: [[1, 'desc']],
+            order: [[0, 'desc']],
         })
     }
 }
@@ -277,6 +277,7 @@ if($('#visitingLogsDT').length) {
     loadVisitingLogsDT(establishment_ID);
 }
 
+// View Visiting Log
 viewVisitLog = (visiting_log_ID) => {
     const URLParams = location.pathname.split('/');
     const establishment_ID = URLParams[URLParams.length-1];

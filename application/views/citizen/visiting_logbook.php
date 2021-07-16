@@ -5,6 +5,8 @@
         'subtitle' => 'Track the establishments you visited here'
     ]); ?>
 
+    <div id="alertContainer"></div>
+
     <!-- Visiting Records -->
     <div class="card">
         <div class="card-header">
@@ -15,15 +17,15 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table w-100" id="visitingLogsDT" width="100%" cellspacing="0">
+                <table class="table border-bottom w-100" id="visitingLogsDT" width="100%" cellspacing="0">
                     <thead class="thead">
                         <th>Date and Time Entered (hidden)</th>
                         <th>Establishment</th>
+                        <th>Date & Time Entered</th>
                         <th>Purpose</th>
                         <th>Temp</th>
                         <th>Health Status</th>
                         <th>Allowed</th>
-                        <th>Date & Time Entered</th>
                         <th></th>
                     </thead>
                     <tbody></tbody>

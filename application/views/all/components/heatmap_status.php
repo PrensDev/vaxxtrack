@@ -1,7 +1,7 @@
-<div class="row">
+<div class="row justify-content-center">
 
     <!-- Heatmap -->
-    <div class="col-12 col-lg-6 mb-4">
+    <div class="col-12 mb-4">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div class="card-header-text">
@@ -28,7 +28,7 @@
     </div>
 
     <!-- COVID-19 Active Cases count -->
-    <div class="col-12 col-lg-6 mb-4">
+    <!-- <div class="col-12 col-lg-6 mb-4">
         <div class="card h-100">
             <div class="card-header">
                 <div class="card-header-text">
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </div>
 

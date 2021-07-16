@@ -1,5 +1,5 @@
 <!-- Create Appointment Modal -->
-<div class= "modal" id="createAppointmentModal" tabindex= "-1" >
+<div class= "modal" id="createAppointmentModal" tabindex="-1" >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="createAppointmentForm">
 
@@ -73,7 +73,7 @@
 </div>
 
 <!-- Edit Appointment Modal -->
-<div class= "modal" id="editAppointmentModal" tabindex= "-1" >
+<div class= "modal" id="editAppointmentModal" tabindex="-1" >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="editAppointmentForm">
 
@@ -113,12 +113,13 @@
                 <div class="form-group">
                     <label for="preferredVaccineForEdit">What vaccine do you prefer?</label>
                     <select 
-                        class="selectpicker w-100" 
+                        class="selectpicker form-control" 
                         id="preferredVaccineForEdit"
                         name="preferredVaccine"
-                        data-style="border btn"
-                        data-size="3"
+                        data-style="border form-control"
+                        data-size="2"
                         data-live-search="true"
+                        title="Select a vaccine"
                         title="Select a vaccine"
                     ></select>
                 </div>
@@ -148,7 +149,7 @@
 </div>
 
 <!-- Appointment Details Modal -->
-<div class= "modal fade" id= "appointmentDetailsModal"tabindex= "-1">
+<div class= "modal fade" id= "appointmentDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -190,9 +191,16 @@
                     <tr>
                         <th>Preferred Date for Vaccination</th>
                         <td>
-                            <span id="PreDayDate">Thursday, April 1, 2021</span>
-                            <span id="PreTime">11:52:24 AM</span>
-                            <div class="small text-secondary" id = "PreDayMoment">1 week from now</div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-syringe text-success"></i>
+                                </div>
+                                <div>
+                                    <div id="PreDayDate">Thursday, April 1, 2021</div>
+                                    <div id="PreTime">11:52:24 AM</div>
+                                    <div class="small text-secondary" id = "PreDayMoment">1 week from now</div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>

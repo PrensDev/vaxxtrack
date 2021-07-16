@@ -5,6 +5,18 @@
         'subtitle' => 'Manage your overall activities using this dashboard'
     ]); ?>
 
+    <div id="alertContainer"></div>
+
+    <!-- Alert -->
+    <?php if($this->session->has_userdata('alert')): ?>
+        <div class="alert alert-<?= $this->session->alertTheme ?> alert-dismissible fade show mb-4" role="alert" id="alert">
+            <div><?= $this->session->alertMessage ?></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+
     <!-- Dashboard Hero -->
     <div class="card mb-4">
         <div class="card-body bg-waves p-3 p-sm-5">

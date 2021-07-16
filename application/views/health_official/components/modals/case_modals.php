@@ -1,11 +1,5 @@
 <!-- Lab Report Modal -->
-<div 
-    class           = "modal" 
-    id              = "labReportModal" 
-    tabindex        = "-1" 
-    aria-labelledby = "labReportModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="labReportModal" tabindex="-1">
     <div class="modal-lg modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -119,14 +113,7 @@
 
 
 <!-- Update Health Status Modal -->
-<div 
-    class           = "modal" 
-    id              = "updateHealthStatusModal" 
-    data-backdrop   = "static"
-    tabindex        = "-1" 
-    aria-labelledby = "updateHealthStatusModal" 
-    aria-hidden     = "true"
->
+<div class="modal" id="updateHealthStatusModal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,11 +189,7 @@
 
 
 <!-- Case Details Modal -->
-<div 
-    class     = "modal" 
-    id        = "viewCaseDetailsModal" 
-    tabindex  = "-1" 
->
+<div class="modal fade" id="viewCaseDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -232,66 +215,111 @@
                     <tr>
                         <th>Patient Name</th>
                         <td>
-                            <div id="patientFullName">Alejandro S. Matuta</div>
-                            <div class="text-secondary small" id="patientInfo">
-                                <i class="fas fa-mars"></i>
-                                <span>Male, 21 years old. (Feb. 23, 1998)</span>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-user text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div id="patientFullName"></div>
+                                    <div class="text-secondary small" id="patientInfo"></div>
+                                </div>
                             </div>
-                            <div class="text-secondary small">Single</div>
                         </td>
                     </tr>
                     <tr>
                         <th>Patient Address</th>
                         <td>
-                            <div id="region">NATIONAL CAPITAL REGION</div>
-                            <div id="province">NCR, 3<sup>rd</sup> (THIRD) DISTRICT</div>
-                            <div id="cityMunicipality">CITY OF CALOOCAN</div>
-                            <div id="barangayDistrict">Damong Maliit Street</div>
-                            <div id="street">Damong Maliit Street</div>
-                            <div id="specificLocation">Blk. 1 Lot 2, Sunrise Village</div>
-                            <div id="zipCode">1124</div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-map-marker-alt text-danger"></i>
+                                </div>
+                                <div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Region" 
+                                        id="patientRegion"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Province" 
+                                        id="patientProvince"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="City" 
+                                        id="patientCity"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Street & Barangay" 
+                                        id="patientStreetAndBrgy"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Specific Location" 
+                                        id="patientSpecificLocation"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Zip Code" 
+                                        id="patientZipCode"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Latitude & Longitude"
+                                        class="text-secondary small"
+                                        id="patientLongLat"
+                                    ></div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Date Confirmed</th>
-                        <td id="dateConfirmed">
-                            <div>Tuesday, January 1, 2021</div>    
-                            <div class="text-secondary small">2 weeks ago</div>    
+                        <td>
+                            <div id="confirmedDate"></div>    
+                            <div class="text-secondary small"  id="confirmedDateHumanized"></div>    
                         </td>
                     </tr>
                     <tr>
-                        <th>Admmitted</th>
-                        <td id="admitted">Yes</td>
+                        <th>
+                            <span>Admitted?</span>
+                            <i 
+                                class="fas fa-question-circle text-secondary ml-1"
+                                data-toggle="tooltip"
+                                title="This indicate if the patient is admitted on any healthcare facility or establishment"
+                            ></i>
+                        </th>
+                        <td id="admitted"></td>
                     </tr>
                     <tr>
                         <th>Current Health Status</th>
-                        <td id="currentHealthStatus">
-                            <div class="badge alert-success text-success p-2">Recovered</div>
+                        <td id="currentHealthStatus"></td>
+                    </tr>
+                    <tr>
+                        <th>Record Added At</th>
+                        <td>
+                            <div id="addedAt"></div>    
+                            <div id="addedAtHumanized" class="text-secondary small"></div>    
                         </td>
                     </tr>
                     <tr>
-                        <th>Date Added</th>
-                        <td id="dateAdded">
-                            <div>Tuesday, January 3, 2021</div>    
-                            <div class="text-secondary small">2 weeks ago</div>    
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Last Updated</th>
-                        <td id="lastUpdated">
-                            <div>Tuesday, January 3, 2021</div>    
-                            <div class="text-secondary small">2 weeks ago</div>    
+                        <th>Record Updated At</th>
+                        <td>
+                            <div id="updatedAt"></div>    
+                            <div id="updatedAtHumanized" class="text-secondary small"></div>    
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="modal-footer border-0">
-                <button 
-                    type="button"
-                    class="btn btn-muted" 
-                    data-dismiss="modal"
-                >Close</button>
-            </div>
+            <div class="modal-footer bg-white p-3"></div>
         </div>
     </div>
 </div>

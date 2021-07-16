@@ -1,14 +1,12 @@
 <div class="container px-3 py-4">
 
     <!-- Title Header -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <div>
-            <h2 class="m-0">Register new Health Official</h2>
-            <div class="text-secondary">Register a new health official here by filling up the required fields</div>
-        </div>
+    <div class="my-4">
+        <h2 class="m-0">Register new Health Official</h2>
+        <div class="text-secondary">Register a new health official here by filling up the required fields</div>
     </div>
 
-    <form class="d-flex justify-content-center" id="registerHealthOfficial">
+    <form class="d-flex justify-content-center" id="registerHealthOfficialForm">
         <div class="col-md-8 p-0">
 
             <!-- Health Official Information -->
@@ -19,31 +17,46 @@
                         <span>General Information</span>
                     </div>
                 </div>
+
                 <div class="card-body">
+
+                    <!-- First Name Field -->
                     <div class="form-group">
                         <label for="firstName">First Name</label>
                         <input 
                             type="text" 
                             class="form-control"
+                            id="firstName"
+                            name="firstName"
                             placeholder="Enter first name here"
                         >
                     </div>
+                    
+                    <!-- Middle Name Field -->
                     <div class="form-group">
                         <label for="middleName">Middle Name</label>
                         <input 
                             type="text" 
                             class="form-control"
+                            id="middleName"
+                            name="middleName"
                             placeholder="Enter middle name here"
                         >
                     </div>
+
+                    <!-- Last Name Field -->
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
                         <input 
                             type="text" 
                             class="form-control"
+                            id="lastName"
+                            name="lastName"
                             placeholder="Enter last name here"
                         >
                     </div>
+
+                    <!-- Suffix name -->
                     <div class="form-group">
                         <label for="suffixName">Suffix Name</label>
                         <select 
@@ -71,9 +84,11 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="account">Account</label>
+                        <label for="account">Email</label>
                         <input 
                             type="text" 
+                            id="accountDetails"
+                            name="accountDetails"
                             class="form-control"
                             placeholder="Enter health officials account here"
                         >
@@ -81,9 +96,21 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input 
-                            type="text" 
+                            type="password" 
+                            id="password"
+                            name="password"
                             class="form-control"
                             placeholder="Set user password here"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Retype Password</label>
+                        <input 
+                            type="password" 
+                            id="retypePassword"
+                            name="retypePassword"
+                            class="form-control"
+                            placeholder="Retype password to confirm"
                         >
                     </div>
                 </div>

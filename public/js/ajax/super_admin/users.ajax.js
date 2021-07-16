@@ -46,8 +46,7 @@ function getUsersCount() {
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (result) => {
-            c = result.users_count;
-
+            const c = result.users_count;
             $('#citizensCount').html(c.citizens);
             $('#representativesCount').html(c.representatives);
             $('#healthOfficialsCount').html(c.health_officials);
@@ -66,28 +65,28 @@ function getUsersCount() {
 // Load Citizens DataTable
 loadCitizensDT = () => {
     const dt = $('#citizensDT');
-
     if(dt.length) {
         dt.DataTable({
             ajax: {
                 url: `${ SUPER_ADMIN_API_ROUTE }users/citizens`,
-                type: 'GET',
                 headers: AJAX_HEADERS,
-                // success: (result) => {
-                //     console.log(result.data);
-                // }
             }, 
             columns: [
+
+                // Date Registered 
+                { data: 'created_datetime', visible: false },
+
+                // Citizen
                 {
                     data: null,
                     render: (data) => {
 
-                        // Get the middle name and check if not null or empty
-                        var middleName = data.middle_name;
-                        middleName = (middleName == null || middleName == '') ? '' : ` ${ middleName }`;
-                        
                         // Set the full name
-                        const fullName = data.last_name + ', ' + data.first_name + middleName;
+                        const fullName = setFullName('L, F Mi', {
+                            firstName: data.first_name,
+                            middleName: data.middle_name,
+                            lastName: data.last_name
+                        })
 
                         // Return the full name
                         return `
@@ -103,11 +102,13 @@ loadCitizensDT = () => {
                         `;
                     }
                 },
+
+                // Age
                 {
                     data: null,
                     class: 'text-nowrap',
                     render: (data) => {
-                        const age = moment().diff(data.birth_date, 'years', false) + ' years old'
+                        const age = getAge(data.birth_date) + ' years old'
                         const birthDate = moment(data.birth_date).format('MMMM D, YYYY')
                         return `
                             <div>${ age }</div>
@@ -115,6 +116,8 @@ loadCitizensDT = () => {
                         `
                     }
                 },
+
+                // Sex
                 {
                     data: null,
                     class: 'text-nowrap',
@@ -134,7 +137,11 @@ loadCitizensDT = () => {
                         }
                     }
                 },
+
+                // Civil Status
                 { data: 'civil_status' },
+
+                // Address
                 {
                     data: null,
                     render: (data) => {
@@ -161,6 +168,8 @@ loadCitizensDT = () => {
                         `;
                     }
                 },
+
+                // User Actions
                 {
                     data: null,
                     class: 'text-center',
@@ -210,9 +219,10 @@ loadCitizensDT = () => {
                 },
             ],
             columnDefs: [{
-                targets: [5],
+                targets: [6],
                 orderable: false,
-            }]
+            }],
+            order: [[0, 'desc']]
         })
     }
 }
@@ -432,6 +442,66 @@ loadHealthOfficialsDT = () => {
     }
 }
 
+// Validate Register Health Official Form
+$('#registerHealthOfficialForm').validate(validateOptions({
+    rules: {
+        firstName: {
+            required: true
+        },
+        lastName: {
+            required: true
+        },
+        accountDetails: {
+            required: true
+        },
+        password: {
+            required: true
+        },
+        retypePassword: {
+            required: true,
+            equalTo: '#password'
+        }
+    },
+    messages :{
+        firstName: {
+            required: 'First name is required'
+        },
+        lastName: {
+            required: 'Last name is required'
+        },
+        accountDetails: {
+            required: 'Email is required'
+        },
+        password: {
+            required: 'Password is required'
+        },
+        retypePassword: {
+            required: 'Please retype your password to confirm',
+            equalTo: 'It must be matched with your password'
+        }
+    },
+    submitHandler: () => registerHealthOfficialAJAX()
+}));
+
+// Register Health Official AJAX
+registerHealthOfficialAJAX = () => {
+    const form = new FormData($('#registerHealthOfficialForm')[0]);
+    data = {
+        first_name:     form.get('firstName'),
+        middle_name:    form.get('middleName'),
+        last_name:      form.get('lastName'),
+        suffix_name:    form.get('suffixName'),
+        password:       form.get('password'),
+        user_type:      'Health Official',
+        user_accounts: [{
+            details:    form.get('accountDetails'),
+            type:       'Email',
+            verified:   true
+        }]
+    }
+    console.log(data);
+}
+
 
 /**
  * ====================================================================
@@ -524,3 +594,63 @@ loadSuperAdminsDT = () => {
         });
     }
 }
+
+// Validate Register Super Admin Form
+$('#registerSuperAdminForm').validate(validateOptions({
+    rules: {
+        firstName: {
+            required: true
+        },
+        lastName: {
+            required: true
+        },
+        accountDetails: {
+            required: true
+        },
+        password: {
+            required: true
+        },
+        retypePassword: {
+            required: true,
+            equalTo: '#password'
+        }
+    },
+    messages :{
+        firstName: {
+            required: 'First name is required'
+        },
+        lastName: {
+            required: 'Last name is required'
+        },
+        accountDetails: {
+            required: 'Email is required'
+        },
+        password: {
+            required: 'Password is required'
+        },
+        retypePassword: {
+            required: 'Please retype your password to confirm',
+            equalTo: 'It must be matched with your password'
+        }
+    },
+    submitHandler: () => alert('submitted')
+}));
+
+// Register Super Admin AJAX
+registerSuperAdminAJAX = () => {
+    const form = new FormData($('#registerSuperAdminForm')[0]);
+    data = {
+        first_name:     form.get('firstName'),
+        middle_name:    form.get('middleName'),
+        last_name:      form.get('lastName'),
+        suffix_name:    form.get('suffixName'),
+        password:       form.get('password'),
+        user_type:      'Health Official',
+        user_accounts: [{
+            details:    form.get('accountDetails'),
+            type:       'Email',
+            verified:   true
+        }]
+    }
+    console.log(data);
+} 

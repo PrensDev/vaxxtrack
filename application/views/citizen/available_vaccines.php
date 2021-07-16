@@ -5,6 +5,8 @@
         'subtitle' => 'Check the list of available vaccines'
     ]); ?>
     
+    <div id="alertContainer"></div>
+    
     <!-- Vaccine List -->
     <div class="form-row" id="vaccineList">
         

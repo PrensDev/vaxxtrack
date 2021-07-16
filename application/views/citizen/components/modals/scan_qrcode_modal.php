@@ -110,6 +110,13 @@
 
                                     // Show success alert
                                     showAlert('success', 'Success! Your visit to an establishment has been recorded')
+                                
+                                    // Reload Visiting Logs DataTable
+                                    const visitingLogsDT = $('#visitingLogsDT');
+                                    if(visitingLogsDT.length) {
+                                        const dt = visitingLogsDT.DataTable();
+                                        dt.ajax.reload();
+                                    }
                                 } else {
                                     console.log('No result was found');
                                 }

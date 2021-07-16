@@ -129,37 +129,37 @@
                                         <i class="fas fa-map-marker-alt text-danger"></i>
                                     </div>
                                     <div>
-                                        <div 
+                                        <div
                                             data-toggle="tooltip"
                                             data-placement="left"
                                             title="Region"
                                             id="vaccinatedRegion"
                                         ></div>
-                                        <div 
+                                        <div
                                             data-toggle="tooltip"
                                             data-placement="left"
                                             title="Province"
                                             id="vaccinatedProvince"
                                         ></div>
-                                        <div 
+                                        <div
                                             data-toggle="tooltip"
                                             data-placement="left"
                                             title="City"
                                             id="vaccinatedCity"
                                         ></div>
-                                        <div 
+                                        <div
                                             data-toggle="tooltip"
                                             data-placement="left"
                                             title="Street & Barangay"
                                             id="vaccinatedStreetAndBrgy"
                                         ></div>
-                                        <div 
+                                        <div
                                             data-toggle="tooltip"
                                             data-placement="left"
                                             title="Specific Location"
                                             id="vaccinatedSpecificLocation"
                                         ></div>
-                                        <div 
+                                        <div
                                             data-toggle="tooltip"
                                             data-placement="left"
                                             title="Zip Code"
@@ -180,7 +180,7 @@
                                     <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
-                                    <div id="productName"></div>
+                                    <div id="productName">Pfizer-BioNTech</div>
                                     <div class="small text-secondary">
                                         <span 
                                             data-toggle="tooltip" 
@@ -270,74 +270,5 @@
             </div>
             <div class="modal-footer bg-white p-3"></div>
         </div>
-    </div>
-</div>
-
-
-<!-- Delete Vaccination Record Modal -->
-<div class="modal" id="deleteVaccRecordModal" tabindex="-1" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-        <form id="deleteVaccRecordForm" class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title-icon fas fa-trash-alt"></h5>
-                <h5 class="modal-title">Delete Vaccination Record</h5>
-                <button 
-                    class        = "btn btn-sm btn-white-muted" 
-                    type         = "button" 
-                    data-dismiss = "modal" 
-                    aria-label   = "Close"
-                >
-                    <span aria-hidden="true">
-                        <i class="fas fa-times"></i>
-                    </span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex">
-                    <div class="display-4 mr-3">
-                        <img 
-                            src="<?= base_url() ?>public/images/brand/warning.svg" 
-                            alt="Warning" 
-                            style="width: 8rem"
-                            draggable="false"
-                        >
-                    </div>
-                    <div>
-                        
-                        <!-- Vaccination Record ID -->
-                        <div class="form-group d-none">
-                            <input 
-                                type="hidden" 
-                                class="form-control" 
-                                id="vaccRecordIDForDelete" 
-                                name="vaccRecordID"
-                            >
-                        </div>
-
-                        <p>Are you sure you want to delete this record?</p>
-
-                        <!-- Confirmation -->
-                        <div class="form-group">
-                            <label class="mb-0" for="confirmDeleteForVaccRecord">Type "CONFIRM" to continue</label>
-                            <div class="small text-danger mb-3">Note: You cannot retrieved this record again forever if you are going to continue to delete this</div>
-                            <input type="hidden" id="confirmRef"value="CONFIRM">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                id="confirmDeleteForVaccRecord"
-                                name="confirm"
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer bg-muted border-0 py-1">
-                <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger">
-                    <span>Delete</span>
-                    <i class="fas fa-trash ml-1"></i>
-                </button>
-            </div>
-        </form>
     </div>
 </div>
