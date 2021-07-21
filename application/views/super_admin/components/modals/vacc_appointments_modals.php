@@ -20,7 +20,9 @@
                 <table class="table">
                     <tr>
                         <th>Citizen</th>
-                        <td id="Patientname">Juan Dela Cruz</td>
+                        <td>
+                            <div id="Patientname">Juan Dela Cruz</div>
+                        </td>
                     </tr>
                     <tr>
                         <th>Preferred Vaccine</th>
@@ -58,11 +60,17 @@
                     </tr>
                     <tr>
                         <th>Approved By</th>
-                        <td><span class="font-weight-norma text-muted font-italic" id="Approvedby">Not yet approved</span></td>
+                        <td>
+                            <div id="Approvedby">Not yet approved</div>
+                        </td>
                     </tr>
                     <tr>
                         <th>Date & Time Approved</th>
-                        <td><span class="font-weight-norma text-muted font-italic" id="ApprovedDandT">No data yet</span></td>
+                        <td>
+                            <div id="ApprovedDandT">No data yet</div>
+                            <div id="vaccTimeUpdatedappointment"></div>
+                            <div class="small text-secondary" id="vaccappointHumanized"></div>
+                        </td>
                     </tr>
                 </table>
             </div>

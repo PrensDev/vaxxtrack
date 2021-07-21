@@ -995,11 +995,11 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 const fullName = () => {
                     if(data.appointed_by.middle_name) {
                         return `
-                            <td id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.middle_name } ${ data.appointed_by.last_name }</td>
+                            <div id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.middle_name } ${ data.appointed_by.last_name }</div>
                         `
                     } else {
                         return `
-                            <td id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.last_name }</td>
+                            <div id=Patientname>${ data.appointed_by.first_name } ${ data.appointed_by.last_name }</div>
                         `
                     }
                 }
@@ -1053,16 +1053,16 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 const approvedBy = () => {
                     if (data.approved_by == null || data.approved_by == '') {
                         return `
-                            <td><span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span></td>
+                            <div class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</div>
                         `
                     } else {
                         if (data.approved_person.middle_name) {
                             return `
-                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span></td>
+                            <div id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</div>
                             `;
                         } else {
                             return `
-                            <td><span class="font-weight-norma text font-italic" id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</span></td>
+                            <div id=Approvedby>${ data.approved_person.first_name } ${ data.approved_person.last_name }</div>
                             `;
                         }
                     }
@@ -1073,15 +1073,17 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 const approvedDandT = () => {
                     if (data.approved_datetime == null || data.approved_datetime == '') {
                         return `
-                            <td><span class="font-weight-norma text-muted font-italic" id=ApprovedDandT>No data yet</span></td>
+                            <div class="font-weight-norma text-muted font-italic" id=ApprovedDandT>No data yet</div>
                         `
                     } else {
                         return `
-                            <td><span class="font-weight-norma text font-italic" id=ApprovedDandT>${ data.approved_datetime }</span></td>
+                            <div id=ApprovedDandT>${ moment(data.updated_datetime).format('dddd, MMMM d, YYYY') }</div>
+                            <div id="vaccTimeUpdatedappointment">${ moment(data.updated_datetime).format('hh:mm:ss A') }</div>
+                            <div class="small text-secondary" id="vaccappointHumanized">${ moment(data.updated_datetime).fromNow() }</div>
+                            
                         `
                     }
                 }
-
                 $('#ApprovedDandT').html(approvedDandT());
                 
 

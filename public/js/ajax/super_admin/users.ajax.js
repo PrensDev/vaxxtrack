@@ -498,8 +498,28 @@ registerHealthOfficialAJAX = () => {
             type:       'Email',
             verified:   true
         }]
-    }
-    console.log(data);
+    } 
+    // console.log(data);
+    
+    $.ajax({
+        url: `${ SUPER_ADMIN_API_ROUTE }add-account-health-officials`,
+        type: 'POST',
+        headers: AJAX_HEADERS,
+        data: data,
+        dataType: 'json',
+        success: (result) => {
+            if(result) {
+
+                alert('success');
+
+            } else {
+                console.log('No result has found');
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error in createing an account');
+    })
 }
 
 
@@ -633,7 +653,7 @@ $('#registerSuperAdminForm').validate(validateOptions({
             equalTo: 'It must be matched with your password'
         }
     },
-    submitHandler: () => alert('submitted')
+    submitHandler: () => registerSuperAdminAJAX()
 }));
 
 // Register Super Admin AJAX
@@ -645,7 +665,7 @@ registerSuperAdminAJAX = () => {
         last_name:      form.get('lastName'),
         suffix_name:    form.get('suffixName'),
         password:       form.get('password'),
-        user_type:      'Health Official',
+        user_type:      'Super Admin',
         user_accounts: [{
             details:    form.get('accountDetails'),
             type:       'Email',
@@ -653,4 +673,24 @@ registerSuperAdminAJAX = () => {
         }]
     }
     console.log(data);
+
+    $.ajax({
+        url: `${ SUPER_ADMIN_API_ROUTE }add-account-super-admin`,
+        type: 'POST',
+        headers: AJAX_HEADERS,
+        data: data,
+        dataType: 'json',
+        success: (result) => {
+            if(result) {
+
+                alert('success');
+
+            } else {
+                console.log('No result has found');
+            }
+        }
+    })
+    .fail(() => {
+        console.log('There was an error in createing an account');
+    })
 } 
