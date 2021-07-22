@@ -57,7 +57,7 @@
                     <div>
                         <h4>Manage your accounts!</h4>
                         <p>
-                            Manage your information and privacy to make this web application work for you.
+                            Manage your accounts or add another account to make this web application work for you.
                         </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>admin/account-settings" class="btn btn-danger">

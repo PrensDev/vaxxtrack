@@ -2,13 +2,15 @@
 <div class="container py-5">
     <h1>About Us</h1>
 
+        <p>
+        VaxxTrack was built to Inform, Educate, and Give the citizens quality service when it comes to COVID contact tracing and vaccine management. 
+        Our team was headed by Jetsun Prince Torres and composed by Joan Diamola, Danica Siaotong, Joshua Pugoy, Albert Angeles, Rupert Palicpic, Jomari Dano, and Marc Tagala.
+        </p>
+
         <p>This COVID 19 Contact Tracing App and Vaccine Management System is designed to:</p>
         <ul>
-            <li>Mission.</li>
-            <li>Mission.</li>
-            <li>Mission.</li>
-            <li>Mission.</li>
-            <li>Mission.</li>
+            <li>Allow citizens to monitor their health status, keep track of every establishment they enter, be updated regarding coronavirus news and updates, and book a vaccination appointment.</li>
+            <li>Let establishments automate their visiting logbooks to monitor their employees’ and customers’ safety.</li>
         </ul>
 
         <p>
@@ -38,15 +40,7 @@
         and successful contact tracing of confirmed patients, as well as preventing large-scale community infections.
         </p>
 
-        <p>This COVID 19 Contact Tracing App and Vaccine Management System is developed by:</p>
-        <ul>
-            <li>Angeles, John Albert</li>
-            <li>Dano, Jomari</li>
-            <li>Diamola, Joan</li>
-            <li>Palicpic, John Rupert</li>
-            <li>Pugoy, Joshua Philip</li>
-            <li>Siaotong, Danica</li>
-            <li>Siaotong, Danica</li>
-            <li>Torres, Jetsun Prince</li>
-        </ul>
+        <p>
+        We believe that our web app can help our country to be safe from the virus. Join us! Register Now!
+        </p>
 </div>

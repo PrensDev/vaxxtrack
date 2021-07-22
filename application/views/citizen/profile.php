@@ -79,7 +79,8 @@
                             <h1>Good Day, <span id="userFirstNameForGreet"></span>!</h1>
                             <h5>Everyone's health is our concern</h5>
                             <p class="mt-2">
-                                Keep posted on any updates and developments regarding the coronavirus disease (COVID 19). 
+                                Keep posted on any updates and developments regarding the coronavirus disease (COVID 19).
+                                Click here to see latest news and updates from DOH and News Updates. 
                             </p>
                             
                             <a 
@@ -110,7 +111,7 @@
                         <div class="col-12 col-md-8 order-1 order-md-0">
                             <h3>Monitor your health status</h3>
                             <p>
-                                Assess your health and check your daily health status.
+                                Update your health status regularly. Assess and check your daily health status.
                             </p>
                             <div class="text-right text-md-left">
                                 <a href="<?= base_url() ?>c/health-status" class="btn btn-primary">Check now!</a>
@@ -143,7 +144,7 @@
                         <div class="col-12 col-md-8">
                             <h3>Trace the Establishments you visit</h3>
                             <p>
-                                Be mindful of your surroundings. Keep tabs on every establishment you visited for the past few days.
+                                Be mindful of your surroundings, click to see where you have been. Keep tabs on every establishment you visited for the past few days.
                             </p>
                             <div class="text-right text-md-left">
                                 <a href="<?= base_url() ?>c/visiting-logbook" class="btn btn-primary">Check my visiting logbook</a>
@@ -173,7 +174,7 @@
                     <div>
                         <h4>Manage your accounts</h4>
                         <p>
-                            Manage your information and privacy to make this web application work for you.
+                            Manage your accounts or add another account to make this web application work for you.
                         </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>r/account-settings" class="btn btn-danger">
