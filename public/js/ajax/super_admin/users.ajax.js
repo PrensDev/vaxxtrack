@@ -27,7 +27,7 @@ $(() => {
 
 liveReloadDataTables([
     'citizensDT',
-    'representativesDT',
+    // 'representativesDT',
     'healthOfficialsDT',
     'superAdminsDT'
 ]);
@@ -318,20 +318,99 @@ loadRepresentativesDT = () => {
 
     if(dt.length) {
         dt.DataTable({
-            // ajax: {
-            //     url: `${ SUPER_ADMIN_API_ROUTE }users/representatives`,
-            //     type: 'GET',
-            //     headers: AJAX_HEADERS,
-            //     success: result => {
-            //         if(result) {
-            //             console.log(result.data)
-            //         }
-            //     }
-            // },
+            ajax: {
+                url: `${ SUPER_ADMIN_API_ROUTE }users/representatives`,
+                headers: AJAX_HEADERS,
+            },
+            columns: [
+                
+                // Created Datetime (hidden)
+                { data: 'created_datetime', visible: false },
+
+                // Establishment Representative
+                {
+                    data: null,
+                    render: data => {
+                        const fullName = setFullName('L, F Mi', {
+                            firstName:  data.first_name,
+                            middleName: data.middle_name,
+                            lastName:   data.last_name
+                        });
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-user-circle text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ fullName }</div>
+                                    <div class="small text-secondary">${ data.user_type }</div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
+
+                // Number of Establishments
+                {
+                    data: null,
+                    render: data => {
+                        const estNum = data.establishments_with_roles.length;
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-building text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div>${ estNum } establishment${ estNum > 1 ? 's' : '' }</div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
+
+                // Date Registered
+                {
+                    data: null,
+                    render: data => {
+                        const createdDatetime = data.created_datetime;
+                        return `
+                            <div>${ moment(createdDatetime).format('MMMM D, YYYY') }</div>
+                            <div>${ moment(createdDatetime).format('hh:mm A') }</div>
+                            <div class="small text-secondary">${ humanizeDate(createdDatetime) }</div>
+                        `
+                    }
+                },
+
+                // User Actions
+                { 
+                    data: null, 
+                    class: 'text-center',
+                    render: data => {
+                        return `
+                            <div class="dropdown">
+                                <div class="d-inline-block" data-toggle="dropdown">
+                                    <div role="button" class="btn btn-sm btn-white-muted">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </div>
+                                </div>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-item" role="button">
+                                        <div class="icon-container">
+                                            <i class="fas fa-list"></i>
+                                        </div>
+                                        <span>View Details</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                },
+            ],
             columnDefs: [{
-                targets: [5],
+                targets: [4],
                 orderable: false,
-            }]
+            }],
+            order: [[0, 'desc']]
         });
     }
 }
@@ -353,11 +432,6 @@ loadHealthOfficialsDT = () => {
                 url: `${ SUPER_ADMIN_API_ROUTE }users/health-officials`,
                 type: 'GET',
                 headers: AJAX_HEADERS,
-                // success: (result) => {
-                //     if(result){
-                //         console.log(result.data);
-                //     }
-                // }
             },
             columns: [
                 {
@@ -442,6 +516,13 @@ loadHealthOfficialsDT = () => {
     }
 }
 
+
+/**
+ * ====================================================================
+ * * REGISTER HEALTH OFFICIAL
+ * ====================================================================
+ */
+
 // Validate Register Health Official Form
 $('#registerHealthOfficialForm').validate(validateOptions({
     rules: {
@@ -483,6 +564,7 @@ $('#registerHealthOfficialForm').validate(validateOptions({
     submitHandler: () => registerHealthOfficialAJAX()
 }));
 
+
 // Register Health Official AJAX
 registerHealthOfficialAJAX = () => {
     const form = new FormData($('#registerHealthOfficialForm')[0]);
@@ -499,7 +581,6 @@ registerHealthOfficialAJAX = () => {
             verified:   true
         }]
     } 
-    // console.log(data);
     
     $.ajax({
         url: `${ SUPER_ADMIN_API_ROUTE }add-account-health-officials`,
@@ -509,9 +590,15 @@ registerHealthOfficialAJAX = () => {
         dataType: 'json',
         success: (result) => {
             if(result) {
-
-                alert('success');
-
+                $.ajax({
+                    url: `${ BASE_URL_MAIN }alert`,
+                    type: 'POST',
+                    data: {
+                        theme: 'success',
+                        message: 'Success! A new health official has been added'
+                    },
+                    success: () => location.replace(`${ BASE_URL_MAIN }admin/users/health-officials`)
+                });
             } else {
                 console.log('No result has found');
             }
@@ -537,24 +624,22 @@ loadSuperAdminsDT = () => {
         dt.DataTable({
             ajax: {
                 url: `${ SUPER_ADMIN_API_ROUTE }users/super-admins`,
-                type: 'GET',
                 headers: AJAX_HEADERS,
-                // success: (result) => {
-                //     if(result) {
-                //         console.log(result.data);
-                //     }
-                // }
             },
             columns: [
+
+                // Added At (hidden)
+                { data: 'created_datetime', visible: false },
+
+                // Name
                 {
                     data: null,
                     render: data => {
-                        var middleName = data.middle_name;
-
-                        middleName = (middleName == null || middleName == '') ? '' : ' ' + middleName;
-
-                        const fullName =
-                            data.last_name + ', ' + data.first_name + middleName;
+                        const fullName = setFullName('L, F Mi', {
+                            firstName:  data.first_name,
+                            middleName: data.middle_name,
+                            lastName:   data.last_name
+                        });
 
                         return `
                             <div class="d-flex align-items-baseline">
@@ -569,18 +654,37 @@ loadSuperAdminsDT = () => {
                         `;
                     }
                 }, 
+
+                // Added By
                 {
                     data: null,
                     render: data => {
-                        const sa_added_by = data.sa_added_by;
+                        const addedBy = data.sa_added_by;
                         
-                        if(sa_added_by == null) {
+                        if(addedBy == null) {
                             return `<div class="text-secondary font-italic font-weight-normal">No data</div>`
                         } else {
-                            return 'Super Admin'
+                            const fullName = setFullName('L, F Mi', {
+                                firstName: addedBy.first_name,
+                                middleName: addedBy.middle_name,
+                                lastName: addedBy.last_name,
+                            });
+                            return `
+                                <div class="d-flex align-items-baseline">
+                                    <div class="icon-container">
+                                        <i class="fas fa-user-tie text-secondary"></i>
+                                    </div>
+                                    <div>
+                                        <div>${ fullName }</div>
+                                        <div class="small text-secondary">${ addedBy.user_type }</div>
+                                    </div?>
+                                </div>
+                            `
                         }
                     }
                 }, 
+
+                // Added At
                 {
                     data: null,
                     render: data => {
@@ -590,6 +694,8 @@ loadSuperAdminsDT = () => {
                         `
                     }
                 },
+
+                // Updated At
                 {
                     data: null,
                     render: data => {
@@ -599,21 +705,47 @@ loadSuperAdminsDT = () => {
                         `
                     }
                 },
+
+                // User Actions
                 {
                     data: null,
                     class: 'text-center',
                     render: data => {
-                        return data.first_name
+                        return `
+                            <div class="dropdown">
+                                <div class="d-inline" data-toggle="dropdown">
+                                    <div role="button" class="btn btn-sm btn-white-muted">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </div>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item" role="button">
+                                        <div class="icon-container">
+                                            <i class="fas fa-edit"></i>
+                                        </div>
+                                        <span>Edit information</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `
                     }
                 }
             ],
             columnDefs: [{
-                targets: [4],
+                targets: [5],
                 orderable: false
-            }]
+            }],
+            order: [[0, 'desc']]
         });
     }
 }
+
+
+/**
+ * ====================================================================
+ * * REGISTER SUPER ADMIN
+ * ====================================================================
+ */
 
 // Validate Register Super Admin Form
 $('#registerSuperAdminForm').validate(validateOptions({
@@ -682,9 +814,15 @@ registerSuperAdminAJAX = () => {
         dataType: 'json',
         success: (result) => {
             if(result) {
-
-                alert('success');
-
+                $.ajax({
+                    url: `${ BASE_URL_MAIN }alert`,
+                    type: 'POST',
+                    data: {
+                        theme: 'success',
+                        message: 'Success! A new super admin has been added'
+                    },
+                    success: () => location.replace(`${ BASE_URL_MAIN }admin/users/super-admins`)
+                });
             } else {
                 console.log('No result has found');
             }

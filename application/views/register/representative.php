@@ -255,12 +255,12 @@
         </div>
 
         <!-- Longitude, latitude and Postal Code -->
-        <div class="form-row d-none">
+        <div class="form-row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="latitude">Latitude</label>
                     <input 
-                        type        = "hidden" 
+                        type        = "text disabled" 
                         class       = "form-control disabled" 
                         id          = "latitude"
                         name        = "latitude"
@@ -272,7 +272,7 @@
                 <div class="form-group">
                     <label for="longitude">Longitude</label>
                     <input 
-                        type        = "hidden" 
+                        type        = "text disabled" 
                         class       = "form-control disabled" 
                         id          = "longitude"
                         name        = "longitude"
@@ -284,7 +284,7 @@
                 <div class="form-group">
                     <label for="postalCode">Postal Code</label>
                     <input 
-                        type        = "hidden" 
+                        type        = "text disabled" 
                         class       = "form-control disabled" 
                         id          = "postalCode"
                         name        = "postalCode"
@@ -340,14 +340,7 @@
 </form>
 
 <div class="mt-5 text-center small">
-    <a 
-        href  = "<?= base_url() ?>login" 
-        class = "text-secondary"
-    >I already have an account</a>
+    <a href  = "<?= base_url() ?>login" class = "text-secondary">I already have an account</a>
 </div>
 
 <?php $this->load->view('register/components/register_footer') ?>
-
-<script>
-
-</script>

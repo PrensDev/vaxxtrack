@@ -28,13 +28,11 @@ $(() => {
 // Get all visiting logs AJAX
 getAllVisitingLogsAJAX = () => {
     const dt = $('#visitingLogsDT');
-
     if(dt.length) {
         dt.DataTable({
             ajax: {
                 url: `${ CITIZEN_API_ROUTE }visiting-logs`,
                 headers: AJAX_HEADERS,
-                // success: result => console.log(result.data)
             },
             columns: [
 
@@ -147,7 +145,10 @@ getAllVisitingLogsAJAX = () => {
                 targets: [7],
                 orderable: false
             }],
-            order: [[0, 'desc']]
+            order: [[0, 'desc']],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No visiting logs yet</div>`
+            }
         });
     }
 }

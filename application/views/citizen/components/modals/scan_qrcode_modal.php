@@ -83,7 +83,7 @@
                 headers: AJAX_HEADERS,
                 success: (result) => {
                     if(result) {
-                        const resultData = result.data[0];
+                        const resultData = result.data;
 
                         const data = {
                             health_status_log_ID: resultData.health_status_log_ID,

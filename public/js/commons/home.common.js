@@ -243,20 +243,22 @@ if($('#registerCitizenForm').length) {
                     }
                 }
             });
-
+        } 
+        
         // For address fieldset
-        } else if($('#addressFieldset').is(':visible')) {
+        else if($('#addressFieldset').is(':visible')) {
             validateForm();
 
             const cityCode = $('#citiesDropdown').val();
             const barangay = $('#barangay').val();
             const street = $('#street').val();
-            
-            if(
+
+            hasLocation = 
                 (cityCode != null && cityCode != '') && 
                 (barangay != null && barangay != '') && 
-                (street != null && street != '')
-            ) {
+                (street   != null && street   != '');
+            
+            if(hasLocation) {
                 $.ajax({
                     url: `${ PSGC_API_ROUTE }city/${ cityCode }`,
                     type: 'GET',
@@ -300,7 +302,10 @@ if($('#registerCitizenForm').length) {
                 });
             }
 
-        } else {
+        } 
+        
+        // Validate the rest of fieldset
+        else {
             validateForm();
         }
     }
@@ -356,9 +361,10 @@ if($('#registerRepresentativeForm').length) {
     showFieldset(fieldsets, showed)
     setStepIndicator(showed, fieldsets.length);
 
+    // Validate the form
     validateForm = () => {
 
-        // Validate field from form
+        // Validate fields from form
         registerRepresentativeForm.validate(validateOptions({
             rules: {
                 email: {
@@ -413,7 +419,7 @@ if($('#registerRepresentativeForm').length) {
             messages: {
                 email: {
                     required: 'Your email is required',
-                    required: 'This is an invalid email address',
+                    email: 'This is an invalid email address',
                 },
                 verificationCode: {
                     required: 'Verification Code is required'
@@ -476,33 +482,89 @@ if($('#registerRepresentativeForm').length) {
 
         // If email fieldset is visible
         if($('#userAccountFieldset').is(':visible')) {
-            
-            const email = $('#email').val();
 
-            if(email == '' || email == null) {
-                validateForm();
-            } else { 
-                // Check if account is already used
+            // Check if account is already used
+            $.ajax({
+                url: `${ BASE_URL_API }check-account`,
+                type: 'POST',
+                data: { details: `${ $('#email').val() }`},
+                dataType: 'json',
+                success: result => {
+                    if(result) {
+                        const data = result.data;
+                        
+                        if(data.length) {
+                            showAlert('danger', 'This account is already used')
+                        } else {
+                            $('#alert').alert('close');
+                            validateForm();
+                        }
+                    }
+                }
+            });
+        } 
+
+        // For address fieldset
+        else if($('#addressFieldset').is(':visible')) {
+            validateForm();
+
+            const cityCode = $('#citiesDropdown').val();
+            const barangay = $('#barangay').val();
+            const street = $('#street').val();
+
+            hasLocation = 
+                (cityCode != null && cityCode != '') && 
+                (barangay != null && barangay != '') && 
+                (street   != null && street   != '');
+            
+            if(hasLocation) {
                 $.ajax({
-                    url: `${ BASE_URL_API }check-account`,
-                    type: 'POST',
-                    data: { details: `${ email }`},
-                    dataType: 'json',
+                    url: `${ PSGC_API_ROUTE }city/${ cityCode }`,
+                    type: 'GET',
                     success: result => {
                         if(result) {
-                            const data = result.data;
-                            
-                            if(data.length) {
-                                showAlert('danger', 'This account is already used')
-                            } else {
-                                $('#alert').alert('close');
-                                validateForm();
-                            }
+                            const city = result.name;
+    
+                            var rawQuery = street + ' ' + barangay + ' ' + city;
+                            var queryArr = rawQuery.split(' ');
+                            var HERE_GEOCODE_SEARCH_QUERY = '';
+                            queryArr.forEach((q, i) => {
+                                HERE_GEOCODE_SEARCH_QUERY += q;
+                                if(i != queryArr.length-1) HERE_GEOCODE_SEARCH_QUERY += '+';
+                            });
+    
+                            $.ajax({
+                                url: `https://geocode.search.hereapi.com/v1/geocode?q=${ HERE_GEOCODE_SEARCH_QUERY }&apiKey=${ HERE_GEOCODE_API_KEY }`,
+                                type: 'GET',
+                                success: (result) => {
+                                    if(result) {
+                        
+                                        // Get the location
+                                        const location = result.items[0];
+                        
+                                        // Get the position from location
+                                        const position = location.position;
+                                        const address = location.address;
+                                        
+                                        // Set the values
+                                        $('#latitude').val(position.lat);
+                                        $('#longitude').val(position.lng);
+                                        $('#postalCode').val(address.postalCode);
+                                    } else {
+                                        console.log('No result was found');
+                                    }
+                                }
+                            })
+                            .fail(() => console.log('There was an error in fetching location'));
                         }
                     }
                 });
             }
-        } else {
+
+        }
+        
+        // Validate the rest of the fieldset
+        else {
             validateForm();
         }
     }
@@ -516,13 +578,13 @@ if($('#registerRepresentativeForm').length) {
         if(showed != fieldsets.length) {
             if (keyCode === 13) { 
                 e.preventDefault();
-                validateForm()
+                nextEvent()
             }
         } else {
             if (keyCode === 13) { 
                 if(!registerRepresentativeForm.valid()) {
                     e.preventDefault();
-                    validateForm()
+                    nextEvent()
                 }
             }
         }

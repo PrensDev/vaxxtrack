@@ -64,3 +64,14 @@ $('#resetVaccInfoFields').on('click', () => {
         'remarks'
     ]);
 });
+
+// Reset Vaccination Information Fields
+$('#resetCaseInfoFields').on('click', () => {
+    resetFields([
+        'vaccineUsed',
+        'vaccinationDate',
+        'vaccinatedBy',
+        'vaccinatedIn',
+        'remarks'
+    ]);
+});

@@ -197,11 +197,45 @@ addAccountAJAX = () => {
  * ====================================================================
  */
 
+const removeAccountForm = $('#removeAccountForm');
+const removeAccountModal = $('#removeAccountModal');
+
 // Remove Account
 removeAccount = (userAccountID) => {
-    alert(userAccountID);
+    $('#userAccountID').val(userAccountID);
+    removeAccountModal.modal('show');
 }
 
+// Validate Remove Account Form
+removeAccountForm.validate({ submitHandler: () => deleteAccountAJAX() });
+
+// Delete Account AJAX
+deleteAccountAJAX = () => {
+    const form = new FormData(removeAccountForm[0]);
+    const userAccountID = form.get('userAccountID');
+
+    $.ajax({
+        url: `${ SUPER_ADMIN_API_ROUTE }accounts/${ userAccountID }`,
+        type: 'DELETE',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                // Hide remove account modal
+                removeAccountModal.modal('hide');
+
+                // Reload account list
+                getAllAccountsAJAX();
+
+                // Show alert
+                showAlert('info', 'An account has been removed');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in deleting an account'));
+}
+
+// Reset Remove Account Form when its modal is hidden
+removeAccountModal.on('hide.bs.modal', () => removeAccountForm.trigger('reset'));
 
 /**
  * ====================================================================

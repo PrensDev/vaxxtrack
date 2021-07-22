@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand text-primary d-flex align-items-center" href="<?= base_url() ?>">
             <img src="<?= base_url() ?>public/images/brand/icon.png" alt="" style="height: 25px;">
-            <span class="ml-2 font-weight-semibold">C19CTAVMS</span>
+            <span class="ml-2 font-weight-semibold">VaxxTrack</span>
         </a>
         
         <button class="d-inline-block d-sm-none btn btn-white-muted" type="button" data-toggle="collapse" data-target="#navbar">

@@ -2,6 +2,8 @@
 <div class="container px-3 py-4">
     <?php $this->load->view('representative/components/establishment_details'); ?>
 
+    <div id="alertContainer"></div>
+
     <!-- Visiting Logs -->
     <div class="card">
         <div class="card-header">
@@ -13,31 +15,16 @@
         <div class="card-body">
 
             <!-- User Controls -->
-            <div class="d-flex justify-content-between mb-4">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                        <i class="bi-caret-left-fill"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Today</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                        <i class="bi-caret-right-fill"></i>
-                    </button>
-                </div>
-                <div>
-                    <button 
-                        class       = "btn btn-blue btn-sm"
-                        id          = "scanQrCodeBtn"
-                        data-toggle = "modal"
-                        data-target = "#QRCodeScannerModal"
-                    >
-                        <i class="fas fa-camera mr-1"></i>
-                        <span>Scan</span>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-primary">
-                        <i class="fas fa-download mr-1"></i>
-                        <span>Export</span>
-                    </button>
-                </div>
+            <div class="mb-4 text-center">
+                <button 
+                    class       = "btn btn-blue btn-sm"
+                    id          = "scanQrCodeBtn"
+                    data-toggle = "modal"
+                    data-target = "#QRCodeScannerModal"
+                >
+                    <i class="fas fa-camera mr-1"></i>
+                    <span>Scan</span>
+                </button>
             </div>
 
             <!-- Visiting Logs Table -->

@@ -27,7 +27,8 @@
                 <table class="table" id="representativesDT" width="100%" cellspacing="0">
                     <thead class="thead text-nowrap">
                         <tr>
-                            <th>Name</th>
+                            <th>Date Registered (hidden)</th>
+                            <th>Establishment Representative</th>
                             <th>Number of Registered Establishments</th>
                             <th>Date Registered</th>
                             <th></th>

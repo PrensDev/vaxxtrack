@@ -5,6 +5,16 @@
         'subtitle' => 'Manage the list of COVID-19 cases here'
     ]); ?>
 
+    <!-- Sessioned Alert -->
+    <?php if($this->session->has_userdata('alert')): ?>
+        <div class="alert alert-<?= $this->session->alertTheme ?> alert-dismissible fade show mb-4" role="alert" id="alert">
+            <div><?= $this->session->alertMessage ?></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+
     <!-- COVID-19 Cases Summary -->
     <?php $this->load->view('all/components/case_summary_detailed'); ?>
     

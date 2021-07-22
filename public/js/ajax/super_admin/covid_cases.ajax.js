@@ -33,19 +33,12 @@ loadCOVID19CasesDT = () => {
         dt.DataTable({
             ajax: {
                 url: `${ SUPER_ADMIN_API_ROUTE }covid19-cases`,
-                type: 'GET',
                 headers: AJAX_HEADERS,
-                error: err => {
-                    console.log(err);
-                }
             },
             columns: [
 
                 // Case Code
-                { 
-                    data: 'case_code',
-                    class: 'text-nowrap'
-                },
+                { data: 'case_code', class: 'text-nowrap' },
 
                 // Date Confirmed
                 { 
@@ -60,10 +53,9 @@ loadCOVID19CasesDT = () => {
                     data: null,
                     class: 'text-center',
                     render: data => {
-                        if(data.admitted)
-                            return `<i class="fas fa-check text-success"></i>`
-                        else
-                            return `<i class="fas fa-times text-danger"></i>`
+                        return data.admitted 
+                            ? `<i class="fas fa-check text-success"></i>`
+                            : `<i class="fas fa-times text-danger"></i>`
                     }
                 },
 
@@ -88,11 +80,11 @@ loadCOVID19CasesDT = () => {
                         const chs = data.current_health_status;
 
                         if(chs == 'Asymptomatic') return renderBadge('secondary', chs);
-                        if(chs == 'Mild')         return renderBadge('info', chs);
-                        if(chs == 'Severe')       return renderBadge('warning', chs);
-                        if(chs == 'Critical')     return renderBadge('danger', chs);
-                        if(chs == 'Recovered')    return renderBadge('success', chs);
-                        if(chs == 'Died')         return renderBadge('dark', chs);
+                        if(chs == 'Mild')         return renderBadge('info',      chs);
+                        if(chs == 'Severe')       return renderBadge('warning',   chs);
+                        if(chs == 'Critical')     return renderBadge('danger',    chs);
+                        if(chs == 'Recovered')    return renderBadge('success',   chs);
+                        if(chs == 'Died')         return renderBadge('dark',      chs);
                     }
                 },
 
@@ -168,7 +160,10 @@ loadCOVID19CasesDT = () => {
             columnDefs: [{
                 targets: [5],
                 orderable: false,
-            }]
+            }],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No COVID-19 cases yet</div>`
+            }
         });
     }
 }

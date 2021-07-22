@@ -256,6 +256,8 @@
 
     <!-- Citizen's Information Fieldset -->
     <fieldset id="infoFieldset">
+
+        <!-- Sex -->
         <div class="form-group">
             <label for="sex">Sex</label>
             <select 
@@ -273,6 +275,8 @@
                 </option>
             </select>
         </div>
+
+        <!-- Date of Birth -->
         <div class="form-group">
             <label for="birthDate">Date of Birth</label>
             <input 
@@ -282,6 +286,8 @@
                 name        = "birthDate"
             >
         </div>
+
+        <!-- Civil Status -->
         <div class="form-group">
             <label for="civilStatus">Civil Status</label>
             <select 

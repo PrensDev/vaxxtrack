@@ -66,11 +66,14 @@
                             id="suffixName" 
                             class="selectpicker form-control"
                             data-style="form-control border"
+                            title="Please select a suffix name"
                         >
                             <option value="Jr.">Jr. (Junior)</option>
                             <option value="Sr.">Sr. (Sunior)</option>
                             <option value="III">III (The Third)</option>
                             <option value="IV">III (The Fourth)</option>
+                            <option value="V">III (The Fifth)</option>
+                            <option value="VI">III (The Sixth)</option>
                         </select>
                     </div>
                 </div>

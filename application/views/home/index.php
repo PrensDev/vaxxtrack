@@ -13,7 +13,7 @@
                         style     = "height: 55px"
                         draggable = "false"
                     >
-                    <span>C19CTAVMS</span>
+                    <span>VaxxTrack</span>
                 </div>
                 <h3>Stay Protected in COVID-19!</h3>
                 <p>

@@ -3,5 +3,5 @@
         <div class="my-3">
             <div class="text-center mb-5">
                 <div class="display-4 text-dark">Log in</div>
-                <h6 class="text-secondary mt-3">C19CTAVMS - USER PORTAL</h6>
+                <h6 class="text-secondary mt-3">VaxxTrack - User Portal</h6>
             </div>

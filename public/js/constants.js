@@ -187,9 +187,7 @@ const makeBtnLoading = (id = '') => {
     const btn = $('#' + id);
 
     btn.attr("disabled", true);
-    btn.html(`
-        <span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>
-    `);
+    btn.html(`<span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>`);
 }
 
 // Make Button Set its default value
@@ -245,6 +243,12 @@ const liveRenderData = (handler) => {
     setInterval(() => handler(), LIVE_UPDATE_DATA_TIMEOUT);
 }
 
+// Reload DataTable
+const reloadDataTable = (DataTable) => {
+    var dt = $(DataTable).DataTable();
+    dt.ajax.reload();
+}
+
 // Live Reload DataTables Interval
 var liveReloadDataTablesInterval = (dtEl) => {
     setInterval(() => {
@@ -257,10 +261,7 @@ var liveReloadDataTablesInterval = (dtEl) => {
 
 // Live Reload Datatable
 const liveReloadDataTables = (DataTables = []) => {
-    DataTables.forEach(DataTable => {
-        const dtEl = $('#'+DataTable);
-        liveReloadDataTablesInterval(dtEl);
-    })
+    DataTables.forEach(DataTable => liveReloadDataTablesInterval($('#'+DataTable)))
 }
 
 // Pause reload DataTables
@@ -275,9 +276,9 @@ const setFullName = (format, userName = {
     lastName: ''
 }) => {
     
-    var firstName   = userName.firstName;
-    var middleName  = userName.middleName;
-    var lastName    = userName.lastName;
+    var firstName  = $.trim(userName.firstName);
+    var middleName = $.trim(userName.middleName);
+    var lastName   = $.trim(userName.lastName);
     
     // {last name}, {first name} {middle name}
     if(format === 'L, F M') {
@@ -286,36 +287,28 @@ const setFullName = (format, userName = {
     } 
     
     // {first name} {middle name} {last name}
-    else if(format === 'F M L') {
+    if(format === 'F M L') {
         middleName = (middleName == null || middleName === '') ? ' ' : ' ' + middleName + ' ';
         return firstName + middleName + lastName;
     }
 
     // {last name}, {first name} {middle initial}
-    else if(format === 'L, F Mi') {
-        if(middleName == null || middleName === '') {
-            middleName = ''
-        } else {
-            middleName = ' ' + middleName.charAt(0) + '.'
-        }
+    if(format === 'L, F Mi') {
+        middleName = (middleName == null || middleName === '') ? '' : ' ' + middleName.charAt(0) + '.';
         return lastName + ', ' + firstName + middleName;
     }
 
     // {first name} {middle initial} {last name}
-    else if(format === 'F Mi L') {
-        if(middleName == null || middleName === '') {
-            middleName = ' ';
-        } else {
-            middleNameWord = middleName.split(' ');
-            middleName = w.charAt(0) + '. ';
-        }
+    if(format === 'F Mi L') {
+        middleName = (middleName == null || middleName === '') ? ' ' : w.charAt(0) + '. ';
         return firstName + middleName + lastName;
     }
 
-    // {last name}, {first name} {middle initial}
-    else if(format === 'L, F') {
-        return lastName + ', ' + firstName;
-    }
+    // {last name}, {first name}
+    if(format === 'L, F') { return lastName + ', ' + firstName; }
+
+    // {first name}, {last name}
+    if(format === 'F L') { return firstName + ' ' + lastName; }
 }
 
 // Get Age

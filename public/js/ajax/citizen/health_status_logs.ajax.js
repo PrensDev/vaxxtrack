@@ -23,12 +23,16 @@ $(() => {
 // Check Health Status Today
 checkHealthStatusTodayAJAX = () => {
     $.ajax({
-        url: `${ CITIZEN_API_ROUTE }health-status-logs/today`,
+        url: `${ CITIZEN_API_ROUTE }health-status-logs/check-today`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: (result) => {
             if(result) {
                 if(result.data.length == 0) $('#healthStatusModal').modal('show');
+                else {
+                    $('#healthStatusModal').modal('hide'); 
+                    $('#healthStatusModal').modal('dispose');
+                } 
             } else {
                 console.log('No result was found');
             }
@@ -39,6 +43,11 @@ checkHealthStatusTodayAJAX = () => {
 
 // Create Health Status Log
 createHealthStatusLogAJAX = () => {
+    $('#saveHealthStatus').prop('disabled', true);
+    $('#saveHealthStatus').html(`
+        <span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>
+    `);
+    
     const form = new FormData($('#healthStatusForm')[0]);
 
     const onOrOff = (name) => { return form.get(name) === 'on' }
@@ -66,6 +75,8 @@ createHealthStatusLogAJAX = () => {
         success: (result) => {
             if(result) {
                 $('#healthStatusModal').modal('hide');
+                $('#healthStatusModal').modal('dispose');
+                if($('#healthStatusLogsDT').length) reloadDataTable('#healthStatusLogsDT');
                 showAlert('success', 'Success! Your health status for today has been recorded!');
             } else {
                 console.log('No result was found')
@@ -90,6 +101,68 @@ $('#healthStatusForm').validate(validateOptions({
         }
     },
     submitHandler: () => createHealthStatusLogAJAX()
+}));
+
+
+
+// Update Health Status Log
+updateHealthStatusLogAJAX = () => {
+    makeBtnLoading('saveHealthStatusForUpdate');
+    
+    const form = new FormData($('#updateHealthStatForm')[0]);
+
+    const onOrOff = (name) => { return form.get(name) === 'on' }
+
+    data = {
+        health_status_log_ID: form.get('healthStatusLogID'),
+        temperature:          form.get('temperature'),
+        fever:                onOrOff('fever'),
+        dry_cough:            onOrOff('dryCough'),
+        sore_throat:          onOrOff('soreThroat'),
+        breath_shortness:     onOrOff('breathShortness'),
+        smell_taste_loss:     onOrOff('smellTasteLoss'),
+        fatigue:              onOrOff('fatigue'),
+        aches_pain:           onOrOff('achesPain'),
+        runny_nose:           onOrOff('runnyNose'),
+        diarrhea:             onOrOff('diarrhea'),
+        headache:             onOrOff('headache'),
+    }
+
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }health-status-logs/today`,
+        type: 'PUT',
+        data: data,
+        dataType: 'json',
+        headers: AJAX_HEADERS,
+        success: (result) => {
+            if(result) {
+                $('#updateCurrHealthStatModal').modal('hide');
+                if($('#healthStatusLogsDT').length) reloadDataTable('#healthStatusLogsDT');
+                showAlert('success', 'Success! Your health status for today has been updated!');
+                makeBtnDefault('saveHealthStatusForUpdate', `<span>Save</span><i class="fas fa-check ml-1"></i>`);
+            } else {
+                console.log('No result was found')
+            }
+        }
+    })
+    .fail(() => console.error('There is a problem in updating health status log'));
+}
+
+// Validate Health Status Form
+$('#updateHealthStatForm').validate(validateOptions({
+    rules: {
+        temperature: {
+            required: true,
+            range: [30, 42]
+        }
+    },
+    messages: {
+        temperature: {
+            required: 'Your temperature (in &deg;C) is required',
+            range: 'Invalid body temperature'
+        }
+    },
+    submitHandler: () => updateHealthStatusLogAJAX()
 }));
 
 
@@ -219,7 +292,10 @@ LoadhealthStatusLogsDT = () => {
                 targets: [4],
                 orderable: false,
             }],
-            order: [[0, 'desc']]
+            order: [[0, 'desc']],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No health status log yet</div>`
+            }
         });
     }
 }
@@ -331,3 +407,45 @@ viewHealthStatusLog = (id) => {
     })
     .fail(() => console.error('There was an error in getting a health status log'));
 }
+
+// When update current health status button has been clicked
+$('#updateCurrHealthStatBtn').on('click', () => {
+    $.ajax({
+        url: `${ CITIZEN_API_ROUTE }health-status-logs/today`,
+        headers: AJAX_HEADERS,
+        type: 'GET',
+        success: result => {
+            if(result) {
+                const data = result.data;
+                console.log(data);
+
+                var noSymptoms = true;
+                
+                const onOrOff = (id, value) => {
+                    $(id).prop('checked', value);
+                    if(value) noSymptoms = false;
+                }
+
+                $('#healthStatusLogIDForToday').val(data.health_status_log_ID);
+                $('#temperatureForUpdate').val(data.temperature);
+                onOrOff('#feverForUpdate', data.fever);
+                onOrOff('#dryCoughForUpdate', data.dry_cough);
+                onOrOff('#soreThroatForUpdate', data.sore_throat);
+                onOrOff('#breathShortnessForUpdate', data.breath_shortness);
+                onOrOff('#smellTasteLossForUpdate', data.smell_taste_loss);
+                onOrOff('#fatigueForUpdate', data.fatigue);
+                onOrOff('#achesPainForUpdate', data.aches_pain);
+                onOrOff('#runnyNoseForUpdate', data.runny_nose);
+                onOrOff('#diarrheaForUpdate', data.diarrhea);
+                onOrOff('#headacheForUpdate', data.headache);
+                
+                $('#healthyForUpdate').prop('checked', noSymptoms);
+
+                $('#saveHealthStatusForUpdate').prop('disabled', false);
+
+                $('#updateCurrHealthStatModal').modal('show');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in getting current health status'))
+});

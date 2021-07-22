@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
             <div class="form-group text-center">
-                <button class="btn btn-sm btn-primary">
+                <button class="btn btn-sm btn-primary" id="updateCurrHealthStatBtn">
                     <i class="fas fa-edit mr-1"></i>
                     <span>Update your current health status</span>
                 </button>

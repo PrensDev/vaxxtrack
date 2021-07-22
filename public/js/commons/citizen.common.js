@@ -28,9 +28,23 @@ const symptomsFields = [
     'headache'
 ];
 
+const symptomsFieldsForUpdate = [
+    'feverForUpdate',
+    'dryCoughForUpdate',
+    'soreThroatForUpdate',
+    'breathShortnessForUpdate',
+    'smellTasteLossForUpdate',
+    'fatigueForUpdate',
+    'achesPainForUpdate',
+    'runnyNoseForUpdate',
+    'diarrheaForUpdate',
+    'headacheForUpdate'
+];
+
 $(() => {
     generateCitizensQRCode(); 
     symtomsCheckBoxOnChange(symptomsFields);
+    symtomsCheckBoxOnChangeForUpdate(symptomsFieldsForUpdate);
 });
 
 
@@ -119,7 +133,7 @@ printVaccinationCard = () => {
 }
 
 // Disable Save Health Status Button
-disableHealthStatusButton = () => {
+disableHealthStatusBtn = () => {
     const fields = [
         'healthy',
         'fever',
@@ -139,9 +153,7 @@ disableHealthStatusButton = () => {
 
     // If one or more fields are checked
     // Enable button
-    fields.forEach(f => {
-        if($('#'+f).is(':checked')) disabled = false;
-    });
+    fields.forEach(f => { if($('#'+f).is(':checked')) disabled = false; });
 
     // Set button to enabled/disabled
     $('#saveHealthStatus').prop('disabled', disabled);
@@ -149,7 +161,7 @@ disableHealthStatusButton = () => {
 
 // Uncheck all symptoms
 $('#healthy').on('change', () => {
-    disableHealthStatusButton();
+    disableHealthStatusBtn();
     if($('#healthy').is(':checked')) {
         symptomsFields.forEach(field => $('#'+field).prop('checked', false));
         $('#saveHealthStatus').prop('disabled', false);
@@ -159,10 +171,59 @@ $('#healthy').on('change', () => {
 // Symptoms Check Box On Change
 symtomsCheckBoxOnChange = (ids = []) => {
     ids.forEach(id => $('#'+id).on('change', () => {
-        disableHealthStatusButton();
+        disableHealthStatusBtn();
         if($('#'+id).is(':checked')) {
             $('#healthy').prop('checked', false);
             $('#saveHealthStatus').prop('disabled', false);
+        }
+    }));
+}
+
+//  ==================== FOR UPDATE ==================== //
+
+// Disable Save Health Status Button
+disableHealthStatusBtnForUpdate = () => {
+    const fields = [
+        'healthyForUpdate',
+        'feverForUpdate',
+        'dryCoughForUpdate',
+        'soreThroatForUpdate',
+        'breathShortnessForUpdate',
+        'smellTasteLossForUpdate',
+        'fatigueForUpdate',
+        'achesPainForUpdate',
+        'runnyNoseForUpdate',
+        'diarrheaForUpdate',
+        'headacheForUpdate'
+    ];
+
+    // Initialize the button as disabled
+    var disabled = true;
+
+    // If one or more fields are checked
+    // Enable button
+    fields.forEach(f => { if($('#'+f).is(':checked')) disabled = false; });
+
+    // Set button to enabled/disabled
+    $('#saveHealthStatusForUpdate').prop('disabled', disabled);
+}
+
+// Uncheck all symptoms
+$('#healthyForUpdate').on('change', () => {
+    disableHealthStatusBtnForUpdate();
+    if($('#healthyForUpdate').is(':checked')) {
+        symptomsFieldsForUpdate.forEach(field => $('#'+field).prop('checked', false));
+        $('#saveHealthStatusForUpdate').prop('disabled', false);
+    }
+});
+
+// Symptoms Check Box On Change
+symtomsCheckBoxOnChangeForUpdate = (ids = []) => {
+    ids.forEach(id => $('#'+id).on('change', () => {
+        disableHealthStatusBtnForUpdate();
+        if($('#'+id).is(':checked')) {
+            $('#healthyForUpdate').prop('checked', false);
+            $('#saveHealthStatusForUpdate').prop('disabled', false);
         }
     }));
 }

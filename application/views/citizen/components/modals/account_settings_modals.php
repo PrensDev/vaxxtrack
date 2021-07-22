@@ -109,3 +109,48 @@
         </form>
     </div>
 </div>
+
+<!-- Remove Account modal -->
+<div class="modal" id="removeAccountModal" tabindex="-1" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" id="removeAccountForm">
+            <div class="modal-header">
+                <h5 class="modal-title-icon fas fa-trash-alt"></h5>
+                <h5 class="modal-title">Remove Account</h5>
+                <button 
+                    class        = "btn btn-sm btn-white-muted" 
+                    type         = "button" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
+                >
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <div class="display-4 mr-3">
+                        <img 
+                            src="<?= base_url() ?>public/images/brand/warning.svg" 
+                            alt="Warning" 
+                            style="width: 8rem"
+                            draggable="false"
+                        >
+                    </div>
+                    <p>Are you sure you want to remove this account?</p>
+                </div>
+
+                <!-- User Account ID -->
+                <input type="hidden" name="userAccountID" id="userAccountID">
+            </div>
+            <div class="modal-footer bg-muted border-0 py-1">
+                <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger">
+                    <span>Remove</span>
+                    <i class="fas fa-trash-alt ml-1"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

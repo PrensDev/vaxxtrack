@@ -14,60 +14,9 @@ $(() => {
 
 /**
  * ===========================================================================
- * CITIZEN REGISTRATION
+ * * FOR LOCATION IN REGISTRATION
  * ===========================================================================
  */
-
-// Register Citizen AJAX
-registerCitizenAJAX = () => {
-    const form = new FormData($('#registerCitizenForm')[0]);
-
-    data = {
-        user_type:    'Citizen',
-        first_name:   form.get('firstName'),
-        middle_name:  form.get('middleName'),
-        last_name:    form.get('lastName'),
-        suffix_name:  form.get('suffixName'),
-        sex:          form.get('sex'),
-        birth_date:   form.get('birthDate'),
-        civil_status: form.get('civilStatus'),
-        password:     form.get('password'),
-        user_accounts: [{
-            details:  form.get('email'),
-            type:     'Email',
-            verified: true,
-        }],
-        address: {
-            region:            form.get('regionName'),
-            province:          form.get('provinceName'),
-            city_municipality: form.get('cityName'),
-            barangay_district: form.get('barangay'),
-            street:            form.get('street'),
-            specific_location: form.get('specificLocation'),
-            zip_code:          form.get('postalCode'),
-            latitude:          form.get('latitude'),            
-            longitude:         form.get('longitude'),
-        }
-    }
-
-    $.ajax({
-        url: `${ BASE_URL_API }register/citizen`,
-        type: 'POST',
-        data: data,
-        dataType: 'json',
-        success: (result) => {
-            if(result) {
-
-                // Show Success Modal
-                $('#successRegisterModal').modal('show');
-
-            } else {
-                console.log('No result was found');
-            }
-        }
-    })
-    .fail(() => console.error('There was an error while registering your account.'));
-}
 
 // Populate Region Select Input
 populateRegionSelectAJAX = () => {
@@ -79,9 +28,7 @@ populateRegionSelectAJAX = () => {
                 const data = result.data;
                 const region = data[0].region;
                 let options = '';
-                region.forEach(r => {
-                    options += `<option value="${ r.code }">${ r.name }</option>`;
-                });
+                region.forEach(r => options += `<option value="${ r.code }">${ r.name }</option>`);
                 $('#regionsDropdown').html(options);
                 $('#regionsDropdown').selectpicker('refresh');
             }
@@ -224,17 +171,19 @@ $('#citiesDropdown').on('changed.bs.select', () => {
     })
 });
 
+
 /**
  * ===========================================================================
- * REPRESENTATIVE REGISTRATION
+ * * CITIZEN REGISTRATION
  * ===========================================================================
  */
 
-// Register Representative AJAX
-representativeAJAX = () => {
-    const form = new FormData($('#registerRepresentativeForm')[0]);
+// Register Citizen AJAX
+registerCitizenAJAX = () => {
+    const form = new FormData($('#registerCitizenForm')[0]);
 
     data = {
+        user_type:    'Citizen',
         first_name:   form.get('firstName'),
         middle_name:  form.get('middleName'),
         last_name:    form.get('lastName'),
@@ -242,110 +191,105 @@ representativeAJAX = () => {
         sex:          form.get('sex'),
         birth_date:   form.get('birthDate'),
         civil_status: form.get('civilStatus'),
-        user_type:    form.get('citizen'),
         password:     form.get('password'),
-        user_accounts: [
-        {
+        user_accounts: [{
             details:  form.get('email'),
-            type:     form.get('email'),
-            verified: form.get('verificationCode'),
+            type:     'Email',
+            verified: true,
         }],
-        establishments_with_roles: {
-            name:  form.get('establishmentName'),
-            type:  form.get('establishmentType'),
-            roles: form.get('position'),
-            address: [
-            {
-                region:            form.get('region'),
-                province:          form.get('province'),
-                city_municipality: form.get('cityMunicipality'),
-                barangay_district: form.get('baranggayDistrict'),
-                street:            form.get('street'),
-                specific_location: form.get('specificLocation'),
-                zip_code:          form.get('1121'),
-                latitude:          form.get('23.8623'),            
-                longitude:         form.get('43.0235'),
-            }]
+        address: {
+            region:            form.get('regionName'),
+            province:          form.get('provinceName'),
+            city_municipality: form.get('cityName'),
+            barangay_district: form.get('barangay'),
+            street:            form.get('street'),
+            specific_location: form.get('specificLocation'),
+            zip_code:          form.get('postalCode'),
+            latitude:          form.get('latitude'),            
+            longitude:         form.get('longitude'),
         }
     }
 
+    console.log(data);
+
     $.ajax({
-        url: `${ REPRESENTATIVE_OFFICIAL_API_ROUTE }register/representative`,
+        url: `${ BASE_URL_API }register/citizen`,
         type: 'POST',
         data: data,
         dataType: 'json',
         success: (result) => {
             if(result) {
 
-                // Show alert
-                alert('Success! You have been registered.');
+                // Show Success Modal
+                $('#successRegisterModal').modal('show');
+
+            } else {
+                console.log('No result was found');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error while registering your account.'));
+}
 
 
-                // Set form values to empty
-                setFormValues('#registerRepresentativeForm', [
-                    {
-                        name: 'email',
-                        value: ''
-                    }, {
-                        name: 'verificationCode',
-                        value: ''
-                    }, {
-                        name: 'firstName',
-                        value: ''
-                    }, {
-                        name: 'lastName',
-                        value: ''
-                    }, {
-                        name: 'sex',
-                        value: ''
-                    }, {
-                        name: 'birthDate',
-                        value: ''
-                    }, {
-                        name: 'civilStatus',
-                        value: ''
-                    }, {
-                        name: 'establishmentName',
-                        value: ''
-                    }, {
-                        name: 'establishmentType',
-                        value: ''
-                    }, {
-                        name: 'position',
-                        value: ''
-                    }, {
-                        name: 'region',
-                        value: ''
-                    }, {
-                        name: 'province',
-                        value: ''
-                    }, {
-                        name: 'cityMunicipality',
-                        value: ''
-                    }, {
-                        name: 'baranggayDistrict',
-                        value: ''
-                    }, {
-                        name: 'street',
-                        value: ''
-                    }, {
-                        name: 'specificLocation',
-                        value: ''
-                    }, {
-                        name: 'password',
-                        value: ''
-                    }, {
-                        name: 'confirmPassword',
-                        value: ''
-                    }
-                ]);
+/**
+ * ===========================================================================
+ * * REPRESENTATIVE REGISTRATION
+ * ===========================================================================
+ */
 
+// Register Representative AJAX
+registerRepresentativeAJAX = () => {
+    const form = new FormData($('#registerRepresentativeForm')[0]);
+
+    data = {
+        first_name:   form.get('firstName'),
+        middle_name:  form.get('middleName'),
+        last_name:    form.get('lastName'),
+        suffix_name:  form.get('suffixName'),
+        password:     form.get('password'),
+        user_accounts: [{
+            details:  form.get('email'),
+            type:     'Email',
+            verified: true,
+        }],
+        establishments_with_roles: [{
+            name:    form.get('establishmentName'),
+            type:    form.get('establishmentType'),
+            address: [{
+                region:            form.get('regionName'),
+                province:          form.get('provinceName'),
+                city_municipality: form.get('cityName'),
+                barangay_district: form.get('barangay'),
+                street:            form.get('street'),
+                specific_location: form.get('specificLocation'),
+                zip_code:          form.get('postalCode'),
+                latitude:          form.get('latitude'),            
+                longitude:         form.get('longitude'),
+            }],
+            Roles: {
+                role:    form.get('position'),
+                isAdmin: true,
+            }
+        }]
+    }
+
+    console.log(data);
+
+    $.ajax({
+        url: `${ BASE_URL_API }register/representative`,
+        type: 'POST',
+        data: data,
+        dataType: 'json',
+        success: (result) => {
+            if(result) {
+                // Show Success Modal
+                $('#successRegisterModal').modal('show');
+                $('#registerRepresentativeForm').trigger('reset');
             } else {
                 console.log('No result was found')
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error while registering your account.')
-    })
+    .fail(() => console.error('There was an error while registering your account.'))
 }

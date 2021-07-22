@@ -44,86 +44,86 @@ getAllVaccinesAJAX = () => {
                 if(result) {
     
                     // Get data from result
-                    const data = result.data
+                    const data = result.data;
+
+                    if(data.length ) {
     
-                    // For options in create/edit appointment form
-                    if(appointmentFormsExists) {
-                        var options = ''
-                        data.forEach(v => {
-                            options += `
-                                <option 
-                                    value="${ v.vaccine_ID }" 
-                                    data-content="
-                                        <div class='d-flex align-items-baseline'>
-                                            <div class='icon-container'>
-                                                <i class='fas fa-syringe'></i>
-                                            </div>
-                                            <div>
-                                                <div>${ v.product_name }</div>
-                                                <div class='small'>${ v.vaccine_name }</div>
-                                                <div class='small'>${ v.manufacturer }</div>
-                                            </div>
-                                        </div>
-                                    "
-                                    title="${ v.product_name }"
-                                >${ v.product_name }</option>
-                            `
-                        });
-                        $('#preferredVaccineForAdd').html(options).selectpicker('refresh');
-                        $('#preferredVaccineForEdit').html(options).selectpicker('refresh');
-                    }
-                    
-                    // Vaccine List
-                    if(vaccineListExists) {
-                        vaccineCard = ''
-                        data.forEach(v => {
-                            vaccineCard += `
-                                <div class="col-md-6 mb-4">
-                                    <div class="card bg-success pl-1 h-100">
-                                        <div class="card-body bg-white rounded-lg d-flex">
-                                            <div class="mr-3">
-                                                <div class="alert-success text-success flex-center rounded-lg" style="width: 4rem; height: 4rem;">
-                                                    <h2><i class="fas fa-syringe"></i></h2>
+                        // For options in create/edit appointment form
+                        if(appointmentFormsExists) {
+                            var options = ''
+                            data.forEach(v => {
+                                options += `
+                                    <option 
+                                        value="${ v.vaccine_ID }" 
+                                        data-content="
+                                            <div class='d-flex align-items-baseline'>
+                                                <div class='icon-container'>
+                                                    <i class='fas fa-syringe'></i>
                                                 </div>
-                                            </div>
-                                            <div class="flex-grow-1 d-flex flex-column justify-content-between">
                                                 <div>
-                                                    <h4 class="mb-1">${ v.product_name }</h4>
-                                                    <table class="table table-borderless table-sm small">
-                                                        <tr>
-                                                            <td class="text-nowrap">Vaccine Name</td>
-                                                            <td>:</td>
-                                                            <td class="font-weight-normal">${ v.vaccine_name }</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-nowrap">Manufacturer</td>
-                                                            <td>:</td>
-                                                            <td class="font-weight-normal">${ v.manufacturer }</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-nowrap">Shots Details</td>
-                                                            <td>:</td>
-                                                            <td class="font-weight-normal">${ v.shots_details }</td>
-                                                        </tr>
-                                                    </table>
+                                                    <div>${ v.product_name }</div>
+                                                    <div class='small'>${ v.vaccine_name }</div>
+                                                    <div class='small'>${ v.manufacturer }</div>
                                                 </div>
-                                                <div class="mt-2 text-right">
-                                                    <button 
-                                                        class="btn btn-sm btn-success"
-                                                        onclick="viewVaccineDetails('${ v.vaccine_ID }')"
-                                                    >More details</button>
+                                            </div>
+                                        "
+                                        title="${ v.product_name }"
+                                    >${ v.product_name }</option>
+                                `
+                            });
+                            $('#preferredVaccineForAdd').html(options).selectpicker('refresh');
+                            $('#preferredVaccineForEdit').html(options).selectpicker('refresh');
+                        }
+                        
+                        // Vaccine List
+                        if(vaccineListExists) {
+                            vaccineCard = ''
+                            data.forEach(v => {
+                                vaccineCard += `
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card bg-success pl-1 h-100">
+                                            <div class="card-body bg-white rounded-lg d-flex">
+                                                <div class="mr-3">
+                                                    <div class="alert-success text-success flex-center rounded-lg" style="width: 4rem; height: 4rem;">
+                                                        <h2><i class="fas fa-syringe"></i></h2>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1 d-flex flex-column justify-content-between">
+                                                    <div>
+                                                        <h4 class="mb-1">${ v.product_name }</h4>
+                                                        <table class="table table-borderless table-sm small">
+                                                            <tr>
+                                                                <td class="text-nowrap">Vaccine Name</td>
+                                                                <td>:</td>
+                                                                <td class="font-weight-normal">${ v.vaccine_name }</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-nowrap">Manufacturer</td>
+                                                                <td>:</td>
+                                                                <td class="font-weight-normal">${ v.manufacturer }</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-nowrap">Shots Details</td>
+                                                                <td>:</td>
+                                                                <td class="font-weight-normal">${ v.shots_details }</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="mt-2 text-right">
+                                                        <button 
+                                                            class="btn btn-sm btn-success"
+                                                            onclick="viewVaccineDetails('${ v.vaccine_ID }')"
+                                                        >More details</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            `
-                        });
-                        vaccineList.html(vaccineCard);
+                                `
+                            });
+                            vaccineList.html(vaccineCard);
+                        }
                     }
-    
-                } else {
-                    console.log('No result for vaccine records');
                 }
             }
         })
@@ -131,10 +131,8 @@ getAllVaccinesAJAX = () => {
     }
 }
 
-
 // View Vaccine Details
 viewVaccineDetails = (vaccine_ID) => {
-
     $.ajax({
         url: `${ BASE_URL_API }vaccines/${ vaccine_ID }`,
         type: 'GET',
@@ -154,7 +152,8 @@ viewVaccineDetails = (vaccine_ID) => {
                 console.log('No result for a details of vaccine');
             }
         }
-    });
+    })
+    .fail(() => console.error('There was an error in getting vaccine details'));
 }
 
 
@@ -193,13 +192,9 @@ viewVaccCard = () => {
                     // Get each record
                     const r = vaccRecords[i];
 
-                    if(i == 0) {
-                        col1 = `1<sup>st</sup> Dose`;
-                    } else if(i == 1) {
-                        col1 = `2<sup>nd</sup> Dose`;
-                    } else {
-                        col1 = `Other`
-                    }
+                    if(i == 0)      col1 = `1<sup>st</sup> Dose`;
+                    else if(i == 1) col1 = `2<sup>nd</sup> Dose`;
+                    else            col1 = `Other`;
 
                     if(r != null) {
                         col2 = `
@@ -239,9 +234,7 @@ viewVaccCard = () => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in getting a vaccination record')
-    })
+    .fail(() => console.error('There was an error in getting a vaccination record'));
 }
 
 
@@ -285,9 +278,7 @@ createAppointmentAJAX = () => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error when creating a vaccination appointments');
-    })
+    .fail(() => console.error('There was an error when creating a vaccination appointments'))
 }
 
 // Validate Create Appointment Form
@@ -376,12 +367,9 @@ updateAppointmentAJAX = () => {
         preferred_vaccine: form.get('preferredVaccine'),
         preferred_date: form.get('requestedDate'),
     }
-
-    console.log(data);
     
     const vaccination_appointment_ID = form.get('vaccinationAppointmentID');
-    
-    console.log(vaccination_appointment_ID);
+
     $.ajax({
         url: `${ CITIZEN_API_ROUTE }vaccination-appointments/${ vaccination_appointment_ID }`,
         type: 'PUT',
@@ -425,16 +413,12 @@ LoadAllVaccAppointmentsDT = () => {
         vaccappointDT.DataTable({
             ajax: {
                 url: `${ CITIZEN_API_ROUTE }vaccination-appointments`,
-                type: 'GET',
                 headers: AJAX_HEADERS,
             },
             columns: [
 
                 // Hidden column for order
-                {
-                    data: 'created_datetime',
-                    visible: false,
-                },
+                { data: 'created_datetime', visible: false,},
 
                 // Date and Time Requested
                 { 
@@ -478,7 +462,6 @@ LoadAllVaccAppointmentsDT = () => {
                 { 
                     data: null,
                     render: data => {
-
                         return `
                             <div>${moment(data.preferred_date).format("MMM. D, YYYY")}</div>
                             <div class="small text-secondary">${moment(data.preferred_date).fromNow()}</div>
@@ -667,7 +650,10 @@ LoadAllVaccAppointmentsDT = () => {
             }],
             order: [
                 [0, 'desc']
-            ]
+            ],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No appointments yet</div>`
+            }
         });
     } 
 }
@@ -692,13 +678,13 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 // Set the content from data
                 $('#DayDate').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY'));
                 $('#Time').html(moment(data.created_datetime).format('hh:mm A'));
-                $('#Daymoments').html(moment(data.created_datetime).fromNow());
-                $('#productname').html(data.vaccine_preferrence.product_name);
-                $('#vaccname').html(data.vaccine_preferrence.vaccname);
+                $('#Daymoments').html(humanizeDate(data.created_datetime));
+                $('#productName').html(data.vaccine_preferrence.product_name);
+                $('#vaccineName').html(data.vaccine_preferrence.vaccine_name);
                 $('#manufacturer').html(data.vaccine_preferrence.manufacturer);
                 $('#PreDayDate').html(moment(data.preferred_date).format('dddd, MMMM D, YYYY;'));
                 $('#PreTime').html(moment(data.preferred_date).format('hh:mm A'));
-                $('#PreDayMoment').html(moment(data.preferred_date).fromNow());
+                $('#PreDayMoment').html(humanizeDate(data.preferred_date));
 
                 const status = () => {
 
@@ -725,21 +711,12 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
                 $('#status').html(status());
 
                 const aprrovedby = () => {
-
                     if (data.approved_by == null || data.approved_by == '') {
                         return `
-                            <span class="font-weight-norma text-muted font-italic" id=Approvedby>Not yet approved</span>
+                            <span class="font-weight-normal text-muted font-italic">Not yet approved</span>
                         `
                     } else {
-                        if (data.approved_person.middle_name) {
-                            return `
-                                <span class="font-weight-norma text font-italic">${ data.approved_person.first_name } ${ data.approved_person.middle_name } ${ data.approved_person.last_name }</span>
-                            `;
-                        } else {
-                            return `
-                                <span class="font-weight-norma text font-italic">${ data.approved_person.first_name } ${ data.approved_person.last_name }</span>
-                            `;
-                        }
+                        return data.approved_person.user_type;
                     }
                 }
 
@@ -782,7 +759,6 @@ viewVaccAppointment = (vaccination_appointment_ID) => {
 // Remove Vaccinetion Appointment AJAX
 removeVaccAppointmentAJAX = () => {
     const form = new FormData($('#cancelAppointmentForm')[0]);
-
     const vaccination_appointment_ID = form.get('vaccinationAppointmentID');
 
     $.ajax({
@@ -809,9 +785,7 @@ removeVaccAppointmentAJAX = () => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error when deleteng vaccination appointment')
-    })
+    .fail(() => console.error('There was an error when deleteng vaccination appointment'))
 }
 
 // Validate Cancel Appointment Form

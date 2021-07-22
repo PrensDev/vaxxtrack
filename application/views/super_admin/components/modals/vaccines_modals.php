@@ -1,9 +1,5 @@
 <!-- View Vaccine Details Modal -->
-<div 
-    class           = "modal fade" 
-    id              = "viewVaccineDetailsModal"
-    tabindex        = "-1"
->
+<div class="modal fade" id="viewVaccineDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             
@@ -29,7 +25,7 @@
                         <td>
                             <div class="d-flex align-items-baseline">
                                 <div class="mr-2">
-                                    <i class="fas fa-syringe text-secondary"></i>
+                                    <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
                                     <div 
@@ -76,6 +72,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Availability</th>
+                        <td id="availability">
+                            <div class="text-secondary font-italic">No data</div>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Date Added</th>
                         <td>
                             <div id="vaccDateAdded">
@@ -104,12 +106,7 @@
 </div>
 
 <!-- Edit Vaccine Details -->
-<div 
-    class           = "modal" 
-    id              = "editVaccineDetailsModal"
-    data-backdrop   = "static"
-    tabindex        = "-1"
->
+<div class="modal" id="editVaccineDetailsModal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="editVaccineDetailsForm">
 
@@ -130,26 +127,16 @@
             
             <div class="modal-body">
 
-                <!-- Vaccine ID -->
-                <div class="form-group d-none">
-                    <label for="vaccineIDInputForEdit">Vaccine ID</label>
-                    <input 
-                        class="form-control"
-                        type="text"
-                        id="vaccineIDInputForEdit"
-                        name="vaccineID"
-                        placeholder="Vaccine ID should be here"
-                    >
-                </div>
-
+                <!-- Vaccine ID (hidden) -->
+                <input type="hidden" id="vaccineIDForEdit" name="vaccineID">
 
                 <!-- Vaccine Name -->
                 <div class="form-group">
-                    <label for="vaccineNameInputForEdit">Vaccine Name</label>
+                    <label for="vaccineNameForEdit">Vaccine Name</label>
                     <input 
                         class="form-control"
                         type="text"
-                        id="vaccineNameInputForEdit"
+                        id="vaccineNameForEdit"
                         name="vaccineName"
                         placeholder="Type the vaccine name here"
                     >
@@ -157,11 +144,11 @@
 
                 <!-- Product Name -->
                 <div class="form-group">
-                    <label for="productNameInputForEdit">Product Name</label>
+                    <label for="productNameForEdit">Product Name</label>
                     <input
                         class="form-control" 
                         type="text"
-                        id="productNameInputForEdit"
+                        id="productNameForEdit"
                         name="productName"
                         placeholder="Type the product name here"
                     >
@@ -169,11 +156,11 @@
 
                 <!-- Type -->
                 <div class="form-group">
-                    <label for="typeInputForEdit">Vaccine Type</label>
+                    <label for="typeForEdit">Vaccine Type</label>
                     <input 
                         class="form-control"
                         type="text"
-                        id="typeInputForEdit"
+                        id="typeForEdit"
                         name="type"
                         placeholder="Type the vaccine type here"
                     >
@@ -181,11 +168,11 @@
 
                 <!-- Manufacturer -->
                 <div class="form-group">
-                    <label for="manufacturerInputForEdit">Manufacturer</label>
+                    <label for="manufacturerForEdit">Manufacturer</label>
                     <input
                         class="form-control" 
                         type="text"
-                        id="manufacturerInputForEdit"
+                        id="manufacturerForEdit"
                         name="manufacturer"
                         placeholder="Type the manufacturer here"
                     >
@@ -193,11 +180,11 @@
 
                 <!-- Shots Details -->
                 <div class="form-group">
-                    <label for="shotsDetailsInputForEdit">Shots Details</label>
+                    <label for="shotsDetailsForEdit">Shots Details</label>
                     <input
                         class="form-control" 
                         type="text"
-                        id="shotsDetailsInputForEdit"
+                        id="shotsDetailsForEdit"
                         name="shotsDetails"
                         placeholder="Type the shots details here"
                     >
@@ -205,14 +192,22 @@
 
                 <!-- Description -->
                 <div class="form-group">
-                    <label for="descriptionInputForEdit">Description</label>
+                    <label for="descriptionForEdit">Description</label>
                     <textarea 
                         class="form-control"
-                        id="descriptionInputForEdit" 
+                        id="descriptionForEdit" 
                         name="description" 
                         rows="5"
                         placeholder="Type description here"
                     ></textarea>
+                </div>
+
+                <!-- Availability -->
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="availabiiltyForEdit" name="availability">
+                        <label class="custom-control-label" for="availabiiltyForEdit">Available to the public</label>
+                    </div>
                 </div>
             </div>
 
@@ -234,14 +229,8 @@
     </div>
 </div>
 
-
 <!-- Add Vaccine -->
-<div 
-    class           = "modal" 
-    id              = "addVaccineModal"
-    data-backdrop   = "static"
-    tabindex        = "-1"
->
+<div class="modal" id="addVaccineModal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <form class="modal-content" id="addVaccineForm">
 
@@ -345,6 +334,14 @@
                         placeholder="Type description here"
                     ></textarea>
                 </div>
+
+                <!-- Availability -->
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="availabiiltyForAdd" name="availability" checked>
+                        <label class="custom-control-label" for="availabiiltyForAdd">Available to the public</label>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -366,12 +363,7 @@
 </div>
 
 <!-- Remove Vaccine modal -->
-<div 
-    class           = "modal" 
-    id              = "removeVaccineModal" 
-    tabindex        = "-1" 
-    data-backdrop   = "static"
->
+<div class="modal" id="removeVaccineModal" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content" id="removeVaccineForm">
             <div class="modal-header">
@@ -415,6 +407,60 @@
                 >
                     <span>Remove</span>
                     <i class="fas fa-trash-alt ml-1"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Change Availability Status -->
+<div class="modal" id="changeAvailabilityStatusModal" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form class="modal-content" id="changeAvailabilityStatusForm">
+
+            <div class="modal-header">
+                <h5 class="modal-title-icon fas fa-syringe"></h5>
+                <h5 class="modal-title">Change Availability Status</h5>
+                <button 
+                    class        = "btn btn-sm btn-white-muted" 
+                    type         = "button" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
+                >
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+
+                <!-- Vaccine ID (hidden) -->
+                <input type="hidden" id="vaccineIDForChange" name="vaccineID">
+
+                <p>Switch it on if you want to make it available to the public.</p>
+                
+                <!-- Availability -->
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="availabiiltyForChange" name="availability">
+                        <label class="custom-control-label" for="availabiiltyForChange">Available to the public</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button 
+                    class="btn btn-muted" 
+                    type="button"
+                    data-dismiss="modal"
+                >Cancel</button>
+                <button 
+                    class="btn btn-blue" 
+                    type="submit"
+                >   
+                    <span>Save</span>
+                    <i class="fas fa-check ml-1"></i>
                 </button>
             </div>
         </form>

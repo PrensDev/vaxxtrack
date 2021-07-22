@@ -32,11 +32,12 @@
             <div class="table-responsive">
                 <table class="table w-100 border-bottom" id="vaccinesDT">
                     <thead class="thead">
-                        <th>Added At (Hidden)</th>
+                        <th>Date Created (Hidden)</th>
                         <th>Vaccine</th>
                         <th>Type</th>
                         <th>Manufacturer</th>
                         <th>Shot Details</th>
+                        <th>Availability</th>
                         <th></th>
                     </thead>
                     <tbody></tbody>

@@ -5,6 +5,16 @@
         'subtitle' => 'Manage registered users here'
     ]); ?>
 
+    <!-- Sessioned Alert -->
+    <?php if($this->session->has_userdata('alert')): ?>
+        <div class="alert alert-<?= $this->session->alertTheme ?> alert-dismissible fade show mb-4" role="alert" id="alert">
+            <div><?= $this->session->alertMessage ?></div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+
     <?php 
         if($user_category === 'Citizens') 
             $this->load->view('super_admin/components/citizens');

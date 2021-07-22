@@ -22,6 +22,7 @@ class Health_Official extends CI_Controller {
     private Array $AJAX_files = [
         'account',
         'covid_cases',
+        'contacts',
         'vaccination',
         'info',
     ];

@@ -26,7 +26,7 @@ liveReloadDataTables([
 
 /**
  * ====================================================================
- * * GET COVID19 CASES RECORDS
+ * * GET COVID-19 CASES RECORDS
  * ====================================================================
  */
 
@@ -37,7 +37,6 @@ loadCOVID19CasesDT = () => {
         dt.DataTable({
             ajax: {
                 url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases`,
-                type: 'GET',
                 headers: AJAX_HEADERS,
             },
             columns: [
@@ -293,4 +292,183 @@ viewCaseDetails = (case_ID) => {
     .fail(() => {
         console.log('There was an error in your request')
     })
+}
+
+
+/**
+ * ====================================================================
+ * * ADD COVID-19 CASES RECORD
+ * ====================================================================
+ */
+
+const addCaseForm = $('#addCaseForm');
+const currentHealthStatus = $('#currentHealthStatus');
+
+// When current health status select Recovered
+currentHealthStatus.on('change.bs.select', () => {
+    if(currentHealthStatus.val() === 'Recovered') {
+        $('#removalTypeSelect').show();
+        $('#removalDateSelect').show();
+    } else {
+        $('#removalTypeSelect').hide();
+        $('#removalDateSelect').hide();
+        $('#removalType').selectpicker('val', null);
+        $('#removalDate').val(null);
+    }
+});
+
+// Validate Add Case Form
+addCaseForm.validate(validateOptions({
+    rules: {
+        firstName: {
+            required: true
+        },
+        lastName: {
+            required: true
+        },
+        birthDate: {
+            required: true
+        },
+        sex: {
+            required: true
+        },
+        caseCode: {
+            required: true
+        },
+        dateConfirmed: {
+            required: true
+        },
+        currentHealthStatus: {
+            required: true
+        },
+        admitted: {
+            required: true
+        },
+        pregnant: {
+            required: true
+        }
+    },
+    messages: {
+        firstName: {
+            required: `Patient's first name is required`
+        },
+        lastName: {
+            required: `Patient's last name is required`
+        },
+        birthDate: {
+            required:  `Patient's date of birth is required`
+        },
+        sex: {
+            required: `Patient's biological sex is required`
+        },
+        caseCode: {
+            required: 'Case code is required'
+        },
+        dateConfirmed: {
+            required: 'Please select a date when was the case confirmed'
+        },
+        currentHealthStatus: {
+            required: 'Please select the current health status of patient'
+        },
+        admitted: {
+            required: 'Please check if admitted to any healthcare facilities or not '
+        },
+        pregnant: {
+            required: 'Please choose if the patient is pregnant'
+        }
+    },
+    submitHandler: () => addCaseAJAX()
+}));
+
+// Add Case AJAX
+addCaseAJAX = () => {
+    const form = new FormData(addCaseForm[0]);
+    const patientID = form.get('patientID');
+    if(patientID == null || patientID == '') {
+        alert('Select a patient first')
+    } else {
+        const removalType = form.get('removalType') == '' ? null : form.get('removalType');
+        const removalDate = form.get('removalDate') == '' ? null : form.get('removalDate');
+
+        data = {
+            citizen_ID:            form.get('patientID'),
+            case_code:             form.get('caseCode'),
+            confirmed_date:        form.get('dateConfirmed'),
+            current_health_status: form.get('currentHealthStatus'),
+            admitted:              form.get('admitted'),
+            is_pregnant:           form.get('admitted'),
+            removal_type:          removalType,
+            removal_date:          removalDate,
+        }
+
+        $.ajax({
+            url: `${ HEALTH_OFFICIAL_API_ROUTE }add-covid19-case`,
+            type: 'POST',
+            headers: AJAX_HEADERS,
+            data: data,
+            dataType: 'json',
+            success: result => {
+                if(result) {
+                    const patientInfo = result.data.patientInfo;
+                    const caseInfo = result.data.caseInfo;
+                    const patientAddress = patientInfo.address;
+                    const patientLat = patientAddress.latitude;
+                    const patientLng = patientAddress.longitude;
+
+                    // Center location for contact tracing
+                    const center = new L.LatLng(patientLat, patientLng);
+
+                    // Find all probable contacts within radius
+                    $.ajax({
+                        url: `${ HEALTH_OFFICIAL_API_ROUTE }probable-contacts`,
+                        type: 'GET',
+                        headers: AJAX_HEADERS,
+                        success: result2 => {
+                            const probContactsData = result2.data;
+                            console.log(probContactsData);
+
+                            probContactsData.forEach(probContact => {
+                                if(probContact.user_ID !== patientInfo.user_ID) {
+
+                                    // Get the location of probable patients
+                                    const probContactAddress = probContact.address;
+                                    const probContactLat = probContactAddress.latitude;
+                                    const probContactLng = probContactAddress.longitude;
+                                    
+                                    // Check if within 1k radius
+                                    probContactLatLng = new L.LatLng(probContactLat, probContactLng);
+                                    if(probContactLatLng.distanceTo(center) < 1000) {
+                                        $.ajax({
+                                            url: `${ HEALTH_OFFICIAL_API_ROUTE }add-contact`,
+                                            type: 'POST',
+                                            headers: AJAX_HEADERS,
+                                            data: {
+                                                case_ID: caseInfo.case_ID,
+                                                citizen_ID: probContact.user_ID
+                                            },
+                                            dataType: 'json'
+                                        })
+                                    } else {
+                                        console.log('Outside Radius');
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    // Request sessioned alert
+                    $.ajax({
+                        url: `${ BASE_URL_MAIN }alert`,
+                        type: 'POST',
+                        data: {
+                            theme: 'success',
+                            message: 'Success! Your new COVID-19 Case record has been added including its contacts'
+                        },
+                        success: () => location.replace(`${ BASE_URL_MAIN }h/cases`)
+                    });
+                }
+            }
+        })
+        .fail(() => console.error('There was an error in adding new case'));
+    }
 }

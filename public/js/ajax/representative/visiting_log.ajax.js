@@ -20,11 +20,19 @@ liveReloadDataTables([
     'visitingLogsDT',
 ]);
 
+// Get establishment ID in URL
+const getEstablishmentIDInURL = () => {
+    const URLParams = location.pathname.split('/');
+    return URLParams[URLParams.length-1];
+}
+
+
 /**
  * ====================================================================
  * * GET ALL VISITING LOGS
  * ====================================================================
  */
+
 
 // Load Visiting Logs DataTable
 loadVisitingLogsDT = (establishment_ID) => {
@@ -230,6 +238,7 @@ loadVisitingLogsDT = (establishment_ID) => {
                 {
                     data: null,
                     render: data => {
+                        const id = data.visiting_log_ID
                         return `
                             <div class="dropdown text-center d-inline-block">
                                 <div data-toggle="dropdown">
@@ -245,14 +254,26 @@ loadVisitingLogsDT = (establishment_ID) => {
                                     <div 
                                         class       = "dropdown-item"
                                         role        = "button"
-                                        onclick     = "viewVisitLog('${ data.visiting_log_ID }')"
+                                        onclick     = "viewVisitLog('${ id }')"
                                     >
                                         <i class="fas fa-list icon-container"></i>
                                         <span>View Log Details</span>
                                     </div>
-                                    <div class="dropdown-item">
+                                    <div 
+                                        class="dropdown-item"
+                                        role="button"
+                                        onclick=""
+                                    >
                                         <i class="far fa-edit icon-container"></i>
                                         <span>Override Log Details</span>
+                                    </div>
+                                    <div 
+                                        class="dropdown-item"
+                                        role="button"
+                                        onclick="deleteVisitLog('${ id }')"
+                                    >
+                                        <i class="far fa-trash-alt icon-container"></i>
+                                        <span>Delete Visiting Log</span>
                                     </div>
                                 </div>
                             </div>
@@ -265,22 +286,20 @@ loadVisitingLogsDT = (establishment_ID) => {
                 orderable: false
             }],
             order: [[0, 'desc']],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No visiting logs yet</div>`
+            }
         })
     }
 }
 
 // If vistingLogsDt is exist, load visting logs datatable
 // by establishment_ID from URL
-if($('#visitingLogsDT').length) {
-    const URLParams = location.pathname.split('/');
-    const establishment_ID = URLParams[URLParams.length-1];
-    loadVisitingLogsDT(establishment_ID);
-}
+if($('#visitingLogsDT').length) loadVisitingLogsDT(getEstablishmentIDInURL());
 
 // View Visiting Log
 viewVisitLog = (visiting_log_ID) => {
-    const URLParams = location.pathname.split('/');
-    const establishment_ID = URLParams[URLParams.length-1];
+    const establishment_ID = getEstablishmentIDInURL();
 
     $.ajax({
         url: `${ REPRESENTATIVE_API_ROUTE }visiting-logs/${ establishment_ID }/${ visiting_log_ID }`,
@@ -313,12 +332,12 @@ viewVisitLog = (visiting_log_ID) => {
                 $('#entryLog').html(`
                     <div class="d-flex align-items-baseline">
                         <div class="icon-container">
-                            <i class="fas fa-sign-in-alt text-secondary"></i>
+                            <i class="fas fa-walking text-secondary"></i>
                         </div>
                         <div>
                             <div>${ moment(data.created_datetime).format('dddd, MMMM D, YYYY') }</div>
                             <div>${ moment(data.created_datetime).format('hh:mm A') }</div>
-                            <div class="small text-secondary">${ moment(data.created_datetime).fromNow() }</div>
+                            <div class="small text-secondary">${ humanizeDate(data.created_datetime) }</div>
                         </div>
                     </div>
                 `);
@@ -414,5 +433,70 @@ viewVisitLog = (visiting_log_ID) => {
         }
     })
     .catch(() => console.error('There was an error while getting the information of a visiting log'));
-
 }
+
+
+/**
+ * ====================================================================
+ * * DELETE VISITING LOG
+ * ====================================================================
+ */
+
+const deleteVisitingLogForm = $('#deleteVisitingLogForm');
+const deleteVisitingLogModal = $('#deleteVisitingLogModal');
+
+// Delete Visiting Log
+deleteVisitLog = (visiting_log_ID) => {
+    $('#visitingLogIDForDelete').val(visiting_log_ID);
+    deleteVisitingLogModal.modal('show');
+};
+
+// Validate delete visiting log form
+deleteVisitingLogForm.validate(validateOptions({
+    rules: {
+        visitingLogID: {
+            required: true
+        },
+        confirm: {
+            required: true,
+            equalTo: '#confirmRef'
+        }
+    },
+    messages: {
+        visitingLogID: {
+            required: 'Visiting Log ID must display here'
+        },
+        confirm: {
+            required: 'You must enter "CONFIRM" if you wish to delete this record',
+            equalTo: 'You must enter "CONFIRM" if you wish to delete this record'
+        }
+    },
+    submitHandler: () => deleteVisitingLogAJAX()
+}));
+
+// Delet Visiting Log AJAX
+deleteVisitingLogAJAX = () => {
+    const form = new FormData(deleteVisitingLogForm[0]);
+    const visitingLogID = form.get('visitingLogID');
+    const establishmentID = getEstablishmentIDInURL();
+    $.ajax({
+        url: `${ REPRESENTATIVE_API_ROUTE }visiting-logs/${ establishmentID }/${ visitingLogID }`,
+        headers: AJAX_HEADERS,
+        type: 'DELETE',
+        success: result => {
+            if(result) {
+                // Hide Delete Visiting Log Modal
+                deleteVisitingLogModal.modal('hide');
+
+                // Reload Datatable
+                reloadDataTable('#visitingLogsDT');
+
+                // Show alert
+                showAlert('blue', 'A visiting log has been deleted');
+            }
+        }
+    })
+}
+
+// Reset delete visiting log form when its modal is hidden
+deleteVisitingLogModal.on('hide.bs.modal', () => deleteVisitingLogForm.trigger('reset'));

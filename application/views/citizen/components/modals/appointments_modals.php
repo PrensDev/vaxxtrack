@@ -36,13 +36,13 @@
                 <div class="form-group">
                     <label for="preferredVaccine">What vaccine do you prefer?</label>
                     <select 
-                        class="selectpicker w-100" 
-                        id="preferredVaccineForAdd"
-                        name="preferredVaccine"
-                        data-style="border btn"
-                        data-size="2"
-                        data-live-search="true"
-                        title="Select a vaccine"
+                        class            = "selectpicker w-100" 
+                        id               = "preferredVaccineForAdd"
+                        name             = "preferredVaccine"
+                        data-style       = "border btn"
+                        data-size        = "2"
+                        data-live-search = "true"
+                        title            = "Select a vaccine"
                     >
                         <option class="text-center small" disabled>No available vaccine yet</option>
                     </select>
@@ -55,15 +55,8 @@
             </div>
 
             <div class="modal-footer border-0">
-                <button 
-                    type="button" 
-                    class="btn btn-muted" 
-                    data-dismiss="modal"
-                >Cancel</button>
-                <button 
-                    type="submit" 
-                    class="btn btn-blue" 
-                >
+                <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-blue" >
                     <span>Create</span>
                     <i class="fas fa-plus ml-1"></i>
                 </button>
@@ -167,40 +160,48 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table">
+                <table class="table border-bottom">
                     <tr>
                         <th>Date & Time Requested</th>
                         <td>
-                            <span id = "DayDate">Monday, February 24, 2021</span>
-                            <span id = "Time">11:52:24 AM</span>
-                            <div class="small text-secondary" id = "Daymoments">3 weeks ago</div>
+                            <span id = "DayDate"></span>
+                            <span id = "Time"></span>
+                            <div class="small text-secondary" id = "Daymoments"></div>
                         </td>
                     </tr>
                     <tr>
                         <th>Preferred Vaccine</th>
-                        <td>
-                            <div id = "productname">Pfizer-BioNTech</div>
-                            <div class="small text-secondary" id = "vaccname">
-                                <span data-toggle="tooltip" title="Vaccine Name">BNT162b2</span>
-                            </div>
-                            <div class="small text-secondary" id = "manufacturer">
-                                <span data-toggle="tooltip" title="Manufacturer">Pfizer, Inc., and BioNTech</span>    
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Preferred Date for Vaccination</th>
                         <td>
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
                                     <i class="fas fa-syringe text-success"></i>
                                 </div>
                                 <div>
-                                    <div id="PreDayDate">Thursday, April 1, 2021</div>
-                                    <div id="PreTime">11:52:24 AM</div>
-                                    <div class="small text-secondary" id = "PreDayMoment">1 week from now</div>
+                                    <div id="productName"></div>
+                                    <div 
+                                        class="small text-secondary" 
+                                        id="vaccineName"
+                                        data-toggle="tooltip" 
+                                        data-placement="left"
+                                        title="Vaccine Name" 
+                                    ></div>
+                                    <div 
+                                        class="small text-secondary" 
+                                        id="manufacturer" 
+                                        data-toggle="tooltip" 
+                                        data-placement="left"
+                                        title="Manufacturer"
+                                    ></div>
                                 </div>
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Preferred Date for Vaccination</th>
+                        <td>
+                            <div id="PreDayDate"></div>
+                            <div id="PreTime"></div>
+                            <div class="small text-secondary" id = "PreDayMoment"></div>
                         </td>
                     </tr>
                     <tr>
@@ -209,11 +210,11 @@
                     </tr>
                     <tr>
                         <th>Approved By</th>
-                        <td><span id="aprrovedby">Not approved yet</span></td>
+                        <td><span id="aprrovedby"></span></td>
                     </tr>
                     <tr>
                         <th>Date & Time Approved</th>
-                        <td><span id="datatimeapproved">No data yet</span></td>
+                        <td><span id="datatimeapproved"></span></td>
                     </tr>
                 </table>
             </div>

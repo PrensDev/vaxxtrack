@@ -1,16 +1,11 @@
 <?php 
     $user_type = $this->session->user_type;
 
-    if ($user_type === 'Citizen') {
-        $main_link = 'c';
-    } else if ($user_type === 'Representative') {
-        $main_link = 'r';
-    } else if ($user_type === 'Health Official'){
-        $main_link = 'h';
-    } else if ($user_type === 'Super Admin') {
-        $main_link = 'admin';
-    }
-
+    if($user_type === 'Citizen')         $main_link = 'c';
+    if($user_type === 'Representative')  $main_link = 'r';
+    if($user_type === 'Health Official') $main_link = 'h';
+    if($user_type === 'Super Admin')     $main_link = 'admin';
+    
     $user_path = base_url() . $main_link . '/';
 ?>
 
@@ -21,18 +16,14 @@
     <div class="navbar-container d-flex align-items-center">
     
         <!-- Toggler Button For Sidebar -->
-        <div 
-            class = "btn btn-white-muted ml-lg-0" 
-            id    = "sidebarToggle"
-        ><i class="fas fa-bars"></i></div>
+        <div class="btn btn-white-muted ml-lg-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </div>
 
         <!-- Brand Name -->
-        <a 
-            class = "nav-link text-primary d-flex align-items-center" 
-            href  = "<?= $user_path ?>"
-        >
+        <a class="nav-link text-primary d-flex align-items-center" href="<?= $user_path ?>">
             <img src="<?= base_url() ?>public/images/brand/icon.png" alt="" style="height: 20px;">
-            <span class="font-weight-semibold ml-2">C19CTAVMS</span>
+            <span class="font-weight-semibold ml-2">VaxxTrack</span>
         </a>    
     </div>
 
@@ -41,11 +32,10 @@
         <li class="nav-item dropdown">
 
             <!-- User -->
-            <div 
-                class         = "btn btn-white-muted d-flex align-items-center" 
-                data-toggle   = "dropdown"
-            >   
-                <i class="fas fa-user-tie"></i>
+            <div class="btn btn-white-muted d-flex align-items-center px-2" data-toggle="dropdown">
+                <div class="border flex-center rounded-circle small" style="width: 1.75rem; height: 1.75rem">
+                    <i class="fas fa-user-tie"></i>
+                </div>  
                 <div class="d-none d-sm-inline-block ml-2 text-truncate" style="max-width: 10rem">
                     <span id="userNameForNavbar"></span>
                 </div>
@@ -114,9 +104,9 @@
                 <!-- Dropdown Footer -->
                 <div class="text-center mt-1">
                     <a 
-                        href   = "<?= base_url() ?>about-us" 
-                        class  = "small"
-                        target = "_blank"
+                        href="<?= base_url() ?>about-us" 
+                        class="small"
+                        target="_blank"
                     >About us</a>
                     <span>&middot;</span>
                     <a 
@@ -128,7 +118,7 @@
                     <a 
                         href   = "<?= base_url() ?>terms-and-conditions" 
                         class  = "small"
-                        target =  "_blank"
+                        target = "_blank"
                     >Terms and Conditions</a>
                 </div>
             </div>

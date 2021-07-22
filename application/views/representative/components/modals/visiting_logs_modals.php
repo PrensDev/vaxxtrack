@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<!-- Scripts -->
+<!-- Scripts for QR Scanner Modal -->
 <script type="module">
     $('#QRCodeScannerModal').on('show.bs.modal', () => {
 
@@ -88,6 +88,7 @@
                 dataType: 'json',
                 success: result => {
                     if(result) {
+                        reloadDataTable('#visitingLogsDT');
                         $('#QRCodeScannerModal').modal('hide');
                     } else {
                         console.log('No result');
@@ -108,7 +109,7 @@
 </script>
 
 <!-- View Visiting Log Details Modal -->
-<div class="modal" id="viewVisitLogModal" tabindex="-1">
+<div class="modal fade" id="viewVisitLogModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -155,5 +156,73 @@
             </div>
             <div class="modal-footer p-3 bg-white"></div>
         </div>
+    </div>
+</div>
+
+<!-- Delete Visiting Log Modal -->
+<div class="modal" id="deleteVisitingLogModal" tabindex="-1" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <form id="deleteVisitingLogForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title-icon fas fa-trash-alt"></h5>
+                <h5 class="modal-title">Delete Visiting Log</h5>
+                <button 
+                    class        = "btn btn-sm btn-white-muted" 
+                    type         = "button" 
+                    data-dismiss = "modal" 
+                    aria-label   = "Close"
+                >
+                    <span aria-hidden="true">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-sm-flex">
+                    <div class="flex-center mb-3 mb-sm-0 mr-sm-3">
+                        <img 
+                            src="<?= base_url() ?>public/images/brand/warning.svg" 
+                            alt="Warning" 
+                            style="width: 8rem"
+                            draggable="false"
+                        >
+                    </div>
+                    <div>
+                        
+                        <!-- Visiting Log ID -->
+                        <div class="form-group d-none">
+                            <input 
+                                type="hidden" 
+                                class="form-control" 
+                                id="visitingLogIDForDelete" 
+                                name="visitingLogID"
+                            >
+                        </div>
+
+                        <p>Are you sure you want to delete this record?</p>
+
+                        <!-- Confirmation -->
+                        <div class="form-group">
+                            <label class="mb-0" for="confirmDeleteForVaccRecord">Type "CONFIRM" to continue</label>
+                            <div class="small text-danger mb-3">Note: You cannot retrieved this record again forever if you are going to continue to delete this</div>
+                            <input type="hidden" id="confirmRef"value="CONFIRM">
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="confirmDeleteForVaccRecord"
+                                name="confirm"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-muted border-0 py-1">
+                <button type="button" class="btn btn-muted" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger">
+                    <span>Delete</span>
+                    <i class="fas fa-trash-alt ml-1"></i>
+                </button>
+            </div>
+        </form>
     </div>
 </div>

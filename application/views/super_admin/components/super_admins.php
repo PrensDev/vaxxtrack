@@ -33,7 +33,8 @@
                 <table class="table border-bottom w-100" id="superAdminsDT" width="100%" cellspacing="0">
                     <thead class="thead text-nowrap">
                         <tr>
-                            <th>Name</th>
+                            <th>Added At (Hidden)</th>
+                            <th>Full Name</th>
                             <th>Added By</th>
                             <th>Added At</th>
                             <th>Updated At</th>

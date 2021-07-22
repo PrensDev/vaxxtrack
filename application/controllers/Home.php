@@ -58,7 +58,7 @@ class Home extends CI_Controller {
             if($user_type === 'Health Official') redirect('h');
             if($user_type === 'Super Admin')     redirect('admin');
         } else {
-            $this->load_views('Welcome to C19CTAVMS', [
+            $this->load_views('Welcome to VaxxTrack', [
                 ['components/main_navbar'],
                 ['index'],
                 ['components/main_footer'],

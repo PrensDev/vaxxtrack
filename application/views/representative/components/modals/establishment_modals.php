@@ -79,7 +79,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="fas fa-building modal-title-icon"></h5>
-                <h5 class="modal-title">ABC Company</h5>
+                <h5 class="modal-title">Establishment Details</h5>
                 <button 
                     class        = "btn btn-sm btn-white-muted" 
                     type         = "button" 
@@ -93,31 +93,88 @@
             </div>
             <div class="modal-body" id="QRCodeContainer">
                 <table class="table">
+
+                    <!-- Establishment Details -->
                     <tr>
-                        <th>Type</th>
-                        <td>Company</td>
-                    </tr>
-                    <tr>
-                        <th>Main Representative</th>
-                        <td>Juan Dela Cruz</td>
-                    </tr>
-                    <tr>
-                        <th>No. of Representatives</th>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
+                        <th>Establishment</th>
                         <td>
-                            <div class="mb-3">
-                                <div>NATIONAL CAPTIAL REGION</div>
-                                <div>METRO MANILA</div>
-                                <div>CITY OF QUEZON</div>
-                                <div>Commonwealth</div>
-                                <div>Don Fabian</div>
-                                <div>234, Progressive Village</div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-building text-secondary"></i>
+                                </div>
+                                <div>
+                                    <div id="establishmentName"></div>
+                                    <div 
+                                        class="small text-secondary" 
+                                        id="establishmentType"
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Establishment Type"
+                                    ></div>
+                                </div>
                             </div>
                         </td>
                     </tr>
+
+                    <!-- Address -->
+                    <tr>
+                        <th>Address</th>
+                        <td>
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-map-marker-alt text-danger"></i>
+                                </div>
+                                <div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Region"
+                                        id="establishmentRegion"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Province"
+                                        id="establishmentProvince"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="City"
+                                        id="establishmentCity"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Street & Barangay"
+                                        id="establishmentStreetAndBarangay"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Specific Location"
+                                        id="establishmentSpecificLocation"
+                                    ></div>
+                                    <div 
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Zip/Postal Code"
+                                        id="establishmentZipCode"
+                                    ></div>
+                                    <div 
+                                        class="small text-secondary"
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="Latitude and Longitude"
+                                    >
+                                        <span>(Lat: <span id="establishmentLatitude"></span>, Lng: <span id="establishmentLongitude"></span>)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Map Location -->
                     <tr>
                         <td colspan="2">
                             <h6 class="font-weight-semibold mb-3">
@@ -128,6 +185,10 @@
                                 <div class="flex-center bg-muted rounded-lg" style="height: 300px">
                                     <div class="text-center">
                                         <div class="mb-3">
+                                            <input type="hidden" id="estLat">
+                                            <input type="hidden" id="estLng">
+                                            <input type="hidden" id="estName">
+                                            <input type="hidden" id="estLoc">
                                             <button class="btn btn-primary" type="button" onclick="renderEstablishmentLocation()">
                                                 <i class="fas fa-map-marker-alt mr-1"></i>
                                                 <span>Show location</span>
@@ -143,17 +204,31 @@
                             </div>
                         </td>
                     </tr>
+
+                    <!-- Position -->
                     <tr>
                         <th>Your position</th>
-                        <td>Manager</td>
+                        <td id="position"></td>
                     </tr>
+
+                    <!-- Added At -->
                     <tr>
                         <th>Added at</th>
-                        <td>May 1, 2021</td>
+                        <td>
+                            <div id="establishmentAddedDate"></div>
+                            <div id="establishmentAddedTime"></div>
+                            <div class="small text=secondary" id="establishmentAddedAtHumanized"></div>
+                        </td>
                     </tr>
+
+                    <!-- Last Updated -->
                     <tr>
                         <th>Last Updated</th>
-                        <td>May 1, 2021</td>
+                        <td>
+                            <div id="establishmentUpdatedDate"></div>
+                            <div id="establishmentUpdatedTime"></div>
+                            <div class="small text=secondary" id="establishmentUpdatedAtHumanized"></div>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -171,12 +246,17 @@
 <script>
     function renderEstablishmentLocation() {
 
+        const estlat  = $('#estLat').val();
+        const estlng  = $('#estLng').val();
+        const estname = $('#estName').val();
+        const estloc  = $('#estLoc').val();
+
         $('#establishmentLocationContainer').html(`<div class="rounded-lg" style="height:300px" id="establishmentLocationMap"></div>`);
 
         var mymap = L.map('establishmentLocationMap', {
             dragging: false,
             doubleClickZoom: false
-        }).setView([14.6309,121.0577], 13);
+        }).setView([estlat,estlng], 13);
 
         L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${ LEAFLET_ACCESS_TOKEN }`, {
             id: 'mapbox/streets-v11',
@@ -189,12 +269,12 @@
             accessToken: 'your.mapbox.access.token'
         }).addTo(mymap);
 
-        var marker = L.marker([14.6309,121.0577]).addTo(mymap);
+        var marker = L.marker([estlat,estlng]).addTo(mymap);
         
         marker.bindPopup(`
             <div class="text-center p-2">
-                <h6 class="mb-0 font-weight-semibold">ABC Company</h6>
-                <div>Commonwealth, Quezon City</div>
+                <h6 class="mb-0 font-weight-semibold">${ estname }</h6>
+                <div>${ estloc }</div>
             </div>
         `);
     }

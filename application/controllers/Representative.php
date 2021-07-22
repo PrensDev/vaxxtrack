@@ -125,7 +125,7 @@ class Representative extends CI_Controller {
         }
     }
 
-    // Edit Infromation
+    // Edit Information
     public function edit_info() {
         $this->load_views('Edit Information', [['edit_info']]);
     }
@@ -133,7 +133,7 @@ class Representative extends CI_Controller {
     // Account Settings
     public function account_settings() {
         $this->load_views('Account Settings', [
-            ['components/account_settings_modal'],
+            ['components/modals/account_settings_modals'],
             ['account_settings']
         ]);
     }

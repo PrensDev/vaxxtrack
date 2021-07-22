@@ -29,12 +29,12 @@
                             </div>
                             <span>Visiting Logbook</span>
                         </a>
-                        <a class="dropdown-item" href="<?= base_url() ?>r/manage-representatives/1">
+                        <!-- <a class="dropdown-item" href="<?= base_url() ?>r/manage-representatives/1">
                             <div class="icon-container">
                                 <i class="fas fa-users"></i>
                             </div>
                             <span>Manage Representatives</span>
-                        </a>
+                        </a> -->
                         <div class="dropdown-divider"></div>
                         <div 
                             class       = "dropdown-item"
@@ -60,8 +60,7 @@
                         <div 
                             class       = "dropdown-item" 
                             role        = "button" 
-                            data-toggle = "modal" 
-                            data-target = "#changePositionModal"
+                            onclick     = "changePosition()"
                         >
                             <div class="icon-container">
                                 <i class="fas fa-user-cog"></i>
@@ -91,11 +90,11 @@
                     <!-- Establishment and Representative Details -->
                     <div class="text-center text-sm-left flex-grow-1">
                         
-                        <!-- Establihsment Name -->
+                        <!-- Establishment Name -->
                         <h2 
                             class="text-uppercase font-weight-normal text-uppercase mb-3"
-                            id="establishmentName"
-                        >ABC COMPANY</h2>
+                            id="establishmentNameForDisplay"
+                        ></h2>
                         
                         <!-- Bagde of Details -->
                         <div class="font-weight-bold text-secondary text-uppercase mb-3">
@@ -106,7 +105,7 @@
                                 title           = "Establishment Type"
                             >
                                 <i class="fas fa-building mr-1"></i>
-                                <span id="establishmentType">Organizational</span>
+                                <span id="establishmentTypeForDisplay"></span>
                             </span>
                             <span
                                 class           = "badge alert-blue text-blue p-2 mb-1"
@@ -115,16 +114,7 @@
                                 title           = "Your role"
                             >
                                 <i class="fas fa-user-tie mr-1"></i>
-                                <span>Manager</span>
-                            </span>
-                            <span
-                                class           = "badge text-danger alert-danger p-2 mb-1"
-                                data-toggle     = "tooltip"
-                                data-placement  = "top"
-                                title           = "You have administrative rights"
-                            >
-                                <i class="fas fa-user-cog mr-1"></i>
-                                <span>Admin</span>
+                                <span id="role"></span>
                             </span>
                         </div>
 
@@ -139,7 +129,7 @@
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                             </div>
-                            <div id="establishmentLocation"></div>
+                            <div id="establishmentLocationForDisplay"></div>
                         </div>
                     </div>
 
@@ -164,71 +154,10 @@
                         <span class="font-weight-normal h3" id="clockSession"></span>
                     </div>
                     <h6 class="font-weight-normal text-monospace" id="clockDate"></h6>
-                    <small>PHILIPPINE STANDARD TIME</small>
+                    <small class="text-monospace">PHILIPPINE STANDARD TIME</small>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-
-<script>
-    if($('#establishmentDetails').length) {
-        const establishment_ID = location.pathname.split('/')[4];
-
-        $.ajax({
-            url: `${ REPRESENTATIVE_API_ROUTE }establishments/${ establishment_ID }`,
-            type: 'GET',
-            headers: AJAX_HEADERS,
-            success: (result) => {
-                if(result) {
-                    const data = result.data;
-
-                    // Generate Establishment QR Code
-                    generateEstablishmentQRCode = (establihsment_id) => {
-
-                        // Check first if element with ID is existed
-                        // This is done because there is always error returned from QRCode function 
-                        if($('#establishmentQRCode').length) {
-                            
-                            // Set Establishment QC Code 
-                            const establishmentQRCode = new QRCode('establishmentQRCode', {
-                                text: "sample-text",
-                                width: 125,
-                                height: 125,
-                                correctLevel: QRCode.CorrectLevel.H
-                            });
-                            establishmentQRCode.makeCode(establihsment_id);
-                        }
-
-                        // Check first if element with ID is existed
-                        // This is done because there is always error returned from QRCode function
-                        if($('#establishmentQRCodeInModal').length) {
-
-                            // Set Establishment QR Code in Modal
-                            const establishmentQRCodeInModal = new QRCode('establishmentQRCodeInModal', {
-                                text: "sample-text",
-                                width: 300,
-                                height: 300,
-                                correctLevel: QRCode.CorrectLevel.H
-                            });
-                            establishmentQRCodeInModal.makeCode(establihsment_id);
-                        }
-                    }
-                    
-                    generateEstablishmentQRCode(data.establishment_ID);
-
-                    $('#establishmentName').html(data.name);
-                    $('#establishmentType').html(data.type);
-                    
-                    const address = data.address;
-
-                    $('#establishmentLocation').html(`${ address.street }, ${ address.barangay_district }, ${ address.city_municipality }`)
-                } else {
-                    location.replace(`${ BASE_URL_MAIN }page_not_found`);
-                }
-            }
-        })
-        .fail(() => location.replace(`${ BASE_URL_MAIN }page_not_found`));
-    }
-</script>

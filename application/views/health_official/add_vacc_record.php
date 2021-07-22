@@ -25,25 +25,25 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                
+                    
+                    <!-- Patient ID Field (Hidden) -->
+                    <div class="d-none">
+                        <div class="form-group">
+                            <label for="firstName">Patient ID</label>
+                            <input 
+                                class       = "form-control" 
+                                type        = "hidden" 
+                                id          = "patientID" 
+                                name        = "patientID" 
+                                placeholder = "Patient ID should display here"
+                                readonly
+                            >
+                        </div>
+                    </div>
+                    
                     <!-- Patient's Full Name-->
                     <h5 class="text-info font-weight-bold">Full Name</h5>
                     <div class="form-row">
-
-                        <!-- Patient ID Field (Hidden) -->
-                        <div class="col-12 d-none">
-                            <div class="form-group">
-                                <label for="firstName">Patient ID</label>
-                                <input 
-                                    class       = "form-control" 
-                                    type        = "hidden" 
-                                    id          = "patientID" 
-                                    name        = "patientID" 
-                                    placeholder = "Patient ID should display here"
-                                    readonly
-                                >
-                            </div>
-                        </div>
 
                         <!-- First Name Field -->
                         <div class="col-lg-3">

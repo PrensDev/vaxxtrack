@@ -204,7 +204,6 @@
                 <div class="bg-muted d-flex justify-content-center align-items-center rounded" style="height: 300px;">
                     <span>Map</span>
                 </div>
-            
             </div>
         </div>
 

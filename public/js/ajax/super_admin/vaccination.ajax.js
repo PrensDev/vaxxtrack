@@ -35,20 +35,23 @@ liveReloadDataTables([
 // Load Vaccines DataTable
 loadVaccinesDT = () => {
     const dt = $('#vaccinesDT');
-
     if(dt.length) {
         dt.DataTable({
             ajax: {
-                url: `${ BASE_URL_API }vaccines`,
-                type: 'GET',
+                url: `${ SUPER_ADMIN_API_ROUTE }vaccines`,
                 headers: AJAX_HEADERS,
             },
             columns: [
+
+                // Date Created (hidden)
+                { data: 'created_datetime', visible: false },
+
+                // Vaccine
                 { 
                     data: null,
                     render: data => {
                         return `
-                            <div class="d-flex align-items-baseline text-nowrap">
+                            <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
                                     <i class="fas fa-syringe text-success"></i>
                                 </div>
@@ -67,18 +70,80 @@ loadVaccinesDT = () => {
                         `
                     }
                 },
+
+                // Type
                 { 
-                    data: 'type',
-                    class: 'text-nowrap' 
+                    data: null,
+                    class: 'text-nowrap',
+                    render: data => {
+                        return `
+                            <div class="d-flex align-items-baseline text-nowrap">
+                                <div class="icon-container">
+                                    <i class="fas fa-dna text-info"></i>
+                                </div>
+                                <div>${ data.type }</div>
+                            </div>
+                        `
+                    }
                 },
-                { data: 'manufacturer' },
+                
+                // Manufacturer
+                { 
+                    data: null,
+                    render: data => {
+                        return `
+                            <div class="d-flex align-items-baseline">
+                                <div class="icon-container">
+                                    <i class="fas fa-industry text-secondary"></i>
+                                </div>
+                                <div>${ data.manufacturer }</div>
+                            </div>
+                        `
+                    }
+                },
+
+                // Shots Details
                 { data: 'shots_details' },
+
+                // Availability
+                { 
+                    data: null,
+                    render: data => {
+                        return data.is_available 
+                            ? `
+                                <div 
+                                    class="badge text-success alert-success p-2 w-100"
+                                    role="button"
+                                    onclick="changeAvailabilityStatus('${ data.vaccine_ID }')"
+                                >Available</div>
+                            `
+                            : `
+                                <div 
+                                    class="badge text-danger alert-danger p-2 w-100"
+                                    role="button"
+                                    onclick="changeAvailabilityStatus('${ data.vaccine_ID }')"
+                                >Not Available</div>
+                            `
+                    }
+                },
+
+                // User Actions
                 {
                     data: null,
                     class: 'text-center',
                     render: data => {
                         const id = data.vaccine_ID;
-
+                        const hasReferences = data.vaccination_records.length > 0 || data.vaccination_appointments.length > 0;
+                        const removeVaccineBlade = hasReferences ? '' : `
+                                <div 
+                                    class   = "dropdown-item"
+                                    onclick = "removeVaccine('${ id }')"
+                                    role    = "button"
+                                >
+                                    <i class="far fa-trash-alt icon-container"></i>
+                                    <span>Remove</span>
+                                </div>
+                            `;
                         return `
                             <div class="dropdown" data-toggle="tooltip" title="More">
                                 <div class="d-inline" data-toggle="dropdown">
@@ -104,14 +169,7 @@ loadVaccinesDT = () => {
                                         <i class="far fa-edit icon-container"></i>
                                         <span>Edit Details</span>
                                     </div>
-                                    <div 
-                                        class   = "dropdown-item"
-                                        onclick = "removeVaccine('${ id }')"
-                                        role    = "button"
-                                    >
-                                        <i class="far fa-trash-alt icon-container"></i>
-                                        <span>Remove</span>
-                                    </div>
+                                    ${ removeVaccineBlade }
                                 </div>
                             </div>
                         `;
@@ -119,9 +177,13 @@ loadVaccinesDT = () => {
                 },
             ],
             columnDefs: [{
-                targets: [4],
+                targets: [6],
                 orderable: false,
-            }]
+            }],
+            order: [[0, 'desc']],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No vaccines yet</div>`
+            }
         });
     }
 }
@@ -136,8 +198,9 @@ loadVaccinesDT = () => {
 // View Vaccine Details 
 viewVaccineDetails = (vaccine_ID) => {
     $.ajax({
-        url: `${ BASE_URL_API }vaccines/${ vaccine_ID }`,
+        url: `${ SUPER_ADMIN_API_ROUTE }vaccines/${ vaccine_ID }`,
         type: 'GET',
+        headers: AJAX_HEADERS,
         success: (result) => {
             if(result) {
 
@@ -147,24 +210,42 @@ viewVaccineDetails = (vaccine_ID) => {
                 // Set the content from data
                 $('#productName').html(data.product_name);
                 $('#vaccineName').html(data.vaccine_name);
-                $('#vaccineType').html(data.type);
-                $('#manufacturer').html(data.manufacturer);
+                $('#vaccineType').html(`
+                    <div class="d-flex align-items-baseline">
+                        <div class="icon-container">
+                            <i class="fas fa-dna text-info"></i>
+                        </div>
+                        <div>${ data.type }</div>
+                    </div>
+                `);
+                $('#manufacturer').html(`
+                    <div class="d-flex align-items-baseline">
+                        <div class="icon-container">
+                            <i class="fas fa-industry text-secondary"></i>
+                        </div>
+                        <div>${ data.manufacturer }</div>
+                    </div>
+                `);
                 $('#shotsDetails').html(data.shots_details);
                 $('#description').html(data.description);
-                $('#vaccDateAdded').html(moment(data.created_datetime).format('dddd, MMMM d, YYYY'));
+                $('#availability').html(() => {
+                    return data.is_available
+                        ? `<div class="badge text-success alert-success p-2">Available</div>`
+                        : `<div class="badge text-danger alert-danger p-2">Not Available</div>`
+                });
+                $('#vaccDateAdded').html(moment(data.created_datetime).format('dddd, MMMM D, YYYY'));
                 $('#vaccTimeAdded').html(moment(data.created_datetime).format('hh:mm:ss A'));
-                $('#vaccDateAddedHumanized').html(moment(data.created_datetime).fromNow());
-                $('#vaccDateUpdated').html(moment(data.updated_datetime).format('dddd, MMMM d, YYYY'));
+                $('#vaccDateAddedHumanized').html(humanizeDate(data.created_datetime));
+                $('#vaccDateUpdated').html(moment(data.updated_datetime).format('dddd, MMMM D, YYYY'));
                 $('#vaccTimeUpdated').html(moment(data.updated_datetime).format('hh:mm:ss A'));
-                $('#vaccDateUpdatedHumanized').html(moment(data.updated_datetime).fromNow());
+                $('#vaccDateUpdatedHumanized').html(humanizeDate(data.updated_datetime));
 
+                // Show Vaccine Details Modal
                 $('#viewVaccineDetailsModal').modal('show');
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in retrieving vaccine data');
-    });
+    .fail(() => console.error('There was an error in retrieving vaccine data'));
 }
 
 
@@ -174,20 +255,24 @@ viewVaccineDetails = (vaccine_ID) => {
  * ====================================================================
  */
 
+const addVaccineForm = $('#addVaccineForm');
+const addVaccineModal = $('#addVaccineModal');
+
 // Add Vaccine AJAX
 addVaccineAJAX = () => {
 
     // Get values from form
-    const form = new FormData($('#addVaccineForm')[0]);
+    const form = new FormData(addVaccineForm[0]);
 
     // Set data
     data = {
-        vaccine_name:   form.get('vaccineName'),
-        product_name:   form.get('productName'),
-        type:           form.get('type'),
-        manufacturer:   form.get('manufacturer'),
-        shots_details:  form.get('shotsDetails'),
-        description:    form.get('description')
+        vaccine_name:  form.get('vaccineName'),
+        product_name:  form.get('productName'),
+        type:          form.get('type'),
+        manufacturer:  form.get('manufacturer'),
+        shots_details: form.get('shotsDetails'),
+        description:   form.get('description'),
+        is_available:  form.get('availability') === 'on'
     }
 
     // Create vaccine record via AJAX
@@ -201,50 +286,27 @@ addVaccineAJAX = () => {
             if(result) {
 
                 // Refresh/Reload DataTable
-                const dt = $('#vaccinesDT').DataTable();
-                dt.ajax.reload();
+                reloadDataTable('#vaccinesDT');
 
                 // Show alert
                 showAlert('success', 'Success! A new vaccine has been added');
 
                 // Hide modal
-                $('#addVaccineModal').modal('hide');
+                addVaccineModal.modal('hide');
 
-                // Set form values to empty
-                setFormValues('#addVaccineForm', [
-                    {
-                        name: 'vaccineName',
-                        value: ''
-                    }, {
-                        name: 'productName',
-                        value: ''
-                    }, {
-                        name: 'type',
-                        value: ''
-                    }, {
-                        name: 'manufacturer',
-                        value: ''
-                    }, {
-                        name: 'shotsDetails',
-                        value: ''
-                    }, {
-                        name: 'description',
-                        value: ''
-                    }
-                ]);
+                // Reset add vaccine form
+                addVaccineForm.trigger('reset');
 
             } else {
                 console.log('No result was found')
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in creating vaccine record')
-    })
+    .fail(() => console.error('There was an error in creating vaccine record'))
 }
 
 // Validate Add Vaccine Form
-$('#addVaccineForm').validate(validateOptions({
+addVaccineForm.validate(validateOptions({
     rules: {
         vaccineName: {
             required: true
@@ -288,6 +350,9 @@ $('#addVaccineForm').validate(validateOptions({
     submitHandler: () => addVaccineAJAX()
 }));
 
+// When add vaccine modal is hidden, reset add vaccine form
+addVaccineModal.on('hide.bs.modal', () => addVaccineForm.trigger('reset'));
+
 
 /**
  * ====================================================================
@@ -295,67 +360,65 @@ $('#addVaccineForm').validate(validateOptions({
  * ====================================================================
  */
 
-// Edit vaccine details
-editVaccineDetails = (vaccine_ID) => {
+const editVaccineDetailsForm = $('#editVaccineDetailsForm');
+const editVaccineDetailsModal = $('#editVaccineDetailsModal');
+const changeAvailabilityStatusForm = $('#changeAvailabilityStatusForm');
+const changeAvailabilityStatusModal = $('#changeAvailabilityStatusModal');
+
+// Get vaccine details
+getVaccineDetails = (vaccine_ID, modalToShow) => {
     $.ajax({
-        url: `${ BASE_URL_API }vaccines/${ vaccine_ID }`,
+        url: `${ SUPER_ADMIN_API_ROUTE }vaccines/${ vaccine_ID }`,
         type: 'GET',
+        headers: AJAX_HEADERS,
         success: (result) => {
             if(result) {
 
                 // Get data from result
                 const data = result.data;
 
-                // Set Form Values
-                setFormValues('#editVaccineDetailsForm', [
-                    {
-                        name: 'vaccineID',
-                        value: data.vaccine_ID
-                    }, {
-                        name: 'vaccineName',
-                        value: data.vaccine_name
-                    }, {
-                        name: 'productName',
-                        value: data.product_name
-                    }, {
-                        name: 'type',
-                        value: data.type
-                    }, {
-                        name: 'manufacturer',
-                        value: data.manufacturer
-                    }, {
-                        name: 'shotsDetails',
-                        value: data.shots_details
-                    }, {
-                        name: 'description',
-                        value: data.description
-                    },
-                ]);
+                if(editVaccineDetailsForm.length && modalToShow === 'editVaccineDetailsModal') {
+                    $('#vaccineIDForEdit').val(data.vaccine_ID);
+                    $('#vaccineNameForEdit').val(data.vaccine_name);
+                    $('#productNameForEdit').val(data.product_name);
+                    $('#typeForEdit').val(data.type);
+                    $('#manufacturerForEdit').val(data.manufacturer);
+                    $('#shotsDetailsForEdit').val(data.shots_details);
+                    $('#descriptionForEdit').val(data.description);                
+                    $('#availabiiltyForEdit').prop('checked', data.is_available);
+                    editVaccineDetailsModal.modal('show');
+                }
+                
+                if(changeAvailabilityStatusForm.length && modalToShow === 'changeAvailabilityStatusModal') {
+                    $('#vaccineIDForChange').val(data.vaccine_ID);
+                    $('#availabiiltyForChange').prop('checked', data.is_available);
+                    changeAvailabilityStatusModal.modal('show');
+                }
 
-                // Show modal
-                $('#editVaccineDetailsModal').modal('show');
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in retrieving vaccine data');
-    });
+    .fail(() => console.error('There was an error in retrieving vaccine data'));
 }
+
+// Edit vaccine details
+editVaccineDetails = (vaccine_ID) => getVaccineDetails(vaccine_ID, 'editVaccineDetailsModal');
 
 // Update Vaccine Details AJAX
 updateVaccineDetailsAJAX = () => {
 
     // Get the form
-    const form = new FormData($('#editVaccineDetailsForm')[0]);
+    const form = new FormData(editVaccineDetailsForm[0]);
 
     // Set the data values
     const data = {
-        vaccine_name:   form.get('vaccineName'),
-        product_name:   form.get('productName'),
-        type:           form.get('type'),
-        manufacturer:   form.get('manufacturer'),
-        shots_details:  form.get('shotsDetails'),
-        description:    form.get('description')
+        vaccine_name:  form.get('vaccineName'),
+        product_name:  form.get('productName'),
+        type:          form.get('type'),
+        manufacturer:  form.get('manufacturer'),
+        shots_details: form.get('shotsDetails'),
+        description:   form.get('description'),
+        is_available:  form.get('availability') === 'on'
     }
     
     // Get the ID for update
@@ -372,24 +435,24 @@ updateVaccineDetailsAJAX = () => {
             if(result) {
 
                 // Reload the DataTable
-                const dt = $('#vaccinesDT').DataTable();
-                dt.ajax.reload();
+                reloadDataTable('#vaccinesDT');
 
                 // Hide the edit vaccine details modal
-                $('#editVaccineDetailsModal').modal('hide');
+                editVaccineDetailsModal.modal('hide');
+
+                // Reset edit vaccine details form
+                editVaccineDetailsForm.trigger('reset');
 
                 // Show alert
                 showAlert('success', 'Success! A vaccine record has been updated');
             }
         }
     })
-    .fail(() => {
-        console.log('There was a problem in updating vaccine details')
-    })
+    .fail(() => console.error('There was a problem in updating vaccine details'));
 }
 
 // Validate Edit Vaccine Details Form
-$('#editVaccineDetailsForm').validate(validateOptions({
+editVaccineDetailsForm.validate(validateOptions({
     rules: {
         vaccineName: {
             required: true
@@ -433,12 +496,59 @@ $('#editVaccineDetailsForm').validate(validateOptions({
     submitHandler: () => updateVaccineDetailsAJAX()
 }));
 
+// Reset edit vaccine details form when its modal is hidden
+editVaccineDetailsModal.on('hide.bs.modal', () => editVaccineDetailsForm.trigger('reset'));
+
+// Change Availability Status
+changeAvailabilityStatus = (vaccine_ID) => getVaccineDetails(vaccine_ID, 'changeAvailabilityStatusModal');
+
+// Validate Change Availability Status Form
+changeAvailabilityStatusForm.validate({ submitHandler: () => updateVaccAvailabilityStatusAJAX() });
+
+// Update Vaccine Availability Status AJAX
+updateVaccAvailabilityStatusAJAX = () => {
+    const form = new FormData(changeAvailabilityStatusForm[0]);
+
+    data = { is_available: form.get('availability') === 'on' }
+
+    // Get the ID for update
+    const vaccine_ID = form.get('vaccineID');
+
+    // Update record via AJAX
+    $.ajax({
+        url: `${ SUPER_ADMIN_API_ROUTE }vaccines/${ vaccine_ID }`,
+        type: 'PUT',
+        headers: AJAX_HEADERS,
+        data: data,
+        dataType: 'json',
+        success: (result) => {
+            if(result) {
+
+                // Reload the DataTable
+                reloadDataTable('#vaccinesDT');
+
+                // Hide the change availability status modal
+                changeAvailabilityStatusModal.modal('hide');
+
+                // Reset change availability status form
+                changeAvailabilityStatusForm.trigger('reset');
+
+                // Show alert
+                showAlert('success', 'Success! A vaccine record has been updated');
+            }
+        }
+    })
+    .fail(() => console.error('There was a problem in updating vaccine details'));
+}
 
 /**
  * ====================================================================
  * * REMOVE VACCINE
  * ====================================================================
  */
+
+const removeVaccineForm = $('#removeVaccineForm');
+const removeVaccineModal = $('#removeVaccineModal');
 
 // Remove Vaccine
 removeVaccine = (vaccine_ID) => {
@@ -449,13 +559,12 @@ removeVaccine = (vaccine_ID) => {
         }
     ]);
 
-    $('#removeVaccineModal').modal('show');
+    removeVaccineModal.modal('show');
 }
 
 // Remove Vacccine AJAX
 removeVaccineAJAX = () => {
     const form = new FormData($('#removeVaccineForm')[0]);
-
     const vaccine_ID = form.get('vaccineID');
 
     $.ajax({
@@ -464,27 +573,28 @@ removeVaccineAJAX = () => {
         headers: AJAX_HEADERS,
         success: result => {
             if(result) {
+
                 // Refresh/reload DataTable
-                const dt = $('#vaccinesDT').DataTable();
-                dt.ajax.reload();
+                reloadDataTable('#vaccinesDT');
 
                 // Show alert
                 showAlert('blue', 'A vaccine record has been successfully deleted');
 
                 // Hide modal
-                $('#removeVaccineModal').modal('hide');
+                removeVaccineModal.modal('hide');
             } else {
                 console.log('No result was found')
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in deleting vaccine record')
-    })
+    .fail(() => console.error('There was an error in deleting vaccine record'))
 }
 
+// Reset Remove Vaccine Form when its modal is hidden
+removeVaccineModal.on('hide.bs.modal', () => removeVaccineForm.trigger('reset'));
+
 // Validate Remove Vaccine Form
-$('#removeVaccineForm').validate(validateOptions({
+removeVaccineForm.validate(validateOptions({
     rules: {},
     messages: {},
     submitHandler: () => removeVaccineAJAX()
@@ -504,7 +614,6 @@ loadVaccRecordDT = () => {
         dt.DataTable({
             ajax: {
                 url: `${ SUPER_ADMIN_API_ROUTE }vaccination-records`,
-                type: 'GET',
                 headers: AJAX_HEADERS
             },
             columns: [
@@ -658,7 +767,10 @@ loadVaccRecordDT = () => {
                 'targets': [6],
                 'orderable': false,
             }],
-            order: [[0, 'desc']]
+            order: [[0, 'desc']],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No vaccination records yet</div>`
+            }
         });
     }
 
@@ -973,7 +1085,10 @@ loadVaccAppointmentsDT = () => {
                 targets: [8],
                 orderable: false
             }],
-            order: [[0, 'desc']]
+            order: [[0, 'desc']],
+            language: {
+                emptyTable: `<div class="py-5 rounded-lg text-secondary">No vaccination appointments yet</div>`
+            }
         });
     }
 }

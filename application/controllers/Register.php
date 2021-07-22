@@ -62,6 +62,9 @@ class Register extends CI_Controller {
 
     // Register as Establishment Representative
     public function representative() {
-        $this->load_views('Establishment Representative Registration', [['representative']]);
+        $this->load_views('Establishment Representative Registration', [
+            ['components/modals/register_modals'],
+            ['representative']
+        ]);
     }
 }
