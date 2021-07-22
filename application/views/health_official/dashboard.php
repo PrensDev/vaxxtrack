@@ -23,8 +23,11 @@
             <div class="row">
                 <div class="col-12 col-md-7 order-1 order-md-0 text-center text-sm-left">
                     <h1>Good Day, <span id="userFirstNameForGreet"></span>!</h1>
-                    <h5>Manage your activities using our dashboard designed for your!</h5>
-                    <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum praesentium velit possimus pariatur amet eum.</p>
+                    <h5>Everyone's health is our concern</h5>
+                    <p class="mt-2">
+                    As many facets of life have been altered by the coronavirus (COVID-19), 
+                    it is important to bear in mind the goal to stop the spread of the virus.
+                    </p>
                 </div>
                 <div class="col-12 col-md-5 order-0 order-md-1 mb-3 mb-md-0 d-flex justify-content-center">
                     <img 

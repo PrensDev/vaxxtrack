@@ -78,7 +78,9 @@
                         <div class="col-12 col-md-7 order-1 order-md-0 text-center text-sm-left">
                             <h1>Good Day, <span id="userFirstNameForGreet"></span>!</h1>
                             <h5>Everyone's health is our concern</h5>
-                            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum praesentium velit possimus pariatur amet eum.</p>
+                            <p class="mt-2">
+                                Keep posted on any updates and developments regarding the coronavirus disease (COVID 19). 
+                            </p>
                             
                             <a 
                                 href   = "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/media-resources/news" 
@@ -107,7 +109,9 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-md-8 order-1 order-md-0">
                             <h3>Monitor your health status</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet.</p>
+                            <p>
+                                Assess your health and check your daily health status.
+                            </p>
                             <div class="text-right text-md-left">
                                 <a href="<?= base_url() ?>c/health-status" class="btn btn-primary">Check now!</a>
                             </div>
@@ -138,7 +142,9 @@
                         </div>
                         <div class="col-12 col-md-8">
                             <h3>Trace the Establishments you visit</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet.</p>
+                            <p>
+                                Be mindful of your surroundings. Keep tabs on every establishment you visited for the past few days.
+                            </p>
                             <div class="text-right text-md-left">
                                 <a href="<?= base_url() ?>c/visiting-logbook" class="btn btn-primary">Check my visiting logbook</a>
                             </div>
@@ -165,8 +171,10 @@
                         >
                     </div>
                     <div>
-                        <h4>Manage your accounts!</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <h4>Manage your accounts</h4>
+                        <p>
+                            Manage your information and privacy to make this web application work for you.
+                        </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>r/account-settings" class="btn btn-danger">
                                 <span>Manage</span>
@@ -191,8 +199,10 @@
                         >
                     </div>
                     <div>
-                        <h4>Edit your information!</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <h4>Edit your information</h4>
+                        <p>
+                            Modify and update your personal information.
+                        </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>r/edit-information" class="btn btn-blue">
                                 <span>Edit</span>

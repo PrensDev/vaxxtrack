@@ -16,7 +16,11 @@
                     <span>C19CTAVMS</span>
                 </div>
                 <h3>Stay Protected in COVID-19!</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque harum nostrum saepe, porro odit pariatur quia eveniet magni similique, assumenda quibusdam? Corporis, officia. Quia, odit magni ad quasi deserunt doloremque.</p>
+                <p>
+                    Protect yourself, your loved ones, and your community. 
+                    Help us to stop the spread of coronavirus through registering to contact tracing and vaccine management system. 
+                    The faster you know, the quicker you can alert and protect your loved ones and community.
+                </p>
                 
                 <a 
                     href  = "<?= base_url() ?>register/c" 
@@ -49,7 +53,10 @@
             <!-- Hero Content -->
             <div class="col-12 col-md-6 order-1 order-md-0">
                 <h3>For Establishment Representatives</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae aliquam totam omnis dolorem animi quo doloremque eveniet expedita impedit ratione.</p>
+                <p>
+                    Protect your customers and employees from COVID 19 
+                    by monitoring your establishment's visiting log.
+                </p>
 
                 <a 
                     href  = "<?php echo base_url() ?>register/r" 

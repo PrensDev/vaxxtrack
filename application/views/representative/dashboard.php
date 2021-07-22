@@ -21,7 +21,10 @@
             <div class="col-12 col-md-7 order-1 order-md-0 text-center text-sm-left">
                 <h1>Good Day, <span id="userFirstNameForGreet"></span>!</h1>
                 <h5>Everyone's health is our concern</h5>
-                <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum praesentium velit possimus pariatur amet eum.</p>
+                <p class="mt-2">
+                    As many facets of life have been altered by the coronavirus (COVID-19), 
+                    it is important to bear in mind the goal to stop the spread of the virus.
+                </p>
                 
                 <a 
                     href   = "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/media-resources/news" 
@@ -73,7 +76,9 @@
                     </div>
                     <div>
                         <h4>Manage your accounts!</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <p>
+                            Manage your information and privacy to make this web application work for you.
+                        </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>r/account-settings" class="btn btn-danger">
                                 <span>Manage</span>
@@ -99,7 +104,9 @@
                     </div>
                     <div>
                         <h4>Edit your information!</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <p>
+                            Modify and update your personal information.
+                        </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>r/edit-info" class="btn btn-blue">
                                 <span>Edit</span>

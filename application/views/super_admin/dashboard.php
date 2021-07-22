@@ -21,8 +21,11 @@
             <div class="row">
                 <div class="col-12 col-md-7 order-1 order-md-0 text-center text-sm-left">
                     <h1>Good Day, <span id="userFirstNameForGreet"></span>!</h1>
-                    <h5>Manage your activities using this productive dashboard!</h5>
-                    <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum praesentium velit possimus pariatur amet eum.</p>
+                    <h5>Everyone's health is our concern</h5>
+                    <p class="mt-2">
+                    As many facets of life have been altered by the coronavirus (COVID-19), 
+                    it is important to bear in mind the goal to stop the spread of the virus.
+                    </p>
                 </div>
                 <div class="col-12 col-md-5 order-0 order-md-1 mb-3 mb-md-0 d-flex justify-content-center">
                     <img 
@@ -53,7 +56,9 @@
                     </div>
                     <div>
                         <h4>Manage your accounts!</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <p>
+                            Manage your information and privacy to make this web application work for you.
+                        </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>admin/account-settings" class="btn btn-danger">
                                 <span>Manage</span>
@@ -79,7 +84,9 @@
                     </div>
                     <div>
                         <h4>Edit your information!</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, porro aperiam explicabo tenetur nam praesentium dolorum saepe obcaecati nostrum ipsa?</p>
+                        <p>
+                            Modify and update your personal information.
+                        </p>
                         <div class="text-right">
                             <a href="<?= base_url() ?>admin/edit-info" class="btn btn-blue">
                                 <span>Edit</span>
