@@ -93,10 +93,17 @@
             </div>
         </div>
         <div class="text-center">
-            <button class="btn btn-blue">
+            <button class="btn btn-blue" id="printVaccCard">
                 <span>Print my card</span>
                 <i class="fas fa-print ml-1"></i>
             </button>
         </div>
     </div>
 </div>
+
+<script>
+    $('#printVaccCard').on('click', () => {
+        window.print();
+        return false;
+    })
+</script>

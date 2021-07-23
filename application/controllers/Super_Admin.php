@@ -23,6 +23,8 @@ class Super_Admin extends CI_Controller {
     private Array $AJAX_files = [
         'account',
         'covid_cases',
+        'contacts',
+        'lab_report',
         'vaccination',
         'info',
         'users'
@@ -80,7 +82,18 @@ class Super_Admin extends CI_Controller {
 
     // COVID-19 Cases
     public function covid_cases() {
-        $this->load_views('COVID-19 Cases', [['covid_cases']]);
+        $this->load_views('COVID-19 Cases', [
+            ['components/modals/covid_cases_modals'],
+            ['covid_cases']
+        ]);
+    }
+
+    // Contacts
+    public function contacts() {
+        $this->load_views('COVID-19 Contacts', [
+            ['components/modals/contacts_modals'],
+            ['contacts']
+        ]);
     }
 
     // Heatmap

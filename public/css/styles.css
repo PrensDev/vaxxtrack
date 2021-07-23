@@ -12093,4 +12093,16 @@ body {
 input[type=date] {
   cursor: pointer !important;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #vaccinationCard,
+  #vaccinationCard *,
+  #citizenCard,
+  #citizenCard * {
+    visibility: visible;
+  }
+}
 /*# sourceMappingURL=styles.css.map */

@@ -38,6 +38,7 @@ loadCOVID19CasesDT = () => {
             ajax: {
                 url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases`,
                 headers: AJAX_HEADERS,
+                // success: result => console.log(result.data)
             },
             columns: [
 
@@ -83,8 +84,7 @@ loadCOVID19CasesDT = () => {
                         const renderBadge = (theme, content) => `
                             <div
                                 role        = "button" 
-                                data-toggle = "modal" 
-                                data-target = "#updateHealthStatusModal"
+                                onclick     = "updateCurrHealthStatus('${ data.case_ID }')"
                             >
                                 <span 
                                     class       = "badge alert-${ theme } text-${ theme } p-2 w-100"
@@ -109,16 +109,30 @@ loadCOVID19CasesDT = () => {
                 {
                     data: null,
                     render: data => {
-                        return `
-                            <button 
-                                class       = "btn btn-muted btn-block btn-sm"
-                                data-toggle = "modal"
-                                data-target = "#labReportModal"
-                            >
-                                <i class="fas fa-file-medical mr-1"></i>
-                                <span>View Report</span>
-                            </button>
-                        `
+                        const labReportID = data.lab_report_ID;
+                        if(labReportID == null) {
+                            return `
+                                <div 
+                                    class   = "badge badge-blue p-2 w-100"
+                                    role    = "button"
+                                    onclick = "attachLabReport('${ data.case_ID }')"
+                                >
+                                    <i class="fas fa-plus mr-1"></i>
+                                    <span>Add Lab Report</span>
+                                </div>
+                            `
+                        } else {
+                            return `
+                                <div 
+                                    class   = "badge badge-secondary p-2 w-100"
+                                    role    = "button"
+                                    onclick = "viewLabReport('${ labReportID }')"
+                                >
+                                    <i class="fas fa-file-medical mr-1"></i>
+                                    <span>View Report</span>
+                                </div>
+                            `
+                        }
                     }
                 },
 
@@ -127,6 +141,20 @@ loadCOVID19CasesDT = () => {
                     data: null,
                     class: 'text-center',
                     render: data => {
+                        const id = data.case_ID;
+                        removeRecordBlade = !data.lab_report_ID 
+                            ? `
+                                <div class="dropdown-divider"></div>
+                                <div 
+                                    class   = "dropdown-item" 
+                                    role    = "button"
+                                    onclick = "removeCaseRecord('${ id }')"
+                                >
+                                    <i class="far fa-trash-alt icon-container"></i>
+                                    <span>Remove this case</span>
+                                </div>
+                            `
+                            : '';
                         return `
                             <div class="dropdown">
                                 <div data-toggle="dropdown">
@@ -139,34 +167,20 @@ loadCOVID19CasesDT = () => {
                                     <div 
                                         class   = "dropdown-item" 
                                         role    = "button"
-                                        onclick = "viewCaseDetails('${ data.case_ID }')"
+                                        onclick = "viewCaseDetails('${ id }')"
                                     >
                                         <i class="fas fa-list icon-container"></i>
                                         <span>View case details</span>
                                     </div>
                                     <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#updateHealthStatusModal"
+                                        class   = "dropdown-item" 
+                                        role    = "button"
+                                        onclick = "updateCurrHealthStatus('${ id }')"
                                     >
                                         <i class="fas fa-notes-medical icon-container"></i>
                                         <span>Update health status</span>
                                     </div>
-                                    <div class="dropdown-item" role="button">
-                                        <i class="far fa-edit icon-container"></i>
-                                        <span>Edit case details</span>
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                    <div 
-                                        class       = "dropdown-item" 
-                                        role        = "button"
-                                        data-toggle = "modal"
-                                        data-target = "#removeCaseRecordModal"
-                                    >
-                                        <i class="far fa-trash-alt icon-container"></i>
-                                        <span>Remove this case</span>
-                                    </div>
+                                    ${ removeRecordBlade }
                                 </div>
                             </div>
                         `;
@@ -181,6 +195,13 @@ loadCOVID19CasesDT = () => {
     }
 }
 
+
+/**
+ * ====================================================================
+ * * GET COVID-19 CASES RECORD DETAILS
+ * ====================================================================
+ */
+
 // View Case Details
 viewCaseDetails = (case_ID) => {
     $.ajax({
@@ -193,10 +214,8 @@ viewCaseDetails = (case_ID) => {
                 // Get data from result
                 const data = result.data;
 
-                console.log(data);
-
                 // Set data
-                $('#caseCode').html(data.case_code);
+                $('#caseCodeForView').html(data.case_code);
                 
                 // Get Patient Full Name
                 const patient = data.patient;
@@ -289,9 +308,7 @@ viewCaseDetails = (case_ID) => {
             }
         }
     })
-    .fail(() => {
-        console.log('There was an error in your request')
-    })
+    .fail(() => console.error('There was an error in your request'))
 }
 
 
@@ -471,4 +488,191 @@ addCaseAJAX = () => {
         })
         .fail(() => console.error('There was an error in adding new case'));
     }
+}
+
+
+/**
+ * ====================================================================
+ * * UPDATE COVID-19 CASES RECORD
+ * ====================================================================
+ */
+
+const updateCHSModal = $('#updateCHSModal');
+const updateCHSForm = $('#updateCHSForm');
+
+// Update Current Health Status
+updateCurrHealthStatus = (case_ID) => {
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases/${ case_ID }`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                const data = result.data;
+                const chs = data.current_health_status;
+
+                $('#caseIDForUCHS').val(data.case_ID);
+
+                if(chs === 'Asymptomatic') $('#asymptomaticForUCHS').prop('checked', true)
+                if(chs === 'Mild')         $('#mildForUCHS').prop('checked', true)
+                if(chs === 'Severe')       $('#severeForUCHS').prop('checked', true)
+                if(chs === 'Ciritical')    $('#criticalForUCHS').prop('checked', true)
+                if(chs === 'Died')         $('#diedForUCHS').prop('checked', true)
+                if(chs === 'Recovered')    $('#recoveredForUCHS').prop('checked', true)
+
+                updateCHSModal.modal('show');
+            }
+        }
+    })
+    .fail(() => console.error('There was a problem in getting current health status'))
+}
+
+// Reset update current health status form if its modals was hidden
+updateCHSModal.on('hide.bs.modal', () => updateCHSForm.trigger('reset'));
+
+// Validate update cuurent health status form
+updateCHSForm.validate({ submitHandler: () => updateCaseRecordAJAX() })
+
+// Update case record AJAX
+updateCaseRecordAJAX = () => {
+    const form = new FormData(updateCHSForm[0]);
+    const caseID = form.get('caseID');
+    data = { current_health_status: form.get('currentHealthStatus') }
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases/${caseID}`,
+        type: 'PUT',
+        headers: AJAX_HEADERS,
+        data: data,
+        dataType: 'json',
+        success: result => {
+            if(result) {
+                updateCHSModal.modal('hide');
+                showAlert('success', 'A case record is successfully updated');
+                reloadDataTable('#COVID19CasesDT');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in updating a case record'));
+}
+
+/**
+ * ====================================================================
+ * * DELETE COVID-19 CASES RECORD
+ * ====================================================================
+ */
+
+const removeCaseRecordModal = $('#removeCaseRecordModal');
+const removeCaseRecordForm = $('#removeCaseRecordForm');
+
+// Remove Case Record
+removeCaseRecord = (case_ID) => {
+    $('#caseIDForDelete').val(case_ID);
+    removeCaseRecordModal.modal('show');
+}
+
+// Validate Case Record Form 
+removeCaseRecordForm.validate(validateOptions({
+    rules: {
+        caseID: {
+            required: true
+        },
+        confirm: {
+            required: true,
+            equalTo: '#confirmRef'
+        }
+    },
+    messages: {
+        caseID: {
+            required: 'Visiting Log ID must display here'
+        },
+        confirm: {
+            required: 'You must enter "CONFIRM" if you wish to delete this record',
+            equalTo: 'You must enter "CONFIRM" if you wish to delete this record'
+        }
+    },
+    submitHandler: () => deleteCaseRecordAJAX()
+}))
+
+// Delete Case Record AJAX
+deleteCaseRecordAJAX = () => {
+    const form = new FormData(removeCaseRecordForm[0]);
+    const caseID = form.get('caseID');
+
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases/${ caseID }`,
+        type: 'DELETE',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                removeCaseRecordModal.modal('hide');
+                showAlert('blue', 'A case record has been removed');
+                reloadDataTable('#COVID19CasesDT');
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in deleting a case'));
+}
+
+// Reset Remove Case Record Form
+removeCaseRecordModal.on('hide.bs.modal', () => removeCaseRecordForm.trigger('reset'));
+
+/**
+ * ====================================================================
+ * * HEATMAP CASES
+ * ====================================================================
+ */
+
+function renderHeatmap() {
+
+    // Replace the map container body to map
+    $('#mapContainer').html(`<div class="rounded-lg" id="casesHeatmap" style="height: 500px"></div>`)
+
+    $.ajax({
+        url: `${ HEALTH_OFFICIAL_API_ROUTE }covid19-cases/heatmap-data`,
+        type: 'GET',
+        headers: AJAX_HEADERS,
+        success: result => {
+            if(result) {
+                const data = result.data;
+                
+                // Heatmap Data
+                var heatmapData = { max: 8, data: data };
+                
+                // Base Layer
+                var baseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${ LEAFLET_ACCESS_TOKEN }`, {
+                    attribution: LEAFLET_ATTRIBUTION,
+                    zoom: 5,
+                    maxZoom: 12,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: 'your.mapbox.access.token'
+                });
+                
+                // Heatmap Layer
+                var heatmapLayer = new HeatmapOverlay({
+                    "radius": 10,
+                    "maxOpacity": .8,
+                    "scaleRadius": false,
+                    "useLocalExtrema": true,
+                    latField: 'lat',
+                    lngField: 'lng',
+                    valueField: 'count'
+                });
+                
+                // Map
+                var map = new L.Map('casesHeatmap', {
+                    center: new L.LatLng(12.512,122.212),
+                    zoom: 5,
+                    maxZoom: 12,
+                    minZoom: 3,
+                    layers: [baseLayer, heatmapLayer]
+                });
+                
+                // Set Data to Heatmap
+                heatmapLayer.setData(heatmapData);
+            }
+        }
+    })
+    .fail(() => console.error('There was an error in getting heatmap data'))
 }

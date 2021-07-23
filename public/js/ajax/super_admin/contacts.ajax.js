@@ -35,7 +35,7 @@ loadContactsDT = () => {
     if(dt.length) {
         dt.DataTable({
             ajax: {
-                url: `${ HEALTH_OFFICIAL_API_ROUTE }contacts`,
+                url: `${ SUPER_ADMIN_API_ROUTE }contacts`,
                 headers: AJAX_HEADERS,
                 // success: result => console.log(result.data)
             },
@@ -125,7 +125,7 @@ loadContactsDT = () => {
 // View Contact Details
 viewContactDetails = (contact_ID) => {
     $.ajax({
-        url: `${ HEALTH_OFFICIAL_API_ROUTE }contacts/${ contact_ID }`,
+        url: `${ SUPER_ADMIN_API_ROUTE }contacts/${ contact_ID }`,
         type: 'GET',
         headers: AJAX_HEADERS,
         success: result => {

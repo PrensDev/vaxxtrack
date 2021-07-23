@@ -27,17 +27,17 @@
                         <div class="sb-sidenav-menu-divider"></div>
 
                         <!-- Establishments -->
-                        <div class="sb-sidenav-menu-heading">Establishments</div>
+                        <!-- <div class="sb-sidenav-menu-heading">Establishments</div> -->
                         
                         <!-- Registered Establishment Menu -->
-                        <a class="nav-link" href="<?= base_url() ?>admin/registered-establishments" draggable="false">
+                        <!-- <a class="nav-link" href="<?= base_url() ?>admin/registered-establishments" draggable="false">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-building icon-container"></i>
                             </div>
                             <span>Registered Establishments</span>
-                        </a>
+                        </a> -->
 
-                        <div class="sb-sidenav-menu-divider"></div>
+                        <!-- <div class="sb-sidenav-menu-divider"></div> -->
 
                         <!-- Contact Tracing -->
                         <div class="sb-sidenav-menu-heading">COVID-19 Cases</div>
@@ -75,7 +75,7 @@
                         </div>
 
                         <!-- Contacts Menu -->
-                        <a class="nav-link" href="<?= base_url() ?>r">
+                        <a class="nav-link" href="<?= base_url() ?>admin/contacts">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-user-friends icon-container"></i>
                             </div>

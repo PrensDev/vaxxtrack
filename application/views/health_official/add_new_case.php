@@ -27,12 +27,12 @@
                 <div class="form-group">
                 
                     <!-- Patient ID Field (Hidden) -->
-                    <div class="">
+                    <div class="d-none">
                         <div class="form-group">
                             <label for="firstName">Patient ID</label>
                             <input 
                                 class       = "form-control" 
-                                type        = "text" 
+                                type        = "hidden" 
                                 id          = "patientID" 
                                 name        = "patientID" 
                                 placeholder = "Patient ID should display here"

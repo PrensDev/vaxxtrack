@@ -45,19 +45,6 @@
             </div>
         </div>
     </div>
-    
-    <!-- Establishments -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <div class="card-header-text">
-                <i class="fas fa-building mr-1"></i>
-                <span>Your Establishments</span>
-            </div>
-        </div>
-        <div class="card-body">
-            
-        </div>
-    </div>
 
     <!-- Account Settings and Edit Information-->
     <div class="row">

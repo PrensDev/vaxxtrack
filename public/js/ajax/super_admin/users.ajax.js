@@ -434,16 +434,17 @@ loadHealthOfficialsDT = () => {
                 headers: AJAX_HEADERS,
             },
             columns: [
+
+                // Health Official
                 {
                     data: null,
                     render: data => {
-                        var middleName = data.middle_name;
-
-                        middleName = (middleName == null || middleName == '') ? '' : ' ' + middleName;
-
-                        const fullName =
-                            data.last_name + ', ' + data.first_name + middleName;
-
+                        const fullName = setFullName('L, F Mi', {
+                            firstName: data.first_name,
+                            middleName: data.middle_name,
+                            lastName: data.last_name
+                        })
+                        
                         return `
                             <div class="d-flex align-items-baseline">
                                 <div class="icon-container">
@@ -457,19 +458,20 @@ loadHealthOfficialsDT = () => {
                         `;
                     }
                 }, 
+
+                // Added by
                 {
                     data: null,
                     render: data => {
                         if(data.ho_added_by != null) {
                             const sa = data.ho_added_by;
                             
-                            var middleName = sa.middle_name;
-    
-                            middleName = (middleName == null || middleName == '') ? '' : ' ' + middleName;
-    
-                            const fullName =
-                                sa.last_name + ', ' + sa.first_name + middleName;
-    
+                            const fullName = setFullName('L, F Mi', {
+                                firstName: sa.first_name,
+                                middleName: sa.middle_name,
+                                lastName: sa.last_name
+                            })
+
                             return `
                                 <div class="d-flex align-items-baseline">
                                     <div class="icon-container">
@@ -486,6 +488,8 @@ loadHealthOfficialsDT = () => {
                         }
                     }
                 }, 
+
+                // Added at
                 {
                     data: null,
                     render: data => {
@@ -495,6 +499,8 @@ loadHealthOfficialsDT = () => {
                         `
                     }
                 },
+
+                // Updated At
                 {
                     data: null,
                     render: data => {
@@ -504,8 +510,30 @@ loadHealthOfficialsDT = () => {
                         `
                     }
                 },
+
+                // User Actions
                 {
-                    data: 'first_name'
+                    data: null,
+                    class: 'text-center',
+                    render: data => {
+                        return `
+                            <div class="dropdown">
+                                <div class="d-inline" data-toggle="dropdown">
+                                    <div role="button" class="btn btn-sm btn-white-muted">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </div>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item" role="button">
+                                        <div class="icon-container">
+                                            <i class="fas fa-edit"></i>
+                                        </div>
+                                        <span>Edit information</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
                 }
             ],
             columnDefs: [{

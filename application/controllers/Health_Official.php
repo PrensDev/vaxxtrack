@@ -21,6 +21,7 @@ class Health_Official extends CI_Controller {
     // AJAX Scripts
     private Array $AJAX_files = [
         'account',
+        'lab_report',
         'covid_cases',
         'contacts',
         'vaccination',
@@ -104,7 +105,10 @@ class Health_Official extends CI_Controller {
 
     // Contacts
     public function contacts() {
-        $this->load_views('COVID-19 Contacts', [['contacts']]);
+        $this->load_views('COVID-19 Contacts', [
+            ['components/modals/contacts_modals'],
+            ['contacts']
+        ]);
     }
 
     // Vaccination Records

@@ -5,6 +5,9 @@
         'subtitle' => 'Manage the list of COVID-19 cases here'
     ]); ?>
 
+    <!-- Alert -->
+    <div id="alertContainer"></div>
+
     <!-- Sessioned Alert -->
     <?php if($this->session->has_userdata('alert')): ?>
         <div class="alert alert-<?= $this->session->alertTheme ?> alert-dismissible fade show mb-4" role="alert" id="alert">

@@ -20,22 +20,19 @@
                         </div>
                     </div>
                     <div class="dropdown-menu dropdown-menu-right shadow border-0" aria-labelledby="dropdownMenuButton">
-                        <a 
-                            class = "dropdown-item" 
-                            href  = "<?= base_url() ?>r/establishment/1"
-                        >   
+                        <!-- <a class="dropdown-item" href="<?= base_url() ?>r/establishment/1">   
                             <div class="icon-container">
                                 <i class="fas fa-book"></i>
                             </div>
                             <span>Visiting Logbook</span>
-                        </a>
+                        </a> -->
                         <!-- <a class="dropdown-item" href="<?= base_url() ?>r/manage-representatives/1">
                             <div class="icon-container">
                                 <i class="fas fa-users"></i>
                             </div>
                             <span>Manage Representatives</span>
                         </a> -->
-                        <div class="dropdown-divider"></div>
+                        <!-- <div class="dropdown-divider"></div> -->
                         <div 
                             class       = "dropdown-item"
                             role        = "button"
@@ -114,7 +111,7 @@
                                 title           = "Your role"
                             >
                                 <i class="fas fa-user-tie mr-1"></i>
-                                <span id="role"></span>
+                                <span id="representativeRole"></span>
                             </span>
                         </div>
 

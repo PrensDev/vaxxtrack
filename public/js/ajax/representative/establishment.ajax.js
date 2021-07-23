@@ -61,14 +61,9 @@ getAllEstablishmentsAJAX = () => {
             } else {
                 console.log('No result was found');
             }
-        },
-        error: (err) => {
-            console.log(err);
         }
     })
-    .fail(() =>{
-        console.log('Error');
-    });
+    .fail(() =>console.error('There was an error in getting all establishments'));
 }
 
 
@@ -78,6 +73,7 @@ getAllEstablishmentsAJAX = () => {
  * ===========================================================================
  */
 
+// Get Establishment Details
 if($('#establishmentDetails').length) {
     const establishment_ID = location.pathname.split('/')[4];
 
@@ -88,8 +84,6 @@ if($('#establishmentDetails').length) {
         success: (result) => {
             if(result) {
                 const data = result.data;
-
-                console.log(data);
 
                 // Generate Establishment QR Code
                 generateEstablishmentQRCode = (establihsment_id) => {
@@ -135,7 +129,7 @@ if($('#establishmentDetails').length) {
                 const roledBy = data.roled_by;
                 roledBy.forEach(r => {
                     const role = r.Roles;
-                    if(role.representative_ID === localStorage.getItem('user_ID')) $('#position').html(role.role);
+                    if(role.representative_ID === localStorage.getItem('user_ID')) $('#representativeRole').html(role.role);
                 });
                 
                 // Establishment Location / Address
@@ -387,6 +381,7 @@ $('#addRepresentativeForm').validate(validateOptions({
  * ===========================================================================
  */
 
+// Change role
 changePosition = () => {
     alert('hello');
     $('#changePositionModal').modal('show');

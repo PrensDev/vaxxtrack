@@ -57,7 +57,7 @@
                 class       = "form-control" 
                 id          = "firstName"
                 name        = "firstName"
-                placeholder = "Type the verification code here"
+                placeholder = "Type your first name here"
                 autofocus
             >
         </div>
@@ -80,7 +80,7 @@
                 class       = "form-control" 
                 id          = "middleName"
                 name        = "middleName"
-                placeholder = "Type the verification code here"
+                placeholder = "Type your middle name here"
             >
         </div>
 
@@ -92,7 +92,7 @@
                 class       = "form-control" 
                 id          = "lastName"
                 name        = "lastName"
-                placeholder = "Type the verification code here"
+                placeholder = "Type your last name code here"
             >
         </div>
 
@@ -119,6 +119,8 @@
                 <option value="Jr.">Jr. (Junior)</option>
                 <option value="Sr.">Sr. (Senior)</option>
                 <option value="III">III (The Third)</option>
+                <option value="IV">III (The Fourth)</option>
+                <option value="V">III (The Fifth)</option>
             </select>
         </div>
     </fieldset>

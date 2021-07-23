@@ -24,8 +24,8 @@
 
 // Print Establishment QR Code
 $('#printQRCodeBtn').on('click', () => {
-    const establishmentName = 'ABC Company';
-    const qrcode = $('#QRCodeInModal').html();
+    const establishmentName = $('#establishmentNameForDisplay').html();
+    const qrcode = $('#establishmentQRCodeInModal').html();
     const w = window.open('', 'Print QR COde');
 
     w.document.open();
@@ -66,3 +66,39 @@ $('#printQRCodeBtn').on('click', () => {
     w.document.close();
     setTimeout(() => w.close(), 5);
 });
+
+// Render Establishment Location
+function renderEstablishmentLocation() {
+
+    const estlat  = $('#estLat').val();
+    const estlng  = $('#estLng').val();
+    const estname = $('#estName').val();
+    const estloc  = $('#estLoc').val();
+
+    $('#establishmentLocationContainer').html(`<div class="rounded-lg" style="height:300px" id="establishmentLocationMap"></div>`);
+
+    var mymap = L.map('establishmentLocationMap', {
+        dragging: false,
+        doubleClickZoom: false
+    }).setView([estlat,estlng], 13);
+
+    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${ LEAFLET_ACCESS_TOKEN }`, {
+        id: 'mapbox/streets-v11',
+        attribution: LEAFLET_ATTRIBUTION,
+        zoom: 5,
+        maxZoom: 13,
+        minZoom: 5,
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'your.mapbox.access.token'
+    }).addTo(mymap);
+
+    var marker = L.marker([estlat,estlng]).addTo(mymap);
+    
+    marker.bindPopup(`
+        <div class="text-center p-2">
+            <h6 class="mb-0 font-weight-semibold">${ estname }</h6>
+            <div>${ estloc }</div>
+        </div>
+    `);
+}

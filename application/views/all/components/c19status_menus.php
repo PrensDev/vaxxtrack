@@ -17,17 +17,17 @@
 </a>
 
 <!-- Philippines Status Menu -->
-<a class="nav-link" draggable="false">
+<!-- <a class="nav-link" draggable="false">
     <div class="sb-nav-link-icon">
         <i class="fas fa-flag icon-container"></i>
     </div>
     <span>The Philippines</span>
-</a>
+</a> -->
 
 <!-- Worldwide Status Menu -->
-<a class="nav-link" draggable="false">
+<!-- <a class="nav-link" draggable="false">
     <div class="sb-nav-link-icon">
         <i class="fas fa-globe-asia icon-container"></i>
     </div>
     <span>Worldwide</span>
-</a>
+</a> -->

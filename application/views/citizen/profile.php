@@ -16,7 +16,7 @@
             <!-- QR Code ID -->
             <div class="flex-center">
                 <div class="overflow-auto">
-                    <div class="card p-2 mb-2 shadow" style="max-width: 320px; min-width: 320px; max-height: 475px; min-height: 475px;">
+                    <div class="card p-2 mb-2 shadow border border-secondary" id="citizenCard" style="max-width: 320px; min-width: 320px; max-height: 475px; min-height: 475px;">
                         <div class="card-body d-flex flex-column justify-content-between align-items-center">
                             
                             <!-- ID Header -->
@@ -53,7 +53,7 @@
 
             <!-- User Actions -->
             <div class="mb-4">
-                <button class="btn btn-sm btn-blue btn-block">
+                <button class="btn btn-sm btn-blue btn-block" id="printCitizenCard">
                     <span>Print my QR Code ID</span>
                     <i class="fas fa-print ml-1"></i>
                 </button>
@@ -110,9 +110,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-md-8 order-1 order-md-0">
                             <h3>Monitor your health status</h3>
-                            <p>
-                                Update your health status regularly. Assess and check your daily health status.
-                            </p>
+                            <p>Update your health status regularly. Assess and check your daily health status.</p>
                             <div class="text-right text-md-left">
                                 <a href="<?= base_url() ?>c/health-status" class="btn btn-primary">Check now!</a>
                             </div>
@@ -143,9 +141,7 @@
                         </div>
                         <div class="col-12 col-md-8">
                             <h3>Trace the Establishments you visit</h3>
-                            <p>
-                                Be mindful of your surroundings, click to see where you have been. Keep tabs on every establishment you visited for the past few days.
-                            </p>
+                            <p>Be mindful of your surroundings, click to see where you have been. Keep tabs on every establishment you visited for the past few days.</p>
                             <div class="text-right text-md-left">
                                 <a href="<?= base_url() ?>c/visiting-logbook" class="btn btn-primary">Check my visiting logbook</a>
                             </div>
@@ -173,11 +169,9 @@
                     </div>
                     <div>
                         <h4>Manage your accounts</h4>
-                        <p>
-                            Manage your accounts or add another account to make this web application work for you.
-                        </p>
+                        <p>Manage your accounts or add another account to make this web application work for you.</p>
                         <div class="text-right">
-                            <a href="<?= base_url() ?>r/account-settings" class="btn btn-danger">
+                            <a href="<?= base_url() ?>c/account-settings" class="btn btn-danger">
                                 <span>Manage</span>
                                 <i class="fas fa-cogs ml-1"></i>
                             </a>
@@ -205,7 +199,7 @@
                             Modify and update your personal information.
                         </p>
                         <div class="text-right">
-                            <a href="<?= base_url() ?>r/edit-information" class="btn btn-blue">
+                            <a href="<?= base_url() ?>c/edit-info" class="btn btn-blue">
                                 <span>Edit</span>
                                 <i class="fas fa-edit ml-1"></i>
                             </a>
@@ -215,5 +209,11 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<script>
+    $('#printCitizenCard').on('click', () => {
+        window.print();
+        return false;
+    })
+</script>
