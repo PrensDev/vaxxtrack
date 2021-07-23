@@ -234,10 +234,11 @@
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-muted" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-blue">
+                <a type="button" class="btn btn-blue" href    ="<?= base_url() ?>r/edit-establishment/1">
                     <i class="fas fa-edit mr-1"></i>
+                        
                     <span>Edit</span>
-                </button>
+                </a>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@
                             <div class="mb-3">
                                 <div class="flex-center">
                                     <img src="<?= base_url() ?>public/images/brand/icon.png" alt="" style="width: 20px">
-                                    <span class="h5 mb-0 font-weight-bold text-primary ml-2">C19CTAVMS</span>
+                                    <span class="h5 mb-0 font-weight-bold text-primary ml-2">VaxxTrack</span>
                                 </div>
                                 <div class="font-weight-semibold text-center text-secondary small">QR Code ID</div>
                             </div>

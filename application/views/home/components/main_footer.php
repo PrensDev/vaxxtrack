@@ -1,7 +1,7 @@
 <div class="bg-dark text-white text-center py-4">
     <div class="container">
         <div class="font-weight-semibold">
-            <a href="<?= base_url() ?>" class="text-white">C19CTAVMS</a>
+            <a href="<?= base_url() ?>" class="text-white">VaxxTrack</a>
             <span>&middot;</span>
             <span>version 1.0.0</span>
         </div>

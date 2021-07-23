@@ -383,6 +383,6 @@ $('#addRepresentativeForm').validate(validateOptions({
 
 // Change role
 changePosition = () => {
-    alert('hello');
+    //alert('hello');
     $('#changePositionModal').modal('show');
 }

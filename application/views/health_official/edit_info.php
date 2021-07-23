@@ -23,7 +23,7 @@
                             </div>
                             <div>
                                 <div class="font-weight-semibold h5 mb-0" id="userFullNamePreviewForEdit"></div>
-                                <div class="font-weight-semibold text-secondary small">Establishment Representative</div>
+                                <div class="font-weight-semibold text-secondary small">Health Official</div>
                             </div>
                         </div>
                     </div>
