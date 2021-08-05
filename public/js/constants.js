@@ -17,8 +17,8 @@
  */
 
 // Base URLs
-const BASE_URL_MAIN = 'http://localhost/c19ctavms-web/';
-const BASE_URL_API  = 'http://localhost:3000/c19ctavms/v1/';
+const BASE_URL_MAIN = 'http://localhost/vaxxtrack/';
+const BASE_URL_API  = 'http://localhost:3000/vaxxtrack/v1/';
 
 
 // User Main Routes
