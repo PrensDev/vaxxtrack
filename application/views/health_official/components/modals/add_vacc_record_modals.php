@@ -19,7 +19,7 @@
             <div class="modal-body">
                 <label for="searchCitizen">Type the ID or Name of Citizen here</label>
                 <form class="form-row">
-                    <div class="col-10 ml-0">
+                    <div class="col-12 ml-0">
                         <div class="form-group">
                             <div class="input-group">
                                 <select 
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2 mr-0">
+                    <!-- <div class="col-2 mr-0">
                         <button
                             class          = "btn btn-secondary btn-block"
                             data-toggle    = "tooltip"
@@ -51,7 +51,7 @@
                         >
                             <i class="fas fa-expand"></i>
                         </button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

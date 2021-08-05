@@ -186,14 +186,6 @@ loadVaccRecordsDT = () => {
                                         <span>View full details</span>
                                     </div>
                                     <div 
-                                        class="dropdown-item" 
-                                        role="button"
-                                        onclick     = "editVaccRecord('${ vaccRecordID }')"
-                                    >
-                                        <i class="far fa-edit icon-container"></i>
-                                        <span>Edit this details</span>
-                                    </div>
-                                    <div 
                                         class       = "dropdown-item" 
                                         role        = "button"
                                         onclick     = "deleteVaccRecord('${ vaccRecordID }')" 
