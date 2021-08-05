@@ -9,7 +9,7 @@ A COVID-19 Contact Tracing App and Vaccine Monitoring System
 
 | | |
 | --- | --- |
-| **Description** | This project is for fullfillment of requirements in subject "Application Development and Emerging Technologies" |
+| **Description** | This project is for fullfillment of requirements in subject "Application Development and Emerging Technologies". |
 | **Date Started** | April 23, 2021 |
 | **Current Version** | v1.0.0 |
 | **Developers** | <ul><li>[Angeles, John Albert](https://github.com/berty-1)</li><li>[Dano, Jomari](https://github.com/danojomari213)</li><li>[Diamola, Joan](https://github.com/jndia000)</li><li>[Palicpic, Jan Rupert](https://github.com/Minsc-X1)</li><li>[Pugoy, Joshua Phillip](https://github.com/joshua1515xx)</li><li>[Siaotong, Danica](https://github.com/dadangbells)</li><li>[Tagala, Marc Angelo](https://github.com/z-M-A-S-T-z)</li><li>[Torres, Jetsun Prince](https://github.com/PrensDev) (Project Leader)</li></ul> *Students of PUPQC, BSIT 3-1 (Batch 2018)* |
